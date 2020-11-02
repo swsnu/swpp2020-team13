@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from goals.models import Goal
+
+class GoalAdmin(admin.ModelAdmin):
+    fields = ['id', 'title', 'user', 'photo', 'created_at', 'updated_at']
+    readonly_fields = ['id', 'created_at']
+
+admin.site.register(Goal, GoalAdmin)
