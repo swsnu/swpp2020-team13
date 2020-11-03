@@ -5,5 +5,6 @@ from goals.views import * # TODO
 
 
 urlpatterns = [
-    # TODO
+    path('goal/', goalList, name='goalList'),
+    path('goal/<int:goal_id>', goalDetail, name='goalDetail'),
 ]
