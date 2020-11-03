@@ -9,7 +9,6 @@ from .models import Goal,
 from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
-
 @csrf_exempt
 def goalList(request):
     if request.method == 'GET':
@@ -18,8 +17,10 @@ def goalList(request):
         else:
             goal_list = []
             for g in Goal.objects.all():
-                goal_list.append()
-    else if request.method == 'POST':
+                goal_list.append({'title': g.title, 'photo': g.photo, 'user': g.user.id})
+            # Json Response
+            return JsonResponse(goal_list, safe=False, status=200)
+    elif request.method == 'POST':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         try:
@@ -29,12 +30,57 @@ def goalList(request):
             goal_photo = json.loads(body)['photo']
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
-        # how to sample datatimefield from json format? - for implementing deadlines
+        # TODO : add deadlines to goal with json data
+        # link to refer to: http://oniondev.egloos.com/9860231
         new_goal = Goal(title=goal_title, user=request.user, photo=goal_photo)
         new_goal.save()
-        # Json Response
+        # TODO : Json Response : response format should be discussed
         response_dict = {'title': new_goal.title, 'photo': new_goal.photo, 'user': new_goal.user.id}
         return JsonResponse(response_dict, status=201, safe=False)
-
     else:
         return HttpResponseNotAllowed['GET', 'POST']
+
+
+def goalDetail(request, goal_id=""):
+    if request.method == 'GET':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+            # GET goal Detail
+            for goal in Goal.objects.filter(id=goal_id):
+                # TODO: Deadline not implemented yet (when implemented, JSON should include 'deadline':str(goal.deadline))
+                response_dict = {'title': goal.title, 'photo': goal.photo, 'user': goal.user.id, 'created_at': str(goal.created_at) }
+            return JsonResponse(response_dict, safe=False, status=200)
+            
+    elif request.method == 'PUT':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        try:
+            body = request.body.decode()
+            goal_title = json.loads(body)['title']
+            goal_photo = json.loads(body)['photo']
+        except(KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+        goal = Goal.objects.get(id=goal_id)
+        # check if the user is the goal owner
+        if goal.user.id is not request.user.id:
+            return HttpResponse(status=403)
+        # if pass, continue
+        goal.title = goal_title
+        goal.photo = goal_photo
+        # TODO : decode deadline data from body and PUT
+        goal.save()
+        response_dict = {'title': goal.title, 'photo': goal.photo, 'user': goal.user.id, 'created_at': str(goal.created_at), 'updated_at': str(goal.updated_at)}
+        return JsonResponse(response_dict, safe=False, status=200)
+        
+    elif request.method == 'DELETE':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        goal = Goal.objects.get(id=goal_id)
+        if goal.user.id is not request.user.id:
+            return HttpResponse(status=403)
+        goal.delete()
+        return HttpResponse(status=200)
+
+    else:
+        return HttpResponseNotAllowed['GET', 'PUT', 'DELETE']
+
