@@ -1,6 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
-
+from django.utils import timezone
 from goals.models import Goal
 from django.contrib.auth.models import User
 
