@@ -5,6 +5,6 @@ from tasks.views import * # TODO
 
 urlpatterns = [
     path('task/', taskList, name='taskList'),
-    path('task/<int:goal_id>', taskDetail, name='taskDetail'),
+    path('task/<int:task_id>', taskDetail, name='taskDetail'),
 ]
 

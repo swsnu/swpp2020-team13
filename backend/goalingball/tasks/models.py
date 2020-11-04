@@ -1,6 +1,7 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 from django.utils import timezone
+
 from goals.models import Goal
 from django.contrib.auth.models import User
 
@@ -30,7 +31,7 @@ class Task(models.Model):
         related_name='tasks'
     )
     importance = models.FloatField(blank=True)
-    recurrent = models.BooleanField(default=False)
+    # recurrent = models.BooleanField(default=False)
     day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
 
     created_at = models.DateTimeField(editable=False)
