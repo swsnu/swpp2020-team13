@@ -8,7 +8,7 @@
     - [x]  Pulled from 'develop' branch
     - [x]  Implement GET/POST in '/goal'
     - [x]  Implement GET/PUT/DELETE in '/goal/<int:goal_id>'
-    - [x]  Type casting among **datetime** ↔**JSON**
+    - [x]  Type casting among **datetime** ↔ **JSON**
     - [x]  Set timezone to Seoul
     - [x]  CRUD for tags in goal.model (taggableManager)
     - [ ]  Merge to 'develop' branch
