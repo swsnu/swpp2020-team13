@@ -28,4 +28,4 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 @csrf_exempt
 def taskList(request):
-    # TODO: how to insert field day_of_week?
+    

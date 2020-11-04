@@ -37,13 +37,8 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks'
     )
-<<<<<<< HEAD
+    
     importance = models.FloatField(blank=True)
-    # recurrent = models.BooleanField(default=False)
-=======
-    importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=3)
-    recurrent = models.BooleanField(default=False)
->>>>>>> b5d7d417a6bcc4a24f789fd35f0155cad3fafcf9
     day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
 
     created_at = models.DateTimeField(editable=False)
