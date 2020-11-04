@@ -36,11 +36,15 @@ def goalList(request):
             goal_deadline = datatime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S') # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
-        # TODO : add deadlines to goal with json data
-        # link to refer to: http://oniondev.egloos.com/9860231
-        new_goal = Goal(title=goal_title, user=request.user, photo=goal_photo)
-        new_goal.save()
-        # TODO : Json Response : response format should be discussed
+
+        new_goal = Goal(title=goal_title, user=request.user, photo=goal_photo, deadline=goal_deadline)
+
+        if 'tags' in json.loads(body): # tags should be added after an intance is created
+            tags = json.loads(body)['tags'] # TODO: check that tags is a list
+            goal.tags.add(*tags)
+
+        new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
+
         response_dict = {'title': new_goal.title, 'photo': new_goal.photo, 'user': new_goal.user.id}
         return JsonResponse(response_dict, status=201, safe=False)
     else:
