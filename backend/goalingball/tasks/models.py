@@ -16,6 +16,13 @@ DAYS_OF_WEEK = (
     ('SUNDAY', 'Sunday'),
 )
 
+IMPORTANCE_CHOICES = (
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+)
 
 class Task(models.Model):
     title = models.TextField(max_length=255, blank=False) 
@@ -29,7 +36,7 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks'
     )
-    importance = models.FloatField(blank=True)
+    importance = models.IntegerField(choices=IMPORTANCE_CHOICES, default=3)
     recurrent = models.BooleanField(default=False)
     day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
 
