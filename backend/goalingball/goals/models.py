@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 
 from django.contrib.auth.models import User
 
@@ -11,6 +12,7 @@ class Goal(models.Model):
         related_name='goals'
     )
     photo = models.URLField(max_length=2047, blank=True)
+    tags = TaggableManager(blank=True)
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()

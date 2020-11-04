@@ -34,6 +34,10 @@ def goalList(request):
         # link to refer to: http://oniondev.egloos.com/9860231
         new_goal = Goal(title=goal_title, user=request.user, photo=goal_photo)
         new_goal.save()
+        # tags should be added after an intance is created
+        if 'tags' in json.loads(body):
+            tags = json.loads(body)['tags'] # TODO: check that tags is a list
+            goal.tags.add(*tags)
         # TODO : Json Response : response format should be discussed
         response_dict = {'title': new_goal.title, 'photo': new_goal.photo, 'user': new_goal.user.id}
         return JsonResponse(response_dict, status=201, safe=False)
@@ -68,6 +72,11 @@ def goalDetail(request, goal_id=""):
         goal.title = goal_title
         goal.photo = goal_photo
         # TODO : decode deadline data from body and PUT
+        if 'tags' in json.loads(body):
+            goal.tags.clear()
+            tags = json.loads(body)['tags'] # TODO: check that tags is a list
+            goal.tags.add(*tags)
+
         goal.save()
         response_dict = {'title': goal.title, 'photo': goal.photo, 'user': goal.user.id, 'created_at': str(goal.created_at), 'updated_at': str(goal.updated_at)}
         return JsonResponse(response_dict, safe=False, status=200)
