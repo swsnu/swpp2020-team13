@@ -1,5 +1,6 @@
 # swpp2020-team13
-
+## Useful Google Links
+Links updated in : [Notion Link](https://www.notion.so/Useful-Links-References-for-Implementation-149d5cb96b624b1b93e077a9485f4601)
 ## Development Status per Branch
 Status also updated in : [Notion Link](https://www.notion.so/Development-Status-also-in-github-README-233da94c520d4839a63c56e2ea4b7d66)
 ### backend
@@ -15,7 +16,9 @@ Status also updated in : [Notion Link](https://www.notion.so/Development-Status-
     - [ ]  Merge to 'master' branch
     - [ ]  Later TODO : create 'categories'
     - [ ]  Later TODO : CRUD for 'categories'
+    - [ ]  Later TODO : Slug datafield in goal.model (this will be implemented when developing goal-detail page)
     
 2. Jiye-Backend-taskCRUD
 
 ### Frontend
+
