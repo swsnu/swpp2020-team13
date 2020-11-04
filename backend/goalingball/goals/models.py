@@ -15,8 +15,8 @@ class Goal(models.Model):
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
-    # TODO
-    # deadline = models.DataTimeField()
+    deadline = models.DataTimeField()
+    # TODO : categories
     # categories = models.ManytoManyField()
     # def updateCategories():
 

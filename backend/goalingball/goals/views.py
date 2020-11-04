@@ -17,17 +17,23 @@ def goalList(request):
         else:
             goal_list = []
             for g in Goal.objects.all():
-                goal_list.append({'title': g.title, 'photo': g.photo, 'user': g.user.id})
-            # Json Response
+                created_at = g.created_at.strf('%Y-%m-%d %H:%M:%S')
+                updated_at = g.updated_at.strf('%Y-%m-%d %H:%M:%S')
+                deadline = g.deadline('%Y-%m-%d %H:%M:%S')
+
+                goal_list.append({'title': g.title, 'photo': g.photo, 'user': g.user.id, 'created_at': created_at, 'updated_at': updated_at, 'deadline': 'deadline': deadline})
+            
             return JsonResponse(goal_list, safe=False, status=200)
+
     elif request.method == 'POST':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         try:
             body = request.body.decode()
             goal_title = json.loads(body)['title']
-            # goal_created_at and goal_updated_at is made when new goal is saved
             goal_photo = json.loads(body)['photo']
+            goal_deadline = json.loads(body)['deadline']
+            goal_deadline = datatime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S') # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
         # TODO : add deadlines to goal with json data
@@ -51,7 +57,7 @@ def goalDetail(request, goal_id=""):
                 response_dict = {'title': goal.title, 'photo': goal.photo, 'user': goal.user.id, 'created_at': str(goal.created_at) }
             return JsonResponse(response_dict, safe=False, status=200)
             
-    elif request.method == 'PUT':
+    elif request.method == 'PUT' or request.method == 'PATCH':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         try:
@@ -82,5 +88,5 @@ def goalDetail(request, goal_id=""):
         return HttpResponse(status=200)
 
     else:
-        return HttpResponseNotAllowed['GET', 'PUT', 'DELETE']
+        return HttpResponseNotAllowed['GET', 'PUT', 'PATCH', 'DELETE']
 
