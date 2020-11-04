@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -15,7 +15,7 @@ class Goal(models.Model):
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
-    deadline = models.DataTimeField()
+    deadline = models.DateTimeField()
     # TODO : categories
     # categories = models.ManytoManyField()
     # def updateCategories():
@@ -23,10 +23,10 @@ class Goal(models.Model):
     def save(self, *args, **kwargs):
         # For the first time
         if not self.id: 
-            self.created_at = timezone.now()
+            self.created_at = timezone.localtime()
 
         # Upon save, update timestamps
-        self.updated_at = timezone.now()
+        self.updated_at = timezone.localtime()
         
         return super().save(*args, **kwargs)
 
