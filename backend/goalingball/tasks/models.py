@@ -48,10 +48,10 @@ class Task(models.Model):
     def save(self, *args, **kwargs):
         # For the first time
         if not self.id: 
-            self.created_at = timezone.now()
+            self.created_at = timezone.localtime()
 
         # Upon save, update timestamps
-        self.updated_at = timezone.now()
+        self.updated_at = timezone.localtime()
         
         return super().save(*args, **kwargs)
 

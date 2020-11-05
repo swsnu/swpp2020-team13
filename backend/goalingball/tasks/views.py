@@ -5,8 +5,11 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
 from django.contrib.auth import authenticate, login, logout
-from .models import Goal, 
+from .models import Goal
 from django.core.serializers.json import DjangoJSONEncoder
+from datetime import datetime
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
     # title = models.TextField(max_length=255, blank=False) 
     # goal = models.ForeignKey(
@@ -26,6 +29,7 @@ from django.core.serializers.json import DjangoJSONEncoder
     # created_at = models.DateTimeField(editable=False)
     # updated_at = models.DateTimeField() 
 
-@csrf_exempt
-def taskList(request):
+# @csrf_exempt
+# def taskList(request):
+
     
