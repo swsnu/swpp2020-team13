@@ -8,16 +8,14 @@ import GoalList from '../pages/main/GoalListComponent'
 
 function App(props) {
   return (
-    // <ConnectedRouter history={props.history}>
-    <BrowserRouter>
+    <BrowserRouter history={props.history}>
     <div className="App">
       <Switch>
         {/* <Route path='/' exact render={()=><Login/>}/> */}
         <Route path='/main' exact render={()=><GoalList/>}/>
       </Switch>
     </div>
-    {/* </ConnectedRouter> */}
-  </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

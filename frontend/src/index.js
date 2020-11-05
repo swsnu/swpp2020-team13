@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import { Provider } from 'react-redux'
 import App from './components/App';
-// import store, {history} from './store'
+import history from './history'
 import 'semantic-ui-css/semantic.min.css'
 // import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<App history={history}/>, document.getElementById('root'));
 
 
 // If you want to start measuring performance in your app, pass a function

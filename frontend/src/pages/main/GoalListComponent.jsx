@@ -7,7 +7,7 @@ class GoalList extends Component {
     render(){
         return(
             <div className='menubar'>
-                {console.log('menubar render')}
+                {console.log(this.props)}
                 <MenuBar/>
                 <h2> Main Page</h2>
             </div>
