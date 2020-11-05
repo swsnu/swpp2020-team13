@@ -32,7 +32,7 @@ Status also updated in : [Notion Link](https://www.notion.so/Development-Status-
     - [x]  Add navigation properties by history.push
     
 3. Jiye-Frontend-goalAndTaskReducer
-    - [ ]  Add goalReducer with actions as follows:
+    - [x]  Add goalReducer with actions as follows:
         - GET_ALL_GOAL
         - GET_GOAL
         - EDIT_GOAL
