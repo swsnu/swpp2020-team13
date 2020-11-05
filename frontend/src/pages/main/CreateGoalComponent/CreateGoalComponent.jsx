@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useRef} from 'react'
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -7,6 +7,7 @@ import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import axios from 'axios'
 
 class CreateGoal extends Component {
 
@@ -31,6 +32,8 @@ class CreateGoal extends Component {
         else {
         //    this.setState({file: default_goal_pic})
            console.log(this.state.file)
+           const imageUrl = URL.createObjectURL(this.state.file)
+            console.log(imageUrl)
         }
         
     }
@@ -127,6 +130,22 @@ class CreateGoal extends Component {
         )
     }
 
+    sendRequestTest() {
+        let data = new FormData()
+        data.append("title", "title")
+        data.append('photo', this.state.file)
+        data.append("deadline", "2020-11-11 12:00:00")
+        console.log(data.get('deadline'))
+
+        axios.post('/api/v1/goal/', data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+              },
+        })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+
     render(){
         return(
             <>
@@ -141,13 +160,14 @@ class CreateGoal extends Component {
                 {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
-                <Button>Confirm</Button>
+                <Button onClick={() => this.sendRequestTest()}>Confirm</Button>
                 <Button>Go Back</Button>
                 </Form>
             </div>
             </>
         )
     }
+
 }
 
 export default withRouter(CreateGoal)

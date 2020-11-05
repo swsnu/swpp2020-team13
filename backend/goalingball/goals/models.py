@@ -11,7 +11,7 @@ class Goal(models.Model):
         on_delete=models.CASCADE,
         related_name='goals'
     )
-    photo = models.URLField(max_length=2047, blank=True)
+    photo = models.URLField(max_length=2047)
     tags = TaggableManager(blank=True)
 
     created_at = models.DateTimeField(editable=False)
