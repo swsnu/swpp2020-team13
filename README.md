@@ -21,4 +21,25 @@ Status also updated in : [Notion Link](https://www.notion.so/Development-Status-
 2. Jiye-Backend-taskCRUD
 
 ### Frontend
-
+1. Jiye-Frontend-semanticUI
+    - [x]  Install semanticUI
+    - [x]  Connected semanticUI with React
+    - [x]  Add basics to App.js and Index.js
+    
+2. Jiye-Frontend-MenuBar
+    - [x]  Create Menu Bar with Icons - Create / Main / Dashboard / Explore / Profile / Logout
+    - [x]  Connect SemanticUI and set CSS
+    - [x]  Add navigation properties by history.push
+    
+3. Jiye-Frontend-goalAndTaskReducer
+    - [ ]  Add goalReducer with actions as follows:
+        - GET_ALL_GOAL
+        - GET_GOAL
+        - EDIT_GOAL
+        - DELETE_GOAL
+    - [ ]  Add taskReducer with actions as follows:
+        - GET_ALL_TASK
+        - GET_TASK
+        - EDIT_TASK
+        - DELETE_TASK
+4. Jiye-Frontend-mainPage
