@@ -17,6 +17,7 @@ DAYS_OF_WEEK = (
 )
 
 
+
 class Task(models.Model):
     title = models.TextField(max_length=255, blank=False) 
     goal = models.ForeignKey(
