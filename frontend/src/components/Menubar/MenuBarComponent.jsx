@@ -7,7 +7,6 @@ const MenuBarComponent = (props) => {
     return (
         <Sidebar className="Sidebar"
         animation='uncover'
-        icon='labeled'
         vertical
         visible="true"
         // width='very thin'
