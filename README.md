@@ -43,3 +43,10 @@ Status also updated in : [Notion Link](https://www.notion.so/Development-Status-
         - EDIT_TASK
         - DELETE_TASK
 4. Jiye-Frontend-mainPage
+    - CreateGoalComponent
+        - [x]  Create Form Title
+        - [x]  Create Form File Input
+        - [x]  Create Form Date (with DatePicker)
+        - [x]  Create From Tag (with addition-allowed/clearable/multiselection dropdown)
+        - [ ]  Connect file input url with backend via axios & receive file URL
+        - [ ]  Connect CreateGoalComponent with Redux
