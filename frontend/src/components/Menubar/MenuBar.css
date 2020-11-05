@@ -34,6 +34,12 @@
     color: #ebebeb;
     align-items: center;
 }
+.Sidebar .button-logout:hover {
+    /* background-color: #FA7f72; */
+    color: #61261ec4;
+    border: none;
+    
+}
 
 .Sidebar .button {
     background-color: #fa9287;
