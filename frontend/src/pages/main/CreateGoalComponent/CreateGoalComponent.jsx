@@ -5,12 +5,8 @@ import { connect } from 'react-redux'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
-import axios from "axios"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-
-const MockAdapter = require("axios-mock-adapter");
-const mock = new MockAdapter(axios);
 
 class CreateGoal extends Component {
 
@@ -18,47 +14,39 @@ class CreateGoal extends Component {
       title: "",
       file: null,
       fileName: "",
-      isUploading: false,
-      statusCode: "",
+      upload: false,
       deadline: new Date(),
       startdate: new Date(),
       tags: [],
       tagOptions:[]
     }
 
-    onPhotoSubmit = e => {
-        e.preventDefault(); // Stop form submit
-        console.log("form photo submit");
-        this.fileUpload(this.state.file);
-      }
-
     fileChange = e => {
+        if(e.target.files){
         this.setState(
-          { file: e.target.files[0], fileName: e.target.files[0].name },
-          () => {
-            console.log( "File chosen --->", this.state.file, console.log("File name  --->", this.state.fileName))
-          }
-        )
-      }
-
-    fileUpload = async file => {
-        const formData = new FormData();
-        formData.append("file", file);
-        try {
-          axios.post("/file/upload/goalPhoto").then(response => {
-            console.log(response);
-            console.log(response.status);
-            this.setState({ statusCode: response.status }, () => {
-              console.log(
-                "This is the response status code --->",
-                this.state.statusCode
-              )
-            })
-          })
-        } catch (error) {
-          console.error(Error(`Error uploading file ${error.message}`));
+          { file: e.target.files[0], fileName: e.target.files[0].name, upload: true},
+          () => { console.log( "File chosen --->", this.state.file, console.log("File name  --->", this.state.fileName))},
+          )
         }
-      }
+        else {
+        //    this.setState({file: default_goal_pic})
+           console.log(this.state.file)
+        }
+        
+    }
+
+    // fileRender() {
+    //     if (this.state.upload == true) {
+    //         const imageUrl = URL.createObjectURL(this.state.file)
+    //         console.log(imageUrl)
+    //         return(
+    //             <img id="image" src={imageUrl}></img>
+    //         )
+    //     }
+    //     else{
+    //         return null;
+    //     }
+    // }
 
     renderTitle() {
         return (
@@ -85,16 +73,7 @@ class CreateGoal extends Component {
             <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
               value={this.state.fileName}
             />
-            <Button style={{ marginTop: "7px" }} onClick={this.onPhotoSubmit}> Upload </Button>
-            {this.statusCode && this.statusCode === 200 ? (
-              <Progress style={{ marginTop: "10px" }} percent={100} success progress>
-                File Upload Success
-              </Progress>
-            ) : statusCode && statusCode === 500 ? (
-              <Progress style={{ marginTop: "20px" }} percent={100} error active progress>
-                File Upload Failed
-              </Progress>
-            ) : null}
+            <Button style={{ marginTop: "7px" }} onClick={this.fileChange}> Upload </Button>
           </Form.Field>
           </Segment>
         )
@@ -159,6 +138,7 @@ class CreateGoal extends Component {
                  <Form id="Form">
                 {this.renderTitle()}
                 {this.renderPhoto()}
+                {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button>Confirm</Button>
