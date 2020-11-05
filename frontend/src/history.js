@@ -1,5 +1,4 @@
-import goalReducer from './store/reducers/goalReducer'
-import authReducer from './store/reducers/authReducer'
+import rootReducer from './store/reducers/index'
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';                                           
@@ -7,12 +6,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 export const history = createBrowserHistory()
-
-const rootReducer = combineReducers({
-    go: goalReducer,
-    auth: authReducer,
-    router: connectRouter(history)
-})
 
 const logger = store => {
     return next => {
@@ -24,6 +17,7 @@ const logger = store => {
         }
     }
 }
+
 export const middlewares = [logger, thunk, routerMiddleware(history)]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

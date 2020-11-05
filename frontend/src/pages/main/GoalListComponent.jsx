@@ -15,4 +15,4 @@ class GoalList extends Component {
     }
 }
 
-export default GoalList
+export default withRouter(GoalList)
