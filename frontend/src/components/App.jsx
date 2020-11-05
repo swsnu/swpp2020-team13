@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
+import {ConnectedRouter } from 'connected-react-router'
+
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import GoalList from '../pages/main/GoalListComponent'
+
+function App(props) {
   return (
+    <BrowserRouter history={props.history}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        {/* <Route path='/' exact render={()=><Login/>}/> */}
+        <Route path='/main' exact render={()=><GoalList/>}/>
+      </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 

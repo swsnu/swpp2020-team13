@@ -1,0 +1,109 @@
+.Sidebar {
+    background-color: #fa9287;
+    /* width: 1cm; */
+    width: 102px !important;
+}
+
+.Sidebar .button-create {
+    background-color: #fa9287;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    padding-top: 0.7cm;
+    padding-bottom: 0.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: center;
+}
+
+.Sidebar .button-create:hover {
+    /* background-color: #FA7f72; */
+    color: #61261ec4;
+    border: none;
+    
+}
+
+.Sidebar .button-logout {
+    background-color: #fa9287;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    padding-top: 6.7cm;
+    padding-bottom: 0.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: center;
+}
+.Sidebar .button-logout:hover {
+    /* background-color: #FA7f72; */
+    color: #61261ec4;
+    border: none;
+    
+}
+
+.Sidebar .button {
+    background-color: #fa9287;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    /* padding-top: 0.3cm; */
+    padding-bottom: 0.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: center;
+}
+
+.Sidebar .button:hover {
+    /* background-color: #FA7f72; */
+    color: #61261ec4;
+    border: none;
+    
+}
+.Sidebar #icon {
+    padding-bottom: 25px;
+    align-self: center;
+}
+
+/* .Sidebar .button-main {
+    background-color: #FA7f72;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    padding-bottom: 0.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: center;
+}
+
+.Sidebar .button-main:hover {
+    /* background-color: #FA7f72; */
+    /* color: #61261ec4;
+    border: none;
+}
+
+.Sidebar .button-main #icon-home {
+    padding-bottom: 25px;
+    align-self: center;
+} */
+/* 
+.Sidebar .button-dashboard {
+    background-color: #FA7f72;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    padding-bottom: 0.5cm;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: flex-end
+}
+
+.Sidebar .button-dashboard:hover {
+    /* background-color: #FA7f72; */
+    /* color: #61261ec4;
+    border: none;
+}
+
+.Sidebar .button-dashboard #icon-chart {
+    padding-bottom: 25px;
+    align-self: center;
+} */ 
