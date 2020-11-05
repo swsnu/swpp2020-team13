@@ -1,19 +1,10 @@
 import goalReducer from './store/reducers/goalReducer'
 import authReducer from './store/reducers/authReducer'
-
+import rootReducer from './store/reducers'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';                                           
 import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-
-export const history = createBrowserHistory()
-
-const rootReducer = combineReducers({
-    go: goalReducer,
-    auth: authReducer,
-    router: connectRouter(history)
-})
-
+import {history} from './history'
 const logger = store => {
     return next => {
         return action => {

@@ -29,7 +29,7 @@ export const addGoal_ = (goal) => {
     return {
         type: actionTypes.ADD_GOAL,
         title: goal.title,
-        photo: goal.photo, 
+        photo: "test.goal.photo.url.com", 
         deadline: goal.deadline,
         tags: goal.tags
     }

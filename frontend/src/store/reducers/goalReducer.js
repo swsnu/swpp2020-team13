@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_GOAL:
             const newGoal = {
                 title: action.title,
-                photo: action.photo, 
+                photo: "test.goal.photo.url.com", 
                 deadline: action.deadline,
                 tags: action.tags
             }

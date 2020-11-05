@@ -130,21 +130,21 @@ class CreateGoal extends Component {
         )
     }
 
-    sendRequestTest() {
-        let data = new FormData()
-        data.append("title", "title")
-        data.append('photo', this.state.file)
-        data.append("deadline", "2020-11-11 12:00:00")
-        console.log(data.get('deadline'))
+    // sendRequestTest() {
+    //     let data = new FormData()
+    //     data.append("title", "title")
+    //     data.append('photo', this.state.file)
+    //     data.append("deadline", "2020-11-11 12:00:00")
+    //     console.log(data.get('deadline'))
 
-        axios.post('/api/v1/goal/', data, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-              },
-        })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-    }
+    //     axios.post('/api/v1/goal/', data, {
+    //         headers: {
+    //             "Content-Type": "multipart/form-data",
+    //           },
+    //     })
+    //     .then((res) => console.log(res))
+    //     .catch((err) => console.log(err));
+    // }
 
     render(){
         return(
@@ -160,7 +160,7 @@ class CreateGoal extends Component {
                 {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
-                <Button onClick={() => this.sendRequestTest()}>Confirm</Button>
+                <Button>Confirm</Button>
                 <Button>Go Back</Button>
                 </Form>
             </div>

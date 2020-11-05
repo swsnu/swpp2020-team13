@@ -2,14 +2,14 @@ import React from 'react';
 import './App.css';
 
 import {ConnectedRouter } from 'connected-react-router'
-
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import {history} from '../history'
+import {BrowserRouter, Route, Redirect, Switch, Router} from 'react-router-dom'
 import GoalList from '../pages/main/GoalListComponent'
 import CreateGoal from '../pages/main/CreateGoalComponent/CreateGoalComponent'
 
 function App(props) {
   return (
-    <BrowserRouter history={props.history}>
+    <ConnectedRouter history={history}>
     <div className="App">
       <Switch>
         {/* <Route path='/' exact render={()=><Login/>}/> */}
@@ -17,7 +17,7 @@ function App(props) {
         <Route path='/create' exact render={()=><CreateGoal/>}/>
       </Switch>
     </div>
-    </BrowserRouter>
+    </ConnectedRouter>
   );
 }
 

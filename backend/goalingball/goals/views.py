@@ -41,7 +41,7 @@ def goalList(request):
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 
-        new_goal = Goal(photo=goal_photo, deadline=goal_deadline, user=request.user)
+        new_goal = Goal(title=goal_title, photo=goal_photo, deadline=goal_deadline, user=request.user)
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
         if 'tags' in json.loads(body): # tags should be added after an intance is created
