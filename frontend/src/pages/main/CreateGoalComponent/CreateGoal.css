@@ -1,0 +1,38 @@
+ #TitleInput {
+    margin-left: 110px;
+    width: 400px;
+}
+#TitleInputLabel {
+    margin-left: 110px;
+    font-size: 18px;
+}
+
+#header {
+    margin-top: 20px;
+    margin-left: 110px;
+    margin-right: 10px;
+}
+
+#Form {
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 100px;
+    /* width: 400px; */
+    font-size: 15px;
+}
+/* 
+#Form #PhotoInput {
+    font-size: 15px;
+}
+
+#Form #TitleInput {
+    font-size: 15px;
+} */
+
+#Form #todayDate {
+width: 400px;
+}
+
+label {
+    font-size: 14px;
+}
