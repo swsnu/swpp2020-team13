@@ -14,6 +14,11 @@ matrix:
     
     - language: python
       python: '3.7'
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+          token:
+            secure: "G0JbuRRu/eEjL8A9bRO4maZHiYcpgka/3huJTw+qpPPqfOBNoF7rV2jNi4OprYOCa9PV2cEhfrTeMgXWy4zejiXyeQhKBihDzZgg1GBIKe/eyFlAQGqT1kCz10oepjwSOkOO7zJ06npBFSMsbdY0oVNDixvMpc7QTDJ2fTnw7cLlZ4yMa/cm8/Mx2QjCuiXpBo/+RlTonYjiZEAdWgbIYehckSmpigqCkUI913mGNx/LGFc7gVK7Nt5c7SqkoSY39KzrI28Mw/I1OV8GTz8SMhJMMdFLxR277BbV4CmlGI+4blrYIxUDWe2tzVyngMcBuYMipMFcMlujK3jkFxGxEvzRAn2XJ7/Kdm9aMQ9H1auOELIahi66A945IzGFqNZ8+zH208FvlcZtAAOcVOej8KcNyhnDTz7YYGmH48R2HNXzy0CHHTNy2fS/h12L8PYMTFed7ffHtObxRdjBWwTJxsL/4c03qpahG8ouyYL2A6VG+IbJM2nGDgyokV9TfMvQ0fLUGDgNcgMgAT1lXkfVFctUbVfxQh8bsNaR2qIZRs6Wc1doNSC/fLHz2xITumMbWEBRH4bnTl7pjAIJsx7ZL/Qk58/MIQfzmLaWljQ8usWyrzNe5W+TRlBFP6wZrNqtasGEd9MUiHQ0L1Ve9+KXd2UVE3f/bHTcabuToVFlOV8="
       cache:
         - pip: true
       before_install:
@@ -25,4 +30,4 @@ matrix:
         - coverage run --source='.' manage.py test
         - coverage xml 
         - cd .. && sonar-scanner
-        - coverage xml
+
