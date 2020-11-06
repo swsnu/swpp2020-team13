@@ -26,13 +26,13 @@ class CalendarPanelComponent extends Component {
 
         <ul>
             <li>
-                Goal1
+                Goal number 1
             </li>
             <li>
-                Goal2
+                Goal number 2
             </li>
             <li>
-                Goal3
+                Goal number 3 which is very very long
             </li>
         </ul>
         </nav>
