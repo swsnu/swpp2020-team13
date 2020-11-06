@@ -14,8 +14,8 @@
 }
 
 #Form {
-    margin-top: 20px;
-    margin-left: 200px;
+    margin-top: 5%;
+    margin-left: 20%;
     margin-right: 100px;
     /* width: 400px; */
     font-size: 15px;
@@ -30,7 +30,7 @@
 } */
 
 #Form #todayDate {
-width: 400px;
+width: 70%;
 }
 
 label {
