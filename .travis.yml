@@ -25,9 +25,8 @@ matrix:
         - cd backend
       install:
         - pip install -r requirements.txt
-      script:
+      script: 
         - pylint **/*.py --load-plugins pylint_django
         - coverage run --source='.' manage.py test
         - coverage xml 
         - cd .. && sonar-scanner
-

@@ -1,4 +1,5 @@
  #TitleInput {
+    /* margin-top: 3%; */
     margin-left: 110px;
     width: 400px;
 }
@@ -7,18 +8,32 @@
     font-size: 18px;
 }
 
-#header {
-    margin-top: 20px;
-    margin-left: 110px;
-    margin-right: 10px;
-}
 
-#Form {
+.FormCreate {
     margin-top: 5%;
     margin-left: 20%;
     margin-right: 100px;
     /* width: 400px; */
     font-size: 15px;
+}
+
+.FormCreate label{
+    display: inline-block;
+    text-align: center;
+    font-size: 13px !important;
+	/* float: left; */
+}
+
+.FormCreate h5{
+    padding-top: 11px;
+}
+
+.FormCreate h2{
+    text-align: left;
+}
+.FormCreate #UploadPhotoButton {
+    display:flex;
+ justify-content:center;
 }
 /* 
 #Form #PhotoInput {
