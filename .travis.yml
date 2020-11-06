@@ -2,11 +2,6 @@ matrix:
   include:
     - language: node_js
       node_js: '12'
-       addons:
-        sonarcloud:
-          organization: "your SonarCloud organization key (e.g. swsnu)"
-          token:
-            secure: "hjRRsO+uAHAU0LEiGUqMkFPF715LhnyYHih6JjvQpjucxRB7qcHwx7blHzwTdFF6z/F6KkrMEKFWZ/E04O3Vs2eQKtt02lEpR5Iaf9Xt4cbOEiUoQdHgSa3VNKA8Wuz8UQJRhknvAF1bErgE/qBn8sLbDE3d8ZWGYnvV3O9SB1C6fabvSnHfploHcYNsuUdWptzm2mrZQhY6Wlb6RpjPFFBxZUC9enEHdSg+GfQl/OJZVcJ3k72buXbneO7WkjFs2TcMRyWnnsNLb9CuLyk5xwscpyu0Abftwy2BanR17u0un8fdNrWAIHVX7dhEKBz36qXb08RkMwN82rHkm0xouRomiKv5T438FLzfsYZtJLU5Zl36w81M5XW/O8QsI95AgNcJaQz6DtF5QtiIszXwMwAuByZbQcI8H3747bDSyYBDt2SWhH6DbKOmo7YOu4JoCboled6R/n3cB59KZYwe8wDDJjKozHEs58ijHc9+J2UMIQbMe59nWYBOS/5tV/je6TbxuyOdqkKqiQoURy5PcYLhby6jqt4RPQ4ZQwrim2BYowsHMVA4eboVPbhv+zjGtfhz7UztUS7o5cx7c6a+bIsiwXTpulMMM2CArkZzQ7e4gOmeWqwXS4o5VaRGfUuSwK/F64YwVJrVaTgtJIL0eqhGcckHYaHz9J6X8/i8/kY="
       cache:
         - yarn: true
       before_install:
@@ -30,4 +25,4 @@ matrix:
         - coverage run --source='.' manage.py test
         - coverage xml 
         - cd .. && sonar-scanner
- 
+        - coverage xml
