@@ -25,6 +25,7 @@ IMPORTANCE_CHOICES = (
     (5, 5),
 )
 
+
 class Task(models.Model):
     title = models.TextField(max_length=255, blank=False) 
     goal = models.ForeignKey(
