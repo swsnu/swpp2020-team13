@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 
 import { CreateSignupForm, CreateLoginForm } from './AuthForm'
 import { Modal } from '../common/Modal/Modal'
-
+import { Segment, Button, ButtonGroup } from 'semantic-ui-react'
+import './Auth.css'
 
 const Auth = (props) => {
     // useSelector is equivalent to mapStateToProps
@@ -16,16 +17,21 @@ const Auth = (props) => {
         : CreateLoginForm()
     
     return (
+        <Segment className="SegmentModal">
         <Modal isOpen={isAuthModalOpen}>
             <div className="modal-container small-container modal-auth">
-                <button onClick={() => setAuthMode('signup')}>Sign Up</button>
-                <button onClick={() => setAuthMode('login')}>Log In</button>
+                <ButtonGroup className="ButtonGroupModal" floated="right">
+                <Button onClick={() => setAuthMode('signup')}>Sign Up</Button>
+                <Button onClick={() => setAuthMode('login')}>Log In</Button>
+                </ButtonGroup>
                 {/* <div>{authMode == AuthMode.signup ? 'Sign Up' : 'Log In'}</div> */}
+                <br></br>
                 <div className="modal__body">
                    {form}
                 </div>
             </div>
         </Modal>
+        </Segment>
     )
 }
 

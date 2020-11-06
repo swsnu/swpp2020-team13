@@ -1,8 +1,8 @@
 from django.db import models
+from django.utils import timezone
 from taggit.managers import TaggableManager
 
 from django.contrib.auth.models import User
-
 
 class Goal(models.Model):
     title = models.TextField(max_length=255, blank=False) 
@@ -11,24 +11,25 @@ class Goal(models.Model):
         on_delete=models.CASCADE,
         related_name='goals'
     )
-    photo = models.URLField(max_length=2047, blank=True)
+    # image = models.ImageField(blank=True, upload_to="images", null=True)
+    photo = models.URLField(max_length=2047)
     tags = TaggableManager(blank=True)
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
-    # TODO
-    # deadline = models.DataTimeField()
+    deadline = models.DateTimeField()
+    # TODO : categories
     # categories = models.ManytoManyField()
     # def updateCategories():
 
     def save(self, *args, **kwargs):
         # For the first time
         if not self.id: 
-            self.created_at = timezone.now()
+            self.created_at = timezone.localtime()
 
         # Upon save, update timestamps
-        self.updated_at = timezone.now()
+        self.updated_at = timezone.localtime()
         
         return super().save(*args, **kwargs)
 

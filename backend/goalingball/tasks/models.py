@@ -1,5 +1,6 @@
 from django.db import models
 from multiselectfield import MultiSelectField
+from django.utils import timezone
 
 from goals.models import Goal
 from django.contrib.auth.models import User
@@ -16,6 +17,13 @@ DAYS_OF_WEEK = (
     ('SUNDAY', 'Sunday'),
 )
 
+IMPORTANCE_CHOICES = (
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+)
 
 
 class Task(models.Model):
@@ -30,8 +38,8 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         related_name='tasks'
     )
+    
     importance = models.FloatField(blank=True)
-    recurrent = models.BooleanField(default=False)
     day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
 
     created_at = models.DateTimeField(editable=False)
@@ -41,10 +49,10 @@ class Task(models.Model):
     def save(self, *args, **kwargs):
         # For the first time
         if not self.id: 
-            self.created_at = timezone.now()
+            self.created_at = timezone.localtime()
 
         # Upon save, update timestamps
-        self.updated_at = timezone.now()
+        self.updated_at = timezone.localtime()
         
         return super().save(*args, **kwargs)
 
