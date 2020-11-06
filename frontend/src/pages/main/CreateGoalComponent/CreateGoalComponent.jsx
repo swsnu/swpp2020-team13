@@ -2,7 +2,7 @@ import React, {Component, useRef} from 'react'
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid} from 'semantic-ui-react'
+import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
@@ -100,14 +100,12 @@ class CreateGoal extends Component {
             <Segment>
                 <FormField>
                     <label>Select Goal Deadline</label>
-                    <Grid columns='three'>
-                    <Grid.Column>
+                    <Grid columns='three' textAlign='center' className="DeadlineGrid">
+                    <Grid.Column width={5}>
                     <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input>
-                    </Grid.Column>
-                    <Grid.Column>
-                    <label>to</label>
-                    </Grid.Column>
-                    <Grid.Column>
+                    </Grid.Column >
+                    <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
+                    <Grid.Column  width={5}>
                     <DatePicker style={{ width: "150px" }} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
                     </Grid.Column>
                     </Grid>

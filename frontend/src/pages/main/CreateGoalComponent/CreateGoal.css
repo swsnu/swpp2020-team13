@@ -23,12 +23,17 @@
     font-size: 13px !important;
 	/* float: left; */
 }
+
+.FormCreate h5{
+    padding-top: 11px;
+}
+
 .FormCreate h2{
     text-align: left;
 }
 .FormCreate #UploadPhotoButton {
     display:flex;
-justify-content:center;
+ justify-content:center;
 }
 /* 
 #Form #PhotoInput {
