@@ -1,4 +1,6 @@
 # swpp2020-team13
+![Build](https://travis-ci.com/swsnu/swpp2020-team13.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/swsnu/swpp2020-team13/badge.svg?branch=master)](https://coveralls.io/github/swsnu/swpp2020-team13?branch=master)
 ## Useful Google Links
 Links updated in : [Notion Link](https://www.notion.so/Useful-Links-References-for-Implementation-149d5cb96b624b1b93e077a9485f4601)
 ## Development Status per Branch
