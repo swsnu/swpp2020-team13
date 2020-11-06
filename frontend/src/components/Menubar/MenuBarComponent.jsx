@@ -34,7 +34,7 @@ const MenuBarComponent = (props) => {
 
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/dashboard')} className='button-dashboard'>
+                <button class='ui basic button' onClick={()=>props.history.push('/dashboard')} className='button'>
                     <Icon name='chart bar outline' size='large' id='icon'></Icon>
                     <br></br>
                     Dashboard
