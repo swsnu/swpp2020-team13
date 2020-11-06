@@ -1,7 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Menu } from 'semantic-ui-react'
-import { Form, Button } from 'semantic-ui-react'
+import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
 export const CreateSignupForm = () => {
     const { register, handleSubmit, watch, errors, reset } = useForm()
@@ -17,8 +17,9 @@ export const CreateSignupForm = () => {
     watch() // watchAllFields
 
     return (
-        <Form>
+        <Form className="signupForm">
         <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Segment className="signupSegment">
             <label htmlFor="email">email</label>
             <input 
                 id="email" 
@@ -56,8 +57,8 @@ export const CreateSignupForm = () => {
             <label htmlFor="password2"> Confirm password</label>
             <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
             {errors.password2 && <span>This field is required</span>}
-            
-            <Button type="submit">Go Submit</Button>
+            </Segment>
+            <Button type="submit" className="submitButton" fluid>Go Submit</Button>
         </form>
         </Form>
     )
