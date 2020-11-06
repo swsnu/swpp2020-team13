@@ -3,11 +3,25 @@ import { useForm } from 'react-hook-form'
 import { Menu } from 'semantic-ui-react'
 import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
+import * as actionCreators from '../../../store/actions/index'
+import { useDispatch } from 'react-redux'
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         onSignup: ()
+//     }
+// }
+
 export const CreateSignupForm = () => {
+    const dispatch = useDispatch()
+
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
     const onSubmit =(data, e) => { // e: event
-        // console.log(data)
+        console.log(data)
+        let dataToForm = new FormData()
+        dataToForm.append("username", data.username)
+        dataToForm.append("password", data.password1)
+        dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
 
@@ -17,21 +31,21 @@ export const CreateSignupForm = () => {
     watch() // watchAllFields
 
     return (
-        <Form className="signupForm">
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Form className="signupForm" onSubmit={handleSubmit(onSubmit, onError)}>
+        {/* <form onSubmit={handleSubmit(onSubmit, onError)}> */}
         <Segment className="signupSegment">
             <label htmlFor="email">email</label>
             <input 
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-                ref={register({ 
-                    required: true,
-                    pattern: {
-                        value: /S+@S+.S+/,
-                        message: "Entered value does not match email format"
-                    }
-                })} 
+                // ref={register({ 
+                //     required: true,
+                //     pattern: {
+                //         value: /S+@S+.S+/,
+                //         message: "Entered value does not match email format"
+                //     }
+                // })} 
             />
             {errors.email && <span role="alert">{errors.email.message}</span>}
             
@@ -59,7 +73,7 @@ export const CreateSignupForm = () => {
             {errors.password2 && <span>This field is required</span>}
             </Segment>
             <Button type="submit" className="submitButton" fluid>Go Submit</Button>
-        </form>
+        {/* </form> */}
         </Form>
     )
     
@@ -73,22 +87,34 @@ export const CreateLoginForm = () => {
     return (
         <Form>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">username</label>
             <input 
-                id="email" 
-                name="email" 
-                placeholder="Enter email" 
-                ref={register({ 
+                id="username" 
+                name="username" 
+                placeholder="Enter username" 
+                ref={register({
                     required: true,
-                    pattern: {
-                        value: /S+@S+.S+/,
-                        message: "Entered value does not match email format"
+                    minLength: {
+                        value: 5,
+                        message: "min length is 5"
                     }
                 })} 
             />
-            {errors.email && <span role="alert">{errors.email.message}</span>}
+            {errors.username && <span>This field is required</span>}
+            {/* //     id="email" 
+            //     name="email" 
+            //     placeholder="Enter email" 
+            //     ref={register({  */}
+            {/* //         required: true,
+            //         pattern: { */}
+            {/* //             value: /S+@S+.S+/,
+            //             message: "Entered value does not match email format"
+            //         }
+            //     })} 
+            // />
+            // {errors.email && <span role="alert">{errors.email.message}</span>} */}
 
-            <label htmlFor="password">email</label>
+            <label htmlFor="password">password</label>
             <input id="password" name="password" placeholder="Enter password" ref={register({ required: true })} />
             {errors.password && <span role="alert">{errors.password.message}</span>}
 
