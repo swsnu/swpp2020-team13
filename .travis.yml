@@ -22,5 +22,5 @@ matrix:
         - pip install -r requirements.txt
       script:
         - pylint **/*.py --load-plugins pylint_django
-        - coverage run --source='./goalingball', './configs' manage.py test
+        - coverage run --source='./achievements', './goals', './tasks', './users' manage.py test
         - coverage xml 
