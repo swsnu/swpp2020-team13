@@ -2,7 +2,7 @@ import React, {Component, useRef} from 'react'
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown} from 'semantic-ui-react'
+import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
@@ -76,7 +76,7 @@ class CreateGoal extends Component {
             <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
               value={this.state.fileName}
             />
-            <Button style={{ marginTop: "7px" }} onClick={this.fileChange}> Upload </Button>
+            <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
           </Form.Field>
           </Segment>
         )
@@ -100,9 +100,17 @@ class CreateGoal extends Component {
             <Segment>
                 <FormField>
                     <label>Select Goal Deadline</label>
+                    <Grid columns='three'>
+                    <Grid.Column>
                     <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input>
+                    </Grid.Column>
+                    <Grid.Column>
                     <label>to</label>
+                    </Grid.Column>
+                    <Grid.Column>
                     <DatePicker style={{ width: "150px" }} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
+                    </Grid.Column>
+                    </Grid>
                 </FormField>
             </Segment>
         )
@@ -152,7 +160,7 @@ class CreateGoal extends Component {
             <div className='menubar'>
                 <MenuBar/>
             </div>
-            <div className='Form'>
+            <div className='FormCreate'>
                  <h2 id="header">Add a Goal</h2>
                  <Form id="Form">
                 {this.renderTitle()}
@@ -160,8 +168,8 @@ class CreateGoal extends Component {
                 {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
-                <Button>Confirm</Button>
-                <Button>Go Back</Button>
+                <Button floated="right">Go Back</Button>
+                <Button floated="right">Confirm</Button>
                 </Form>
             </div>
             </>

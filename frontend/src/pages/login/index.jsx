@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import './index.css'
+import './login.css'
 import Auth from '../../components/Auth/Auth'
 import { openAuthModal } from '../../store/actions'
 import history from '../../history'
@@ -34,7 +34,7 @@ class HomePage extends React.Component {
         }
 
         return (
-            <Form center aligned className="Form">
+            <Form center aligned className="FormLogin">
             <Segment className="Segment">
                 <Grid columns={2} className="grid" divided='vertically'>
                 <Grid.Column>

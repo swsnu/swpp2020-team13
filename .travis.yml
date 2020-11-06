@@ -2,11 +2,6 @@ matrix:
   include:
     - language: node_js
       node_js: '12'
-       addons:
-        sonarcloud:
-          organization: "your SonarCloud organization key (e.g. swsnu)"
-          token:
-            secure: "hjRRsO+uAHAU0LEiGUqMkFPF715LhnyYHih6JjvQpjucxRB7qcHwx7blHzwTdFF6z/F6KkrMEKFWZ/E04O3Vs2eQKtt02lEpR5Iaf9Xt4cbOEiUoQdHgSa3VNKA8Wuz8UQJRhknvAF1bErgE/qBn8sLbDE3d8ZWGYnvV3O9SB1C6fabvSnHfploHcYNsuUdWptzm2mrZQhY6Wlb6RpjPFFBxZUC9enEHdSg+GfQl/OJZVcJ3k72buXbneO7WkjFs2TcMRyWnnsNLb9CuLyk5xwscpyu0Abftwy2BanR17u0un8fdNrWAIHVX7dhEKBz36qXb08RkMwN82rHkm0xouRomiKv5T438FLzfsYZtJLU5Zl36w81M5XW/O8QsI95AgNcJaQz6DtF5QtiIszXwMwAuByZbQcI8H3747bDSyYBDt2SWhH6DbKOmo7YOu4JoCboled6R/n3cB59KZYwe8wDDJjKozHEs58ijHc9+J2UMIQbMe59nWYBOS/5tV/je6TbxuyOdqkKqiQoURy5PcYLhby6jqt4RPQ4ZQwrim2BYowsHMVA4eboVPbhv+zjGtfhz7UztUS7o5cx7c6a+bIsiwXTpulMMM2CArkZzQ7e4gOmeWqwXS4o5VaRGfUuSwK/F64YwVJrVaTgtJIL0eqhGcckHYaHz9J6X8/i8/kY="
       cache:
         - yarn: true
       before_install:
@@ -19,6 +14,11 @@ matrix:
     
     - language: python
       python: '3.7'
+      addons:
+        sonarcloud:
+          organization: "swsnu"
+          token:
+            secure: "G0JbuRRu/eEjL8A9bRO4maZHiYcpgka/3huJTw+qpPPqfOBNoF7rV2jNi4OprYOCa9PV2cEhfrTeMgXWy4zejiXyeQhKBihDzZgg1GBIKe/eyFlAQGqT1kCz10oepjwSOkOO7zJ06npBFSMsbdY0oVNDixvMpc7QTDJ2fTnw7cLlZ4yMa/cm8/Mx2QjCuiXpBo/+RlTonYjiZEAdWgbIYehckSmpigqCkUI913mGNx/LGFc7gVK7Nt5c7SqkoSY39KzrI28Mw/I1OV8GTz8SMhJMMdFLxR277BbV4CmlGI+4blrYIxUDWe2tzVyngMcBuYMipMFcMlujK3jkFxGxEvzRAn2XJ7/Kdm9aMQ9H1auOELIahi66A945IzGFqNZ8+zH208FvlcZtAAOcVOej8KcNyhnDTz7YYGmH48R2HNXzy0CHHTNy2fS/h12L8PYMTFed7ffHtObxRdjBWwTJxsL/4c03qpahG8ouyYL2A6VG+IbJM2nGDgyokV9TfMvQ0fLUGDgNcgMgAT1lXkfVFctUbVfxQh8bsNaR2qIZRs6Wc1doNSC/fLHz2xITumMbWEBRH4bnTl7pjAIJsx7ZL/Qk58/MIQfzmLaWljQ8usWyrzNe5W+TRlBFP6wZrNqtasGEd9MUiHQ0L1Ve9+KXd2UVE3f/bHTcabuToVFlOV8="
       cache:
         - pip: true
       before_install:
@@ -30,4 +30,3 @@ matrix:
         - coverage run --source='.' manage.py test
         - coverage xml 
         - cd .. && sonar-scanner
- 
