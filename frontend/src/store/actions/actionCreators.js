@@ -4,5 +4,5 @@ export {
     addGoal,
     editGoal,
     deleteGoal
-} from './goal/goal'
+} from './goal'
 
