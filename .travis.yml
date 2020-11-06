@@ -8,6 +8,7 @@ matrix:
         - cd frontend
       install:
         - yarn install
+        - yarn add coveralls
       script:
         - ./node_modules/.bin/eslint src/
         - yarn test --coverage --watchAll=false
