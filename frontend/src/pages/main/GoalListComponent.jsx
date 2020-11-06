@@ -8,16 +8,15 @@ import { Container } from 'semantic-ui-react';
 class GoalList extends Component {
     render(){
         return(
-            <Container>
+            <div>
                 <div className='menubar'>
                     {console.log(this.props)}
                     <MenuBar/>
-                    <h2> Main Page</h2>
                 </div>
                 <div className='calendarpanel'>
                     <CalendarPanel/>
                 </div>
-            </Container>
+            </div>
         )
     }
 }

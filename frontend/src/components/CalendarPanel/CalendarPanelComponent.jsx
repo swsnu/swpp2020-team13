@@ -15,17 +15,27 @@ class CalendarPanelComponent extends Component {
         this.setState({ date })
         console.log(date)
     }
-
-    
    
     render() {
       return (
-        <div>
+        <nav class='panel'>
           <Calendar
             onChange={this.onChange}
             value={this.state.date}
           />
-        </div>
+
+        <ul>
+            <li>
+                Goal1
+            </li>
+            <li>
+                Goal2
+            </li>
+            <li>
+                Goal3
+            </li>
+        </ul>
+        </nav>
       );
     }
   }
