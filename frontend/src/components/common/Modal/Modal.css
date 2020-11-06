@@ -1,5 +1,6 @@
 #reactModal {
-    height: 450px !important;
+    height: 500px !important;
+    border: none !important;
 }
 
 .modal__close-btn {
