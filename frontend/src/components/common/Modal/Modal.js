@@ -3,7 +3,7 @@ import ReactModal from 'react-modal'
 import { useDispatch } from 'react-redux'
 
 import { closeModal } from '../../../store/actions'
-
+import {Button} from 'semantic-ui-react'
 export const Modal = (props) => {
     ReactModal.setAppElement('#root')
 
@@ -16,12 +16,12 @@ export const Modal = (props) => {
             {...props}
         >
             {children}
-            <button
+            <Button
                 className="modal__close-btn"
                 onClick={() => dispatch(closeModal())}
             >
                 close
-            </button>
+            </Button>
         </ReactModal>
     )
 }

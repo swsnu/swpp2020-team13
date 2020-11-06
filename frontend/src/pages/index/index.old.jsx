@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Auth from '../../components/Auth/Auth'
-
+import { Form, Menu, Segment } from 'semantic-ui-react'
 import { openAuthModal } from '../../store/actions'
 
 const HomePage = () => {
@@ -28,12 +28,12 @@ const HomePage = () => {
     }
     
     return (
-        <div>
-            <div>Home Page</div>
-            <button onClick={onClickSignup}>SIGN UP</button>
+        <Menu>
+            <h2>Home Page</h2>
+            <Menu.Item onClick={onClickSignup} color="#fa9287">SIGN UP</Menu.Item>
             <button onClick={onClickSignup}>LOGIN</button>
             {isAuthModalOpen && <Auth authMode={authMode} />}
-        </div>
+        </Menu>
     )
 }
 

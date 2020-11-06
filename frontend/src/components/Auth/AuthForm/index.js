@@ -1,7 +1,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-
-
+import { Menu } from 'semantic-ui-react'
+import { Form, Button } from 'semantic-ui-react'
+import './AuthForm.css'
 export const CreateSignupForm = () => {
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
@@ -10,12 +11,13 @@ export const CreateSignupForm = () => {
         reset()
     }
 
-    
+
     const onError = (errors, e) => console.log(errors, e);
 
     watch() // watchAllFields
 
     return (
+        <Form>
         <form onSubmit={handleSubmit(onSubmit, onError)}>
             <label htmlFor="email">email</label>
             <input 
@@ -51,12 +53,13 @@ export const CreateSignupForm = () => {
             <input id="password1" name="password1" placeholder="Enter password" ref={register({ required: true })} />
             {errors.password1 && <span role="alert">{errors.password1.message}</span>}
             
-            <label htmlFor="password2">password</label>
+            <label htmlFor="password2"> Confirm password</label>
             <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
             {errors.password2 && <span>This field is required</span>}
             
-            <button type="submit">Go Submit</button>
+            <Button type="submit">Go Submit</Button>
         </form>
+        </Form>
     )
     
 }
@@ -67,6 +70,7 @@ export const CreateLoginForm = () => {
     const onSubmit = data => console.log(data)
 
     return (
+        <Form>
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="email">email</label>
             <input 
@@ -87,8 +91,9 @@ export const CreateLoginForm = () => {
             <input id="password" name="password" placeholder="Enter password" ref={register({ required: true })} />
             {errors.password && <span role="alert">{errors.password.message}</span>}
 
-            <button type="submit">Go Submit</button>
+            <Button type="submit">Go Submit</Button>
         </form>
+        </Form>
     )
 }
 
