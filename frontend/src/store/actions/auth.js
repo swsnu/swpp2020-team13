@@ -1,6 +1,7 @@
 import * as actionTypes from './types'
 import axios from 'axios'
 import {push} from 'connected-react-router'
+import history from '../../history'
 export const signupUser_ = (user) => {
     return {
         type: actionTypes.SIGNUP_USER,
@@ -36,23 +37,19 @@ export const loginUser = (user) => {
             }
         })
         .then((res) => dispatch(loginUser_(user)))
-        .then(()=>dispatch(push('/main')))
+        .then(()=>{history.push('/main')})
     }
 }
 
-export const logoutUser_ = (user) => {
+export const logoutUser_ = () => {
     return {
         type: actionTypes.LOGOUT_USER
     }
 }
 
-export const logoutUser = (user) => {
+export const logoutUser = () => {
     return (dispatch) => {
-        return axios.post('/api/v1/users/logout/', user, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then((res) => dispatch(logoutUser_(user)))
+        return axios.post('/api/v1/users/logout/')
+        .then((res) => dispatch(logoutUser_()))
     }
 }

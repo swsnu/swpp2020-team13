@@ -5,7 +5,6 @@ import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
 import * as actionCreators from '../../../store/actions/index'
 import { useDispatch } from 'react-redux'
-import history from '../../../history'
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
