@@ -11,10 +11,19 @@ const GoalBodyComponent = (props) => {
 
     // const toTaskBar // map from sampleTaskList
 
+    const deadlineDate = (deadline) => {
+        return deadline.split(" ")[0]
+    }
+
     return(
         <Segment className="GoalBodySegment">
             <List className="GoalBodyList">
-                <List.Item>{props.title}</List.Item>
+                <List.Item>
+                    <List.Content>
+                        <List.Header>{props.title}</List.Header>
+                        Until: {deadlineDate(props.deadline)}
+                    </List.Content>
+                </List.Item>
             </List>
         </Segment>
     )
