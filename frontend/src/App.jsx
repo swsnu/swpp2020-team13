@@ -3,7 +3,7 @@ import { Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css'
 import history from './history'
 import HomePage from './pages/login/index'
-import MainPage from './pages/main'
+import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
 
 const App = () => (
@@ -12,7 +12,7 @@ const App = () => (
             <Switch>
                 <Route path="/" exact component={HomePage} />
                 <Route path="/create" exact component={CreatePage}/>
-                <Route path="/main" exact component={MainPage} />
+                <Route path="/main" exact component={GoalList} />
             </Switch>
         </div>
     </Router>

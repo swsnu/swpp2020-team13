@@ -35,14 +35,14 @@ def login(request):
 
         user = authenticate(username=username, password=password)
         
-        if not request.user.is_authenticated:
+        # if not request.user.is_authenticated:
+        if user is not None:
             auth_login(request, user)
             return HttpResponse(status=204)
         else:
             return HttpResponse(status=401)
     else:
         return HttpResponseNotAllowed(['POST'])
-
 
 
 @csrf_exempt
