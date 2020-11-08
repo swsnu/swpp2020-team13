@@ -5,6 +5,7 @@ import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
 import * as actionCreators from '../../../store/actions/index'
 import { useDispatch } from 'react-redux'
+import history from '../../../history'
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
@@ -17,11 +18,10 @@ export const CreateSignupForm = () => {
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
     const onSubmit =(data, e) => { // e: event
-        console.log(data)
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
-        dispatch(actionCreators.signupUser(dataToForm))
+        dispatch(actionCreators.loginUser(dataToForm))
         reset()
     }
 
@@ -82,11 +82,21 @@ export const CreateSignupForm = () => {
 
 export const CreateLoginForm = () => {
     const { register, handleSubmit, watch, errors } = useForm()
-    const onSubmit = data => console.log(data)
+    // const onSubmit = data => console.log(data)
+    const dispatch = useDispatch()
+    const onSubmit =(data, e) => { // e: event
+        // console.log(data)
+        let dataToForm = new FormData()
+        dataToForm.append("username", data.username)
+        dataToForm.append("password", data.password)
+        dispatch(actionCreators.loginUser(dataToForm))
+    }
+
+    const onError = (errors, e) => console.log(errors, e);
+    watch() // watchAllFields
 
     return (
-        <Form>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>
             <label htmlFor="email">username</label>
             <input 
                 id="username" 
@@ -119,7 +129,6 @@ export const CreateLoginForm = () => {
             {errors.password && <span role="alert">{errors.password.message}</span>}
 
             <Button type="submit">Go Submit</Button>
-        </form>
         </Form>
     )
 }

@@ -14,7 +14,7 @@ const MenuBarComponent = (props) => {
         <Grid verticalAlign='middle' rows={6} centered className="gridBar">
         <Grid.Row>
             <Menu.Item as='a' >
-                <button class='ui basic button' onClick={()=> {console.log(props); props.history.push('/create')}} className='button-create'>
+                <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create'>
                     <Icon name='plus circle' size='large' id='icon'></Icon>
                     <br></br>
                     Create

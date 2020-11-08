@@ -16,6 +16,7 @@ export default function(state = null, action) {
       const user = {
         username: action.username
       }
+      console.log("change loginuser state")
       return {...state, loginUser: user}
       // return action.payload  // user_id or user_info
     case actionTypes.LOGOUT_USER:

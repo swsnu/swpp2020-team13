@@ -1,6 +1,6 @@
 import * as actionTypes from './types'
 import axios from 'axios'
-
+import {push} from 'connected-react-router'
 export const signupUser_ = (user) => {
     return {
         type: actionTypes.SIGNUP_USER,
@@ -24,7 +24,7 @@ export const signupUser = (user) => {
 export const loginUser_ = (user) => {
     return {
         type: actionTypes.LOGIN_USER,
-        username: user.username,
+        username: user.get('username') // data type is FormData
     }
 }
 
@@ -36,6 +36,7 @@ export const loginUser = (user) => {
             }
         })
         .then((res) => dispatch(loginUser_(user)))
+        .then(()=>dispatch(push('/main')))
     }
 }
 
