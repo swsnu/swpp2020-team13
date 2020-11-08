@@ -20,3 +20,38 @@ export const signupUser = (user) => {
         .then((res) => dispatch(signupUser_(res.data)))
     }
 }
+
+export const loginUser_ = (user) => {
+    return {
+        type: actionTypes.LOGIN_USER,
+        username: user.username,
+    }
+}
+
+export const loginUser = (user) => {
+    return (dispatch) => {
+        return axios.post('/api/v1/users/login/', user, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then((res) => dispatch(loginUser_(user)))
+    }
+}
+
+export const logoutUser_ = (user) => {
+    return {
+        type: actionTypes.LOGOUT_USER
+    }
+}
+
+export const logoutUser = (user) => {
+    return (dispatch) => {
+        return axios.post('/api/v1/users/logout/', user, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then((res) => dispatch(logoutUser_(user)))
+    }
+}

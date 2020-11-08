@@ -13,9 +13,13 @@ export default function(state = null, action) {
       }
       return {...state, loginUser: newUser}
     case actionTypes.LOGIN_USER:
-      return action.payload  // user_id or user_info
+      const user = {
+        username: action.username
+      }
+      return {...state, loginUser: user}
+      // return action.payload  // user_id or user_info
     case actionTypes.LOGOUT_USER:
-      return null
+      return {...state, loginUser: null}
     default:
       return state
   }
