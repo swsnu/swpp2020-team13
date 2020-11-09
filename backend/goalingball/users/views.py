@@ -16,6 +16,10 @@ def signup(request):
         password = request.POST['password']
 
         user = User.objects.create_user(username, password=password)
+
+        # A new user is automatically logged in
+        login(request, user)
+
         serialized_user = model_to_dict(user)
 
         return JsonResponse(serialized_user, status=201)

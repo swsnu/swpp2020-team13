@@ -15,6 +15,7 @@ def get_s3_url(request):
         
         key = str(request.user.id) + '/' + str(uuid.uuid4()) + '.jpeg/'
         if request.user.id is None:
+            print("[DEBUG] request.user.id is None")
             key = "7/" + str(uuid.uuid4()) + '.jpeg/'
 
         # We will use this url to post file to S3

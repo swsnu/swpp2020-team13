@@ -107,4 +107,4 @@ wheels/
 *.spec 
 
 # etc
-DS_Store
+.DS_Store
