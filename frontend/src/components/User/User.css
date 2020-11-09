@@ -1,0 +1,28 @@
+.profilePage {
+    margin-left: 140px;
+}
+
+#editButton {
+    margin-right: 20px;
+}
+
+.body {
+    display: flex;
+    margin-right: 20px;
+}
+
+.userInfo {
+    margin-right: 20px;
+}
+
+#photo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+}
+
+
+#goalCard {
+    margin: 20px;
+}
