@@ -51,10 +51,8 @@ export const loginUser = (data) => async (dispatch) => {
 //                 "Content-Type": "multipart/form-data"
 //             }
 //         })
-//         .then((res) => {
-//             console.log("[DEBUG] res.data in loginUser: ", res.data)
-//             dispatch(loginUser_(res.data))
-//         })
+//         .then((res) => {dispatch(loginUser_(res.data))
+
 //         // .then((res) => dispatch(loginUser_(res.data)))
 //         .then(()=>{history.push('/main')})
 //     }
