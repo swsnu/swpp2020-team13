@@ -66,8 +66,8 @@ class GoalBodyComponent extends Component {
             <List className="GoalBodyListTitle">
                 <List.Item>
                     <List.Content>
-                        <List.Header>{props.title}</List.Header>
-                        Until: {deadlineDate(props.deadline)}
+                        <List.Header>{this.props.title}</List.Header>
+                        Until: {this.deadlineDate(this.props.deadline)}
                     </List.Content>
                 </List.Item>
             </List>
