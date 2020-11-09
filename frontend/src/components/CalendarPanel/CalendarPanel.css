@@ -66,13 +66,20 @@ li {
   }
   .react-calendar__navigation {
     height: 32px;
-    margin-bottom: 0.3em;
+    margin-bottom: auto;
+    margin-top: auto;
+    line-height: 32px;
+    vertical-align: middle;
     font-family: Verdana, Geneva, Tahoma, sans-serif !important;
     /* transform: scale(1.1,1.1); */
   }
   .react-calendar__navigation button {
     min-width: 32px;
     background: none;
+    margin-bottom: auto;
+    margin-top: auto;
+    line-height: 32px;
+    vertical-align: middle;
     /* transform: scale(1.1,1.1); */
   }
   .react-calendar__navigation button:enabled:hover,
@@ -113,7 +120,14 @@ li {
   .react-calendar__year-view .react-calendar__tile,
   .react-calendar__decade-view .react-calendar__tile,
   .react-calendar__century-view .react-calendar__tile {
-    padding: 2em 0.5em;
+    height: 48px;
+    line-height: 48px;
+    max-width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    background: none;
+    border-radius: 50%;
+    text-decoration: none !important;
   }
   .react-calendar__tile {
     height: 32px;
