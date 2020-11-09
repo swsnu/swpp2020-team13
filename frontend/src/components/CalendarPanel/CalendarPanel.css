@@ -138,9 +138,9 @@ li {
   }
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
-    text-emphasis: filled circle #eb7264;
+    text-emphasis: filled circle #fa9287;
     font-weight: bolder;
-    transform: scale(0.9, 0.9);
+    /*transform: scale(0.9, 0.9);*/
   }
   .react-calendar__tile--hasActive {
     background: #eb7264;
