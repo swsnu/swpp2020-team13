@@ -12,11 +12,12 @@ const MenuBarComponent = (props) => {
 
     const onClickLogout = () => {
         dispatch(actionCreators.logoutUser())
-    }
-
-    if (!auth) {
         props.history.push('/')
     }
+
+    // if (!auth) {
+    //     props.history.push('/')
+    // }
 
     return (
         <Sidebar className="Sidebar"

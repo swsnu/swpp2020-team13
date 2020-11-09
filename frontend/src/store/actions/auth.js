@@ -58,15 +58,11 @@ export const loginUser = (data) => async (dispatch) => {
 //     }
 // }
 
-export const logoutUser_ = () => {
-    return {
-        type: actionTypes.LOGOUT_USER
-    }
-}
 
 export const logoutUser = () => {
-    return (dispatch) => {
-        return axios.post('/api/v1/users/logout/')
-        .then((res) => dispatch(logoutUser_()))
+    axios.post('/api/v1/users/logout/')
+    return { 
+        type: actionTypes.LOGOUT_USER,
+        payload: null
     }
 }
