@@ -12,10 +12,6 @@ class HomePage extends React.Component {
         authMode: 'signup'
     }
 
-    // componentDidMount() {
-    //     
-    // }
-
     onClickSignup = () => {
         this.setState({ authMode: 'signup' })
         this.props.openAuthModal()

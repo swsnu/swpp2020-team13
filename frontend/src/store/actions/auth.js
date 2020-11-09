@@ -35,13 +35,9 @@ export const loginUser_ = (user) => {
     }
 }
 
-export const loginUser = (dataForm) => async (dispatch) => {
-    console.log("[DEBUG] data to loginUser: ", dataForm)
-    const res = await axios.post('/api/v1/users/login/', dataForm, {
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    })
+export const loginUser = (data) => async (dispatch) => {
+    console.log("[DEBUG] data to loginUser: ", data)
+    const res   = await axios.post('/api/v1/users/login/', data)
     console.log("[DEBUG] res in loginUser: ", res)
     dispatch(loginUser_(res.data))
 
@@ -57,10 +53,8 @@ export const loginUser = (dataForm) => async (dispatch) => {
 //                 "Content-Type": "multipart/form-data"
 //             }
 //         })
-//         .then((res) => {
-//             console.log("[DEBUG] res.data in loginUser: ", res.data)
-//             dispatch(loginUser_(res.data))
-//         })
+//         .then((res) => {dispatch(loginUser_(res.data))
+
 //         // .then((res) => dispatch(loginUser_(res.data)))
 //         .then(()=>{history.push('/main')})
 //     }

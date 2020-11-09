@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {withRouter} from 'react-router'
 import "./MenuBar.css"
 import * as actionCreators from '../../store/actions/index'
@@ -6,12 +7,15 @@ import { useDispatch } from 'react-redux'
 import { Icon, Sidebar, Menu, Grid } from 'semantic-ui-react'
 const MenuBarComponent = (props) => {
 
+    const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const onClickLogout = () => {
-        // console.log("going out")
-        props.history.push("/")  // TODO : fix bug - not working
         dispatch(actionCreators.logoutUser())
+    }
+
+    if (!auth) {
+        props.history.push('/')
     }
 
     return (
@@ -82,5 +86,7 @@ const MenuBarComponent = (props) => {
         </Sidebar>
     )
 }
+
+
 
 export default withRouter(MenuBarComponent)
