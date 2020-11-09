@@ -33,10 +33,9 @@ def goalList(request):
             return HttpResponse(status=401)
 
         try:
-            body = request.body.decode()
-            goal_title = json.loads(body)['title']
-            goal_photo = json.loads(body)['photo']
-            goal_deadline = json.loads(body)['deadline']
+            goal_title = request.POST['title']
+            goal_photo = request.POST['photo']
+            goal_deadline = request.POST['deadline']
             goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
@@ -44,8 +43,8 @@ def goalList(request):
         new_goal = Goal(title=goal_title, photo=goal_photo, deadline=goal_deadline, user=request.user)
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
-        if 'tags' in json.loads(body): # tags should be added after an intance is created
-            tags = json.loads(body)['tags'] # TODO: check that tags is a list
+        if 'tags' in request.POST: # tags should be added after an intance is created
+            tags = request.POST['tags'] # TODO: check that tags is a list
             new_goal.tags.add(*tags)
             new_goal.save()
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 'title': new_goal.title, 'photo': new_goal.photo, 'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 'tags':[tag for tag in new_goal.tags.names()]}
@@ -72,13 +71,13 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=403)
 
         try:
-            body = request.body.decode()
-            goal_title = json.loads(body)['title']
-            goal_photo = json.loads(body)['photo']
-            goal_deadline = json.loads(body)['deadline']
+            # body = request.body.decode()
+            goal_title = request.PUT['title']
+            goal_photo = request.PUT['photo']
+            goal_deadline = request.PUT['deadline']
             goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
-            if 'tags' in json.loads(body): # tags should be added after an intance is created
-                goal_tags = json.loads(body)['tags'] # TODO: check that tags is a list
+            if 'tags' in request.PUT: # tags should be added after an intance is created
+                goal_tags = request.PUT['tags'] # TODO: check that tags is a list
                 goal.tags.set(*goal_tags, clear=False)
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
