@@ -48,7 +48,7 @@ def goalList(request):
             tags = json.loads(body)['tags'] # TODO: check that tags is a list
             new_goal.tags.add(*tags)
             new_goal.save()
-        response_dict = {'id': new_goal.id, 'title': new_goal.title, 'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'tags':[tag for tag in new_goal.tags.names()]}
+        response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 'title': new_goal.title, 'photo': new_goal.photo, 'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 'tags':[tag for tag in new_goal.tags.names()]}
         return JsonResponse(response_dict, status=201, safe=False)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
