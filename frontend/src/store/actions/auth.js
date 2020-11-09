@@ -25,6 +25,7 @@ export const signupUser = (data) => {
 }
 
 export const loginUser_ = (user) => {
+    console.log("[DEBUG] loginUser action. user: ", user)
     return {
         type: actionTypes.LOGIN_USER,
         payload: {
@@ -34,17 +35,34 @@ export const loginUser_ = (user) => {
     }
 }
 
-export const loginUser = (data) => {
-    return (dispatch) => {
-        return axios.post('/api/v1/users/login/', data, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        })
-        .then((res) => dispatch(loginUser_(res.data)))
-        .then(()=>{history.push('/main')})
-    }
+export const loginUser = (data) => async (dispatch) => {
+    console.log("[DEBUG] data to loginUser: ", data)
+    const res   = await axios.post('/api/v1/users/login/', data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    console.log("[DEBUG] res in loginUser: ", res)
+    dispatch(loginUser_(res.data))
+    history.push('/main')
 }
+
+// export const loginUser = (data) => {
+//     return (dispatch) => {
+//         console.log("[DEBUG] data to loginUser: ", data)
+//         return axios.post('/api/v1/users/login/', data, {
+//             headers: {
+//                 "Content-Type": "multipart/form-data"
+//             }
+//         })
+//         .then((res) => {
+//             console.log("[DEBUG] res.data in loginUser: ", res.data)
+//             dispatch(loginUser_(res.data))
+//         })
+//         // .then((res) => dispatch(loginUser_(res.data)))
+//         .then(()=>{history.push('/main')})
+//     }
+// }
 
 export const logoutUser_ = () => {
     return {
