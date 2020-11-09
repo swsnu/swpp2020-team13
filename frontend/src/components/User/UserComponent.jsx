@@ -4,9 +4,11 @@ import MenuBar from '../../components/Menubar/MenuBarComponent'
 import "./User.css"
 
 const UserComponent = (props) => {
+
     return (
         <div class='profilePage'>
             <MenuBar/>
+
             {/* header */}
             <h1>This is user profile page</h1>
             <Button id='editButton' floated='right'>Edit Profile</Button>
@@ -14,94 +16,109 @@ const UserComponent = (props) => {
             <Divider section />
 
             {/* body */}
-            <Segment.Group class='body'>
-                <Segment.Group class='userInfo' horizontal>
-                    <Segment class='profile'>
-                        {/* User photo */}
-                        <Image id='photo' src='https://image.bugsm.co.kr/artist/images/1000/800491/80049126.jpg' size='medium' rounded bordered />
-                        {/*<Image id='photo' src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' size='medium' rounded bordered />*/}
-                        
-                        {/* Name & Biography */}
-                        <Segment.Group>
-                            <Segment>
-                                <Container>
-                                    <Header as='h2'>Name: </Header>
-                                    <p>Gildong Hong</p>
-
-                                    <Divider section />
-
-                                    <Header as='h2'>Biography: </Header>
-                                    <p>Hello my name is gildong hong i major in computer science.
-                                        jiwon is my best friend Hello my name is gildong hong i major in computer science.
-                                        jiwon is my best friendHello my name is gildong hong i major in computer science.
-                                        jiwon is my best friendHello my name is gildong hong i major in computer science.
-                                        jiwon is my best friendHello my name is gildong hong i major in computer science.
-                                        jiwon is my best friend</p>
-                                </Container>
-                            </Segment>
-                        </Segment.Group>
-                    </Segment>
-
-                    {/* Tags & Statistics */}
-                    <Segment class='tagStat'>
+            <Grid columns='equal'>
+                <Grid.Row stretched>
+                    <Grid.Column>
                         <Segment>
-                                <Container>
-                                    <Header as='h2'>Tags</Header>
+                            {/* User photo */}
+                            <Image id='photo' src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' size='medium' rounded bordered />
+                            
+                            {/* Name & Biography */}
+                            <Segment>
+                                <Container id='nameBio'>
+                                    <Header as='h3'>Name: </Header>
                                     <p>Gildong Hong</p>
 
                                     <Divider section />
 
-                                    <Header as='h2'>Statistics</Header>
-                                    <p>fjijflskfjlsjflf</p>
+                                    <Header as='h3'>Biography: </Header>
+                                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus at aliquet sapien. Pellentesque porta odio sem,
+                                        at laoreet mauris dapibus ut. Ut ut odio id ex condimentum dignissim. Aenean fringilla efficitur quam, ut volutpat
+                                        lectus auctor faucibus. Phasellus scelerisque consequat eleifend. Pellentesque habitant morbi tristique senectus et
+                                        netus et malesuada fames ac turpis egestas. Aliquam dolor justo, maximus et elementum vel, convallis id orci.
+                                        Phasellus nec lorem suscipit, condimentum ligula ac, mattis tortor. Praesent dapibus orci sit amet neque congue,
+                                        nec accumsan enim volutpat. Proin tincidunt maximus enim eget euismod. Ut at tempus augue, in semper elit. Etiam
+                                        iaculis magna non ante vehicula posuere. Donec dignissim finibus vulputate. Fusce venenatis laoreet quam, a fermentum
+                                        felis pellentesque a. Sed vitae pretium elit. Duis a purus ac felis dignissim fermentum non at diam. Quisque laoreet
+                                        purus nec mi malesuada, in luctus tellus pulvinar. Suspendisse convallis leo sed interdum pretium. Vivamus et risus non
+                                        turpis luctus tempus vitae non sapien.
+                                    </p>
                                 </Container>
                             </Segment>
-                    </Segment>
-                </Segment.Group>
+                        </Segment>
+                    </Grid.Column>
+                    <Grid.Column width={11}>
+                        <Segment>
+                            <Container>
+                                <Header as='h2'>Tags</Header>
+                                <Header as='h2'>Statistics</Header>
+                            </Container>
+                        </Segment>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
 
-                <Divider section />
+            <Divider section />
 
-                {/* Simple Goal History */}
-                <Segment>
-                    <Card.Group>
-                        <Card id='goalCard'>
-                            <Image src='https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/how_to_keep_liver_healthy_slideshow/1800x1200_how_to_keep_liver_healthy_slideshow.jpg' wrapped ui={false} />
-                            <Card.Content>
-                                <Card.Header>Eat more vegetables</Card.Header>
-                                <Card.Meta>
-                                    <span className='date'>Joined in 2015</span>
-                                </Card.Meta>
-                                <Card.Description>
-                                    Matthew is a musician living in Nashville.
-                                </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                <a>
-                                    <Icon name='user' />
-                                    22 Friends
-                                </a>
-                            </Card.Content>
-                        </Card>
-                        <Card id='goalCard'>
-                            <Image src='https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/how_to_keep_liver_healthy_slideshow/1800x1200_how_to_keep_liver_healthy_slideshow.jpg' wrapped ui={false} />
-                            <Card.Content>
-                                <Card.Header>Eat more vegetables</Card.Header>
-                                <Card.Meta>
-                                    <span className='date'>Joined in 2015</span>
-                                </Card.Meta>
-                                <Card.Description>
-                                    Matthew is a musician living in Nashville.
-                                </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                <a>
-                                    <Icon name='user' />
-                                    22 Friends
-                                </a>
-                            </Card.Content>
-                        </Card>
-                    </Card.Group>
-                </Segment>
-            </Segment.Group>
+            {/* Simple Goal History */}
+            <Segment>
+                <Card.Group>
+                    <Card>
+                        <Image src='https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/how_to_keep_liver_healthy_slideshow/1800x1200_how_to_keep_liver_healthy_slideshow.jpg' wrapped ui={false} />
+                        <Card.Content>
+                            <Card.Header>Eat more vegetables</Card.Header>
+                            <Card.Meta>
+                                <span className='date'>Goal added in 2015</span>
+                            </Card.Meta>
+                            <Card.Description>
+                                Matthew is a musician living in Nashville.
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <a>
+                                <Icon name='user' />
+                                22 Friends
+                            </a>
+                        </Card.Content>
+                    </Card>
+                    <Card>
+                        <Image src='data:image/jpeg;base64,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' wrapped ui={false} />
+                        <Card.Content>
+                            <Card.Header>Exercise 1 hour a day</Card.Header>
+                            <Card.Meta>
+                                <span className='date'>Goal added in 2020</span>
+                            </Card.Meta>
+                            <Card.Description>
+                                Matthew is a musician living in Nashville.
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <a>
+                                <Icon name='user' />
+                                22 Friends
+                            </a>
+                        </Card.Content>
+                    </Card>
+                    <Card>
+                        <Image src='data:image/jpeg;base64,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' wrapped ui={false} />
+                        <Card.Content>
+                            <Card.Header>Drink 8 glasses of water a day</Card.Header>
+                            <Card.Meta>
+                                <span className='date'>Goal added in 2019</span>
+                            </Card.Meta>
+                            <Card.Description>
+                                Matthew is a musician living in Nashville.
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <a>
+                                <Icon name='user' />
+                                22 Friends
+                            </a>
+                        </Card.Content>
+                    </Card>
+                </Card.Group>
+            </Segment>
         </div>
     )
 }
