@@ -40,8 +40,6 @@ export const loginUser = (data) => async (dispatch) => {
     const res   = await axios.post('/api/v1/users/login/', data)
     console.log("[DEBUG] res in loginUser: ", res)
     dispatch(loginUser_(res.data))
-
-
     history.push('/main')
 }
 

@@ -3,3 +3,29 @@
     margin-left: 450px !important;
     width: 680px !important;
 }
+.GoalBodyListTitle {
+    padding-top: 14px;
+    padding-bottom: 0px !important;
+}
+.GoalBodyListIcon {
+    padding-top: 10px!important;
+    color:  #fa9287;
+    padding-bottom: 10px !important;
+}
+.GoalBodyListTitleHeader {
+    padding-top: 5px;
+    font-size: 25px !important;
+    font-weight: 400 !important;
+    padding-bottom: 10px !important;
+}
+
+.GoalBodyListwithTask {
+    padding-top: 0px !important;
+}
+
+.GoalBodyListDeadline {
+    /* padding-top: 10px; */
+    padding-left: 10px !important;
+    bottom: 0 !important;
+    color: #807e7e;
+}

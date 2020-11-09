@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Icon, Sidebar, Menu, Grid, List, Segment} from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container} from 'semantic-ui-react'
 import './GoalBody.css'
 import TaskBarComponent from '../TaskBar/TaskBarComponent'
 
@@ -54,26 +54,37 @@ class GoalBodyComponent extends Component {
     }
 
     // const toTaskBar // map from sampleTaskList
-    // TODO: implement selectCertainTask function
+    // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
 
     deadlineDate = (deadline) => {
         return deadline.split(" ")[0]
     }
 
     render() {
+        const toTaskBar = this.state.sampleTaskList.map((task) => {
+                return(<TaskBarComponent
+                    title={task.title} 
+                    id={task.id} 
+                    deadline={task.deadline} 
+                    DAYS_OF_WEEK={task.DAYS_OF_WEEK}/>)
+            })
+
     return(
         <Segment className="GoalBodySegment">
             <List className="GoalBodyListTitle">
                 <List.Item>
+                <Icon name='circle' className="GoalBodyListIcon" size="small"/>
                     <List.Content>
-                        <List.Header>{this.props.title}</List.Header>
-                        Until: {this.deadlineDate(this.props.deadline)}
+                        <List.Header className="GoalBodyListTitleHeader">{this.props.title}</List.Header>
                     </List.Content>
                 </List.Item>
+                <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item>
             </List>
-            <List className="GoalBodyListwithTask">
-
+            <List className="GoalBodyListwithTask" celled>
+                {toTaskBar}
             </List>
+            <Button circular floated="right" icon="add" size="mini"></Button>
+            <br></br>
         </Segment>
     )
     }

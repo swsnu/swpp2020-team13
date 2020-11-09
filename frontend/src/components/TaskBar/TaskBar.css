@@ -1,0 +1,9 @@
+.TaskBarListItem {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    
+}
+
+.TaskBarListContent {
+    font-size: 15px;
+}
