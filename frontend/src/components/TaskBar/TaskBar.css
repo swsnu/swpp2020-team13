@@ -1,9 +1,10 @@
-.TaskBarListItem {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
-    
-}
 
 .TaskBarListContent {
+    padding-top: 7.5px !important;
     font-size: 15px;
+}
+
+.TaskBarListTriangle {
+    padding-top: 8.5px !important;
+    /* font-size: 15px; */
 }

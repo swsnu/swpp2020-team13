@@ -15,7 +15,7 @@ class GoalList extends Component {
             {
                 "id": 1,
                 "user": 1,
-                "title": "test_title_1",
+                "title": "Example Goal Title 1",
                 "photo": "test_photo_url.com",
                 "created_at": "2020-11-05 07:04:59",
                 "updated_at": "2020-11-05 07:04:59",
@@ -28,7 +28,7 @@ class GoalList extends Component {
             {
                 "id": 2,
                 "user": 1,
-                "title": "test_title_2",
+                "title": "Example Goal Title 2",
                 "photo": "test_photo_url.com",
                 "created_at": "2020-11-05 07:04:59",
                 "updated_at": "2020-11-05 07:04:59",
@@ -41,7 +41,7 @@ class GoalList extends Component {
             {
                 "id": 3,
                 "user": 1,
-                "title": "test_title_3",
+                "title": "Example Goal Title 3",
                 "photo": "test_photo_url.com",
                 "created_at": "2020-11-05 07:04:59",
                 "updated_at": "2020-11-05 07:04:59",
