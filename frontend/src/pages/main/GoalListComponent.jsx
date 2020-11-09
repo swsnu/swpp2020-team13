@@ -17,9 +17,9 @@ class GoalList extends Component {
                 "user": 1,
                 "title": "test_title_1",
                 "photo": "test_photo_url.com",
-                "created_at": "2020-11-09 07:04:59",
-                "updated_at": "2020-11-09 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
+                "created_at": "2020-11-05 07:04:59",
+                "updated_at": "2020-11-05 07:04:59",
+                "deadline": "2020-11-09 05:38:20",
                 "tags": [
                     "apple",
                     "banana"
@@ -30,8 +30,8 @@ class GoalList extends Component {
                 "user": 1,
                 "title": "test_title_2",
                 "photo": "test_photo_url.com",
-                "created_at": "2020-11-09 07:04:59",
-                "updated_at": "2020-11-09 07:04:59",
+                "created_at": "2020-11-05 07:04:59",
+                "updated_at": "2020-11-05 07:04:59",
                 "deadline": "2020-11-10 05:38:20",
                 "tags": [
                     "apple",
@@ -43,8 +43,8 @@ class GoalList extends Component {
                 "user": 1,
                 "title": "test_title_3",
                 "photo": "test_photo_url.com",
-                "created_at": "2020-11-09 07:04:59",
-                "updated_at": "2020-11-09 07:04:59",
+                "created_at": "2020-11-05 07:04:59",
+                "updated_at": "2020-11-05 07:04:59",
                 "deadline": "2020-11-10 05:38:20",
                 "tags": [
                     "apple",
@@ -54,20 +54,41 @@ class GoalList extends Component {
         ]
     }
 
-    componentDidMount() {
-        
+    stringtoDate = (string) => {
+        var ymd = string.split(" ")[0]
+        var syear = ymd.split("-")[0]
+        var smonth = ymd.split("-")[1]
+        var sdate = ymd.split("-")[2]
+        return new Date(Number(syear), Number(smonth)-1, Number(sdate))
     }
 
+    selectTodayGoals() {
+        var today = new Date()
+        // today = new Date(today.getTime()+ 540*60*1000)
+        // console.log("todaydate")
+        // console.log(today)
+        const todayGoals = this.state.sampleGoalList.filter((goal)=> {
+            let created_at = this.stringtoDate(goal.created_at)
+            let deadline = this.stringtoDate(goal.deadline)
+            // console.log("selectTodaygoals")
+            // console.log(created_at)
+            // console.log(deadline)
+            return ((created_at <= today) && (today <= deadline))
+        })
+        return todayGoals
+    }
 
     render(){
 
         //map sampleGoalList to goalBodyComponent
-        const toGoalBody = this.state.sampleGoalList.map((goal) => {
-            return(<GoalBodyComponent 
-                title={goal.title} 
-                id={goal.id} 
-                deadline={goal.deadline} 
-                tags={goal.tags}/>)
+        const todayGoalsList = this.selectTodayGoals()
+        console.log(todayGoalsList)
+        const toGoalBody = todayGoalsList.map((goal) => {
+                return(<GoalBodyComponent 
+                    title={goal.title} 
+                    id={goal.id} 
+                    deadline={goal.deadline} 
+                    tags={goal.tags}/>)
             })
 
         return(
