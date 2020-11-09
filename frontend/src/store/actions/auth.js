@@ -37,11 +37,7 @@ export const loginUser_ = (user) => {
 
 export const loginUser = (data) => async (dispatch) => {
     console.log("[DEBUG] data to loginUser: ", data)
-    const res   = await axios.post('/api/v1/users/login/', data, {
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
+    const res   = await axios.post('/api/v1/users/login/', data)
     console.log("[DEBUG] res in loginUser: ", res)
     dispatch(loginUser_(res.data))
     history.push('/main')
