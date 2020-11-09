@@ -2,18 +2,20 @@ import * as actionTypes from './types'
 import axios from 'axios'
 import {push} from 'connected-react-router'
 import history from '../../history'
+
 export const signupUser_ = (user) => {
     return {
         type: actionTypes.SIGNUP_USER,
-        id: user.id,
-        username: user.username,
-        password: user.password,
+        payload: {
+            id: user.id,
+            username: user.username,
+        }
     }
 }
 
-export const signupUser = (user) => {
+export const signupUser = (data) => {
     return (dispatch) => {
-        return axios.post('/api/v1/users/signup/', user, {
+        return axios.post('/api/v1/users/signup/', data, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -25,18 +27,21 @@ export const signupUser = (user) => {
 export const loginUser_ = (user) => {
     return {
         type: actionTypes.LOGIN_USER,
-        username: user.get('username') // data type is FormData
+        payload: {
+            id: user.id,
+            username: user.username,
+        }
     }
 }
 
-export const loginUser = (user) => {
+export const loginUser = (data) => {
     return (dispatch) => {
-        return axios.post('/api/v1/users/login/', user, {
+        return axios.post('/api/v1/users/login/', data, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         })
-        .then((res) => dispatch(loginUser_(user)))
+        .then((res) => dispatch(loginUser_(res.data)))
         .then(()=>{history.push('/main')})
     }
 }

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react';
 import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
 import './GoalListComponent.css'
+import Axios from 'axios'
 class GoalList extends Component {
 
     state = {
@@ -53,6 +54,9 @@ class GoalList extends Component {
         ]
     }
 
+    componentDidMount() {
+        
+    }
 
 
     render(){
