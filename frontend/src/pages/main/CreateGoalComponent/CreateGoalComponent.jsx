@@ -1,13 +1,16 @@
-import React, {Component, useRef} from 'react'
+import React, { Component, useRef } from 'react'
+import { connect } from 'react-redux'
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
+
+import { addGoal } from '../../../store/actions'
+import { isThisMonth } from 'date-fns/esm'
 
 class CreateGoal extends Component {
 
@@ -136,6 +139,14 @@ class CreateGoal extends Component {
         )
     }
 
+    onSubmit(e) {
+        // e.preventDefault()
+        let data = new FormData()
+        data.append("title", this.state.title)
+        this.props.addGoal(data, this.state.file)
+        
+    }
+
     // sendRequestTest() {
     //     let data = new FormData()
     //     data.append("title", "title")
@@ -160,7 +171,7 @@ class CreateGoal extends Component {
             </div>
             <div className='FormCreate'>
                  <h2 id="header">Add a Goal</h2>
-                 <Form id="Form">
+                 <Form id="Form" onSubmit={e => this.onSubmit(e)}>
                 {this.renderTitle()}
                 {this.renderPhoto()}
                 {/* {this.fileRender()} */}
@@ -176,4 +187,6 @@ class CreateGoal extends Component {
 
 }
 
-export default withRouter(CreateGoal)
+
+
+export default connect(null, { addGoal })(withRouter(CreateGoal))

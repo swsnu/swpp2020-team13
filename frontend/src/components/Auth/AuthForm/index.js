@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { Menu } from 'semantic-ui-react'
 import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
-import * as actionCreators from '../../../store/actions/index'
+import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 // const mapDispatchToProps = dispatch => {
 //     return {
@@ -17,10 +17,14 @@ export const CreateSignupForm = () => {
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
     const onSubmit =(data, e) => { // e: event
+        console.log("[DEBUG] signup form data: ", data)
+        if (data.password1 !== data.password2) {
+            // error
+        }
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
-        dispatch(actionCreators.loginUser(dataToForm))
+        dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
 
@@ -38,13 +42,13 @@ export const CreateSignupForm = () => {
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-                // ref={register({ 
-                //     required: true,
-                //     pattern: {
-                //         value: /S+@S+.S+/,
-                //         message: "Entered value does not match email format"
-                //     }
-                // })} 
+                ref={register({ 
+                    required: true,
+                    // pattern: {
+                    //     value: /S+@S+.S+/,
+                    //     message: "Entered value does not match email format"
+                    // }
+                })} 
             />
             {errors.email && <span role="alert">{errors.email.message}</span>}
             
@@ -84,11 +88,14 @@ export const CreateLoginForm = () => {
     // const onSubmit = data => console.log(data)
     const dispatch = useDispatch()
     const onSubmit =(data, e) => { // e: event
-        // console.log(data)
+        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
+        // dispatch(actionCreators.loginUser(data))
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password)
         dispatch(actionCreators.loginUser(dataToForm))
+        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
+        // console.log("[DEBUG] createLoginForm onSubmit dataToForm: ", dataToForm)
     }
 
     const onError = (errors, e) => console.log(errors, e);
@@ -96,7 +103,7 @@ export const CreateLoginForm = () => {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
-            <label htmlFor="email">username</label>
+            <label htmlFor="username">username</label>
             <input 
                 id="username" 
                 name="username" 
@@ -110,18 +117,6 @@ export const CreateLoginForm = () => {
                 })} 
             />
             {errors.username && <span>This field is required</span>}
-            {/* //     id="email" 
-            //     name="email" 
-            //     placeholder="Enter email" 
-            //     ref={register({  */}
-            {/* //         required: true,
-            //         pattern: { */}
-            {/* //             value: /S+@S+.S+/,
-            //             message: "Entered value does not match email format"
-            //         }
-            //     })} 
-            // />
-            // {errors.email && <span role="alert">{errors.email.message}</span>} */}
 
             <label htmlFor="password">password</label>
             <input id="password" name="password" placeholder="Enter password" ref={register({ required: true })} />
