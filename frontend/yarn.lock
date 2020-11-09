@@ -7230,6 +7230,11 @@ merge-anything@^2.2.4:
   dependencies:
     is-what "^3.3.1"
 
+merge-class-names@^1.1.1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/merge-class-names/-/merge-class-names-1.3.0.tgz#c4cdc1a981a81dd9afc27aa4287e912a337c5dee"
+  integrity sha512-k0Qaj36VBpKgdc8c188LEZvo6v/zzry/FUufwopWbMSp6/knfVFU/KIB55/hJjeIpg18IH2WskXJCRnM/1BrdQ==
+
 merge-deep@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/merge-deep/-/merge-deep-3.0.2.tgz#f39fa100a4f1bd34ff29f7d2bf4508fbb8d83ad2"
@@ -8982,7 +8987,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9156,6 +9161,16 @@ react-aws-s3@^1.3.0:
     crypto-js "^3.1.9-1"
     short-uuid "^3.1.0"
 
+react-calendar@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-3.2.0.tgz#791a8fc41428e19fc95c7712ff743b4580a1a9ad"
+  integrity sha512-P00Vq3YhGZVqFRlzthET9liQgoSJYF5thGMNskrhKrR7UF+35r/mkILsgYi9rxS026oylnlA/VaeH8AD79ORpA==
+  dependencies:
+    "@wojtekmaj/date-utils" "^1.0.2"
+    get-user-locale "^1.2.0"
+    merge-class-names "^1.1.1"
+    prop-types "^15.6.0"
+
 react-datepicker@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-3.3.0.tgz#38dec531fd7c8e0de6860a55dfbc3a8ff803d43c"
@@ -9166,15 +9181,6 @@ react-datepicker@^3.3.0:
     prop-types "^15.7.2"
     react-onclickoutside "^6.9.0"
     react-popper "^1.3.4"
-react-calendar@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/react-calendar/-/react-calendar-3.2.0.tgz#791a8fc41428e19fc95c7712ff743b4580a1a9ad"
-  integrity sha512-P00Vq3YhGZVqFRlzthET9liQgoSJYF5thGMNskrhKrR7UF+35r/mkILsgYi9rxS026oylnlA/VaeH8AD79ORpA==
-  dependencies:
-    "@wojtekmaj/date-utils" "^1.0.2"
-    get-user-locale "^1.2.0"
-    merge-class-names "^1.1.1"
-    prop-types "^15.6.0"
 
 react-dev-utils@^11.0.0:
   version "11.0.0"
