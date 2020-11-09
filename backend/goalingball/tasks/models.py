@@ -44,7 +44,7 @@ class Task(models.Model):
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
-    deadline = models.DateTimeField() # only for recurrent tasks, default is same as created_at
+    deadline = models.DateTimeField(blank=True) # only for recurrent tasks, default is same as created_at
 
     def save(self, *args, **kwargs):
         # For the first time

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react';
 import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
 import './GoalListComponent.css'
+import Axios from 'axios'
 class GoalList extends Component {
 
     state = {
@@ -53,12 +54,17 @@ class GoalList extends Component {
         ]
     }
 
+<<<<<<< HEAD
     stringtoDate = (string) => {
         var ymd = string.split(" ")[0]
         var syear = ymd.split("-")[0]
         var smonth = ymd.split("-")[1]
         var sdate = ymd.split("-")[2]
         return new Date(Number(syear), Number(smonth)-1, Number(sdate))
+=======
+    componentDidMount() {
+        
+>>>>>>> ceb53446332d652f4dd0a117ae9495a9322ac68b
     }
 
     selectTodayGoals() {

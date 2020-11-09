@@ -4,8 +4,8 @@ from goals import views
 
 
 urlpatterns = [
-    path('goal/', views.goalList, name='goalList'),
-    path('goal/<int:goal_id>/', views.goalDetail, name='goalDetail'),
+    path('', views.goalList, name='goalList'),
+    path('<int:goal_id>/', views.goalDetail, name='goalDetail'),
 ]
 
 # TODO : implement goal-detail-slug urlpattern and views
