@@ -9266,6 +9266,11 @@ react-modal@^3.11.2:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
+react-moment@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-1.0.0.tgz#aedac867cd08739065799de9452c898d954ba6d7"
+  integrity sha512-J4iIiwUT4oZcL7cp2U7naQKbQtqvmzGXXBMg/DLj+Pi7n9EW0VhBRx/1aJ1Tp2poCqTCAPoadLEoUIkReGnNNg==
+
 react-onclickoutside@^6.9.0:
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.9.0.tgz#a54bc317ae8cf6131a5d78acea55a11067f37a1f"
