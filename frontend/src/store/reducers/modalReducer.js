@@ -1,7 +1,8 @@
 import * as ActionTypes from '../actions/types'
 
 const initialState = {
-    auth: false
+    auth: false,
+    addTask: false
 }
 
 const modalReducer = (state = initialState, action) => {
@@ -10,6 +11,10 @@ const modalReducer = (state = initialState, action) => {
             return { auth: false }
         case ActionTypes.OPEN_AUTH_MODAL:
             return { auth: true }
+        case ActionTypes.OPEN_ADD_TASK_MODAL:
+            return {addTask: true}
+        case ActionTypes.CLOSE_ADD_TASK_MODAL:
+            return {addTask: false}
         default:
             return state
     }

@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container} from 'semantic-ui-react'
 import './GoalBody.css'
 import TaskBarComponent from '../TaskBar/TaskBarComponent'
+import AddTaskModal from './AddTaskModal/AddTaskModal'
+import { connect } from 'react-redux'
+import Axios from 'axios'
+import {openAddTaskModal} from '../../store/actions/index'
 
 class GoalBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -50,11 +54,17 @@ class GoalBodyComponent extends Component {
                     "Friday",
                 ]
             }
-        ]
+        ],
+        addTaskModal: false
     }
 
     // const toTaskBar // map from sampleTaskList
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
+
+    onClickAddTaskHandler = () => {
+        this.setState({ addTaskModal : true})
+        this.props.openAddTaskModal()
+    }
 
     deadlineDate = (deadline) => {
         return deadline.split(" ")[0]
@@ -89,13 +99,20 @@ class GoalBodyComponent extends Component {
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='trash'/></Button>
                     </Button.Group>  */}
-                    <Button circular floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
+                    <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
+            {this.props.isAddTaskModalOpen && <AddTaskModal/>}
             <br></br>
         </Segment>
     )
     }
 }
 
-export default GoalBodyComponent
+const mapStateToProps = state => {
+    return {
+        isAddTaskModalOpen: state.modal.addTask
+    }
+}
+
+export default connect(mapStateToProps, { openAddTaskModal }) (GoalBodyComponent)
