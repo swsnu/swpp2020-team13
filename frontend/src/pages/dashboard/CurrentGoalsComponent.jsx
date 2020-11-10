@@ -1,18 +1,35 @@
 import React, {Component} from 'react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
-import CalendarPanel from '../../components/CalendarPanel/CalendarPanelComponent'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { Container } from 'semantic-ui-react';
+import { Segment, Grid } from 'semantic-ui-react'
+import './CurrentGoalsComponent.css';
+import PieGraph from '../../components/Dashboard/PieGraphComponent'
+import LineGraph from '../../components/Dashboard/LineGraphComponent'
+
 
 class CurrentGoals extends Component {
-    render(){
-        return(
+    render () {
+        return (
             <div>
                 <div className='menubar'>
-                    {console.log(this.props)}
                     <MenuBar/>
                 </div>
+
+                <div class="goalTab">
+                    <button class="goalButton">CURRENT GOALS</button>
+                    <button class="goalButton">HISTORY</button>
+                </div>
+
+                <br></br>
+                <Grid class="chartGrid">
+                    <Segment class="pieSegment">
+                        <PieGraph/>
+                    </Segment>
+                    
+                    <Segment class="lineSegment">
+                        <LineGraph/>
+                    </Segment>
+                </Grid>     
+
             </div>
         )
     }

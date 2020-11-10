@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import "./MenuBar.css"
 import * as actionCreators from '../../store/actions/index'

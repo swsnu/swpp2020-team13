@@ -1,10 +1,6 @@
-import React, { useState, Component } from 'react';
+import React, { Component } from 'react';
 import Calendar from 'react-calendar'
 import "./CalendarPanel.css"
-
-
-import { Icon, Sidebar, Menu } from 'semantic-ui-react'
-
 
 class CalendarPanelComponent extends Component {
     state = {
