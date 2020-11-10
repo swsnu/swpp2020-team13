@@ -89,7 +89,7 @@ class GoalBodyComponent extends Component {
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='trash'/></Button>
                     </Button.Group>  */}
-                    <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button>
+                    <Button circular floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
             <br></br>

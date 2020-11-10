@@ -5,7 +5,7 @@
 }
 
 .ui.list, ol.ui.list, ul.ui.list .GoalBodyTitleList{
-    margin: 0 !important;
+    margin: 5px !important;
 }
 .GoalBodyListItem{
     padding-top: 14px;
@@ -57,7 +57,9 @@
 }
 
 .GoalBodyAddButton {
-    bottom: 4.25px !important;
-    right: 4.25px !important;
+    background-color: #ffffff !important;
+    bottom: 2.25px !important;
+    right: 2.25px !important;
     position: relative;
+    transform: scale(0.7, 0.7, 0.7) !important;
 }
