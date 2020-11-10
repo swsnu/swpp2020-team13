@@ -10,11 +10,12 @@ from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.http import QueryDict
 
 # Create your views here.
 @csrf_exempt
 def goalList(request):
-    print("request.body: ", request.POST)
+    # print("request.body: ", request.POST)
     if request.method == 'GET':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
@@ -44,7 +45,7 @@ def goalList(request):
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
         if 'tags' in request.POST: # tags should be added after an intance is created
-            tags = request.POST['tags'] # TODO: check that tags is a list
+            tags = request.POST.getlist('tags') 
             new_goal.tags.add(*tags)
             new_goal.save()
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 'title': new_goal.title, 'photo': new_goal.photo, 'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 'tags':[tag for tag in new_goal.tags.names()]}
@@ -59,7 +60,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=401)
             # GET goal Detail
         for g in Goal.objects.filter(id=goal_id):
-            response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 'user': g.user.id, 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 'tags': [tag for tag in g.tags.names()]}
+            response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 'user': g.user.id, 'created_at': g.created_at, 'updated_at': g.updated_at, 'deadline': g.deadline, 'tags': [tag for tag in g.tags.names()]}
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -71,14 +72,13 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=403)
 
         try:
-            # body = request.body.decode()
             goal_title = request.PUT['title']
             goal_photo = request.PUT['photo']
             goal_deadline = request.PUT['deadline']
             goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
             if 'tags' in request.PUT: # tags should be added after an intance is created
-                goal_tags = request.PUT['tags'] # TODO: check that tags is a list
-                goal.tags.set(*goal_tags, clear=False)
+                goal_tags = request.PUT.getlist['tags']
+                goal.tags.set(*goal_tags, clear=True)
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 
