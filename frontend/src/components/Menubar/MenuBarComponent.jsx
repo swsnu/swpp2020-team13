@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import "./MenuBar.css"
 import * as actionCreators from '../../store/actions/index'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Icon, Sidebar, Menu, Grid } from 'semantic-ui-react'
 const MenuBarComponent = (props) => {
 
