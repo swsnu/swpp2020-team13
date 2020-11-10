@@ -83,7 +83,7 @@ class GoalBodyComponent extends Component {
             <List className="GoalBodyListwithTask" celled>
                 {toTaskBar}
             </List>
-            <Button circular floated="right" icon="add" size="mini"></Button>
+            <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button>
             <br></br>
         </Segment>
     )

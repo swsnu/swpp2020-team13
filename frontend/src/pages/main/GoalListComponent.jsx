@@ -32,7 +32,7 @@ class GoalList extends Component {
                 "photo": "test_photo_url.com",
                 "created_at": "2020-11-05 07:04:59",
                 "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
+                "deadline": "2020-11-20 05:38:20",
                 "tags": [
                     "apple",
                     "banana"
@@ -45,7 +45,7 @@ class GoalList extends Component {
                 "photo": "test_photo_url.com",
                 "created_at": "2020-11-05 07:04:59",
                 "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
+                "deadline": "2020-11-20 05:38:20",
                 "tags": [
                     "apple",
                     "banana"

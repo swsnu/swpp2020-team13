@@ -7,7 +7,7 @@ class TaskBarComponent extends Component {
         if(daylist.includes("None")) {
             return(
                 <Button.Group size="tiny" floated="right">
-                <Button icon>
+                <Button icon className="TaskBarButton">
                     <Icon name='pencil alternate' />
                 </Button>
                 </Button.Group>
@@ -16,10 +16,10 @@ class TaskBarComponent extends Component {
         else {
             return (
           <Button.Group size="tiny" floated="right">
-            <Button icon>
+            <Button icon className="TaskBarButton">
               <Icon name='redo' />
           </Button>
-          <Button icon>
+          <Button icon className="TaskBarButton">
               <Icon name='pencil alternate' />
           </Button>
           </Button.Group>
