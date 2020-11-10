@@ -6,6 +6,7 @@ import HomePage from './pages/login/index'
 import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
 import Profile from './pages/profile/index'
+import EditProfile from './pages/profile/EditProfileComponent/EditProfileComponent';
 
 const App = () => (
     <Router history={history}>
@@ -15,6 +16,7 @@ const App = () => (
                 <Route path="/create" exact component={CreatePage}/>
                 <Route path="/main" exact component={GoalList} />
                 <Route path="/profile" exact component={Profile} />
+                <Route path="/profile/edit" exact component={EditProfile} />
             </Switch>
         </div>
     </Router>
