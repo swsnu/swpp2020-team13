@@ -15,6 +15,15 @@ export const Modal = (props) => {
     return (
         <ReactModal id="reactModal"
             {...props}
+            style={{
+                overlay: {
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: 'rgba(230, 230, 230, 0.5)'
+                }}}
         >
             {children}
             <Button
