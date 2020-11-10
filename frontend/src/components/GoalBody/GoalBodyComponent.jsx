@@ -71,19 +71,27 @@ class GoalBodyComponent extends Component {
 
     return(
         <Segment className="GoalBodySegment">
-            <List className="GoalBodyListTitle">
-                <List.Item>
+            <List>
+                <List.Item className="GoalBodyListItem">
                 <Icon name='circle' className="GoalBodyListIcon" size="small"/>
-                    <List.Content>
+                    <List.Content className="GoalBodyListTitle">
                         <List.Header className="GoalBodyListTitleHeader">{this.props.title}</List.Header>
+                        {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
+                        &nbsp;Until {this.deadlineDate(this.props.deadline)}
                     </List.Content>
                 </List.Item>
-                <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item>
             </List>
             <List className="GoalBodyListwithTask" celled>
                 {toTaskBar}
             </List>
-            <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button>
+            <List.Item>
+                    <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='trash'/></Button>
+                    </Button.Group> 
+                    <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button>
+            </List.Item>
+            {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
             <br></br>
         </Segment>
     )

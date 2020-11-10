@@ -3,12 +3,33 @@
     margin-left: 450px !important;
     width: 680px !important;
 }
-.GoalBodyListTitle {
+.GoalBodyListItem{
     padding-top: 14px;
+    margin-right: 7px !important;
+}
+.DeleteGoalButtonGroupAnother {
+    margin-top: 5px !important;
+    bottom: 10px !important;
+    left: 3px !important;
+    position: relative;
+        transform: scale(0.7, 0.7, 0.7) !important;
+}
+
+.DeleteGoalButtonA{
+    background-color: #ffffff !important;
+    /* color: black !important; */
+    /* right: 0 !important; */
+    /* bottom: 5px !important; */
+    Padding: 5px !important;
+    opacity: 100% !important;
+
+}
+.GoalBodyListTitle {
+    /* padding-top: 14px; */
     padding-bottom: 0px !important;
 }
 .GoalBodyListIcon {
-    padding-top: 10px!important;
+    padding-top: 14px!important;
     color:  #fa9287;
     padding-bottom: 10px !important;
 }
@@ -30,6 +51,8 @@
     color: #807e7e;
 }
 
-/* .GoalBodyAddButton {
-    margin-bottom: 2px !important;
-} */
+.GoalBodyAddButton {
+    bottom: 4.25px !important;
+    right: 4.25px !important;
+    position: relative;
+}
