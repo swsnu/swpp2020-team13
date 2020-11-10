@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Divider, Segment, Form, Input, Icon, FormField, Dropdown, TextArea } from 'semantic-ui-react'
+import { Header, Button, Divider, Segment, Form, Input, Icon, FormField, Dropdown, TextArea } from 'semantic-ui-react'
 import MenuBar from "../../../components/Menubar/MenuBarComponent"
 import "./EditProfile.css"
 
@@ -9,18 +9,19 @@ class EditProfile extends Component {
             <Segment>
                 <Form>
                     <Form.Field>
-                        <label>Edit Photo</label>
-                        <Button animated="fade">
+                        <Header as='h3'>Edit Photo</Header>
+                        <Button id='fileIconButton' as='label' animated="fade">
                             <Button.Content visible>
                                 <Icon name="file" />
                             </Button.Content>
                             <Button.Content hidden>Choose a File</Button.Content>
                         </Button>
 
-                        <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly />
-                        <Button id="editPhotoButton"> Upload </Button>
+                        <Form.Input fluid label="Photo Chosen" placeholder="Use the above bar to browse your file system" readOnly />
+                        <Button floated='right'> Upload </Button>
                     </Form.Field>
                 </Form>
+                <br></br><br></br>
             </Segment>
         )
     }
@@ -30,11 +31,12 @@ class EditProfile extends Component {
             <Segment>
                 <Form>
                     <Form.Field>
-                        <label>Edit Name</label>
+                        <Header as='h3'>Edit Name</Header>
                         <Form.Input fluid placeholder='Name' />
-                        <Button id="editNameButton"> Save </Button>
+                        <Button floated='right'> Save </Button>
                     </Form.Field>
                 </Form>
+                <br></br><br></br>
             </Segment>
         )
     }
@@ -44,11 +46,12 @@ class EditProfile extends Component {
             <Segment>
                 <Form>
                     <Form.Field>
-                        <label>Edit Biography</label>
+                        <Header as='h3'>Edit Biography</Header>
                         <FormField control='textarea' placeholder='Tell us more about you...' />
-                        <Button id="editBioButton"> Save </Button>
+                        <Button floated='right'> Save </Button>
                     </Form.Field>
                 </Form>
+                <br></br><br></br>
             </Segment>
         )
     }
@@ -58,17 +61,19 @@ class EditProfile extends Component {
             <Segment>
                 <Form>
                     <FormField>
-                        <label>Edit Tags</label>
+                        <Header as='h3'>Edit Tags</Header>
                         <Dropdown placeholder="add goal tags here" search selection clearable multiple allowAdditions fluid />
+                        <Button id="editTagButton" floated='right'> Save </Button>
                     </FormField>
                 </Form>
+                <br></br><br></br><br></br>
             </Segment>
         )
     }
 
     render() {
         return (
-            <div class='editProfilePage'>
+            <div className='editProfilePage'>
                 <MenuBar/>
 
                 {/* header */}
@@ -89,8 +94,8 @@ class EditProfile extends Component {
                 </Form.Group>
 
                 <br></br><br></br>
-                <Button id='backButton'>Back</Button>
-                <Button id='confirmButton' positive>Confirm</Button>
+                <Button id='confirmButton' positive floated='right'>Confirm</Button>
+                <Button id='backButton' floated='right'>Back</Button>
             </div>
         )
     }
