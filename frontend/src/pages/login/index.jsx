@@ -12,10 +12,6 @@ class HomePage extends React.Component {
         authMode: 'signup'
     }
 
-    // componentDidMount() {
-    //     
-    // }
-
     onClickSignup = () => {
         this.setState({ authMode: 'signup' })
         this.props.openAuthModal()
@@ -29,6 +25,8 @@ class HomePage extends React.Component {
     render() {
         if (this.props.isUserLoggedIn) {
             // Redirect to main page
+            console.log("[DEBUG] isUserLoggedIn: ", this.props.isUserLoggedIn)
+            console.log("[DEBUG] The user is already logged in. Redirect...")
             history.push('/main')
             return <div>Should redirect to main page</div>
         }

@@ -16,9 +16,13 @@ def signup(request):
         password = request.POST['password']
 
         user = User.objects.create_user(username, password=password)
-        serialized_user = model_to_dict(user)
 
-        return JsonResponse(serialized_user, status=201)
+        # A new user is automatically logged in
+        login(request, user)
+
+        # serialized_user = model_to_dict(user)
+        payload = {"id": str(user.id), "username": user.username}
+        return JsonResponse(payload, status=201)
     
     else:
         return HttpResponseNotAllowed(['POST'])
@@ -35,14 +39,18 @@ def login(request):
 
         user = authenticate(username=username, password=password)
         
-        if not request.user.is_authenticated:
+        # if not request.user.is_authenticated:
+        if user is not None:
             auth_login(request, user)
-            return HttpResponse(status=204)
+            payload = {"id": str(user.id), "username": user.username}
+            print("[DEBUG] payload for login response: ", payload)
+            # print("[DEBUG] payload for login response: ", payload)
+            return JsonResponse(payload, status=200)
         else:
+            
             return HttpResponse(status=401)
     else:
         return HttpResponseNotAllowed(['POST'])
-
 
 
 @csrf_exempt

@@ -1,9 +1,24 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {withRouter} from 'react-router'
 import "./MenuBar.css"
-
+import * as actionCreators from '../../store/actions/index'
+import { useDispatch } from 'react-redux'
 import { Icon, Sidebar, Menu, Grid } from 'semantic-ui-react'
 const MenuBarComponent = (props) => {
+
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    const onClickLogout = () => {
+        dispatch(actionCreators.logoutUser())
+        props.history.push('/')
+    }
+
+    // if (!auth) {
+    //     props.history.push('/')
+    // }
+
     return (
         <Sidebar className="Sidebar"
         animation='uncover'
@@ -14,7 +29,7 @@ const MenuBarComponent = (props) => {
         <Grid verticalAlign='middle' rows={6} centered className="gridBar">
         <Grid.Row>
             <Menu.Item as='a' >
-                <button class='ui basic button' onClick={()=> {console.log(props); props.history.push('/create')}} className='button-create'>
+                <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create'>
                     <Icon name='plus circle' size='large' id='icon'></Icon>
                     <br></br>
                     Create
@@ -61,7 +76,7 @@ const MenuBarComponent = (props) => {
             </Grid.Row>
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/')} className='button-logout'>
+                <button class='ui basic button' onClick={()=>onClickLogout()} className='button-logout'>
                     <Icon name='arrow alternate circle right outline' size='large' id='icon'></Icon>
                     <br></br>
                     Logout
@@ -72,5 +87,7 @@ const MenuBarComponent = (props) => {
         </Sidebar>
     )
 }
+
+
 
 export default withRouter(MenuBarComponent)
