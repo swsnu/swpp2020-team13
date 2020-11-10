@@ -1,0 +1,14 @@
+
+.TaskBarListContent {
+    padding-top: 7.5px !important;
+    font-size: 15px;
+}
+
+.TaskBarListTriangle {
+    padding-top: 8.5px !important;
+    /* font-size: 15px; */
+}
+
+.TaskBarButton {
+    background-color: #ffffff !important;
+}

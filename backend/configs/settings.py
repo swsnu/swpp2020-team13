@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 import sys
+import environ
+
+env = environ.Env(
+    DEBUG=(bool, False),
+    DJANGO_SECRET_KEY=(str, 'SECRET_KEY'),
+    AWS_ACCESS_KEY_ID=(str, None),
+    AWS_SECRET_ACCESS_KEY=(str, None)
+)
+environ.Env.read_env()
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP_DIR = os.path.join(ROOT_DIR, 'goalingball')
@@ -25,7 +34,8 @@ sys.path.append('goalingball')
 SECRET_KEY = 'w5)ua!&ry_!o@@7d4jjlseec&p^e1ad$qkh4s)75b&%8ee3rnm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +53,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'goals.apps.GoalsConfig',
     'tasks.apps.TasksConfig',
+    'uploads.apps.UploadsConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +135,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(ROOT_DIR, 'goalingball', 'static')
+]
+STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# aws 
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')

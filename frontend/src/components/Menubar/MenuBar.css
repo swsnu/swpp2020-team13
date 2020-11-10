@@ -1,7 +1,9 @@
 .Sidebar {
     background-color: #fa9287;
-    /* width: 1cm; */
-    width: 102px !important;
+    width: 100px !important;
+    /* display: flex;
+    min-height: 100vh!important;
+    flex-flow: column; */
 }
 
 .Sidebar .button-create {
@@ -9,8 +11,8 @@
     font-size: 0.35cm;
     border: none;
     outline: none;
-    padding-top: 0.7cm;
-    padding-bottom: 0.5cm;
+    /* padding-top: 0.7cm; */
+    /* padding-bottom: 0.3cm; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
@@ -28,8 +30,8 @@
     font-size: 0.35cm;
     border: none;
     outline: none;
-    padding-top: 6.7cm;
-    padding-bottom: 0.5cm;
+    margin-top: 7.0cm;
+    /* padding-bottom: 0.3cm; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
@@ -47,7 +49,7 @@
     border: none;
     outline: none;
     /* padding-top: 0.3cm; */
-    padding-bottom: 0.5cm;
+    /* padding-bottom: 0.3cm; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
@@ -59,11 +61,40 @@
     border: none;
     
 }
+
+.Sidebar .button-dashboard {
+    background-color: #fa9287;
+    font-size: 0.35cm;
+    border: none;
+    outline: none;
+    /* padding-top: 0.3cm; */
+    /* padding-bottom: 0.3cm; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #ebebeb;
+    align-items: center;
+}
+
+.Sidebar .button:hover {
+    /* background-color: #FA7f72; */
+    color: #61261ec4;
+    border: none;
+    
+}
+
+
 .Sidebar #icon {
     padding-bottom: 25px;
     align-self: center;
+
 }
 
+
+.Sidebar .gridBar {
+    overflow-x: hidden !important;
+    width: 90%;
+    margin-left: 1.4px!important;
+    margin-top: 1.1px!important;
+}
 /* .Sidebar .button-main {
     background-color: #FA7f72;
     font-size: 0.35cm;

@@ -21,6 +21,7 @@ media
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+yarn.lock
 
 # celery 
 celerybeat-schedule.* 
@@ -106,4 +107,4 @@ wheels/
 *.spec 
 
 # etc
-DS_Store
+.DS_Store

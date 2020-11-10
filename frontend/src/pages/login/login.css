@@ -1,0 +1,29 @@
+.FormLogin {
+    margin-top: 12%;
+    position: relative;
+    /* top: 3; */
+    margin-left: 10%;
+    margin-right: 20%;
+  }
+  
+  .Segment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+
+  .Button{
+      background-color:#fa9287 !important;
+      color:#ffffff !important;
+  }
+
+  .Button:hover{
+    background-color:#c9c1c0 !important;
+    color:#ffffff !important;
+} 
+.ButtonGroup {
+    padding-top: 5% !important;
+}
+
+  

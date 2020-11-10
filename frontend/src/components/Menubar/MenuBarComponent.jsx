@@ -1,25 +1,43 @@
 import React from 'react'
-import {withRouter} from 'react-router'
+import { useSelector } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import "./MenuBar.css"
-
-import { Icon, Sidebar, Menu } from 'semantic-ui-react'
+import * as actionCreators from '../../store/actions/index'
+import { useDispatch } from 'react-redux'
+import { Icon, Sidebar, Menu, Grid } from 'semantic-ui-react'
 const MenuBarComponent = (props) => {
+
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    const onClickLogout = () => {
+        dispatch(actionCreators.logoutUser())
+        props.history.push('/')
+    }
+
+    // if (!auth) {
+    //     props.history.push('/')
+    // }
+
     return (
         <Sidebar className="Sidebar"
         animation='uncover'
-        icon='labeled'
         vertical
         visible="true"
         // width='very thin'
-        >
+        >   
+        <Grid verticalAlign='middle' rows={6} centered className="gridBar">
+        <Grid.Row>
             <Menu.Item as='a' >
-                <button class='ui basic button' onClick={()=> {console.log(props); props.history.push('/create')}} className='button-create'>
+                <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create'>
                     <Icon name='plus circle' size='large' id='icon'></Icon>
                     <br></br>
                     Create
                 </button>
             </Menu.Item>
-            <br></br>
+            </Grid.Row>
+
+            <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>props.history.push('/main')} className='button'>
                     <Icon name='home' size='large' id='icon'></Icon>
@@ -27,7 +45,9 @@ const MenuBarComponent = (props) => {
                     Main
                 </button>
             </Menu.Item>
-            <br></br>
+            </Grid.Row>
+
+            <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>props.history.push('/dashboard')} className='button'>
                     <Icon name='chart bar outline' size='large' id='icon'></Icon>
@@ -35,7 +55,8 @@ const MenuBarComponent = (props) => {
                     Dashboard
                 </button>
             </Menu.Item>
-            <br></br>
+            </Grid.Row>
+            <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>props.history.push('/explore')} className='button'>
                     <Icon name='search' size='large' id='icon'></Icon>
@@ -43,7 +64,8 @@ const MenuBarComponent = (props) => {
                     Explore
                 </button>
             </Menu.Item>
-            <br></br>
+            </Grid.Row>
+            <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>props.history.push('/profile')} className='button'>
                     <Icon name='user circle' size='large' id='icon'></Icon>
@@ -51,17 +73,21 @@ const MenuBarComponent = (props) => {
                     Profile
                 </button>
             </Menu.Item>
-            <br></br>
+            </Grid.Row>
+            <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/')} className='button-logout'>
+                <button class='ui basic button' onClick={()=>onClickLogout()} className='button-logout'>
                     <Icon name='arrow alternate circle right outline' size='large' id='icon'></Icon>
                     <br></br>
                     Logout
                 </button>
             </Menu.Item>
-
+            </Grid.Row>
+        </Grid>
         </Sidebar>
     )
 }
+
+
 
 export default withRouter(MenuBarComponent)

@@ -1,4 +1,3 @@
-
 .panel {
   /*border-right: thin solid #adadad;*/
   position: fixed;
@@ -90,6 +89,11 @@ li {
     background-color: #f0f0f0;
     transform: scale(0.9, 0.9);
   }
+
+  .react-calendar__navigation__arrow.react-calendar__navigation__prev-button{
+    transform: scale(1.2, 1.2, 1.2);
+  }
+
   .react-calendar__month-view__weekdays {
     text-align: center;
     text-transform: uppercase;
@@ -178,56 +182,3 @@ li {
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
   }
-  
-
-/*
-.react-calendar { 
-    outline-width:thin; 
-    outline-style:solid;
-    outline-color:red;
-
-    width: 280px;
-}
-
-.react-calendar__title {
-    line-height: 40px;
-}
-
-.react-calendar__tile--now {
-    font-weight: bold;
-}
-
-.react-calendar__tile {
-    height: 40px;
-    line-height: 40px;
-    background: none;
-    outline: none;
-    vertical-align: middle;
-    border-radius: 50%;
-    
-}
-
-.react-calendar__month-view__weekdays__weekday {
-    font-size: 16px;
-    line-height: 25px;
-    color: rgb(15, 70, 15);
-}
-
-.react-calendar__tile--active {
-    background: #fa9287;
-    color: white;
-}
-
-.react-calendar__tile--active:enabled:hover,
-.react-calendar__tile--active:enabled:focus {
-    background: #fa9287;
-}
-
-.react-calendar__tile,
-.react-calendar__month-view__days__day {
-    font-size: 15px;
-}
-
-
-/Users/apple/Desktop/projectGB/swpp2020-team13/frontend/node_modules/react-calendar/dist/Calendar.css
-*/

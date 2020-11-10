@@ -1,0 +1,12 @@
+#reactModal {
+    height: 500px !important;
+    border: none !important;
+}
+
+.modal__close-btn {
+    margin-bottom: 10px !important;
+    margin-right: 10px !important ;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
