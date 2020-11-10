@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Icon, Sidebar, Menu, Grid, List, Segment} from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container} from 'semantic-ui-react'
 import './GoalBody.css'
 import TaskBarComponent from '../TaskBar/TaskBarComponent'
 
@@ -54,26 +54,45 @@ class GoalBodyComponent extends Component {
     }
 
     // const toTaskBar // map from sampleTaskList
-    // TODO: implement selectCertainTask function
+    // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
 
     deadlineDate = (deadline) => {
         return deadline.split(" ")[0]
     }
 
     render() {
+        const toTaskBar = this.state.sampleTaskList.map((task) => {
+                return(<TaskBarComponent
+                    title={task.title} 
+                    id={task.id} 
+                    deadline={task.deadline} 
+                    DAYS_OF_WEEK={task.DAYS_OF_WEEK}/>)
+            })
+
     return(
         <Segment className="GoalBodySegment">
-            <List className="GoalBodyListTitle">
-                <List.Item>
-                    <List.Content>
-                        <List.Header>{this.props.title}</List.Header>
-                        Until: {this.deadlineDate(this.props.deadline)}
+            <List>
+                <List.Item className="GoalBodyListItem">
+                <Icon name='circle' className="GoalBodyListIcon" size="small"/>
+                    <List.Content className="GoalBodyListTitle">
+                        <List.Header className="GoalBodyListTitleHeader">{this.props.title}</List.Header>
+                        {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
+                        &nbsp;Until {this.deadlineDate(this.props.deadline)}
                     </List.Content>
                 </List.Item>
             </List>
-            <List className="GoalBodyListwithTask">
-
+            <List className="GoalBodyListwithTask" celled>
+                {toTaskBar}
             </List>
+            <List.Item>
+                    <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='trash'/></Button>
+                    </Button.Group> 
+                    <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button>
+            </List.Item>
+            {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
+            <br></br>
         </Segment>
     )
     }

@@ -8,10 +8,16 @@ import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
-
+import actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
+import moment from 'moment'
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
+    }
+}
 class CreateGoal extends Component {
 
     state = {
@@ -86,7 +92,6 @@ class CreateGoal extends Component {
     }
 
     selectDeadline(date) {
-        console.log(date)
         this.setState({deadline:date})
     }
 
@@ -109,7 +114,7 @@ class CreateGoal extends Component {
                     </Grid.Column >
                     <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
                     <Grid.Column  width={5}>
-                    <DatePicker style={{ width: "150px" }} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
+                    <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
                     </Grid.Column>
                     </Grid>
                 </FormField>
@@ -139,13 +144,24 @@ class CreateGoal extends Component {
         )
     }
 
-    onSubmit(e) {
+
+    onClickHandler() {
         // e.preventDefault()
+        // console.log(this.state.deadline)
         let data = new FormData()
         data.append("title", this.state.title)
+        data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))
+        data.append("tags", this.state.tags)
         this.props.addGoal(data, this.state.file)
         
     }
+
+    // confirmHandler = () => {
+    //     formData = new FormData()
+    //     data.append("title", this.state.file)
+    //     data.append()
+    //     data.append("tags")
+    // }
 
     // sendRequestTest() {
     //     let data = new FormData()
@@ -171,14 +187,14 @@ class CreateGoal extends Component {
             </div>
             <div className='FormCreate'>
                  <h2 id="header">Add a Goal</h2>
-                 <Form id="Form" onSubmit={e => this.onSubmit(e)}>
+                 <Form id="FormCreateForm">
                 {this.renderTitle()}
                 {this.renderPhoto()}
                 {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
-                <Button floated="right">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
                 </Form>
             </div>
             </>

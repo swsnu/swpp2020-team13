@@ -7,51 +7,23 @@ import { Container } from 'semantic-ui-react';
 import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
 import './GoalListComponent.css'
 import Axios from 'axios'
+import * as actionCreators from '../../store/actions/'
+
+const mapStateToProps = state => {
+    return{
+        goalList: state.goal.goals
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onGetAllGoals: () => dispatch(actionCreators.getAllGoal())
+    }
+}
 class GoalList extends Component {
 
-    state = {
-        selectedDate: null,
-        sampleGoalList:[
-            {
-                "id": 1,
-                "user": 1,
-                "title": "test_title_1",
-                "photo": "test_photo_url.com",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-09 05:38:20",
-                "tags": [
-                    "apple",
-                    "banana"
-                ]
-            },
-            {
-                "id": 2,
-                "user": 1,
-                "title": "test_title_2",
-                "photo": "test_photo_url.com",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
-                "tags": [
-                    "apple",
-                    "banana"
-                ]
-            },
-            {
-                "id": 3,
-                "user": 1,
-                "title": "test_title_3",
-                "photo": "test_photo_url.com",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
-                "tags": [
-                    "apple",
-                    "banana"
-                ]
-            }
-        ]
+    componentDidMount(){
+        this.props.onGetAllGoals()
     }
 
     stringtoDate = (string) => {
@@ -67,7 +39,7 @@ class GoalList extends Component {
         // today = new Date(today.getTime()+ 540*60*1000)
         // console.log("todaydate")
         // console.log(today)
-        const todayGoals = this.state.sampleGoalList.filter((goal)=> {
+        const todayGoals = this.props.goalList.filter((goal)=> {
             let created_at = this.stringtoDate(goal.created_at)
             let deadline = this.stringtoDate(goal.deadline)
             // console.log("selectTodaygoals")
@@ -109,4 +81,4 @@ class GoalList extends Component {
     }
 }
 
-export default GoalList
+export default connect(mapStateToProps, mapDispatchToProps) (GoalList)

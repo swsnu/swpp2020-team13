@@ -50,13 +50,16 @@ export const addGoal = (formData, file) => async dispatch => {
 
         const imageUrl = s3prefix + res.data.key
         console.log("[DEBUG] imageUrl: ", imageUrl)
-
-        formData['photo'] = imageUrl
+        formData.append('photo', imageUrl)
     } else {
         console.log("[DEBUG] no file found in addGoal")
     }
 
-    const res = await axios.post('/api/v1/goals/', formData)
+    const res = await axios.post('/api/v1/goals/', formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
     console.log("[DEBUG] res from server when adding goal: ", res.data)
     dispatch(addGoal_(res.data))
 }
