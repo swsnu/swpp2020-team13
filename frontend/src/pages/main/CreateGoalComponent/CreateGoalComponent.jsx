@@ -11,8 +11,8 @@ import axios from 'axios'
 import actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
-// import moment from 'moment'
-
+import moment from 'moment'
+import history from '../../../history'
 const mapDispatchToProps = dispatch => {
     return {
         onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
@@ -153,7 +153,6 @@ class CreateGoal extends Component {
         data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))
         data.append("tags", this.state.tags)
         this.props.addGoal(data, this.state.file)
-        
     }
 
     // confirmHandler = () => {
@@ -205,4 +204,4 @@ class CreateGoal extends Component {
 
 
 
-export default connect(null, { addGoal })(withRouter(CreateGoal))
+export default connect(mapDispatchToProps, { addGoal })(withRouter(CreateGoal))

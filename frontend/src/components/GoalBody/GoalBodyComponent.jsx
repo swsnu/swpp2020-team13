@@ -5,7 +5,7 @@ import TaskBarComponent from '../TaskBar/TaskBarComponent'
 import AddTaskModal from './AddTaskModal/AddTaskModal'
 import { connect } from 'react-redux'
 import Axios from 'axios'
-import {openAddTaskModal} from '../../store/actions/index'
+import { deleteGoal, openAddTaskModal} from '../../store/actions/index'
 
 class GoalBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -95,10 +95,10 @@ class GoalBodyComponent extends Component {
                 {toTaskBar}
             </List>
             <List.Item>
-                    {/* <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
+                    <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
-                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='trash'/></Button>
-                    </Button.Group>  */}
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA" onClick={()=>this.props.deleteGoal(this.props.id)}><Icon name='trash'/></Button>
+                    </Button.Group> 
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
@@ -115,4 +115,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { openAddTaskModal }) (GoalBodyComponent)
+export default connect(mapStateToProps, { openAddTaskModal, deleteGoal }) (GoalBodyComponent)

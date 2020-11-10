@@ -13,18 +13,18 @@ const UserComponent = (props) => {
             <h1>This is user profile page</h1>
             <Button id='editButton' floated='right'>Edit Profile</Button>
             <br></br>
-            <Divider section />
+            <Divider section className='userProfileDivider'/>
 
             {/* body */}
-            <Grid columns='equal'>
+            <Grid columns='equal' className='userProfileDivider2'>
                 <Grid.Row stretched>
                     <Grid.Column>
-                        <Segment>
+                        <Segment  className='namebioSegment'>
                             {/* User photo */}
                             <Image id='photo' src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' size='medium' rounded bordered />
                             
                             {/* Name & Biography */}
-                            <Segment>
+                            <Segment >
                                 <Container id='nameBio'>
                                     <Header as='h3'>Name: </Header>
                                     <p>Gildong Hong</p>
@@ -36,6 +36,7 @@ const UserComponent = (props) => {
                                     </p>
                                 </Container>
                             </Segment>
+
                         </Segment>
                     </Grid.Column>
                     <Grid.Column width={11}>

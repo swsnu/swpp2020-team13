@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => {
 class GoalList extends Component {
 
     componentDidMount(){
+        console.log(this.props.goalList)
         this.props.onGetAllGoals()
     }
 
@@ -40,12 +41,11 @@ class GoalList extends Component {
         // console.log("todaydate")
         // console.log(today)
         const todayGoals = this.props.goalList.filter((goal)=> {
-            let created_at = this.stringtoDate(goal.created_at)
             let deadline = this.stringtoDate(goal.deadline)
-            // console.log("selectTodaygoals")
+            console.log("selectTodaygoals")
             // console.log(created_at)
-            // console.log(deadline)
-            return ((created_at <= today) && (today <= deadline))
+            console.log(deadline)
+            return ((today <= deadline))
         })
         return todayGoals
     }
@@ -62,7 +62,8 @@ class GoalList extends Component {
                     deadline={goal.deadline} 
                     tags={goal.tags}/>)
             })
-
+        console.log("get goallist")
+        console.log(this.props.goalList)
         return(
             <div>
                 <div className='menubar'>

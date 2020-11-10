@@ -26,14 +26,14 @@ class CalendarPanelComponent extends Component {
 
         <ul>
             <li>
-                Goal1
+                Example Goal 1
             </li>
             <li>
-                Goal2
+                Example Goal 2
             </li>
-            <li>
-                Goal3
-            </li>
+            {/* <li>
+                Example Goal 3
+            </li> */}
         </ul>
         </nav>
       );
