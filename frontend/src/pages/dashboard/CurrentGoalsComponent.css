@@ -1,0 +1,27 @@
+.goalTab{
+    margin-left: 160px;
+    align-self: left;
+    float: left;
+}
+
+.goalButton{
+    margin-top: 24px;
+    background-color: transparent;
+    font-size: 2em;
+    border: none;
+    outline: none;
+    width: 280px;
+    text-align: left;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.chartGrid {
+    margin-top: 128px;
+    
+}
+
+.pieSegment {
+    width: 400px !important;
+    height: 300px !important;
+
+}
