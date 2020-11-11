@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Grid, Menu } from 'semantic-ui-react'
 import { Form, Button, Segment } from 'semantic-ui-react'
@@ -6,7 +6,7 @@ import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 import './AddTaskForm.css'
 import Rating from '@material-ui/lab/Rating';
-import Typography from '@material-ui/core/Typography';
+import DatePicker from "react-datepicker"
 
 const AddTaskForm = (props) => {
     const { register, handleSubmit, watch, errors } = useForm()
@@ -29,6 +29,9 @@ const AddTaskForm = (props) => {
         { key: 'su', text: 'Sunday', value: 'sunday' },
       ]
     const [value, setValue] = React.useState(2);
+
+    const [deadline, setDeadline] = React.useState(new Date())
+
     return (
         <Form>
             <Segment className="AddTaskForm">
@@ -36,15 +39,15 @@ const AddTaskForm = (props) => {
                 <Form.Group widths='equal'>
                     <Form.Input label='Title' placeholder='Enter task title' />
                     </Form.Group>
-                    <Form.Group>
-                    <Form.Select
-                        multiple selection
-                        label='Day of Week'
-                        options={options}
-                        placeholder='Day of Week'
-                    />
-                    <Form.Input label='Deadline' placeholder='Deadline' />
-                    </Form.Group>
+                        <Form.Group>
+                            <Form.Select
+                                multiple selection
+                                label='Day of Week'
+                                options={options}
+                                placeholder='Day of Week'
+                            />
+                            <Form.Input label='Deadline' placeholder='Deadline' />
+                            {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={deadline} onChange={(date)=>{setDeadline(date)}} /> */}                        </Form.Group>
                     <Form.Group inline>
                     <label>Importance</label>
                         <Rating
