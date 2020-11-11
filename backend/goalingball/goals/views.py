@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest, JsonResponse
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -25,6 +25,7 @@ def goalList(request):
             created_at = g.created_at.strftime('%Y-%m-%d %H:%M:%S')
             updated_at = g.updated_at.strftime('%Y-%m-%d %H:%M:%S')
             deadline = g.deadline.strftime('%Y-%m-%d %H:%M:%S')
+            tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
 
             goal_list.append({'id': g.id, 'title': g.title, 'photo': g.photo, 'user': g.user.id, 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 'tags': [tag for tag in g.tags.names()]})
         return JsonResponse(goal_list, safe=False, status=200)
@@ -46,9 +47,17 @@ def goalList(request):
         
         if 'tags' in request.POST: # tags should be added after an intance is created
             tags = request.POST.getlist('tags') 
+            print("[DEBUG] tags in post: ", tags)
             new_goal.tags.add(*tags)
             new_goal.save()
-        response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 'title': new_goal.title, 'photo': new_goal.photo, 'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 'tags':[tag for tag in new_goal.tags.names()]}
+
+        response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
+                        'title': new_goal.title, 'photo': new_goal.photo, 
+                        'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'tags':[tag for tag in new_goal.tags.names()]}
+
         return JsonResponse(response_dict, status=201, safe=False)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -59,8 +68,16 @@ def goalDetail(request, goal_id=""):
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
             # GET goal Detail
-        for g in Goal.objects.filter(id=goal_id):
-            response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 'user': g.user.id, 'created_at': g.created_at, 'updated_at': g.updated_at, 'deadline': g.deadline, 'tags': [tag for tag in g.tags.names()]}
+        try:
+            g = Goal.objects.get(id=goal_id)
+        except Goal.DoesNotExist:
+            return HttpResponse(status=404)
+
+        tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
+        response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
+                        'user': g.user.id, 'created_at': g.created_at, 
+                        'updated_at': g.updated_at, 'deadline': g.deadline, 
+                        'tags': [tag for tag in g.tags.names()], 'tasks': tasks}
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':

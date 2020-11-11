@@ -11,7 +11,7 @@ import axios from 'axios'
 import actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
-// import moment from 'moment'
+import moment from 'moment'
 
 const mapDispatchToProps = dispatch => {
     return {
