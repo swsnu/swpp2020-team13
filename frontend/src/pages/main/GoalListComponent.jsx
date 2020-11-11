@@ -68,7 +68,8 @@ class GoalList extends Component {
                     title={goal.title} 
                     id={goal.id} 
                     deadline={goal.deadline} 
-                    tags={goal.tags}/>)
+                    tags={goal.tags}
+                    tasks={goal.tasks}/>)
             })
         console.log("get goallist")
         console.log(this.props.goalList)

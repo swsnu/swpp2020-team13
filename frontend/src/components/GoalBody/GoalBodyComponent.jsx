@@ -14,48 +14,8 @@ class GoalBodyComponent extends Component {
 
     state = {
         selectedDate: null,
-        sampleTaskList:[
-            {
-                "id": 1,
-                "user": 1,
-                "goal": 2,
-                "title": "task_test_title_1",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-09 05:38:20",
-                "importance": 3,
-                "DAYS_OF_WEEK": [
-                    "Monday",
-                ]
-            },
-            {
-                "id": 2,
-                "user": 1,
-                "goal": 2,
-                "title": "task_test_title_2",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
-                "importance": 5,
-                "DAYS_OF_WEEK": [
-                    "None",
-                ]
-            },
-            {
-                "id": 3,
-                "user": 1,
-                "goal": 2,
-                "title": "task_test_title_3",
-                "created_at": "2020-11-05 07:04:59",
-                "updated_at": "2020-11-05 07:04:59",
-                "deadline": "2020-11-10 05:38:20",
-                "importance": 4,
-                "DAYS_OF_WEEK": [
-                    "Friday",
-                ]
-            }
-        ],
-        addTaskModal: false
+        addTaskModal: false,
+        tasks: this.props.tasks ? this.props.tasks : []
     }
 
     // const toTaskBar // map from sampleTaskList
@@ -63,7 +23,7 @@ class GoalBodyComponent extends Component {
 
     onClickAddTaskHandler = () => {
         this.setState({ addTaskModal : true})
-        this.props.openAddTaskModal()
+        this.props.openAddTaskModal() // send goal id
     }
 
     deadlineDate = (deadline) => {
@@ -71,13 +31,16 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        const toTaskBar = this.state.sampleTaskList.map((task) => {
+        const toTaskBar = this.state.tasks.map((task) => {
+            if(task){
                 return(<TaskBarComponent
                     title={task.title} 
                     id={task.id} 
                     deadline={task.deadline} 
-                    DAYS_OF_WEEK={task.DAYS_OF_WEEK}/>)
-            })
+                    DAYS_OF_WEEK={task.days_of_week}/>)
+                    }
+                }       
+            )
 
     return(
         <Segment className="GoalBodySegment">
@@ -102,7 +65,7 @@ class GoalBodyComponent extends Component {
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {this.props.isAddTaskModalOpen && <AddTaskModal/>}
+            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id}/>}
             <br></br>
         </Segment>
     )
