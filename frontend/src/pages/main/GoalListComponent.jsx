@@ -22,6 +22,10 @@ const mapDispatchToProps = dispatch => {
 }
 class GoalList extends Component {
 
+    state = {
+        today: new Date()
+    }
+
     componentDidMount(){
         console.log(this.props.goalList)
         this.props.onGetAllGoals()
@@ -36,7 +40,7 @@ class GoalList extends Component {
     }
 
     selectTodayGoals() {
-        var today = new Date()
+        const today = this.state.today
         // today = new Date(today.getTime()+ 540*60*1000)
         // console.log("todaydate")
         // console.log(today)
@@ -48,6 +52,10 @@ class GoalList extends Component {
             return ((today <= deadline))
         })
         return todayGoals
+    }
+ 
+    onDeadlineSubmit = (date) => {
+        this.setState({today: date})
     }
 
     render(){
@@ -71,7 +79,7 @@ class GoalList extends Component {
                     <MenuBar/>
                 </div>
                 <div className='calendarpanel'>
-                    <CalendarPanel/>
+                    <CalendarPanel onSubmit={this.onDeadlineSubmit}/>
                 </div>
                 <div className='goallist'>
                     <h2 className="componentTitle">What's for today?</h2>
