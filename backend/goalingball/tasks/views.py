@@ -73,6 +73,36 @@ def taskList(request):
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
+@csrf_exempt # TODO: implement PUT
+def taskDetail(request, task_id=""):
+    if request.method == 'GET':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+            # GET goal Detail
+        try:
+            t = Task.objects.get(id=task_id)
+        except Task.DoesNotExist:
+            return HttpResponse(status=404)
+
+        response_dict = {'id': t.id, 'user': t.user.id, 'goal': t.goal.id, 
+                        'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
+                        'deadline': deadline, 'importance': t.importance, 
+                        'day_of_week': t.day_of_week}
+        return JsonResponse(response_dict, safe=False, status=200)
+
+    elif request.method == 'DELETE':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        task = Task.objects.get(id=task_id)
+        if task.user.id is not request.user.id:
+            return HttpResponse(status=403)
+        task.delete()
+        return HttpResponse(status=200)
+
+    else:
+        return HttpResponseNotAllowed(['GET', 'PUT', 'PATCH', 'DELETE'])
+
+
 
 
 
