@@ -12,7 +12,11 @@ import actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
 import moment from 'moment'
+<<<<<<< HEAD
+
+=======
 import history from '../../../history'
+>>>>>>> dd944107637f1dea9f6d4bd9cbd79d0dd0df04fb
 const mapDispatchToProps = dispatch => {
     return {
         onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))

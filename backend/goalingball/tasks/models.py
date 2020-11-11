@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 
 
 DAYS_OF_WEEK = (
-    ('NONE', 'None'),
     ('MONDAY', 'Monday'),
     ('TUESDAY', 'Tuesday'),
     ('WEDNESDAY', 'Wednesday'),
@@ -40,11 +39,11 @@ class Task(models.Model):
     )
     
     importance = models.FloatField(blank=True)
-    day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
+    day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, blank=True)
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
-    deadline = models.DateTimeField(blank=True) # only for recurrent tasks, default is same as created_at
+    deadline = models.DateTimeField(blank=True, null=True) # only for recurrent tasks, default is same as created_at
 
     def save(self, *args, **kwargs):
         # For the first time
