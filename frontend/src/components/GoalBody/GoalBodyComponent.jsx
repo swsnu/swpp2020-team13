@@ -65,7 +65,7 @@ class GoalBodyComponent extends Component {
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id}/>}
+            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id} goal_deadline={this.props.deadline}/>}
             <br></br>
         </Segment>
     )
