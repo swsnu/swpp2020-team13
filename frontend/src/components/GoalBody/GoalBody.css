@@ -1,7 +1,9 @@
 .GoalBodySegment {
     /* margin-top: 200px !important; */
     margin-left: 450px !important;
-    width: 680px !important;
+    width: 70% !important;
+    /* display: flex; */
+    max-width: 680px !important;
 }
 
 .ui.list, ol.ui.list, ul.ui.list .GoalBodyTitleList{
