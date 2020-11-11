@@ -120,25 +120,31 @@ class CreateGoal extends Component {
             </Segment>
         )
     }
+
     onTagsChanged(tags) {
         this.setState({tags: tags})
     }
-    addTags(e, data){
-        const tags = this.state.tags
-        tags.push(data.value)
-        this.addTagOptions(e, data)
-        this.setState({tags: tags})
-    }
+
     addTagOptions(e,data) {
         const tagOptions = this.state.tagOptions
         tagOptions.push({key: data.value, text: data.value, value: data.value})
         this.setState({tagOptions:tagOptions})
     }
+
+    setTag(data) {
+        this.onTagsChanged(data.value)
+    }
+
     renderTag() {
         return(
             <FormField>
                 <label>Add Tags</label>
-                <Dropdown placeholder="add goal tags here" search selection clearable multiple allowAdditions fluid onAddItem={(e,data) => this.addTags(e, data)} options={this.state.tagOptions}/>
+                <Dropdown placeholder="add goal tags here" search selection 
+                clearable multiple allowAdditions fluid 
+                onAddItem={(e,data) => this.addTagOptions(e, data)} 
+                onChange={(e,data)=>this.setTag(data)}
+                options={this.state.tagOptions}
+                />
             </FormField>
         )
     }
@@ -146,7 +152,7 @@ class CreateGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        // console.log(this.state.deadline)
+        console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
         data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))

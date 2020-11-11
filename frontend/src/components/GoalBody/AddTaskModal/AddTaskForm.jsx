@@ -28,9 +28,8 @@ const AddTaskForm = (props) => {
         { key: 's', text: 'Saturday', value: 'saturday' },
         { key: 'su', text: 'Sunday', value: 'sunday' },
       ]
-    const [value, setValue] = React.useState(2);
-
-    const [deadline, setDeadline] = React.useState(new Date())
+    const [importance, setImportance] = React.useState(2)
+    
 
     return (
         <Form>
@@ -44,6 +43,7 @@ const AddTaskForm = (props) => {
                                 multiple selection
                                 label='Day of Week'
                                 options={options}
+                                onAddItem={(e,data) => this.addTags(e, data)}
                                 placeholder='Day of Week'
                             />
                             <Form.Input label='Deadline' placeholder='Deadline' />
@@ -51,11 +51,11 @@ const AddTaskForm = (props) => {
                     <Form.Group inline>
                     <label>Importance</label>
                         <Rating
-                        // name="simple-controlled"
+                        name="simple-controlled"
                         size="large"
-                        value={value}
+                        value={importance}
                         onChange={(event, newValue) => {
-                            setValue(newValue);
+                            setImportance(newValue);
                         }} 
                         />
                     </Form.Group>
