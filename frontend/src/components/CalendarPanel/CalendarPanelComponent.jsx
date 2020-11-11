@@ -14,8 +14,9 @@ class CalendarPanelComponent extends Component {
     onChange = date => {
         this.setState({ date })
         console.log(date)
+        this.props.onSubmit(date)
     }
-   
+    
     render() {
       return (
         <nav class='panel'>
@@ -23,17 +24,16 @@ class CalendarPanelComponent extends Component {
             onChange={this.onChange}
             value={this.state.date}
           />
-
         <ul>
             <li>
-                Goal1
+                Example Goal 1
             </li>
             <li>
-                Goal2
+                Example Goal 2
             </li>
-            <li>
-                Goal3
-            </li>
+            {/* <li>
+                Example Goal 3
+            </li> */}
         </ul>
         </nav>
       );
