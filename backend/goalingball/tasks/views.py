@@ -5,7 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
 from django.contrib.auth import authenticate, login, logout
-from .models import Goal
+from .models import Task, Goal
 from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from django.utils import timezone
@@ -23,13 +23,58 @@ from django.views.decorators.csrf import csrf_exempt
     #     related_name='tasks'
     # )
     # importance = models.FloatField(blank=True)
-    # recurrent = models.BooleanField(default=False)
     # day_of_week = MultiSelectField(choices=DAYS_OF_WEEK, default='NONE')
 
     # created_at = models.DateTimeField(editable=False)
     # updated_at = models.DateTimeField() 
 
-# @csrf_exempt
-# def taskList(request):
+@csrf_exempt
+def taskList(request):
+    if request.method == 'GET':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        # else
+        task_list = []
+        for t in Task.objects.all():
+            created_at = t.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            updated_at = t.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+            deadline = t.deadline.strftime('%Y-%m-%d %H:%M:%S')
+            task_list.append({'id': t.id, 'user': t.user.id, 'goal': t.goal.id, 
+                               'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
+                               'deadline': deadline, 'importance': t.importance, 
+                               'day_of_week': t.day_of_week})
+        return JsonResponse(task_list, safe=False, status=200)
+
+    elif request.method == 'POST':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        try:
+            goal_id = request.POST['goal_id'] # connected to which goal?
+            task_title = request.POST['title']
+            task_importance = request.POST.getlist('importance')[0] # task importance
+            task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
+            task_deadline = request.POST['deadline']
+            task_deadline = timezone.make_aware(datetime.strptime(task_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
+        except(KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+
+        new_task = Task(title=task_title, user=request.user, goal=Goal.objects.get(id=goal_id), deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
+        new_task.save() # goal_created_at and goal_updated_at is made when new goal is saved
+        
+        response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal': new_task.goal.id,
+                        'title': new_task.title, 'importance': new_task.importance, 
+                        'day_of_week': new_task.day_of_week,
+                        'created_at': (new_task.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'updated_at' : (new_task.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'deadline': (new_task.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        }
+
+        return JsonResponse(response_dict, status=201, safe=False)
+    else:
+        return HttpResponseNotAllowed(['GET', 'POST'])
+
+
+
+
 
     
