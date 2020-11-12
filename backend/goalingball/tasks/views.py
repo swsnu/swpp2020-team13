@@ -53,8 +53,11 @@ def taskList(request):
             task_title = request.POST['title']
             task_importance = request.POST.getlist('importance')[0] # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
-            task_deadline = request.POST['deadline']
-            task_deadline = timezone.make_aware(datetime.strptime(task_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
+            if request.POST['deadline'] is not "":
+                task_deadline = request.POST['deadline']
+                task_deadline = timezone.make_aware(datetime.strptime(task_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
+            else:
+                task_deadline = timezone.localtime()
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 
