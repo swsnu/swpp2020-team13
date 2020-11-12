@@ -1,21 +1,22 @@
 import React, { Component, useRef } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import DatePicker from "react-datepicker"
+import LoadingOverlay from 'react-loading-overlay';
+
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
-import DatePicker from "react-datepicker"
+
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
 import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
-import moment from 'moment'
-<<<<<<< HEAD
-import history from '../../../history'
-=======
->>>>>>> 038065937a8bcbc472a9020533911167d1d0db83
+
+
 const mapDispatchToProps = dispatch => {
     return {
         onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
@@ -31,7 +32,8 @@ class CreateGoal extends Component {
       deadline: new Date(),
       startdate: new Date(),
       tags: [],
-      tagOptions:[]
+      tagOptions:[],
+      isCreating: false,
     }
 
     fileChange = e => {
@@ -164,6 +166,7 @@ class CreateGoal extends Component {
         console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
         data.append("tags", this.state.tags)
         this.props.addGoal(data, this.state.file)
+        this.setState({ isCreating: true })
     }
 
     // confirmHandler = () => {
@@ -191,7 +194,12 @@ class CreateGoal extends Component {
 
     render(){
         return(
-            <>
+            <LoadingOverlay
+                className="spinner"
+                active={this.state.isCreating}
+                spinner
+                text='Creating a new goal...'
+            >
             <div className='menubar'>
                 <MenuBar/>
             </div>
@@ -207,7 +215,7 @@ class CreateGoal extends Component {
                 <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
                 </Form>
             </div>
-            </>
+            </LoadingOverlay>
         )
     }
 

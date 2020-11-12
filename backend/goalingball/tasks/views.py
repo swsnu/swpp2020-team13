@@ -54,7 +54,7 @@ def taskList(request):
             task_importance = request.POST.getlist('importance')[0] # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
             
-            if (request.POST['deadline']) is "undefined":
+            if request.POST['deadline'] is None:
                 task_deadline = request.POST['deadline']
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
             else:
