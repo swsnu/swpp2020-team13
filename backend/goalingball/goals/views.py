@@ -24,7 +24,7 @@ def goalList(request):
         for g in Goal.objects.all():
             created_at = g.created_at.strftime('%Y-%m-%d %H:%M:%S')
             updated_at = g.updated_at.strftime('%Y-%m-%d %H:%M:%S')
-            deadline = g.deadline.strftime('%Y-%m-%d %H:%M:%S')
+            deadline = g.deadline.strftime('%Y-%m-%d')
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
 
             goal_list.append({'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 'tags': [tag for tag in g.tags.names()]})

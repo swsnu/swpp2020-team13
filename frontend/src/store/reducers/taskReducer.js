@@ -9,21 +9,12 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.GET_ALL_TASK:
-            return {...state, tasks: action.tasks}
+            return {...state, tasks: action.payload}
         case actionTypes.ADD_TASK:
-            const newTask = {
-                id: action.id,
-                goal_id: action.goal_id,
-                title: action.title,
-                deadline: action.deadline,
-                importance: action.importance,
-                day_of_week: action.day_of_week,
-            }
+            const newTask = action.payload
             return {...state, tasks: [...state.tasks, newTask]}
         case actionTypes.DELETE_TASK:
-            const deleted = state.tasks.filter((t)=>{
-                return t.id != action.id
-            })
+            const deleted = state.tasks.filter(t => t.id !== action.id)
             return {...state, tasks: deleted}
         default:
             break
