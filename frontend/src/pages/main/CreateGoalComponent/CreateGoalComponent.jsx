@@ -8,11 +8,14 @@ import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
-import actionCreators from '../../../store/actions'
+import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
 import moment from 'moment'
+<<<<<<< HEAD
 import history from '../../../history'
+=======
+>>>>>>> 038065937a8bcbc472a9020533911167d1d0db83
 const mapDispatchToProps = dispatch => {
     return {
         onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
@@ -121,25 +124,31 @@ class CreateGoal extends Component {
             </Segment>
         )
     }
+
     onTagsChanged(tags) {
         this.setState({tags: tags})
     }
-    addTags(e, data){
-        const tags = this.state.tags
-        tags.push(data.value)
-        this.addTagOptions(e, data)
-        this.setState({tags: tags})
-    }
+
     addTagOptions(e,data) {
         const tagOptions = this.state.tagOptions
         tagOptions.push({key: data.value, text: data.value, value: data.value})
         this.setState({tagOptions:tagOptions})
     }
+
+    setTag(data) {
+        this.onTagsChanged(data.value)
+    }
+
     renderTag() {
         return(
             <FormField>
                 <label>Add Tags</label>
-                <Dropdown placeholder="add goal tags here" search selection clearable multiple allowAdditions fluid onAddItem={(e,data) => this.addTags(e, data)} options={this.state.tagOptions}/>
+                <Dropdown placeholder="add goal tags here" search selection 
+                clearable multiple allowAdditions fluid 
+                onAddItem={(e,data) => this.addTagOptions(e, data)} 
+                onChange={(e,data)=>this.setTag(data)}
+                options={this.state.tagOptions}
+                />
             </FormField>
         )
     }
@@ -147,10 +156,12 @@ class CreateGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        // console.log(this.state.deadline)
+        console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))
+        // let deadline = moment(this.state.deadline).add(1, 'days')
+        data.append("deadline", moment(this.state.deadline).unix())
+        console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
         data.append("tags", this.state.tags)
         this.props.addGoal(data, this.state.file)
     }
