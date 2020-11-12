@@ -10,7 +10,7 @@ import DatePicker from "react-datepicker"
 import moment from 'moment'
 
 const AddTaskForm = (props) => {
-    const { register, handleSubmit, watch, errors } = useForm()
+    const { register, handleSubmit, watch, errors , reset} = useForm()
     const dispatch = useDispatch()
     const onSubmit = (data, e) => { // e: event
         // const deadline_date = moment((deadline + ' '+ 'OO:OO:OO'), 'YYYY-MM-DD HH:MM:SS')     // as deadline is set as Form.Input instead of datepicker
@@ -24,8 +24,8 @@ const AddTaskForm = (props) => {
         console.log("DEBUG: deadline in default", deadline)
         dataForm.append("importance", importance)
         dispatch(actionCreators.addTask(dataForm))
-        
-    }
+        reset()
+    }   
 
     const onError = (errors, e) => console.log(errors, e);
     watch() // watchAllFields

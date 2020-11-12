@@ -21,9 +21,13 @@ class GoalBodyComponent extends Component {
     // const toTaskBar // map from sampleTaskList
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
 
+    onClickDeleteHandler = () => {
+        this.props.deleteGoal(this.props.id)
+    }
+
     onClickAddTaskHandler = () => {
         this.setState({ addTaskModal : true})
-        this.props.openAddTaskModal() // send goal id
+        this.props.openAddTaskModal()
     }
 
     deadlineDate = (deadline) => {
@@ -61,11 +65,12 @@ class GoalBodyComponent extends Component {
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
                     <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
-                    <Button size="tiny" compact icon className="DeleteGoalButtonA" onClick={()=>this.props.deleteGoal(this.props.id)}><Icon name='trash'/></Button>
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
                     </Button.Group> 
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
+            {console.log("DEBUG: this.props.id (goal id passed)", this.props.id)}
             {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id} goal_deadline={this.props.deadline}/>}
             <br></br>
         </Segment>

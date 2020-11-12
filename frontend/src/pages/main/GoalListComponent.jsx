@@ -12,7 +12,7 @@ import * as actionCreators from '../../store/actions/'
 const mapStateToProps = state => {
     return{
         goalList: state.goal.goals,
-        taskList: state.task.tasks
+        taskList: state.task.tasks,
     }
 }
 
@@ -31,7 +31,6 @@ class GoalList extends Component {
     componentDidMount(){
         console.log(this.props.goalList)
         this.props.onGetAllGoals()
-        this.props.onGetAllTasks()
     }
 
     stringtoDate = (string) => {
@@ -46,7 +45,7 @@ class GoalList extends Component {
         const today = this.state.today
         // today = new Date(today.getTime()+ 540*60*1000)
         // console.log("todaydate")
-        // console.log(today)
+        // console.log (today)
         const todayGoals = this.props.goalList.filter((goal)=> {
             let deadline = this.stringtoDate(goal.deadline)
             console.log("selectTodaygoals")
@@ -76,6 +75,8 @@ class GoalList extends Component {
                     tasks={tasks}
                     />)
             })
+        console.log("get goallist")
+        console.log(this.props.goalList)
         return(
             <div>
                 <div className='menubar'>
