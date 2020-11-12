@@ -155,7 +155,9 @@ class CreateGoal extends Component {
         console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))
+        // let deadline = moment(this.state.deadline).add(1, 'days')
+        data.append("deadline", moment(this.state.deadline).unix())
+        console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
         data.append("tags", this.state.tags)
         this.props.addGoal(data, this.state.file)
     }

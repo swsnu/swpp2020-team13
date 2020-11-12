@@ -38,7 +38,8 @@ def goalList(request):
             goal_title = request.POST['title']
             goal_photo = request.POST['photo']
             goal_deadline = request.POST['deadline']
-            goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
+            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
+            # goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 
