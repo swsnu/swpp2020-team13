@@ -8,7 +8,7 @@ import { InputFile } from 'semantic-ui-react-input-file'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
-import actionCreators from '../../../store/actions'
+import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
 import moment from 'moment'

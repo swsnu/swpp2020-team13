@@ -39,7 +39,7 @@ def taskList(request):
             created_at = t.created_at.strftime('%Y-%m-%d %H:%M:%S')
             updated_at = t.updated_at.strftime('%Y-%m-%d %H:%M:%S')
             deadline = t.deadline.strftime('%Y-%m-%d %H:%M:%S')
-            task_list.append({'id': t.id, 'user': t.user.id, 'goal': t.goal.id, 
+            task_list.append({'id': t.id, 'user': t.user.id, 'goal_id': t.goal.id, 
                                'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
                                'deadline': deadline, 'importance': t.importance, 
                                'day_of_week': t.day_of_week})
@@ -61,7 +61,7 @@ def taskList(request):
         new_task = Task(title=task_title, user=request.user, goal=Goal.objects.get(id=goal_id), deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
         new_task.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
-        response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal': new_task.goal.id,
+        response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal_id': new_task.goal.id,
                         'title': new_task.title, 'importance': new_task.importance, 
                         'day_of_week': new_task.day_of_week,
                         'created_at': (new_task.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
@@ -84,7 +84,7 @@ def taskDetail(request, task_id=""):
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
-        response_dict = {'id': t.id, 'user': t.user.id, 'goal': t.goal.id, 
+        response_dict = {'id': t.id, 'user': t.user.id, 'goal_id': t.goal.id, 
                         'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
                         'deadline': deadline, 'importance': t.importance, 
                         'day_of_week': t.day_of_week}

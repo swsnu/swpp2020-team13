@@ -11,11 +11,19 @@ import moment from 'moment'
 
 const AddTaskForm = (props) => {
     const { register, handleSubmit, watch, errors } = useForm()
-    
+    const dispatch = useDispatch()
     const onSubmit = (data, e) => { // e: event
-        const deadline_date = moment(deadline, 'YYYY-MM-DD')     // as deadline is set as Form.Input instead of datepicker
-        console.log("type of deadline", typeof deadline_date)
-        console.log(title, day_of_week, deadline, importance)
+        // const deadline_date = moment((deadline + ' '+ 'OO:OO:OO'), 'YYYY-MM-DD HH:MM:SS')     // as deadline is set as Form.Input instead of datepicker
+        // console.log("type of deadline", deadline_date)
+        // console.log(title, day_of_week, deadline, importance)
+        const dataForm = new FormData()
+        dataForm.append("title", title)
+        dataForm.append("goal_id", props.goal_id)
+        dataForm.append("day_of_week", day_of_week)        
+        dataForm.append("deadline", deadline)
+        dataForm.append("importance", importance)
+        dispatch(actionCreators.addTask(dataForm))
+        
     }
 
     const onError = (errors, e) => console.log(errors, e);
@@ -30,13 +38,17 @@ const AddTaskForm = (props) => {
         { key: 's', text: 'Saturday', value: 'SATURDAY' },
         { key: 'su', text: 'Sunday', value: 'SUNDAY' },
       ]
+    const today = new Date()
     const [importance, setImportance] = React.useState(2)
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
-    const [deadline, setDeadline] = React.useState()
+    const [deadline, setDeadline] = React.useState(moment(today).format("YYYY-MM-DD HH:MM:SS"))
 
     const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')
-        
+    const setDeadlineString = (string) => {
+        const deadline_date = moment(string, "YYYY-MM-DD").format()
+        setDeadline(moment(deadline_date).format("YYYY-MM-DD HH:MM:SS"))
+    }
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
             <Segment className="AddTaskForm">
@@ -55,7 +67,7 @@ const AddTaskForm = (props) => {
                             <Form.Input label='Deadline' 
                             placeholder='Deadline' 
                             disabled={(day_of_week.length == 0) ? true : false}
-                            onChange={(e,data)=>setDeadline(data.value)}
+                            onChange={(e,data)=>setDeadlineString(data.value)}
                             error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
                             />
                             {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={deadline} onChange={(date)=>{setDeadline(date)}} /> */}                        </Form.Group>

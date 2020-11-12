@@ -11,13 +11,15 @@ import * as actionCreators from '../../store/actions/'
 
 const mapStateToProps = state => {
     return{
-        goalList: state.goal.goals
+        goalList: state.goal.goals,
+        taskList: state.task.tasks
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        onGetAllGoals: () => dispatch(actionCreators.getAllGoal())
+        onGetAllGoals: () => dispatch(actionCreators.getAllGoal()),
+        onGetAllTasks: () => dispatch(actionCreators.getAllTask())
     }
 }
 class GoalList extends Component {
@@ -29,6 +31,7 @@ class GoalList extends Component {
     componentDidMount(){
         console.log(this.props.goalList)
         this.props.onGetAllGoals()
+        this.props.onGetAllTasks()
     }
 
     stringtoDate = (string) => {
@@ -62,17 +65,17 @@ class GoalList extends Component {
 
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
-        console.log(todayGoalsList)
         const toGoalBody = todayGoalsList.map((goal) => {
+            const tasks = this.props.taskList.filter(t => t.goal_id == goal.id)
+            console.log("filtered tasks", tasks)
                 return(<GoalBodyComponent 
                     title={goal.title} 
                     id={goal.id} 
                     deadline={goal.deadline} 
                     tags={goal.tags}
-                    tasks={goal.tasks}/>)
+                    tasks={tasks}
+                    />)
             })
-        console.log("get goallist")
-        console.log(this.props.goalList)
         return(
             <div>
                 <div className='menubar'>

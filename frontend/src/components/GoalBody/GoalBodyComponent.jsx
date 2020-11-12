@@ -31,13 +31,14 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        const toTaskBar = this.state.tasks.map((task) => {
+        {console.log("on goalbodycomponent", this.props.tasks)}
+        const toTaskBar = this.props.tasks.map((task) => {
             if(task){
                 return(<TaskBarComponent
                     title={task.title} 
                     id={task.id} 
                     deadline={task.deadline} 
-                    DAYS_OF_WEEK={task.days_of_week}/>)
+                    days_of_week={task.day_of_week}/>)
                     }
                 }       
             )

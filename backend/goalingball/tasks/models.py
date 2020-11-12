@@ -49,7 +49,7 @@ class Task(models.Model):
         # For the first time
         if not self.id: 
             self.created_at = timezone.localtime()
-            self.deadline = timezone.localtime()
+            # self.deadline = timezone.localtime()
 
         # Upon save, update timestamps
         self.updated_at = timezone.localtime()
