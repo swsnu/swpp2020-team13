@@ -1,9 +1,10 @@
 import * as actionTypes from './types'
 import axios from 'axios'
 import history from '../../history'
+import { closeModal } from './modal'
 
 export const getAllTask_ = (tasks) => {
-    return { type: actionTypes.GET_ALL_TASK, tasks: tasks }
+    return { type: actionTypes.GET_ALL_TASK, payload: tasks }
 }
 
 export const getAllTask = () => {
@@ -22,12 +23,14 @@ export const addTask_ = (task) => {
         // deadline: goal.deadline ? goal.deadline : null,
         // tags: goal.tags ? goal.tags : null
         type: actionTypes.ADD_TASK,
-        id: task.id,
-        goal_id: task.goal_id,
-        title: task.title,
-        deadline: task.deadline,
-        importance: task.importance,
-        day_of_week: task.day_of_week,
+        payload: {
+            id: task.id,
+            goal_id: task.goal_id,
+            title: task.title,
+            deadline: task.deadline,
+            importance: task.importance,
+            day_of_week: task.day_of_week
+        }
     }
 }
 
@@ -37,14 +40,18 @@ export const addTask = (formData, file) => async dispatch => {
             "Content-Type": "multipart/form-data"
         }
     })
+    console.log("addTask res.data: ", res.data)
     dispatch(addTask_(res.data))
-    history.push('/main')
+    // history.push('/main')
+    dispatch(closeModal())
 }
 
 export const deleteTask_ = (id) => {
     return {
         type: actionTypes.DELETE_TASK,
-        id: id
+        payload: {
+            id: id
+        }
     }
 }
 
