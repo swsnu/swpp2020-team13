@@ -56,12 +56,12 @@ export const addGoal = (formData, file) => async dispatch => {
         console.log("[DEBUG] no file found in addGoal")
     }
 
-    const tag_string = formData.get('tags')
-    const tag_list = tag_string.split(',')
-    console.log("[DEBUG] tag_string: ", tag_string)
-    console.log("[DEBUG] tag_list: ", tag_list)
-    formData.set('tags', tag_list)
-    console.log("[DEBUG] changed tags: ", formData.get('tags'))
+    // const tag_string = formData.get('tags')
+    // const tag_list = tag_string.split(',')
+    // console.log("[DEBUG] tag_string: ", tag_string)
+    // console.log("[DEBUG] tag_list: ", tag_list)
+    // formData.set('tags', ['custom', 'tag'])
+    // console.log("[DEBUG] changed tags: ", formData.get('tags'))
     const res = await axios.post('/api/v1/goals/', formData, {
         headers: {
             "Content-Type": "multipart/form-data"

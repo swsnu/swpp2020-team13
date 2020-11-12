@@ -146,10 +146,10 @@ class CreateGoal extends Component {
             <FormField>
                 <label>Add Tags</label>
                 <Dropdown placeholder="add goal tags here" search selection 
-                clearable multiple allowAdditions fluid 
-                onAddItem={(e,data) => this.addTagOptions(e, data)} 
-                onChange={(e,data)=>this.setTag(data)}
-                options={this.state.tagOptions}
+                    clearable multiple allowAdditions fluid 
+                    onAddItem={(e,data) => this.addTagOptions(e, data)} 
+                    onChange={(e,data)=>this.setTag(data)}
+                    options={this.state.tagOptions}
                 />
             </FormField>
         )
@@ -164,7 +164,7 @@ class CreateGoal extends Component {
         // let deadline = moment(this.state.deadline).add(1, 'days')
         data.append("deadline", moment(this.state.deadline).unix())
         console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
-        data.append("tags", this.state.tags)
+        data.append("tags", JSON.stringify(this.state.tags))
         this.props.addGoal(data, this.state.file)
         this.setState({ isCreating: true })
     }
