@@ -41,7 +41,7 @@ describe('<App />', () => {
   it('renders <App /> component', () => {
     const component = mount(<Provider store={store}><App /></Provider>)
     const wrapper = component.find('.App')
-    expect(wrapper).lengthOf(1)
+    expect(wrapper).to.have.lengthOf(1)
   })
 })
 
