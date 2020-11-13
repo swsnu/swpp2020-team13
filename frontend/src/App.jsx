@@ -7,7 +7,8 @@ import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
 import Profile from './pages/profile/index'
 
-const App = () => (
+function App(props) {
+    return (
     <Router history={history}>
         <div className="App" id="fill-window">
             <Switch>
@@ -18,6 +19,7 @@ const App = () => (
             </Switch>
         </div>
     </Router>
-)
+    )
+}
 
 export default App

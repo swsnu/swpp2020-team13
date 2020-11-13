@@ -1,5 +1,3 @@
-import goalReducer from './store/reducers/goalReducer'
-import authReducer from './store/reducers/authReducer'
 import rootReducer from './store/reducers'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';                                           
