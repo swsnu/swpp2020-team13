@@ -1,5 +1,3 @@
-# import uuid
-
 import pytest
 from faker import Faker
 from django.urls import reverse
