@@ -47,7 +47,6 @@ def login(request):
             # print("[DEBUG] payload for login response: ", payload)
             return JsonResponse(payload, status=200)
         else:
-            
             return HttpResponse(status=401)
     else:
         return HttpResponseNotAllowed(['POST'])
