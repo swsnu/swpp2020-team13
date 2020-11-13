@@ -15,7 +15,7 @@ class TaskBarComponent extends Component {
         }
         else {
             return (
-          <Button.Group size="tiny" floated="right">
+          <Button.Group size="tiny" floated="right" id="Recurrent">
             <Button icon className="TaskBarButton">
               <Icon name='redo' />
           </Button>

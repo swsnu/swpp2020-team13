@@ -3,10 +3,10 @@ import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import history from '../history'
-import {middlewares} from '../store'
+import {middlewares} from '../store/store'
 
 const getMockAuthReducer = jest.fn(
-  initialState => (state = initialState, action) => {
+  initialState => (state = initialState.auth, action) => {
     switch (action.type) {
       default:
         break;

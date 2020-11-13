@@ -39,9 +39,9 @@ class HomePage extends React.Component {
                 </Grid.Column>
                 <Grid.Column>
                 <ButtonGroup className="ButtonGroup">
-                <Button onClick={this.onClickSignup} className="Button">SIGN UP</Button >
+                <Button onClick={this.onClickSignup} className="Button" id="ButtonSignup">SIGN UP</Button >
                 {/* <Button.Or /> */}
-                <Button onClick={this.onClickLogin} className="Button">LOGIN</Button>
+                <Button onClick={this.onClickLogin} className="Button" id="ButtonLogin">LOGIN</Button>
                 </ButtonGroup>
                 </Grid.Column>
                 </Grid>

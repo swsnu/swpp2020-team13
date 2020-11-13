@@ -8,7 +8,7 @@ import AddTaskForm from './AddTaskForm'
 const AddTaskModal = (props) => {
     const isAddTaskModalOpen = useSelector(state => state.modal.addTask)
     return (
-        <Segment className="SegmentAddTask">
+        <Segment className="SegmentAddTask" id="SegmentAddTaskModal">
         <Modal isOpen={isAddTaskModalOpen} className="SegmentAddTask">
             <div className="modal-container small-container modal-addTask">
                 <div className="modal__body">

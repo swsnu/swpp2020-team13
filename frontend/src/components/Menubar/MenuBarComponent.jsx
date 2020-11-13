@@ -29,7 +29,7 @@ const MenuBarComponent = (props) => {
         <Grid verticalAlign='middle' rows={6} centered className="gridBar">
         <Grid.Row>
             <Menu.Item as='a' >
-                <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create'>
+                <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create' id="CreateButton">
                     <Icon name='plus circle' size='large' id='icon'></Icon>
                     <br></br>
                     Create
@@ -39,7 +39,7 @@ const MenuBarComponent = (props) => {
 
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/main')} className='button'>
+                <button class='ui basic button' onClick={()=>props.history.push('/main')} className='button' id="MainButton">
                     <Icon name='home' size='large' id='icon'></Icon>
                     <br></br>
                     Main
@@ -49,7 +49,7 @@ const MenuBarComponent = (props) => {
 
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/dashboard')} className='button'>
+                <button class='ui basic button' onClick={()=>props.history.push('/dashboard')} className='button' id="DashButton">
                     <Icon name='chart bar outline' size='large' id='icon'></Icon>
                     <br></br>
                     Dashboard
@@ -58,7 +58,7 @@ const MenuBarComponent = (props) => {
             </Grid.Row>
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/explore')} className='button'>
+                <button class='ui basic button' onClick={()=>props.history.push('/explore')} className='button' id="ExpButton">
                     <Icon name='search' size='large' id='icon'></Icon>
                     <br></br>
                     Explore
@@ -67,7 +67,7 @@ const MenuBarComponent = (props) => {
             </Grid.Row>
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>props.history.push('/profile')} className='button'>
+                <button class='ui basic button' onClick={()=>props.history.push('/profile')} className='button' id="ProfileButton">
                     <Icon name='user circle' size='large' id='icon'></Icon>
                     <br></br>
                     Profile
@@ -76,7 +76,7 @@ const MenuBarComponent = (props) => {
             </Grid.Row>
             <Grid.Row>
             <Menu.Item as='a'>
-                <button class='ui basic button' onClick={()=>onClickLogout()} className='button-logout'>
+                <button class='ui basic button' onClick={()=>onClickLogout()} className='button-logout' id="LogoutButton">
                     <Icon name='arrow alternate circle right outline' size='large' id='icon'></Icon>
                     <br></br>
                     Logout
