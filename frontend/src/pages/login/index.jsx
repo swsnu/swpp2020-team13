@@ -30,7 +30,7 @@ class HomePage extends React.Component {
         }
 
         return (
-            <Form center aligned className="FormLogin">
+            <Form center={'true'} aligned={'true'} className="FormLogin">
             <Segment className="Segment">
                 <Grid columns={2} className="grid" divided='vertically'>
                 <Grid.Column>
