@@ -4,7 +4,7 @@ import './TaskBar.css'
 class TaskBarComponent extends Component {
 
     isRecurrent(daylist) {
-        if(daylist.length == 0) {
+        if(daylist[0].length == 0) {
             return(
                 <Button.Group size="tiny" floated="right">
                 <Button icon className="TaskBarButton">
@@ -28,10 +28,12 @@ class TaskBarComponent extends Component {
         }
     }
     render() {
+        
         return(
         <List.Item className="TaskBarListItem">
+            {console.log("DEBUG:, day of week" ,this.props.day_of_week)}
             <List.Content floated='right'>
-            {this.isRecurrent(this.props.days_of_week)}
+            {this.isRecurrent(this.props.day_of_week)}
             </List.Content>
             <Icon className="TaskBarListTriangle" name='right triangle'/>
             <List.Content className="TaskBarListContent">{this.props.title}</List.Content>

@@ -42,7 +42,7 @@ class GoalBodyComponent extends Component {
                     title={task.title} 
                     id={task.id} 
                     deadline={task.deadline} 
-                    days_of_week={task.day_of_week}/>)
+                    day_of_week={task.day_of_week}/>)
                     }
                 }       
             )
