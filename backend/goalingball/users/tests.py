@@ -31,7 +31,8 @@ def test_signup(client):
    headers = {
        'Content-Type': 'multipart/form-data'
    }
-   response = client.post(url, headers=headers, data=data)
+   response = client.post(url, data, headers=headers)
+#    response = client.post(url, headers=headers, data=data)
    assert response.status_code == 201
 
 
