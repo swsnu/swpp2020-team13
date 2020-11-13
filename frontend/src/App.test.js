@@ -40,10 +40,8 @@ describe('<App />', () => {
 
   it('renders <App /> component', () => {
     const component = mount(<Provider store={store}><App /></Provider>)
-    console.log("component: ", component)
     const wrapper = component.find('.App')
-    console.log('wrapper: ', wrapper)
-    expect(wrapper).to.have.lengthOf(1)
+    expect(wrapper).lengthOf(1)
   })
 })
 
