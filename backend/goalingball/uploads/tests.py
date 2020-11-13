@@ -4,10 +4,10 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 pytestmark = pytest.mark.django_db
-faker = Faker()
+fake = Faker()
 
-username = faker.name()
-password = faker.uuid4()
+username = fake.name()
+password = fake.uuid4()
 
 headers = {
     'Content-Type': 'multipart/form-data'

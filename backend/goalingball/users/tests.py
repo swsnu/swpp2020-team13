@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 
 # gloabl variables
 pytestmark = pytest.mark.django_db
-faker = Faker()
+fake = Faker()
 
-username = faker.name()
-password = faker.uuid4()
+username = fake.name()
+password = fake.uuid4()
 
 headers = {
     'Content-Type': 'multipart/form-data'
@@ -38,7 +38,7 @@ def test_signup(client):
     # request method allowed
 
     # request with missing data
-    missing_data = { 'email': faker.email(), 'password': password }
+    missing_data = { 'email': fake.email(), 'password': password }
     response = client.post(url, missing_data, headers=headers)
     assert response.status_code == 400 # Bad request 
 
@@ -66,12 +66,12 @@ def test_login_and_logout(client, django_user_model):
     # method allowed for a login request 
 
     # invalid user info
-    invalid_data = { 'username': faker.name(), 'password': password }
+    invalid_data = { 'username': fake.name(), 'password': password }
     response = client.post(url, invalid_data, headers=headers)
     assert response.status_code == 401 # Unauthorized 
 
     # request with missing data
-    missing_data = { 'email': faker.email(), 'password': password }
+    missing_data = { 'email': fake.email(), 'password': password }
     response = client.post(url, missing_data, headers=headers)
     assert response.status_code == 400 # Bad request 
 
@@ -123,6 +123,6 @@ def test_user_detail(client, django_user_model):
     assert 'test7' in response.content.decode()  # string
 
     # User does not exist
-    url = reverse('detail', kwargs={'pk': faker.pyint()})
+    url = reverse('detail', kwargs={'pk': fake.pyint()})
     response = client.get(url)
     assert response.status_code == 404
