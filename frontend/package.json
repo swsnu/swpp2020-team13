@@ -9,6 +9,7 @@
       "!src/index.js",
       "!src/serviceWorker.js"
     ],
+
     "transformIgnorePatterns": [
       "/node_modules/(?!react-datepicker)/"
     ]
@@ -26,6 +27,7 @@
     "date-fns": "^2.16.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
+    "enzyme-to-json": "^3.6.1",
     "material-ui": "^0.20.2",
     "moment": "^2.29.1",
     "react": "16.8.0",
