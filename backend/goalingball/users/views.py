@@ -18,7 +18,7 @@ def signup(request):
         user = User.objects.create_user(username, password=password)
 
         # A new user is automatically logged in
-        login(request, user)
+        auth_login(request, user)
 
         # serialized_user = model_to_dict(user)
         payload = {"id": str(user.id), "username": user.username}
@@ -64,3 +64,17 @@ def logout(request):
 
     else:
         return HttpResponseNotAllowed(['POST'])
+
+
+def detail(request, pk):
+    if request.method == 'GET':
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return HttpResponse(status=404)
+        
+        serialized_user = model_to_dict(user)
+        return JsonResponse(serialized_user, status=200)
+    
+    else:
+        return HttpResponseNotAllowed(['GET'])

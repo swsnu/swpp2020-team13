@@ -1,0 +1,6 @@
+[run]
+source = 
+    goalingball/
+
+omit = 
+    */migrations/*
