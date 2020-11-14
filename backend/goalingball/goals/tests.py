@@ -67,7 +67,6 @@ def test_goalList(client, django_user_model):
     assert response.status_code == 201
     assert title.replace('\n', '\\n') in response.content.decode()
     assert photo in response.content.decode()
-    response = client.post(url, goal_data, headers=headers)
 
     # cannot create a goal with invalid fields
     response = client.post(url, invalid_goal_data, headers=headers)
@@ -100,11 +99,17 @@ def test_goalDetail(client, django_user_model):
     assert goal_id == 1
 
 
-    url = reverse('goalDetail', kwargs={'goal_id': goal_id})
+    url = reverse('goalDetail', kwargs={'goal_id': fake.pyint()})
 
     # a method not allowed
     response = client.post(url)
     assert response.status_code == 405
+
+    # goal does not exist
+    response = client.get(url)
+    assert response.status_code == 404
+
+    url = reverse('goalDetail', kwargs={'goal_id': goal_id})
     
     # methods allowed
     response = client.get(url)
