@@ -4,7 +4,6 @@ import MenuBar from '../../components/Menubar/MenuBarComponent'
 import "./User.css"
 
 const UserComponent = (props) => {
-
     return (
         <div class='profilePage'>
             <MenuBar/>
@@ -12,6 +11,7 @@ const UserComponent = (props) => {
             {/* header */}
             <h1>This is user profile page</h1>
             <Button id='editButton' floated='right'>Edit Profile</Button>
+            <button class='ui basic button'>Edit Profile</button>
             <br></br>
             <Divider section />
 
