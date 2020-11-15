@@ -1,0 +1,19 @@
+/* .SegmentAddTaskModal {
+    width: 50% !important;
+    position: relative !important;
+    left: 20% !important;
+    top: 10% !important;
+    border-color: black !important;
+} */
+
+
+.SegmentAddTask {
+    width: 50% !important;
+    position: relative !important;
+    left: 25% !important;
+    top: 10% !important;
+    transform: scale(0.9, 0.9, 0.9) !important;
+    outline: none !important;
+    /* border: none !important; */
+    /* border-color: black !important; */
+} 

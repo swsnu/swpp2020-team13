@@ -1,15 +1,22 @@
 .GoalBodySegment {
     /* margin-top: 200px !important; */
     margin-left: 450px !important;
-    width: 680px !important;
+    width: 70% !important;
+    /* display: flex; */
+    max-width: 680px !important;
+}
+
+.ui.list, ol.ui.list, ul.ui.list .GoalBodyTitleList{
+    margin: 5px !important;
 }
 .GoalBodyListItem{
     padding-top: 14px;
     margin-right: 7px !important;
+    margin-bottom: 0px !important;
 }
 .DeleteGoalButtonGroupAnother {
-    margin-top: 5px !important;
-    bottom: 10px !important;
+    margin-top: 3px !important;
+    /* bottom: 10px !important; */
     left: 3px !important;
     position: relative;
         transform: scale(0.7, 0.7, 0.7) !important;
@@ -24,19 +31,28 @@
     opacity: 100% !important;
 
 }
+.EditGoalButtonA{
+    background-color: #ffffff !important;
+    /* color: black !important; */
+    /* right: 0 !important; */
+    /* bottom: 5px !important; */
+    Padding: 5px !important;
+    opacity: 100% !important;
+
+}
 .GoalBodyListTitle {
     /* padding-top: 14px; */
     padding-bottom: 0px !important;
 }
 .GoalBodyListIcon {
-    padding-top: 14px!important;
+    padding-top: 9px!important;
     color:  #fa9287;
     padding-bottom: 10px !important;
 }
 .GoalBodyListTitleHeader {
     padding-top: 5px;
-    font-size: 22px !important;
-    font-weight: 400 !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
     padding-bottom: 10px !important;
 }
 
@@ -46,13 +62,15 @@
 
 .GoalBodyListDeadline {
     /* padding-top: 10px; */
-    padding-left: 10px !important;
-    bottom: 0 !important;
+    padding-left: 6px !important;
+    /* bottom: 3px !important; */
     color: #807e7e;
 }
 
 .GoalBodyAddButton {
-    bottom: 4.25px !important;
-    right: 4.25px !important;
+    background-color: #ffffff !important;
+    bottom: 2.25px !important;
+    right: 2.25px !important;
     position: relative;
+    transform: scale(0.7, 0.7, 0.7) !important;
 }

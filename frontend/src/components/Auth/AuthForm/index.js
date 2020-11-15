@@ -27,7 +27,7 @@ export const CreateSignupForm = () => {
         dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
-
+ 
 
     const onError = (errors, e) => console.log(errors, e);
 
@@ -75,7 +75,7 @@ export const CreateSignupForm = () => {
             <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
             {errors.password2 && <span>This field is required</span>}
             </Segment>
-            <Button type="submit" className="submitButton" fluid>Go Submit</Button>
+            <Button type="submit" className="submitButton">Go Submit</Button>
         {/* </form> */}
         </Form>
     )
@@ -103,6 +103,7 @@ export const CreateLoginForm = () => {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
+         <Segment className="LoginSegment">
             <label htmlFor="username">username</label>
             <input 
                 id="username" 
@@ -118,11 +119,11 @@ export const CreateLoginForm = () => {
             />
             {errors.username && <span>This field is required</span>}
 
-            <label htmlFor="password">password</label>
-            <input id="password" name="password" placeholder="Enter password" ref={register({ required: true })} />
-            {errors.password && <span role="alert">{errors.password.message}</span>}
-
-            <Button type="submit">Go Submit</Button>
+                <label htmlFor="password">password</label>
+                <input id="password" name="password" type="password" placeholder="Enter password" ref={register({ required: true })} />
+                {errors.password && <span role="alert">{errors.password.message}</span>}
+            </Segment>
+            <Button type="submit" className="submitButtonLogin">Go Submit</Button>
         </Form>
     )
 }

@@ -14,10 +14,12 @@ const reducer = (state = initialState, action) => {
             return {...state, selectedGoal: action.target}
         case actionTypes.ADD_GOAL:
             const newGoal = {
+                id: action.id,
                 title: action.title,
-                photo: "test.goal.photo.url.com", 
+                photo: action.photo,
+                created_at: action.created_at,
                 deadline: action.deadline,
-                tags: action.tags
+                tags: action.tags,
             }
             return {...state, goals: [...state.goals, newGoal]}
         case actionTypes.EDIT_GOAL:

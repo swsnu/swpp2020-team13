@@ -18,7 +18,7 @@ class Goal(models.Model):
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(blank=True, null=True)
     # TODO : categories
     # categories = models.ManytoManyField()
     # def updateCategories():
@@ -30,7 +30,7 @@ class Goal(models.Model):
 
         # Upon save, update timestamps
         self.updated_at = timezone.localtime()
-        
+
         return super().save(*args, **kwargs)
 
     def __str__(self):

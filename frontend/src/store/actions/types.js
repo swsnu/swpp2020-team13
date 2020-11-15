@@ -14,10 +14,11 @@ export const ADD_GOAL = 'ADD_GOAL'
 export const EDIT_GOAL = 'EDIT_GOAL'
 export const DELETE_GOAL = 'DELETE_GOAL'
 
-
-
 // task //
-
-
+export const OPEN_ADD_TASK_MODAL = 'OPEN_ADD_TASK_GOAL'
+export const CLOSE_ADD_TASK_MODAL = 'CLOSE_ADD_TASK_MODAL'
+export const GET_ALL_TASK = 'GET_ALL_TASK'
+export const ADD_TASK = 'ADD_TASK'
+export const DELETE_TASK = 'DELETE_TASK'
 
 // achievement //

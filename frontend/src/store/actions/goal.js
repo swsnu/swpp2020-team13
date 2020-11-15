@@ -1,6 +1,6 @@
 import * as actionTypes from './types'
 import axios from 'axios'
-
+import history from '../../history'
 export const getAllGoal_ = (goals) => {
     return { type: actionTypes.GET_ALL_GOAL, goals: goals }
 }
@@ -30,6 +30,7 @@ export const addGoal_ = (goal) => {
         type: actionTypes.ADD_GOAL,
         title: goal.title,
         photo: goal.photo ? goal.photo : null, 
+        created_at: goal.created_at ? goal.created_at : null,
         deadline: goal.deadline ? goal.deadline : null,
         tags: goal.tags ? goal.tags : null
     }
@@ -55,6 +56,12 @@ export const addGoal = (formData, file) => async dispatch => {
         console.log("[DEBUG] no file found in addGoal")
     }
 
+    // const tag_string = formData.get('tags')
+    // const tag_list = tag_string.split(',')
+    // console.log("[DEBUG] tag_string: ", tag_string)
+    // console.log("[DEBUG] tag_list: ", tag_list)
+    // formData.set('tags', ['custom', 'tag'])
+    // console.log("[DEBUG] changed tags: ", formData.get('tags'))
     const res = await axios.post('/api/v1/goals/', formData, {
         headers: {
             "Content-Type": "multipart/form-data"
@@ -62,6 +69,7 @@ export const addGoal = (formData, file) => async dispatch => {
     })
     console.log("[DEBUG] res from server when adding goal: ", res.data)
     dispatch(addGoal_(res.data))
+    history.push('/main')
 }
 
 export const deleteGoal_ = (id) => {

@@ -11,18 +11,25 @@ import * as actionCreators from '../../store/actions/'
 
 const mapStateToProps = state => {
     return{
-        goalList: state.goal.goals
+        goalList: state.goal.goals,
+        taskList: state.task.tasks,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        onGetAllGoals: () => dispatch(actionCreators.getAllGoal())
+        onGetAllGoals: () => dispatch(actionCreators.getAllGoal()),
+        onGetAllTasks: () => dispatch(actionCreators.getAllTask())
     }
 }
 class GoalList extends Component {
 
+    state = {
+        today: new Date()
+    }
+
     componentDidMount(){
+        console.log(this.props.goalList)
         this.props.onGetAllGoals()
     }
 
@@ -35,34 +42,41 @@ class GoalList extends Component {
     }
 
     selectTodayGoals() {
-        var today = new Date()
+        const today = this.state.today
         // today = new Date(today.getTime()+ 540*60*1000)
         // console.log("todaydate")
-        // console.log(today)
+        // console.log (today)
         const todayGoals = this.props.goalList.filter((goal)=> {
-            let created_at = this.stringtoDate(goal.created_at)
             let deadline = this.stringtoDate(goal.deadline)
-            // console.log("selectTodaygoals")
+            console.log("selectTodaygoals")
             // console.log(created_at)
-            // console.log(deadline)
-            return ((created_at <= today) && (today <= deadline))
+            console.log(deadline)
+            return ((today <= deadline))
         })
         return todayGoals
+    }
+ 
+    onDeadlineSubmit = (date) => {
+        this.setState({today: date})
     }
 
     render(){
 
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
-        console.log(todayGoalsList)
         const toGoalBody = todayGoalsList.map((goal) => {
+            const tasks = this.props.taskList.filter(t => t.goal_id == goal.id)
+            console.log("filtered tasks", tasks)
                 return(<GoalBodyComponent 
                     title={goal.title} 
                     id={goal.id} 
                     deadline={goal.deadline} 
-                    tags={goal.tags}/>)
+                    tags={goal.tags}
+                    tasks={tasks}
+                    />)
             })
-
+        console.log("get goallist")
+        console.log(this.props.goalList)
         return(
             <div>
                 <div className='menubar'>
@@ -70,7 +84,7 @@ class GoalList extends Component {
                     <MenuBar/>
                 </div>
                 <div className='calendarpanel'>
-                    <CalendarPanel/>
+                    <CalendarPanel onSubmit={this.onDeadlineSubmit}/>
                 </div>
                 <div className='goallist'>
                     <h2 className="componentTitle">What's for today?</h2>

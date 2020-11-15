@@ -1,17 +1,21 @@
 import React, { Component, useRef } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
+import DatePicker from "react-datepicker"
+import LoadingOverlay from 'react-loading-overlay';
+
 import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 import { InputFile } from 'semantic-ui-react-input-file'
-import DatePicker from "react-datepicker"
+
 import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
-import actionCreators from '../../../store/actions'
+import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 import { isThisMonth } from 'date-fns/esm'
-import moment from 'moment'
+
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -28,7 +32,8 @@ class CreateGoal extends Component {
       deadline: new Date(),
       startdate: new Date(),
       tags: [],
-      tagOptions:[]
+      tagOptions:[],
+      isCreating: false,
     }
 
     fileChange = e => {
@@ -121,25 +126,31 @@ class CreateGoal extends Component {
             </Segment>
         )
     }
+
     onTagsChanged(tags) {
         this.setState({tags: tags})
     }
-    addTags(e, data){
-        const tags = this.state.tags
-        tags.push(data.value)
-        this.addTagOptions(e, data)
-        this.setState({tags: tags})
-    }
+
     addTagOptions(e,data) {
         const tagOptions = this.state.tagOptions
         tagOptions.push({key: data.value, text: data.value, value: data.value})
         this.setState({tagOptions:tagOptions})
     }
+
+    setTag(data) {
+        this.onTagsChanged(data.value)
+    }
+
     renderTag() {
         return(
             <FormField>
                 <label>Add Tags</label>
-                <Dropdown placeholder="add goal tags here" search selection clearable multiple allowAdditions fluid onAddItem={(e,data) => this.addTags(e, data)} options={this.state.tagOptions}/>
+                <Dropdown placeholder="add goal tags here" search selection 
+                    clearable multiple allowAdditions fluid 
+                    onAddItem={(e,data) => this.addTagOptions(e, data)} 
+                    onChange={(e,data)=>this.setTag(data)}
+                    options={this.state.tagOptions}
+                />
             </FormField>
         )
     }
@@ -147,13 +158,15 @@ class CreateGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        // console.log(this.state.deadline)
+        console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        data.append("deadline", moment(this.state.deadline).format("YYYY-MM-DD HH:MM:SS"))
-        data.append("tags", this.state.tags)
+        // let deadline = moment(this.state.deadline).add(1, 'days')
+        data.append("deadline", moment(this.state.deadline).unix())
+        console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
+        data.append("tags", JSON.stringify(this.state.tags))
         this.props.addGoal(data, this.state.file)
-        
+        this.setState({ isCreating: true })
     }
 
     // confirmHandler = () => {
@@ -181,7 +194,12 @@ class CreateGoal extends Component {
 
     render(){
         return(
-            <>
+            <LoadingOverlay
+                className="spinner"
+                active={this.state.isCreating}
+                spinner
+                text='Creating a new goal...'
+            >
             <div className='menubar'>
                 <MenuBar/>
             </div>
@@ -197,7 +215,7 @@ class CreateGoal extends Component {
                 <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
                 </Form>
             </div>
-            </>
+            </LoadingOverlay>
         )
     }
 
@@ -205,4 +223,4 @@ class CreateGoal extends Component {
 
 
 
-export default connect(null, { addGoal })(withRouter(CreateGoal))
+export default connect(mapDispatchToProps, { addGoal })(withRouter(CreateGoal))
