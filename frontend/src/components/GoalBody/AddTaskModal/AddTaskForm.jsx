@@ -56,21 +56,23 @@ const AddTaskForm = (props) => {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
-            <Segment className="AddTaskForm">
+            <Segment className="AddTaskForm" id="AddTaskFormSegment">
                 <h3>&nbsp; Add Task</h3>
                 <Form.Group widths='equal'>
-                    <Form.Input label='Title' placeholder='Enter task title' onChange={(e,data)=> setTitle(data.value)}/>
+                    <Form.Input label='Title' placeholder='Enter task title' onChange={(e,data)=> setTitle(data.value)} id="AddTaskFormTitle"/>
                     </Form.Group>
                         <Form.Group>
                             <Form.Select
                                 multiple selection
                                 label='Day of Week'
+                                id="AddTaskFormDayofWeek"
                                 options={options}
                                 onChange={(e,data)=>setDayOfWeek(data.value)}
                                 placeholder='Day of Week'
                             />
                             <Form.Input label='Deadline' 
-                            placeholder='Deadline' 
+                            placeholder='Deadline'
+                            id="AddTaskFormDeadline"
                             disabled={(day_of_week.length == 0) ? true : false}
                             onChange={(e,data)=>setDeadlineString(data.value)}
                             error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
@@ -81,6 +83,7 @@ const AddTaskForm = (props) => {
                         <Rating
                         name="simple-controlled"
                         size="large"
+                        id="AddTaskFormImportance"
                         value={importance}
                         onChange={(event, newValue) => {
                             setImportance(newValue);

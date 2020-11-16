@@ -6,7 +6,7 @@ import { closeModal } from '../../../store/actions'
 import {Button} from 'semantic-ui-react'
 import './Modal.css'
 export const Modal = (props) => {
-    ReactModal.setAppElement('#root')
+    if (process.env.NODE_ENV !== 'test') {ReactModal.setAppElement('#root')}
 
     const { children } = props
 

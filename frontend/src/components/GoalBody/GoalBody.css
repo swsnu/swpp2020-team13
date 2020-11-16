@@ -31,6 +31,15 @@
     opacity: 100% !important;
 
 }
+.EditGoalButtonA{
+    background-color: #ffffff !important;
+    /* color: black !important; */
+    /* right: 0 !important; */
+    /* bottom: 5px !important; */
+    Padding: 5px !important;
+    opacity: 100% !important;
+
+}
 .GoalBodyListTitle {
     /* padding-top: 14px; */
     padding-bottom: 0px !important;

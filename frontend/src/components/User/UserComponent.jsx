@@ -6,7 +6,7 @@ import "./User.css"
 const UserComponent = (props) => {
 
     return (
-        <div class='profilePage'>
+        <div class='profilePage' id="UserProfile">
             <MenuBar/>
 
             {/* header */}

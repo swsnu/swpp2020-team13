@@ -25,14 +25,12 @@ class HomePage extends React.Component {
     render() {
         if (this.props.isUserLoggedIn) {
             // Redirect to main page
-            console.log("[DEBUG] isUserLoggedIn: ", this.props.isUserLoggedIn)
-            console.log("[DEBUG] The user is already logged in. Redirect...")
             history.push('/main')
             return <div>Should redirect to main page</div>
         }
 
         return (
-            <Form center aligned className="FormLogin">
+            <Form center={'true'} aligned={'true'} className="FormLogin">
             <Segment className="Segment">
                 <Grid columns={2} className="grid" divided='vertically'>
                 <Grid.Column>
@@ -41,9 +39,9 @@ class HomePage extends React.Component {
                 </Grid.Column>
                 <Grid.Column>
                 <ButtonGroup className="ButtonGroup">
-                <Button onClick={this.onClickSignup} className="Button">SIGN UP</Button >
+                <Button onClick={this.onClickSignup} className="Button" id="ButtonSignup">SIGN UP</Button >
                 {/* <Button.Or /> */}
-                <Button onClick={this.onClickLogin} className="Button">LOGIN</Button>
+                <Button onClick={this.onClickLogin} className="Button" id="ButtonLogin">LOGIN</Button>
                 </ButtonGroup>
                 </Grid.Column>
                 </Grid>

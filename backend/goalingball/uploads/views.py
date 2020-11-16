@@ -9,14 +9,13 @@ import requests
 # @login_required
 def get_s3_url(request):
     if request.method == 'GET':
-        print("hit s3_url. request.user: ", request.user)
         s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
         # The location (url) of a file will be aws_s3_prefix + key
         
         key = str(request.user.id) + '/' + str(uuid.uuid4()) + '.jpeg/'
         if request.user.id is None:
-            print("[DEBUG] request.user.id is None")
-            key = "7/" + str(uuid.uuid4()) + '.jpeg/'
+            return HttpResponse(status=401) # Only logged in users are allowed
+            # key = "7/" + str(uuid.uuid4()) + '.jpeg/'
 
         # We will use this url to post file to S3
         url = s3.generate_presigned_url(

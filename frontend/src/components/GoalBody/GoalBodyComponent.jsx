@@ -36,13 +36,13 @@ class GoalBodyComponent extends Component {
 
     render() {
         {console.log("on goalbodycomponent", this.props.tasks)}
-        const toTaskBar = this.props.tasks.map((task) => {
+        const toTaskBar = this.state.tasks.map((task) => {
             if(task){
                 return(<TaskBarComponent
                     title={task.title} 
                     id={task.id} 
                     deadline={task.deadline} 
-                    days_of_week={task.day_of_week}/>)
+                    day_of_week={task.day_of_week}/>)
                     }
                 }       
             )
@@ -64,10 +64,10 @@ class GoalBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
-                    <Button size="tiny" compact icon className="DeleteGoalButtonA"><Icon name='edit'/></Button>
-                    <Button size="tiny" compact icon className="DeleteGoalButtonA" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
+                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody"><Icon name='edit'/></Button>
+                    <Button size="tiny" compact icon className="DeleteGoalButtonA" id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
                     </Button.Group> 
-                    <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton"></Button>
+                    <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
             {console.log("DEBUG: this.props.id (goal id passed)", this.props.id)}
