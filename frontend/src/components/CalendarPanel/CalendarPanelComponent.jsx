@@ -19,7 +19,7 @@ class CalendarPanelComponent extends Component {
     
     render() {
       return (
-        <nav class='panel' className="CalendarPanel">
+        <nav class='panel' className="CalendarPanelinBar">
           <Calendar id="Calendar"
             onChange={this.onChange}
             value={this.state.date}
