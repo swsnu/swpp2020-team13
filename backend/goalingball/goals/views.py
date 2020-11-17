@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
+from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from .models import Goal
 from django.core.serializers.json import DjangoJSONEncoder
@@ -26,14 +27,14 @@ def goalList(request):
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-            tag_json = ([tag for tag in g.tags.names()])[0]
-
-            print("DEBUG: tag string", tag_json)
+            # tag_json = ([tag for tag in g.tags.names()])[0]
+            tags = g.tags.names()[0]
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': json.loads(tag_json)})
+                'tasks': tasks, 'tags': tags
+            })
         return JsonResponse(goal_list, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -63,9 +64,9 @@ def goalList(request):
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
                         'title': new_goal.title, 'photo': new_goal.photo, 
-                        'created_at': (new_goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'updated_at' : (new_goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'deadline': (new_goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'created_at': int(new_goal.created_at.timestamp()),
+                        'updated_at' : int(new_goal.updated_at.timestamp()), 
+                        'deadline': int(new_goal.deadline.timestamp()), 
                         'tags': new_goal.tags.names()[0]}
         # print("tags.names(): ", new_goal.tags.names())
         print("tags.names()[0]: ", new_goal.tags.names()[0])
@@ -105,7 +106,7 @@ def goalDetail(request, goal_id=""):
             goal_title = request.PUT['title']
             goal_photo = request.PUT['photo']
             goal_deadline = request.PUT['deadline']
-            goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
+            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
             if 'tags' in request.PUT: # tags should be added after an intance is created
                 goal_tags = request.PUT.getlist['tags']
                 goal.tags.set(*goal_tags, clear=True)

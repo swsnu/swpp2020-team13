@@ -36,9 +36,9 @@ def taskList(request):
         # else
         task_list = []
         for t in Task.objects.all():
-            created_at = t.created_at.strftime('%Y-%m-%d %H:%M:%S')
-            updated_at = t.updated_at.strftime('%Y-%m-%d %H:%M:%S')
-            deadline = t.deadline.strftime('%Y-%m-%d %H:%M:%S')
+            created_at = int(t.created_at.timestamp()) 
+            updated_at = int(t.updated_at.timestamp()) 
+            deadline = int(t.deadline.timestamp()) 
             task_list.append({'id': t.id, 'user': t.user.id, 'goal_id': t.goal.id, 
                                'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
                                'deadline': deadline, 'importance': t.importance, 
@@ -68,9 +68,9 @@ def taskList(request):
         response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal_id': new_task.goal.id,
                         'title': new_task.title, 'importance': new_task.importance, 
                         'day_of_week': new_task.day_of_week,
-                        'created_at': (new_task.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'updated_at' : (new_task.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'deadline': (new_task.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'created_at': int(new_task.created_at.timestamp()),
+                        'updated_at' : int(new_task.updated_at.timestamp()),
+                        'deadline': int(new_task.deadline.timestamp()),
                         }
 
         return JsonResponse(response_dict, status=201, safe=False)
