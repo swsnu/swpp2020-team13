@@ -10,6 +10,7 @@ import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, lab
 import './EditGoal.css'
 
 import "react-datepicker/dist/react-datepicker.css"
+import { isThisSecond } from 'date-fns';
 // import axios from 'axios'
 // import * as actionCreators from '../../../store/actions'
 // import { addGoal } from '../../../store/actions'
@@ -33,14 +34,38 @@ class EditGoal extends Component {
       deadline: new Date(),
       startdate: new Date(),
       tags: [],
-      tagOptions:[{key: "tags", text:"tags", value:"tags"}],
-      defaultTag:["tags"],
+      tagOptions:[],
       isCreating: false,
     }
 
-    // renderDefaultTagOptions = () => {
-    //     this.props.selectedGoal.tags
-    // }
+    renderDefaultDate() {
+        const startdate = moment(this.props.selectedGoal.created_at).format("MM/DD/YYYY")
+        const deadline = new Date(this.props.selectedGoal.deadline)
+        this.setState({startdate: startdate, deadline: deadline})
+    }
+
+    renderDefaultTagOptions() {
+        console.log("CALLED")
+        const defaultTagOptions = []
+        const defaultTag = []
+        this.props.selectedGoal.tags.map((t)=>{
+            defaultTagOptions.push({key: t, text: t, value: t})
+            defaultTag.push(t)
+        })
+        this.setState({tagOptions: defaultTagOptions, tags: defaultTag})
+        console.log("[DEBUG] tagOptions", this.state.tagOptions)
+        console.log("[DEBUG] tags", this.state.tags)
+    }
+
+
+    componentWillMount() {
+        this.renderDefaultTagOptions()
+        // this.renderDefaultDate()
+    }
+
+    componentDidMount() {
+        this.renderDefaultDate()
+    }
 
     fileChange = e => {
         if(e.target.files){
@@ -82,7 +107,7 @@ class EditGoal extends Component {
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
             <input type="file" id="file" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " placeholder="Add new file" readOnly
+            <Form.Input fluid label="Photo Chosen " defaultValue="Add new photo" readOnly
               value={this.state.fileName}
             />
             <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
@@ -110,7 +135,7 @@ class EditGoal extends Component {
                     <label>Select Goal Deadline</label>
                     <Grid columns='three' textAlign='center' className="DeadlineGrid">
                     <Grid.Column width={5}>
-                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input>
+                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.state.startdate}></Input>
                     </Grid.Column >
                     <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
                     <Grid.Column  width={5}>
@@ -142,7 +167,7 @@ class EditGoal extends Component {
                 <label>Add Tags</label>
                 <Dropdown search selection 
                     clearable multiple allowAdditions fluid 
-                    defaultValue={this.state.defaultTag}
+                    defaultValue={this.state.tags}
                     onAddItem={(e,data) => this.addTagOptions(e, data)} 
                     onChange={(e,data)=>this.setTag(data)}
                     options={this.state.tagOptions}

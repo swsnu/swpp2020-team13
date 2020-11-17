@@ -23,6 +23,7 @@ export const getGoal = (id) => {
         return axios.get('/api/v1/goals/' + id + '/')
         .then(res => {
             dispatch(getGoal_(res.data))
+            history.push('/edit')
         })
     }
 }
