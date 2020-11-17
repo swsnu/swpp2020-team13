@@ -30,7 +30,6 @@ class GoalList extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props.goalList)
         this.props.onGetAllGoals()
     }
 
@@ -72,8 +71,6 @@ class GoalList extends Component {
         const todayGoalsList = this.selectTodayGoals()
         const toGoalBody = todayGoalsList.map((goal) => {
             // const tasks = this.props.taskList.filter(t => t.goal_id == goal.id)
-            // console.log("filtered tasks", tasks)
-            console.log("goal.tasks", goal.tasks)
             return(
                 <GoalBodyComponent 
                     title={goal.title} 

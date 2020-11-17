@@ -38,7 +38,6 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        {console.log("on goalbodycomponent", this.props.tasks)}
         const toTaskBar = this.state.tasks.map((task) => {
             if(task){
                 return(<TaskBarComponent
@@ -73,7 +72,6 @@ class GoalBodyComponent extends Component {
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {console.log("DEBUG: this.props.id (goal id passed)", this.props.id)}
             {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id} goal_deadline={this.props.deadline}/>}
             <br></br>
         </Segment>

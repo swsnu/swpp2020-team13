@@ -32,7 +32,6 @@ class TaskBarComponent extends Component {
         
         return(
         <List.Item className="TaskBarListItem">
-            {console.log("DEBUG:, day of week" ,this.props.day_of_week)}
             <List.Content floated='right'>
             {this.isRecurrent(this.props.day_of_week)}
             </List.Content>
