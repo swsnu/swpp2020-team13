@@ -6,7 +6,6 @@ import Axios from 'axios'
 // import {} from '../../store/actions/index'
 import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
-import EditTaskBody from './EditTaskBodyComponent'
 
 class TaskBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
