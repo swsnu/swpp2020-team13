@@ -7,7 +7,6 @@ import LoadingOverlay from 'react-loading-overlay';
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
-import './EditGoal.css'
 
 import "react-datepicker/dist/react-datepicker.css"
 import { isThisSecond } from 'date-fns';
@@ -15,7 +14,7 @@ import { isThisSecond } from 'date-fns';
 // import * as actionCreators from '../../../store/actions'
 // import { addGoal } from '../../../store/actions'
 // import { isThisMonth } from 'date-fns/esm'
-
+import './EditGoal.css'
 
 const mapStateToProps = state => {
     return{
@@ -107,7 +106,7 @@ class EditGoal extends Component {
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
             <input type="file" id="file" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " defaultValue="Add new photo" readOnly
+            <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
               value={this.state.fileName}
             />
             <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
@@ -179,10 +178,9 @@ class EditGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 60)
+        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
         data.append("tags", JSON.stringify(this.state.tags))
@@ -193,7 +191,6 @@ class EditGoal extends Component {
     render(){
         return(
             <LoadingOverlay
-                className="spinner"
                 active={this.state.isCreating}
                 spinner
                 text='Editing a new goal...'
@@ -201,12 +198,10 @@ class EditGoal extends Component {
             <div className='menubar'>
                 <MenuBar/>
             </div>
-            <div className='FormCreate'>
-                 <h2 id="header">Edit a Goal</h2>
-                 <Form id="FormCreateForm">
+            <div>
+                <Form className="EditGoalForm">
                 {this.renderTitle()}
                 {this.renderPhoto()}
-                {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
