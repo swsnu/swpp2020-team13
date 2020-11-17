@@ -70,3 +70,11 @@
     margin-top: 2px !important;
     /* bottom: 3px !important; */
 }
+
+.EditTaskSubmitButton {
+    left: 70px !important;
+}
+
+.EditTaskForm {
+    max-width: 800px !important;
+}

@@ -18,7 +18,7 @@ const mapStateToProps = state => {
 
 class EditPage extends Component {
     state = {
-        editGoal: true
+        editGoal: false
     }
 
     render() {
@@ -30,8 +30,8 @@ class EditPage extends Component {
                 <div className="EditGoalTaskTab">
                 {/* <Container className="EditGoalTaskContainer"> */}
                     <Button.Group className="EditGoalTaskButtonGroup">
-                        <Button className="EditGoalTabButton" onClick={()=>this.setState({editGoal: true})}>Edit Goal</Button>
                         <Button className="EditTaskTabButton" onClick={()=>this.setState({editGoal: false})}>Edit Tasks</Button>
+                        <Button className="EditGoalTabButton" onClick={()=>this.setState({editGoal: true})}>Edit Goal</Button>
                     </Button.Group>            
                 {/* </Container> */}
                     {this.state.editGoal ? 
@@ -42,7 +42,7 @@ class EditPage extends Component {
                     : 
                     <>
                     <h2>Edit Tasks</h2> 
-                    <EditTask tasks={this.props.selectedGoal.tasks}/>
+                    {(this.props.selectedGoal.tasks !== undefined) ? <EditTask tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
                     </>}
                 </div>
             </div>
