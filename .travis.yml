@@ -13,7 +13,7 @@ matrix:
     - cd frontend
     install:
     - yarn install
-    - yarn install coveralls
+    - yarn add coveralls
     script:
     - "./node_modules/.bin/eslint src/"
     - yarn test --coverage --watchAll=false
@@ -43,7 +43,7 @@ matrix:
     - cd backend
     - coveralls
     after_script: cd ..
-    
+
 env:
   global:
   - secure: Yryacz6jWH20I3sdrAVXl+qdggbiTmd8LtjQ31Hqx2BVjwaBIkLabobmLBp9ssE51zbd8t03eOZvfBfJjoGYubN4QtSKL00OAH4PULbzCkmtk2RRu6BkajAib+I/nu/C9a/04yl1zdPz4n8RKuSd8M37oGJNZDNQhwNLqOMbAyhx5Jku8tv1k/taR35k9Bpe0CUrXKR/uZvIGXRZqp3C+j1lxRpDjnV+0atB5RHiGNXNnVWasd9CGndv6C8fcUanxrSin+bwPgYj11J8+XPaJHlvpa9wVldPc5fCCCHZsPMm166JrRod/dp6zPaJ8mQ1N8grLnDauzy90GW0MSgKpkaS4wRWA8FxFh3XaqWc8jNBuSn/pLiIhqP3mAEWF+iE0Gw2uHybbdhxzZ4uzCl1DSKbbPueLXjBk1v/Tu/rcuqPJlrmTjHohUJwoJgnUjwM9hnaUD1cqfygmF7t5vU+ZokqUzASTORzVtMQtRhJl2y/d+mxCO2JuiDVhinLyJ4AGpiyQ53nepBdKK8Q9WkY9wY6EKIHuf1BvzZWMljHgwyg9q+UprOYRZ2M7QxMqskwbrk+Sa2Yh6PEiTzPyRWQs5QlJ4zlUf/M5CiewsBbIcwIALo6QPmw+ggO/mriV+kbRatiJx59xx5VCk9bHyxCcNFyeMhio6JQNc0RKVZaQ1w=
