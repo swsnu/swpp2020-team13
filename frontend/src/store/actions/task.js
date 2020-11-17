@@ -39,7 +39,7 @@ export const addTaskToGoal = task => {
         type: actionTypes.ADD_TASK_TO_GOAL,
         payload: {
             id: task.id,
-            goal_id: task.goal_id,
+            goal: task.goal_id,
             title: task.title,
             deadline: task.deadline,
             importance: task.importance,
@@ -55,10 +55,11 @@ export const addTask = (formData, file) => async dispatch => {
         }
     })
     console.log("addTask res.data: ", res.data)
-    dispatch(addTaskToGoal(res.data))
+    // dispatch(addTaskToGoal(res.data))
     dispatch(addTask_(res.data))
     // history.push('/main')
     dispatch(closeModal())
+    dispatch(addTaskToGoal(res.data))
 }
 
 export const deleteTask_ = (id) => {

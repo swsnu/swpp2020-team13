@@ -4,25 +4,27 @@ import moment from 'moment'
 import DatePicker from "react-datepicker"
 import LoadingOverlay from 'react-loading-overlay';
 
-import MenuBar from '../../../components/Menubar/MenuBarComponent'
+import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
-import './CreateGoal.css'
-import { InputFile } from 'semantic-ui-react-input-file'
+import './EditGoal.css'
 
 import "react-datepicker/dist/react-datepicker.css"
-import axios from 'axios'
-import * as actionCreators from '../../../store/actions'
-import { addGoal } from '../../../store/actions'
+import { isThisSecond } from 'date-fns';
+// import axios from 'axios'
+// import * as actionCreators from '../../../store/actions'
+// import { addGoal } from '../../../store/actions'
 // import { isThisMonth } from 'date-fns/esm'
 
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
+const mapStateToProps = state => {
+    return{
+        selectedGoal: state.goal.selectedGoal,
+        // taskList: state.task.tasks,
     }
 }
-class CreateGoal extends Component {
+
+class EditGoal extends Component {
 
     state = {
       title: "",
@@ -34,6 +36,35 @@ class CreateGoal extends Component {
       tags: [],
       tagOptions:[],
       isCreating: false,
+    }
+
+    renderDefaultDate() {
+        const startdate = moment(this.props.selectedGoal.created_at).format("MM/DD/YYYY")
+        const deadline = new Date(this.props.selectedGoal.deadline)
+        this.setState({startdate: startdate, deadline: deadline})
+    }
+
+    renderDefaultTagOptions() {
+        console.log("CALLED")
+        const defaultTagOptions = []
+        const defaultTag = []
+        this.props.selectedGoal.tags.map((t)=>{
+            defaultTagOptions.push({key: t, text: t, value: t})
+            defaultTag.push(t)
+        })
+        this.setState({tagOptions: defaultTagOptions, tags: defaultTag})
+        console.log("[DEBUG] tagOptions", this.state.tagOptions)
+        console.log("[DEBUG] tags", this.state.tags)
+    }
+
+
+    componentWillMount() {
+        this.renderDefaultTagOptions()
+        // this.renderDefaultDate()
+    }
+
+    componentDidMount() {
+        this.renderDefaultDate()
     }
 
     fileChange = e => {
@@ -52,24 +83,13 @@ class CreateGoal extends Component {
         
     }
 
-    // fileRender() {
-    //     if (this.state.upload == true) {
-    //         const imageUrl = URL.createObjectURL(this.state.file)
-    //         console.log(imageUrl)
-    //         return(
-    //             <img id="image" src={imageUrl}></img>
-    //         )
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }
-
     renderTitle() {
         return (
             <Form.Field>
                 <label>Goal Title</label>
-                <Input placeholder='Enter Title Here' onChange={(e)=>this.setState({title: e.target.value})}></Input>
+                <Input placeholder='Enter Title Here' 
+                defaultValue={this.props.selectedGoal.title}
+                onChange={(e)=>this.setState({title: e.target.value})}></Input>
             </Form.Field>
         )
     }
@@ -87,7 +107,7 @@ class CreateGoal extends Component {
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
             <input type="file" id="file" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
+            <Form.Input fluid label="Photo Chosen " defaultValue="Add new photo" readOnly
               value={this.state.fileName}
             />
             <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
@@ -115,7 +135,7 @@ class CreateGoal extends Component {
                     <label>Select Goal Deadline</label>
                     <Grid columns='three' textAlign='center' className="DeadlineGrid">
                     <Grid.Column width={5}>
-                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input>
+                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.state.startdate}></Input>
                     </Grid.Column >
                     <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
                     <Grid.Column  width={5}>
@@ -134,7 +154,6 @@ class CreateGoal extends Component {
     addTagOptions(e,data) {
         const tagOptions = this.state.tagOptions
         tagOptions.push({key: data.value, text: data.value, value: data.value})
-        console.log(tagOptions)
         this.setState({tagOptions:tagOptions})
     }
 
@@ -146,8 +165,9 @@ class CreateGoal extends Component {
         return(
             <FormField>
                 <label>Add Tags</label>
-                <Dropdown placeholder="add goal tags here" search selection 
+                <Dropdown search selection 
                     clearable multiple allowAdditions fluid 
+                    defaultValue={this.state.tags}
                     onAddItem={(e,data) => this.addTagOptions(e, data)} 
                     onChange={(e,data)=>this.setTag(data)}
                     options={this.state.tagOptions}
@@ -162,38 +182,13 @@ class CreateGoal extends Component {
         console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        // let deadline = moment(this.state.deadline).add(1, 'days')
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 60)
         console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
-        // console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
         data.append("tags", JSON.stringify(this.state.tags))
-        this.props.addGoal(data, this.state.file)
-        this.setState({ isCreating: true })
+        // this.props.addGoal(data, this.state.file)
+        // this.setState({ isCreating: true })
     }
-
-    // confirmHandler = () => {
-    //     formData = new FormData()
-    //     data.append("title", this.state.file)
-    //     data.append()
-    //     data.append("tags")
-    // }
-
-    // sendRequestTest() {
-    //     let data = new FormData()
-    //     data.append("title", "title")
-    //     data.append('photo', this.state.file)
-    //     data.append("deadline", "2020-11-11 12:00:00")
-    //     console.log(data.get('deadline'))
-
-    //     axios.post('/api/v1/goal/', data, {
-    //         headers: {
-    //             "Content-Type": "multipart/form-data",
-    //           },
-    //     })
-    //     .then((res) => console.log(res))
-    //     .catch((err) => console.log(err));
-    // }
 
     render(){
         return(
@@ -201,13 +196,13 @@ class CreateGoal extends Component {
                 className="spinner"
                 active={this.state.isCreating}
                 spinner
-                text='Creating a new goal...'
+                text='Editing a new goal...'
             >
             <div className='menubar'>
                 <MenuBar/>
             </div>
             <div className='FormCreate'>
-                 <h2 id="header">Add a Goal</h2>
+                 <h2 id="header">Edit a Goal</h2>
                  <Form id="FormCreateForm">
                 {this.renderTitle()}
                 {this.renderPhoto()}
@@ -224,6 +219,4 @@ class CreateGoal extends Component {
 
 }
 
-
-
-export default connect(mapDispatchToProps, { addGoal })(withRouter(CreateGoal))
+export default connect(mapStateToProps, null) (EditGoal)
