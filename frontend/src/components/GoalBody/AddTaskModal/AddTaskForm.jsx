@@ -20,8 +20,7 @@ const AddTaskForm = (props) => {
         dataForm.append("title", title)
         dataForm.append("goal_id", props.goal_id)
         dataForm.append("day_of_week", day_of_week)        
-        dataForm.append("deadline", deadline_unix)
-        console.log("DEBUG: deadline in default", deadline)
+        dataForm.append("deadline", deadline)
         dataForm.append("importance", importance)
         dispatch(actionCreators.addTask(dataForm))
         reset()
@@ -44,14 +43,13 @@ const AddTaskForm = (props) => {
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
     const [deadline, setDeadline] = React.useState("")
-    const [deadline_unix, setDeadlineUnix] = React.useState()
 
     const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')
 
     const setDeadlineString = (string) => {
-        setDeadline(string)
-        const deadline_date = moment(string, "YYYY-MM-DD").format()
-        setDeadlineUnix(moment(deadline_date).unix())
+        console.log("[DEBUG] dadline string: ", string)
+        const deadline = moment(string).format('YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 60)
+        setDeadline(deadline)
     }
 
     return (
