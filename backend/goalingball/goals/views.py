@@ -26,11 +26,14 @@ def goalList(request):
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
+            tag_json = ([tag for tag in g.tags.names()])[0]
+
+            print("DEBUG: tag string", tag_json)
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': [tag for tag in g.tags.names()]})
+                'tasks': tasks, 'tags': json.loads(tag_json)})
         return JsonResponse(goal_list, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -54,9 +57,9 @@ def goalList(request):
         
         if 'tags' in request.POST: # tags should be added after an intance is created
             tags = request.POST.getlist('tags') 
-            print("[DEBUG] tags in post: ", tags)
             new_goal.tags.add(*tags)
             new_goal.save()
+            # print("[DEBUG] tags in post: ", json.loads(*tags))
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
                         'title': new_goal.title, 'photo': new_goal.photo, 
@@ -83,10 +86,11 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=404)
 
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
+        tags = ([tag for tag in g.tags.names()])[0]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
                         'user': g.user.id, 'created_at': g.created_at, 
                         'updated_at': g.updated_at, 'deadline': g.deadline, 
-                        'tags': g.tags.names()[0], 'tasks': tasks}
+                        'tags': json.loads(tags), 'tasks': tasks}
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':
