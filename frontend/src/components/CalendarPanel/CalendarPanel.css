@@ -1,17 +1,16 @@
-.panel {
-  /*border-right: thin solid #adadad;*/
+.panel .CalendarPanelinBar { 
+  border-right: thin solid #adadad !important;
   position: fixed;
   width: 320px;
   height: 100%;
-  margin-left: 102px;
   background-color: #f7f7f7;
 }
 
-ul {
+/* ul {
     list-style-type : none;
     margin-top: 24px;
     margin-right: 24px;
-}
+} */
 
 li {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -24,6 +23,7 @@ li {
     font-size: 1em;
     line-height: 20px;
     text-align: left;
+  
 }
 
 .react-calendar {
@@ -33,7 +33,7 @@ li {
     padding-left: 16px;
     padding-right: 16px;
     max-width: 100%;
-    background-color: #f7f7f7;
+    background-color: #f7f7f7 !;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1.125em;
     padding-bottom: 16px;
@@ -67,12 +67,10 @@ li {
     height: 32px;
     margin-bottom: 0.3em;
     font-family: Verdana, Geneva, Tahoma, sans-serif !important;
-    /* transform: scale(1.1,1.1); */
   }
   .react-calendar__navigation button {
     min-width: 32px;
     background: none;
-    /* transform: scale(1.1,1.1); */
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
@@ -144,7 +142,6 @@ li {
   .react-calendar__tile--now:enabled:focus {
     text-emphasis: filled circle #fa9287;
     font-weight: bolder;
-    /*transform: scale(0.9, 0.9);*/
   }
   .react-calendar__tile--hasActive {
     background: #eb7264;
@@ -167,4 +164,4 @@ li {
   }
   .react-calendar--selectRange .react-calendar__tile--hover {
     background-color: #e6e6e6;
-  }
+  } 

@@ -22,12 +22,15 @@ def goalList(request):
         # else
         goal_list = []
         for g in Goal.objects.all():
-            created_at = g.created_at.strftime('%Y-%m-%d %H:%M:%S')
-            updated_at = g.updated_at.strftime('%Y-%m-%d %H:%M:%S')
-            deadline = g.deadline.strftime('%Y-%m-%d')
+            created_at = int(g.created_at.timestamp()) 
+            updated_at = int(g.updated_at.timestamp()) 
+            deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
 
-            goal_list.append({'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 'tags': [tag for tag in g.tags.names()]})
+            goal_list.append({
+                'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
+                'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
+                'tasks': tasks, 'tags': [tag for tag in g.tags.names()]})
         return JsonResponse(goal_list, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -43,6 +46,7 @@ def goalList(request):
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 
+        print("add goal photo: ", goal_photo)
         new_goal = Goal(title=goal_title, photo=goal_photo, deadline=goal_deadline, user=request.user)
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
