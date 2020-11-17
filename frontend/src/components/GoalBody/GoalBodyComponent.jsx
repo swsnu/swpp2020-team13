@@ -5,8 +5,9 @@ import TaskBarComponent from '../TaskBar/TaskBarComponent'
 import AddTaskModal from './AddTaskModal/AddTaskModal'
 import { connect } from 'react-redux'
 import Axios from 'axios'
-import { deleteGoal, openAddTaskModal} from '../../store/actions/index'
+import { deleteGoal, openAddTaskModal, getGoal, } from '../../store/actions/index'
 import moment from 'moment'
+import history from '../../history'
 
 class GoalBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -19,8 +20,12 @@ class GoalBodyComponent extends Component {
         tasks: this.props.goal.tasks ? this.props.goal.tasks : []
     }
 
-    // const toTaskBar // map from sampleTaskList
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
+    onClickEditGoalHandler = () => {
+        this.props.getGoal(this.props.goal_id)
+        console.log("[DEBUG] move to edit")
+        history.push('/edit')
+    }
 
     onClickDeleteHandler = () => {
         console.log("[DEBUG] goal deleted, id:", this.props.goal_id)
@@ -68,7 +73,7 @@ class GoalBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
-                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody"><Icon name='edit'/></Button>
+                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
                     <Button size="tiny" compact icon className="DeleteGoalButtonA" id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
                     </Button.Group> 
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
@@ -87,4 +92,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { openAddTaskModal, deleteGoal }) (GoalBodyComponent)
+export default connect(mapStateToProps, { openAddTaskModal, deleteGoal, getGoal }) (GoalBodyComponent)
