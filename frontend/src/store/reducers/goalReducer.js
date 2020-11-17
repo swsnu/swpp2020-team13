@@ -47,8 +47,7 @@ const reducer = (state = initialState, action) => {
             // There might be a more elegat way than the logic below
             const target = state.goals.filter(goal => goal.id == action.payload.goal_id)[0]
             const rest = state.goals.filter(goal => goal.id != action.payload.goal_id)
-            target.tasks = [...target.tasks, action.payload]
-            return { ...state, goals: [...rest, target]}
+            return { ...state, goals: [...rest, {...target, tasks: [...target.tasks, action.payload]}]}
 
         default:
             break

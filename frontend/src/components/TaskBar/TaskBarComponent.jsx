@@ -30,6 +30,7 @@ class TaskBarComponent extends Component {
     }
     render() {
         const { title, id, deadline, day_of_week } = this.props.task
+        console.log("[DEBUG] TaskBarComponent is rendering. task: ", this.props.task)
         
         return(
         <List.Item className="TaskBarListItem">
