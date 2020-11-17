@@ -29,14 +29,15 @@ class TaskBarComponent extends Component {
         }
     }
     render() {
+        const { title, id, deadline, day_of_week } = this.props.task
         
         return(
         <List.Item className="TaskBarListItem">
             <List.Content floated='right'>
-            {this.isRecurrent(this.props.day_of_week)}
+            {this.isRecurrent(day_of_week)}
             </List.Content>
             <Icon className="TaskBarListTriangle" name='right triangle'/>
-            <List.Content className="TaskBarListContent">{this.props.title}</List.Content>
+            <List.Content className="TaskBarListContent">{title}</List.Content>
             </List.Item>
         )
     }

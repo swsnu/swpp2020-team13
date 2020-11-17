@@ -38,16 +38,7 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        const toTaskBar = this.state.tasks.map((task) => {
-            if(task){
-                return(<TaskBarComponent
-                    title={task.title} 
-                    id={task.id} 
-                    deadline={task.deadline} 
-                    day_of_week={task.day_of_week}/>)
-                    }
-                }       
-            )
+        const toTaskBar = this.state.tasks.map(task => <TaskBarComponent task={task} key={task.id} />)
         const { title, id, deadline, tags, tasks } = this.props.goal
 
     return(
