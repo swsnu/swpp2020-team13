@@ -39,7 +39,7 @@ export const addTaskToGoal = task => {
         type: actionTypes.ADD_TASK_TO_GOAL,
         payload: {
             id: task.id,
-            goal_id: task.goal_id,
+            goal: task.goal_id,
             title: task.title,
             deadline: task.deadline,
             importance: task.importance,
