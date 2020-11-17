@@ -27,14 +27,14 @@ def goalList(request):
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-            tag_json = ([tag for tag in g.tags.names()])[0]
-
-            print("DEBUG: tag string", tag_json)
+            # tag_json = ([tag for tag in g.tags.names()])[0]
+            tags = g.tags.names()[0]
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': json.loads(tag_json)})
+                'tasks': tasks, 'tags': tags
+            })
         return JsonResponse(goal_list, safe=False, status=200)
 
     elif request.method == 'POST':
