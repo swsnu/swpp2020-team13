@@ -1,32 +1,34 @@
 matrix:
   include:
-    - language: node_js
-      node_js: '12'
-      cache:
-        - yarn: true
-      before_install:
-        - cd frontend
-      install:
-        - yarn install
-      script:
-        - ./node_modules/.bin/eslint src/
-        - yarn test --coverage --watchAll=false
-    
-    - language: python
-      python: '3.7'
-      addons:
-        sonarcloud:
-          organization: "swsnu"
-          token:
-            secure: "G0JbuRRu/eEjL8A9bRO4maZHiYcpgka/3huJTw+qpPPqfOBNoF7rV2jNi4OprYOCa9PV2cEhfrTeMgXWy4zejiXyeQhKBihDzZgg1GBIKe/eyFlAQGqT1kCz10oepjwSOkOO7zJ06npBFSMsbdY0oVNDixvMpc7QTDJ2fTnw7cLlZ4yMa/cm8/Mx2QjCuiXpBo/+RlTonYjiZEAdWgbIYehckSmpigqCkUI913mGNx/LGFc7gVK7Nt5c7SqkoSY39KzrI28Mw/I1OV8GTz8SMhJMMdFLxR277BbV4CmlGI+4blrYIxUDWe2tzVyngMcBuYMipMFcMlujK3jkFxGxEvzRAn2XJ7/Kdm9aMQ9H1auOELIahi66A945IzGFqNZ8+zH208FvlcZtAAOcVOej8KcNyhnDTz7YYGmH48R2HNXzy0CHHTNy2fS/h12L8PYMTFed7ffHtObxRdjBWwTJxsL/4c03qpahG8ouyYL2A6VG+IbJM2nGDgyokV9TfMvQ0fLUGDgNcgMgAT1lXkfVFctUbVfxQh8bsNaR2qIZRs6Wc1doNSC/fLHz2xITumMbWEBRH4bnTl7pjAIJsx7ZL/Qk58/MIQfzmLaWljQ8usWyrzNe5W+TRlBFP6wZrNqtasGEd9MUiHQ0L1Ve9+KXd2UVE3f/bHTcabuToVFlOV8="
-      cache:
-        - pip: true
-      before_install:
-        - cd backend
-      install:
-        - pip install -r requirements.txt
-      script: 
-        - pylint **/*.py --load-plugins pylint_django
-        - coverage run --source='.' manage.py test
-        - coverage xml 
-        - cd .. && sonar-scanner
+  - language: node_js
+    node_js: '12'
+    cache:
+    - yarn: true
+    before_install:
+    - cd frontend
+    install:
+    - yarn install
+    script:
+    - "./node_modules/.bin/eslint src/"
+    - yarn test --coverage --watchAll=false
+  - language: python
+    python: '3.7'
+    addons:
+      sonarcloud:
+        organization: swsnu
+        token:
+          secure: G0JbuRRu/eEjL8A9bRO4maZHiYcpgka/3huJTw+qpPPqfOBNoF7rV2jNi4OprYOCa9PV2cEhfrTeMgXWy4zejiXyeQhKBihDzZgg1GBIKe/eyFlAQGqT1kCz10oepjwSOkOO7zJ06npBFSMsbdY0oVNDixvMpc7QTDJ2fTnw7cLlZ4yMa/cm8/Mx2QjCuiXpBo/+RlTonYjiZEAdWgbIYehckSmpigqCkUI913mGNx/LGFc7gVK7Nt5c7SqkoSY39KzrI28Mw/I1OV8GTz8SMhJMMdFLxR277BbV4CmlGI+4blrYIxUDWe2tzVyngMcBuYMipMFcMlujK3jkFxGxEvzRAn2XJ7/Kdm9aMQ9H1auOELIahi66A945IzGFqNZ8+zH208FvlcZtAAOcVOej8KcNyhnDTz7YYGmH48R2HNXzy0CHHTNy2fS/h12L8PYMTFed7ffHtObxRdjBWwTJxsL/4c03qpahG8ouyYL2A6VG+IbJM2nGDgyokV9TfMvQ0fLUGDgNcgMgAT1lXkfVFctUbVfxQh8bsNaR2qIZRs6Wc1doNSC/fLHz2xITumMbWEBRH4bnTl7pjAIJsx7ZL/Qk58/MIQfzmLaWljQ8usWyrzNe5W+TRlBFP6wZrNqtasGEd9MUiHQ0L1Ve9+KXd2UVE3f/bHTcabuToVFlOV8=
+    cache:
+    - pip: true
+    before_install:
+    - cd backend
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pylint **/*.py --load-plugins pylint_django
+    - pytest --cov --cov-report xml
+    - cd .. && sonar-scanner
+env:
+  global:
+  - secure: Yryacz6jWH20I3sdrAVXl+qdggbiTmd8LtjQ31Hqx2BVjwaBIkLabobmLBp9ssE51zbd8t03eOZvfBfJjoGYubN4QtSKL00OAH4PULbzCkmtk2RRu6BkajAib+I/nu/C9a/04yl1zdPz4n8RKuSd8M37oGJNZDNQhwNLqOMbAyhx5Jku8tv1k/taR35k9Bpe0CUrXKR/uZvIGXRZqp3C+j1lxRpDjnV+0atB5RHiGNXNnVWasd9CGndv6C8fcUanxrSin+bwPgYj11J8+XPaJHlvpa9wVldPc5fCCCHZsPMm166JrRod/dp6zPaJ8mQ1N8grLnDauzy90GW0MSgKpkaS4wRWA8FxFh3XaqWc8jNBuSn/pLiIhqP3mAEWF+iE0Gw2uHybbdhxzZ4uzCl1DSKbbPueLXjBk1v/Tu/rcuqPJlrmTjHohUJwoJgnUjwM9hnaUD1cqfygmF7t5vU+ZokqUzASTORzVtMQtRhJl2y/d+mxCO2JuiDVhinLyJ4AGpiyQ53nepBdKK8Q9WkY9wY6EKIHuf1BvzZWMljHgwyg9q+UprOYRZ2M7QxMqskwbrk+Sa2Yh6PEiTzPyRWQs5QlJ4zlUf/M5CiewsBbIcwIALo6QPmw+ggO/mriV+kbRatiJx59xx5VCk9bHyxCcNFyeMhio6JQNc0RKVZaQ1w=
+  - secure: doSJK8aU64HdQ8xbzG97q+JhmmSefOl8e78QHwWJC+Dg0Ag3aJTQOxs0gk3aMIgdqYODxinsMKIqAeazaKhINrkT8myrGtxWI9KLVEyvDx9I9XPJi7n3URy3hOVfZttostqlU2+dHaGzpFEKIty0cHrIgFdw+9PNzBy/KXqwpnTYyqRlzpmwwbRMxFjQiz8hF5K2DvvVho6qvQMiszQdbop9Ku2oDruKT0cn5sW3rNAUUd0mFf0psGp/FGdvq1rKc87CSz0+eQTM8daOqcnf19FvpsT2Ku9Zx5RMRCpLpjWouEj72KRk7gnJUyg3xROo32eQAH+xu0BhMWDiAjT30S+fvVheFI+1GdgRPX7aX7FlaBQ5Kad/Rpc38tyGIlYu8INDDskeXxgioY7dnW3IKBQKD/rL2asGzkiDJJks1nNFnjp9SJxaTTV3AnqOG8ZS4Sjse4BmDhryLiyaeZnh5r/m34wp4dslZMChX8b6f2/wX3GL5xTrJhlRRu3PzquOb0Xi8TVSB5K+2kNuoc3tQpOhj3cG4l/I/5Fm3zWsPbeodRrjYRArZQNi4Ll+C873ApQzIVa4UfE6Sm8wyorM9WSDyMj1Uc7Rn1Cg7O+NSIqScXDRPQTt2HJHzv4mufrBHIe+svb2r/BZpF/1SveqbzqmcrSpJ/uPP2hWMtJ5lus=
