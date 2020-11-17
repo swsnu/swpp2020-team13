@@ -22,7 +22,7 @@ class GoalBodyComponent extends Component {
 
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
     onClickEditGoalHandler = () => {
-        this.props.getGoal(this.props.goal_id)
+        this.props.getGoal(this.props.goal.id)
     }
 
     onClickDeleteHandler = () => {
