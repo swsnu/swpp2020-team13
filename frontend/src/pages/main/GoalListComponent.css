@@ -3,7 +3,7 @@
     padding-top: 23px;
     padding-bottom: 10px;
     font-size: 30px;
-    z-index: 99 !important;
+    /* z-index: 99 !important; */
 }
 
 .calendarpanel {
@@ -12,6 +12,7 @@
     width: 320px;
     height: 100%;
     background-color: #f7f7f7;
-    z-index: 80;
+    /* z-index: 80; */
     margin-left: 110px;
 }
+

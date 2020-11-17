@@ -5,7 +5,9 @@ import TaskBarComponent from '../TaskBar/TaskBarComponent'
 import AddTaskModal from './AddTaskModal/AddTaskModal'
 import { connect } from 'react-redux'
 import Axios from 'axios'
-import { deleteGoal, openAddTaskModal} from '../../store/actions/index'
+import { deleteGoal, openAddTaskModal, getGoal, } from '../../store/actions/index'
+import moment from 'moment'
+import history from '../../history'
 
 class GoalBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -15,14 +17,16 @@ class GoalBodyComponent extends Component {
     state = {
         selectedDate: null,
         addTaskModal: false,
-        tasks: this.props.tasks ? this.props.tasks : []
+        // tasks: this.props.goal.tasks ? this.props.goal.tasks : []
     }
 
-    // const toTaskBar // map from sampleTaskList
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
+    onClickEditGoalHandler = () => {
+        this.props.getGoal(this.props.goal.id)
+    }
 
     onClickDeleteHandler = () => {
-        this.props.deleteGoal(this.props.id)
+        this.props.deleteGoal(this.props.goal.id)
     }
 
     onClickAddTaskHandler = () => {
@@ -30,22 +34,19 @@ class GoalBodyComponent extends Component {
         this.props.openAddTaskModal()
     }
 
+    // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return deadline.split(" ")[0]
+        return moment.unix(deadline).format('MMMM Do YYYY, HH:mm:ss')
+        // return moment.unix(deadline).format('LL')
     }
 
     render() {
-        {console.log("on goalbodycomponent", this.props.tasks)}
-        const toTaskBar = this.state.tasks.map((task) => {
-            if(task){
-                return(<TaskBarComponent
-                    title={task.title} 
-                    id={task.id} 
-                    deadline={task.deadline} 
-                    day_of_week={task.day_of_week}/>)
-                    }
-                }       
-            )
+        const { title, id, deadline, tags, tasks } = this.props.goal
+        const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)
+        
+
+        console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
+        console.log("[DEBUG] GoalBodyComponent is rendering. tasks: ", tasks)
 
     return(
         <Segment className="GoalBodySegment">
@@ -53,9 +54,9 @@ class GoalBodyComponent extends Component {
                 <List.Item className="GoalBodyListItem">
                 <Icon name='circle' className="GoalBodyListIcon" size="small"/>
                     <List.Content className="GoalBodyListTitle">
-                        <List.Header className="GoalBodyListTitleHeader">{this.props.title}</List.Header>
+                        <List.Header className="GoalBodyListTitleHeader">{title}</List.Header>
                         {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
-                        <div className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</div>
+                        <div className="GoalBodyListDeadline">Until {this.deadlineDate(deadline)}</div>
                     </List.Content>
                 </List.Item>
             </List>
@@ -64,14 +65,13 @@ class GoalBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
-                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody"><Icon name='edit'/></Button>
+                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
                     <Button size="tiny" compact icon className="DeleteGoalButtonA" id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
                     </Button.Group> 
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {console.log("DEBUG: this.props.id (goal id passed)", this.props.id)}
-            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={this.props.id} goal_deadline={this.props.deadline}/>}
+            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={id} goal_deadline={deadline}/>}
             <br></br>
         </Segment>
     )
@@ -84,4 +84,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { openAddTaskModal, deleteGoal }) (GoalBodyComponent)
+export default connect(mapStateToProps, { openAddTaskModal, deleteGoal, getGoal }) (GoalBodyComponent)

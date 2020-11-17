@@ -34,6 +34,20 @@ export const addTask_ = (task) => {
     }
 }
 
+export const addTaskToGoal = task => {
+    return {
+        type: actionTypes.ADD_TASK_TO_GOAL,
+        payload: {
+            id: task.id,
+            goal: task.goal_id,
+            title: task.title,
+            deadline: task.deadline,
+            importance: task.importance,
+            day_of_week: task.day_of_week
+        }
+    }
+}
+
 export const addTask = (formData, file) => async dispatch => {
     const res = await axios.post('/api/v1/tasks/', formData, {
         headers: {
@@ -41,9 +55,11 @@ export const addTask = (formData, file) => async dispatch => {
         }
     })
     console.log("addTask res.data: ", res.data)
+    // dispatch(addTaskToGoal(res.data))
     dispatch(addTask_(res.data))
     // history.push('/main')
     dispatch(closeModal())
+    dispatch(addTaskToGoal(res.data))
 }
 
 export const deleteTask_ = (id) => {
