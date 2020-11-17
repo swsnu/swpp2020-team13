@@ -6,6 +6,7 @@ import AddTaskModal from './AddTaskModal/AddTaskModal'
 import { connect } from 'react-redux'
 import Axios from 'axios'
 import { deleteGoal, openAddTaskModal} from '../../store/actions/index'
+import moment from 'moment'
 
 class GoalBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -30,8 +31,10 @@ class GoalBodyComponent extends Component {
         this.props.openAddTaskModal()
     }
 
+    // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return deadline.split(" ")[0]
+        return moment.unix(deadline).format('MMMM Do YYYY, HH:mm:ss')
+        // return moment.unix(deadline).format('LL')
     }
 
     render() {

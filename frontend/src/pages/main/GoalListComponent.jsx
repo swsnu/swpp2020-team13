@@ -8,6 +8,7 @@ import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
 import './GoalListComponent.css'
 import Axios from 'axios'
 import * as actionCreators from '../../store/actions/'
+import moment from 'moment'
 
 const mapStateToProps = state => {
     return{
@@ -33,25 +34,30 @@ class GoalList extends Component {
         this.props.onGetAllGoals()
     }
 
-    stringtoDate = (string) => {
-        var ymd = string.split(" ")[0]
-        var syear = ymd.split("-")[0]
-        var smonth = ymd.split("-")[1]
-        var sdate = ymd.split("-")[2]
-        return new Date(Number(syear), Number(smonth)-1, Number(sdate))
-    }
+    // stringtoDate = (string) => {
+    //     var ymd = string.split(" ")[0]
+    //     var syear = ymd.split("-")[0]
+    //     var smonth = ymd.split("-")[1]
+    //     var sdate = ymd.split("-")[2]
+    //     return new Date(Number(syear), Number(smonth)-1, Number(sdate))
+    // }
 
     selectTodayGoals() {
-        const today = this.state.today
+        console.log ("today: ", this.state.today)
+        const today = moment(this.state.today).unix()
         // today = new Date(today.getTime()+ 540*60*1000)
         // console.log("todaydate")
-        // console.log (today)
+        console.log ("today in timestamp: ", today)
         const todayGoals = this.props.goalList.filter((goal)=> {
-            let deadline = this.stringtoDate(goal.deadline)
-            console.log("selectTodaygoals")
+            // let deadline = this.stringtoDate(goal.deadline)
+            // console.log("selectTodaygoals")
             // console.log(created_at)
-            console.log(deadline)
-            return ((today <= deadline))
+            if (today <= goal.deadline) {
+                console.log("deadline of the goal: ", moment.unix(goal.deadline).format('MMMM Do YYYY, h:mm:ss a'))
+                console.log("deadline of the goal in timestamp: ", goal.deadline)
+            }
+            
+            return today <= goal.deadline
         })
         return todayGoals
     }
@@ -69,7 +75,8 @@ class GoalList extends Component {
             console.log("filtered tasks", tasks)
                 return(<GoalBodyComponent 
                     title={goal.title} 
-                    id={goal.id} 
+                    id={goal.id}
+                    key={goal.id} 
                     deadline={goal.deadline} 
                     tags={goal.tags}
                     tasks={tasks}
