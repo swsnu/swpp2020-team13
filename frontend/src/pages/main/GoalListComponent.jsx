@@ -35,7 +35,7 @@ class GoalList extends Component {
 
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
-        const toGoalBody = todayGoalsList.map(goal => <GoalBodyComponent goal={goal} key={goal.id} />)
+        const toGoalBody = todayGoalsList.map(goal => <GoalBodyComponent goal={goal} goal_id={goal.id} />)
 
         return(
             <div>
