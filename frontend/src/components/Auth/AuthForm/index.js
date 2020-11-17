@@ -11,6 +11,12 @@ import { useDispatch } from 'react-redux'
 //     }
 // }
 
+/*
+WARNING: the order of declarations of React hooks in CreateSignupForm and CreateLoginForm should be consistent
+For example, if useDispatch() is declared at the top CreateSignupForm, the same must be true in CreateLoginForm
+Remember that orders matter in React Hooks
+*/ 
+
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
@@ -84,9 +90,10 @@ export const CreateSignupForm = () => {
 
 
 export const CreateLoginForm = () => {
+    const dispatch = useDispatch()
     const { register, handleSubmit, watch, errors } = useForm()
     // const onSubmit = data => console.log(data)
-    const dispatch = useDispatch()
+    
     const onSubmit =(data, e) => { // e: event
         // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
         // dispatch(actionCreators.loginUser(data))
