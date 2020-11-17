@@ -37,12 +37,12 @@ class EditPage extends Component {
                     {this.state.editGoal ? 
                     <>
                     <h2>Edit a Goal</h2> 
-                    < EditGoal selectedGoal={this.props.selectedGoal}/>
+                    <EditGoal selectedGoal={this.props.selectedGoal}/>
                     </>
                     : 
                     <>
                     <h2>Edit Tasks</h2> 
-                    < EditTask />
+                    <EditTask tasks={this.props.selectedGoal.tasks}/>
                     </>}
                 </div>
             </div>
