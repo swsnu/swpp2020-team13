@@ -22,7 +22,7 @@ const Auth = (props) => {
             <div className="modal-container small-container modal-auth" id="Auth">
                 <ButtonGroup className="ButtonGroupModal" floated="right">
                 <Button onClick={() => setAuthMode('signup')} id="AuthSignup">Sign Up</Button>
-                <Button onClick={() => setAuthMode('login')}>Log In</Button>
+                <Button onClick={() => setAuthMode('login')} id="AuthLogin">Log In</Button>
                 </ButtonGroup>
                 {/* <div>{authMode == AuthMode.signup ? 'Sign Up' : 'Log In'}</div> */}
                 <br></br>
