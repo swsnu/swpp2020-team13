@@ -23,7 +23,8 @@ class GoalBodyComponent extends Component {
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
 
     onClickDeleteHandler = () => {
-        this.props.deleteGoal(this.props.id)
+        console.log("[DEBUG] goal deleted, id:", this.props.goal_id)
+        this.props.deleteGoal(this.props.goal_id)
     }
 
     onClickAddTaskHandler = () => {
