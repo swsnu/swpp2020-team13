@@ -17,7 +17,7 @@ class GoalBodyComponent extends Component {
     state = {
         selectedDate: null,
         addTaskModal: false,
-        tasks: this.props.goal.tasks ? this.props.goal.tasks : []
+        // tasks: this.props.goal.tasks ? this.props.goal.tasks : []
     }
 
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
@@ -26,8 +26,7 @@ class GoalBodyComponent extends Component {
     }
 
     onClickDeleteHandler = () => {
-        console.log("[DEBUG] goal deleted, id:", this.props.goal_id)
-        this.props.deleteGoal(this.props.goal_id)
+        this.props.deleteGoal(this.props.goal.id)
     }
 
     onClickAddTaskHandler = () => {
@@ -42,17 +41,12 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        const toTaskBar = this.state.tasks.map((task) => {
-            if(task){
-                return(<TaskBarComponent
-                    title={task.title} 
-                    id={task.id} 
-                    deadline={task.deadline} 
-                    day_of_week={task.day_of_week}/>)
-                    }
-                }       
-            )
         const { title, id, deadline, tags, tasks } = this.props.goal
+        const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)
+        
+
+        console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
+        console.log("[DEBUG] GoalBodyComponent is rendering. tasks: ", tasks)
 
     return(
         <Segment className="GoalBodySegment">

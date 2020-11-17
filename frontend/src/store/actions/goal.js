@@ -21,10 +21,14 @@ export const getGoal_ = (goal) => {
 export const getGoal = (id) => {
     return dispatch => {
         return axios.get('/api/v1/goals/' + id + '/')
+<<<<<<< HEAD
         .then(res => {
             dispatch(getGoal_(res.data))
             history.push('/edit')
         })
+=======
+        .then(res => dispatch(getGoal_(res.data)))
+>>>>>>> d857bd3c13dee6b559366f942a2cde175946891c
     }
 }
 

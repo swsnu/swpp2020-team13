@@ -55,10 +55,11 @@ export const addTask = (formData, file) => async dispatch => {
         }
     })
     console.log("addTask res.data: ", res.data)
-    dispatch(addTaskToGoal(res.data))
+    // dispatch(addTaskToGoal(res.data))
     dispatch(addTask_(res.data))
     // history.push('/main')
     dispatch(closeModal())
+    dispatch(addTaskToGoal(res.data))
 }
 
 export const deleteTask_ = (id) => {
