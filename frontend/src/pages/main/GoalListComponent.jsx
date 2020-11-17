@@ -20,7 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onGetAllGoals: () => dispatch(actionCreators.getAllGoal()),
-        onGetAllTasks: () => dispatch(actionCreators.getAllTask())
+        // onGetAllTasks: () => dispatch(actionCreators.getAllTask())
     }
 }
 class GoalList extends Component {
@@ -71,19 +71,23 @@ class GoalList extends Component {
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
         const toGoalBody = todayGoalsList.map((goal) => {
-            const tasks = this.props.taskList.filter(t => t.goal_id == goal.id)
-            console.log("filtered tasks", tasks)
-                return(<GoalBodyComponent 
+            // const tasks = this.props.taskList.filter(t => t.goal_id == goal.id)
+            // console.log("filtered tasks", tasks)
+            console.log("goal.tasks", goal.tasks)
+            return(
+                <GoalBodyComponent 
                     title={goal.title} 
                     id={goal.id}
                     key={goal.id} 
                     deadline={goal.deadline} 
                     tags={goal.tags}
-                    tasks={tasks}
-                    />)
-            })
-        console.log("get goallist")
-        console.log(this.props.goalList)
+                    tasks={goal.tasks}
+                    // tasks={tasks}
+                />
+            )
+        })
+        // console.log("get goallist")
+        // console.log(this.props.goalList)
         return(
             <div>
                 <div className='menubar'>

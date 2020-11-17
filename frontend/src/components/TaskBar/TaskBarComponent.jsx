@@ -4,7 +4,8 @@ import './TaskBar.css'
 class TaskBarComponent extends Component {
 
     isRecurrent(daylist) {
-        if(daylist[0].length == 0) {
+        // console.log("[DEBUG] TaskBarComponent isRecurrent daylist: ", daylist)
+        if(daylist.length == 0) {
             return(
                 <Button.Group size="tiny" floated="right">
                 <Button icon className="TaskBarButton">

@@ -43,12 +43,13 @@ const AddTaskForm = (props) => {
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
     const [deadline, setDeadline] = React.useState("")
+    // const [deadlineString, setDeadlineString] = React.useState("")
 
     const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')
 
     const setDeadlineString = (string) => {
         console.log("[DEBUG] dadline string: ", string)
-        const deadline = moment(string).format('YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 60)
+        const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 60)
         setDeadline(deadline)
     }
 
@@ -73,7 +74,7 @@ const AddTaskForm = (props) => {
                             id="AddTaskFormDeadline"
                             disabled={(day_of_week.length == 0) ? true : false}
                             onChange={(e,data)=>setDeadlineString(data.value)}
-                            error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
+                            // error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
                             />
                             {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={deadline} onChange={(date)=>{setDeadline(date)}} /> */}                        </Form.Group>
                     <Form.Group inline>

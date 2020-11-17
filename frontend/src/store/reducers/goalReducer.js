@@ -38,6 +38,12 @@ const reducer = (state = initialState, action) => {
                 return g.id != action.id
             })
             return {...state, goals: deleted}
+        case actionTypes.ADD_TASK_TO_GOAL:
+            // There might be a more elegat way than the logic below
+            const target = state.goals.filter(goal => goal.id === action.payload.goal_id)
+            const rest = state.goals.filter(goal => goal.id !== action.payload.goal_id)
+            target.tasks = [...target.tasks, action.payload]
+            return { ...state, goals: [...rest, target]}
         default:
             break
     }

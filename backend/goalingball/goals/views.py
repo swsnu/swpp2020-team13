@@ -27,7 +27,10 @@ def goalList(request):
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
 
-            goal_list.append({'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 'tags': [tag for tag in g.tags.names()]})
+            goal_list.append({
+                'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
+                'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
+                'tasks': tasks, 'tags': [tag for tag in g.tags.names()]})
         return JsonResponse(goal_list, safe=False, status=200)
 
     elif request.method == 'POST':
