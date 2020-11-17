@@ -16,11 +16,13 @@ import "react-datepicker/dist/react-datepicker.css"
 // import { isThisMonth } from 'date-fns/esm'
 
 
-const mapDispatchToProps = dispatch => {
-    // return {
-    //     onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
-    // }
+const mapStateToProps = state => {
+    return{
+        selectedGoal: state.goal.selectedGoal,
+        // taskList: state.task.tasks,
+    }
 }
+
 class EditGoal extends Component {
 
     state = {
@@ -35,6 +37,10 @@ class EditGoal extends Component {
       defaultTag:["tags"],
       isCreating: false,
     }
+
+    // renderDefaultTagOptions = () => {
+    //     this.props.selectedGoal.tags
+    // }
 
     fileChange = e => {
         if(e.target.files){
@@ -57,7 +63,7 @@ class EditGoal extends Component {
             <Form.Field>
                 <label>Goal Title</label>
                 <Input placeholder='Enter Title Here' 
-                defaultValue="Edit Goal Title"
+                defaultValue={this.props.selectedGoal.title}
                 onChange={(e)=>this.setState({title: e.target.value})}></Input>
             </Form.Field>
         )
@@ -188,6 +194,4 @@ class EditGoal extends Component {
 
 }
 
-
-
-export default (withRouter(EditGoal))
+export default connect(mapStateToProps, null) (EditGoal)
