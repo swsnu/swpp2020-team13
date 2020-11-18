@@ -22,7 +22,7 @@ class AccSegment extends Component {
                     </Grid.Column>
                     {/* <p>"Example Description"</p> */}
                 </Grid>
-                <p className="description">"Example Description"</p>
+                <p className="description">Example Description</p>
             </Segment>
         )
     }
