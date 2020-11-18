@@ -17,6 +17,7 @@ class TaskBodyComponent extends Component {
         // addTaskModal: false,
         // tasks: this.props.goal.tasks ? this.props.goal.tasks : []
         editmode: false,
+        readmode: true,
         title: this.props.task.title,
         importance: this.props.task.importance,
         day_of_week: this.props.task.day_of_week,
@@ -26,10 +27,13 @@ class TaskBodyComponent extends Component {
         // const [title, setTitle] = React.useState("")
         // const [deadline, setDeadline] = React.useState("")
         
+        
     }
 
     onClickEditTaskHandler = () => {
-        this.setState({editmode: true})
+       const neweditmode = !(this.state.editmode)
+       const newreadmode = !(this.state.readmode)
+       this.setState({editmode: neweditmode, readmode: newreadmode})
     }
 
     onClickDeleteHandler = () => {
@@ -71,7 +75,16 @@ class TaskBodyComponent extends Component {
     onSubmit = () => { // e: event
         // TODO: cannot call setState during render
         // this.setState({editmode: false})
+        const neweditmode = !(this.state.editmode)
+        const newreadmode = !(this.state.readmode)
+        this.setState({editmode: neweditmode, readmode: newreadmode})
     }  
+    
+    closeHandler = () => {
+        const neweditmode = !(this.state.editmode)
+        const newreadmode = !(this.state.readmode)
+        this.setState({editmode: neweditmode, readmode: newreadmode})
+    }
 
     renderEditMode = () => {
         const options = [
@@ -126,7 +139,11 @@ class TaskBodyComponent extends Component {
                         }} 
                         />
                     </Form.Group>
-                    <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit()}>Submit</Form.Button>                    
+                    <Button.Group>
+                        <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit}>Submit</Form.Button>
+                        <Button icon onClick={this.closeHandler}><Icon name='x'/></Button>
+                    </Button.Group>
+                    {/* <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit()}>Submit</Form.Button>                     */}
                 </Segment>
         </Form>
         )
@@ -168,8 +185,10 @@ class TaskBodyComponent extends Component {
     render() {
     return(
         <> 
-        {this.renderReadMode()}
-        {this.renderEditMode()}
+        {this.state.readmode && this.renderReadMode()}
+        {/* {this.renderReadMode()} */}
+        {this.state.editmode && this.renderEditMode()}
+        {console.log(this.state.readmode, this.state.editmode)}
         </>
     )
     }
