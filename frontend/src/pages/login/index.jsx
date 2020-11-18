@@ -55,7 +55,7 @@ class HomePage extends React.Component {
 const mapStateToProps = state => {
     return {
         isUserLoggedIn: state.auth, 
-        isAuthModalOpen: state.modal.auth 
+        isAuthModalOpen: state.modal.authModal 
     }
 }
 
