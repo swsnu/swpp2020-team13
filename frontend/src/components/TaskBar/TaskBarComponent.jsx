@@ -37,8 +37,12 @@ class TaskBarComponent extends Component {
             <List.Content floated='right'>
             {this.isRecurrent(day_of_week)}
             </List.Content>
-            <Icon className="TaskBarListTriangle" name='right triangle'/>
-            <List.Content className="TaskBarListContent">{title}</List.Content>
+            {/* <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button> */}
+            {/* <Icon className="TaskBarListTriangle" name='right triangle'/> */}
+            <List.Content className="TaskBarListContent">
+            <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button>
+                {title}
+                </List.Content>
             </List.Item>
         )
     }
