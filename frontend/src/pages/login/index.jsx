@@ -46,6 +46,7 @@ class HomePage extends React.Component {
                 </Grid.Column>
                 </Grid>
                 {this.props.isAuthModalOpen && <Auth authMode={this.state.authMode} />}
+                {console.log("DEBUG: ", this.props.isAuthModalOpen)}
             </Segment>
             </Form>
         )
