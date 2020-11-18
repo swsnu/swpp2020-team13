@@ -31,11 +31,7 @@ export const getGoal = (id) => {
 export const addGoal_ = (goal) => {
     return {
         type: actionTypes.ADD_GOAL,
-        title: goal.title,
-        photo: goal.photo ? goal.photo : null, 
-        created_at: goal.created_at ? goal.created_at : null,
-        deadline: goal.deadline ? goal.deadline : null,
-        tags: goal.tags ? goal.tags : null
+        payload: goal
     }
 }
 
