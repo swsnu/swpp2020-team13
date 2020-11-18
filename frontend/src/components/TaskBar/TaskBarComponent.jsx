@@ -59,7 +59,7 @@ class TaskBarComponent extends Component {
                 </List.Content>
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
-            {this.state.acc_open && <AccSegment title={title}/>}
+            {this.state.acc_open && <AccSegment task={this.props.task}/>}
             </>
         )
     }
