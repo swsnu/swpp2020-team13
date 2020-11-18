@@ -41,7 +41,7 @@ class GoalBodyComponent extends Component {
     }
 
     render() {
-        console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
+        // console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
         const { title, id, deadline, tags, tasks } = this.props.goal
         const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)
   
@@ -49,8 +49,8 @@ class GoalBodyComponent extends Component {
         // if((tasks !== undefined) && (tasks.length > 0)){toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)}
         
 
-        console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
-        console.log("[DEBUG] GoalBodyComponent is rendering. tasks: ", tasks)
+        // console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
+        // console.log("[DEBUG] GoalBodyComponent is rendering. tasks: ", tasks)
 
     return(
         <Segment className="GoalBodySegment">
@@ -83,6 +83,7 @@ class GoalBodyComponent extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log(state)
     return {
         isAddTaskModalOpen: state.modal.addTask
     }
