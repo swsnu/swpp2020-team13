@@ -163,7 +163,7 @@ class CreateGoal extends Component {
         let data = new FormData()
         data.append("title", this.state.title)
         // let deadline = moment(this.state.deadline).add(1, 'days')
-        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 60)
+        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
         // console.log("DEBUG: in UNIX timestamp", data.get('deadline'))

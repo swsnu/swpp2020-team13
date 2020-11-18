@@ -22,7 +22,7 @@ class GoalBodyComponent extends Component {
 
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week
     onClickEditGoalHandler = () => {
-        this.props.getGoal(this.props.goal_id)
+        this.props.getGoal(this.props.goal.id)
     }
 
     onClickDeleteHandler = () => {
@@ -43,9 +43,8 @@ class GoalBodyComponent extends Component {
     render() {
         console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
         const { title, id, deadline, tags, tasks } = this.props.goal
-        console.log("GoalBodyComponent this.props.goal.tasks: ", this.props.goal.tasks)
-        console.log("GoalBodyComponent tasks: ", tasks)
-        const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)
+        let toTaskBar = []
+        if((tasks !== undefined) && (tasks.length > 0)){toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)}
         
 
         console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
