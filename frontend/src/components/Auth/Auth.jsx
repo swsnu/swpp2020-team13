@@ -8,7 +8,7 @@ import './Auth.css'
 
 const Auth = (props) => {
     // useSelector is equivalent to mapStateToProps
-    const isAuthModalOpen = useSelector(state => state.modal.auth)
+    const isAuthModalOpen = useSelector(state => state.modal.authModal)
     // useState is equivalent to this.state
     const [authMode, setAuthMode] = useState(props.authMode)
 

@@ -16,12 +16,12 @@ import { isThisSecond } from 'date-fns';
 // import { isThisMonth } from 'date-fns/esm'
 import './EditGoal.css'
 
-const mapStateToProps = state => {
-    return{
-        selectedGoal: state.goal.selectedGoal,
-        // taskList: state.task.tasks,
-    }
-}
+// const mapStateToProps = state => {
+//     return{
+//         selectedGoal: state.goal.selectedGoal,
+//         // taskList: state.task.tasks,
+//     }
+// }
 
 class EditGoal extends Component {
 
@@ -195,9 +195,9 @@ class EditGoal extends Component {
                 spinner
                 text='Editing a new goal...'
             >
-            <div className='menubar'>
+            {/* <div className='menubar'>
                 <MenuBar/>
-            </div>
+            </div> */}
             <div>
                 <Form className="EditGoalForm">
                 {this.renderTitle()}
@@ -214,4 +214,4 @@ class EditGoal extends Component {
 
 }
 
-export default connect(mapStateToProps, null) (EditGoal)
+export default EditGoal

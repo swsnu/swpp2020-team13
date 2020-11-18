@@ -31,7 +31,7 @@ const AddTaskForm = (props) => {
 
     const options = [
         { key: 'm', text: 'Monday', value: 'MONDAY' },
-        { key: 't', text: 'Tuesday', value: 'TUESDAY ' },
+        { key: 't', text: 'Tuesday', value: 'TUESDAY' },
         { key: 'w', text: 'Wednesday', value: 'WEDNESDAY' },
         { key: 'th', text: 'Thursday', value: 'THURSDAY' },
         { key: 'f', text: 'Friday', value: 'FRIDAY' },
@@ -49,7 +49,7 @@ const AddTaskForm = (props) => {
 
     const setDeadlineString = (string) => {
         console.log("[DEBUG] dadline string: ", string)
-        const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 60)
+        const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
         setDeadline(deadline)
     }
 

@@ -1,18 +1,24 @@
 import React, {Component} from 'react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
-import Axios from 'axios'
-import * as actionCreators from '../../store/actions/'
-import moment from 'moment'
 import EditGoal from './EditGoalComponent'
 import EditTask from './EditTaskComponent'
 import { Button, Container } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 import './EditPage.css'
+
+
+
+const mapStateToProps = state => {
+    return{
+        selectedGoal: state.goal.selectedGoal,
+        // taskList: state.task.tasks,
+    }
+}
+
 class EditPage extends Component {
     state = {
-        editGoal: true
+        editGoal: false
     }
 
     render() {
@@ -24,20 +30,24 @@ class EditPage extends Component {
                 <div className="EditGoalTaskTab">
                 {/* <Container className="EditGoalTaskContainer"> */}
                     <Button.Group className="EditGoalTaskButtonGroup">
-                        <Button className="EditGoalTabButton" onClick={()=>this.setState({editGoal: true})}>Edit Goal</Button>
                         <Button className="EditTaskTabButton" onClick={()=>this.setState({editGoal: false})}>Edit Tasks</Button>
+                        <Button className="EditGoalTabButton" onClick={()=>this.setState({editGoal: true})}>Edit Goal</Button>
                     </Button.Group>            
                 {/* </Container> */}
                     {this.state.editGoal ? 
                     <>
                     <h2>Edit a Goal</h2> 
-                    < EditGoal />
+                    <EditGoal selectedGoal={this.props.selectedGoal}/>
                     </>
-                    : <EditTask/>}
+                    : 
+                    <>
+                    <h2>Edit Tasks</h2> 
+                    {(this.props.selectedGoal.tasks !== undefined) ? <EditTask tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
+                    </>}
                 </div>
             </div>
         )
     }
 }
 
-export default EditPage
+export default connect(mapStateToProps, null) (EditPage)

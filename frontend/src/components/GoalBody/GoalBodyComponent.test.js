@@ -7,27 +7,44 @@ import { getMockStore } from '../../test-utils/mocks'
 import history from '../../history'
 import chai, { expect } from 'chai'
 
+
 const stubInitialState = {
     auth: null,
-    modal: {
-        authModal: true,
-        addTask: true
-    }
+    authModal: true,
+    addTask: true
 }
-const mockStore = getMockStore(stubInitialState);
+const mockStore = getMockStore(stubInitialState)
 
-describe('<Menubar />', () => {
+describe('<GoalBody />', () => {
 
     let WrappedGoalBody
+    let mockGoalDefault = {
+        tasks: [
+            {title: "title1", id:"1", deadline:"2020-12-31", day_of_week:[""] },
+            {title: "title2", id:"2", deadline:"2020-12-31", day_of_week:[""] }
+        ],
+        deadline: "2020-11-13",
+        title: "",
+        id: 1,
+        tags: ["tags"],
+    }
+    
     beforeEach(() => {
       WrappedGoalBody = (
         <Provider store={mockStore}>
         <Router history={history}>
-          <GoalBody tasks={[""]} deadline={"2020-11-13"}/>
+          <GoalBody goal={mockGoalDefault}/>
         </Router>
         </Provider>
       )
     })
+
+    it("should render addtask modal", ()=> {
+        const component = mount(WrappedGoalBody)
+        const wrapper = component.find(".SegmentAddTask")
+        expect(wrapper.length).eql(6)
+    })
+
   
     it("should render without errors", ()=> {
         const component = mount(WrappedGoalBody)
@@ -59,53 +76,30 @@ describe('<Menubar />', () => {
 
     it("should render taskbar", ()=> {
         let WrappedGoalBodyWithTaskbar
+        let mockGoal = {
+            tasks: [
+                {title: "title1", id:"1", deadline:"2020-12-31", day_of_week:[""] },
+                {title: "title2", id:"2", deadline:"2020-12-31", day_of_week:[""] }
+            ],
+            deadline: "2020-11-13",
+            title: "",
+            id: 1,
+            tags: ["tags"],
+        }
         WrappedGoalBodyWithTaskbar = (
             <Provider store={mockStore}>
             <Router history={history}>
-              <GoalBody tasks={[{title: "title", id:"1", deadline:"2020-12-31", day_of_week:[""] }]} deadline={"2020-11-13"}/>
+              <GoalBody goal={mockGoal}/>
             </Router>
             </Provider>
         )
         const component = mount(WrappedGoalBodyWithTaskbar)
         const wrapper = component.find('.TaskBarListItem')
-        expect(wrapper.length).eql(2)
+        expect(wrapper.length).eql(4)
         // const tasks = wrapper.state().tasks;
         // expect(tasks).to.equal([{title: "title", id:"1", deadline:"2020-12-31", day_of_week:[""] }])
     })
 
-    it("should have empty task state when props.tasks is empty", () => {
-        let WrappedGoalBodyNullTask
-        WrappedGoalBodyNullTask = (
-            <Provider store={mockStore}>
-            <Router history={history}>
-              <GoalBody tasks={null} deadline={"2020-11-13"}/>
-            </Router>
-            </Provider>
-        )
-        const component = mount(WrappedGoalBodyNullTask)
-        const wrapper = component.find(GoalBody.WrappedComponent).instance()
-        const tasks = wrapper.state.tasks
-        expect(tasks.length).eql(0)
-    })
-
-
-    it("should have non-empty task state", ()=> {
-        let WrappedGoalBodyWithTaskbar
-        WrappedGoalBodyWithTaskbar = (
-            <Provider store={mockStore}>
-            <Router history={history}>
-              <GoalBody tasks={[
-                  {title: "title1", id:"1", deadline:"2020-12-31", day_of_week:[""] },
-                  {title: "title2", id:"2", deadline:"2020-12-31", day_of_week:[""] }
-                  ]} deadline={"2020-11-13"}/>
-            </Router>
-            </Provider>
-        )
-        const component = mount(WrappedGoalBodyWithTaskbar)
-        const wrapper = component.find(GoalBody.WrappedComponent).instance()
-        const tasks = wrapper.state.tasks
-        expect(tasks.length).eql(2)
-    })
 
     afterEach(() => {
         jest.clearAllMocks()
