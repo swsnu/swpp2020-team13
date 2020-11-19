@@ -39,7 +39,6 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_TASK_TO_GOAL:
             const target = state.goals.filter(goal => goal.id == action.payload.goal)[0]
             const rest = state.goals.filter(goal => goal.id != action.payload.goal)
-
             return { ...state, goals: [...rest, {...target, tasks: [...target.tasks, action.payload]}]}
 
         default:
