@@ -1,7 +1,9 @@
 import * as actionTypes from './types'
 import axios from 'axios'
+import history from '../../history'
 
 export const getAllGoal_ = (goals) => {
+    console.log("getAllGoal_ goals: ", goals)
     return { type: actionTypes.GET_ALL_GOAL, goals: goals }
 }
 
@@ -21,6 +23,7 @@ export const getGoal = (id) => {
         return axios.get('/api/v1/goals/' + id + '/')
         .then(res => {
             dispatch(getGoal_(res.data))
+            history.push('/edit')
         })
     }
 }
@@ -28,10 +31,7 @@ export const getGoal = (id) => {
 export const addGoal_ = (goal) => {
     return {
         type: actionTypes.ADD_GOAL,
-        title: goal.title,
-        photo: goal.photo ? goal.photo : null, 
-        deadline: goal.deadline ? goal.deadline : null,
-        tags: goal.tags ? goal.tags : null
+        payload: goal
     }
 }
 
@@ -62,6 +62,34 @@ export const addGoal = (formData, file) => async dispatch => {
     })
     console.log("[DEBUG] res from server when adding goal: ", res.data)
     dispatch(addGoal_(res.data))
+    history.push('/main')
+}
+
+export const editGoal = (goal_id, formData, file, key) => async dispatch => {
+    
+    // TODO: It cannot distinguish whether a user is deleting an existing photo 
+    // or the user has never set a photo yet.
+    if (file) { // edit file
+        const res = await axios.put('/api/v1/uploads/', { key: key })
+
+        const response = await axios.put(res.data.url, file, {
+            headers: {
+                'Content-Type': 'image/jpeg' 
+            }
+        })
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+        const imageUrl = s3prefix + res.data.key
+
+    } else {
+        // TODO
+    }
+    const res = await axios.put('/api/v1/goals/', formData, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    // dispatch(addGoal_(res.data))
+    history.push('/main')
 }
 
 export const deleteGoal_ = (id) => {
@@ -88,9 +116,9 @@ export const editGoal_ = (goal) => {
     }
 }
 
-export const editGoal = (goal) => {
-    return (dispatch) => {
-        return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
-        .then(res => dispatch(editGoal_(goal)))
-    }
-}
+// export const editGoal = (goal) => {
+//     return (dispatch) => {
+//         return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
+//         .then(res => dispatch(editGoal_(goal)))
+//     }
+// }

@@ -11,6 +11,12 @@ import { useDispatch } from 'react-redux'
 //     }
 // }
 
+/*
+WARNING: the order of declarations of React hooks in CreateSignupForm and CreateLoginForm should be consistent
+For example, if useDispatch() is declared at the top CreateSignupForm, the same must be true in CreateLoginForm
+Remember that orders matter in React Hooks
+*/ 
+
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
@@ -27,7 +33,7 @@ export const CreateSignupForm = () => {
         dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
-
+ 
 
     const onError = (errors, e) => console.log(errors, e);
 
@@ -75,7 +81,7 @@ export const CreateSignupForm = () => {
             <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
             {errors.password2 && <span>This field is required</span>}
             </Segment>
-            <Button type="submit" className="submitButton" fluid>Go Submit</Button>
+            <Button type="submit" className="submitButton">Go Submit</Button>
         {/* </form> */}
         </Form>
     )
@@ -84,9 +90,10 @@ export const CreateSignupForm = () => {
 
 
 export const CreateLoginForm = () => {
+    const dispatch = useDispatch()
     const { register, handleSubmit, watch, errors } = useForm()
     // const onSubmit = data => console.log(data)
-    const dispatch = useDispatch()
+    
     const onSubmit =(data, e) => { // e: event
         // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
         // dispatch(actionCreators.loginUser(data))
@@ -103,6 +110,7 @@ export const CreateLoginForm = () => {
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
+         <Segment className="LoginSegment">
             <label htmlFor="username">username</label>
             <input 
                 id="username" 
@@ -118,11 +126,11 @@ export const CreateLoginForm = () => {
             />
             {errors.username && <span>This field is required</span>}
 
-            <label htmlFor="password">password</label>
-            <input id="password" name="password" placeholder="Enter password" ref={register({ required: true })} />
-            {errors.password && <span role="alert">{errors.password.message}</span>}
-
-            <Button type="submit">Go Submit</Button>
+                <label htmlFor="password">password</label>
+                <input id="password" name="password" type="password" placeholder="Enter password" ref={register({ required: true })} />
+                {errors.password && <span role="alert">{errors.password.message}</span>}
+            </Segment>
+            <Button type="submit" className="submitButtonLogin">Go Submit</Button>
         </Form>
     )
 }

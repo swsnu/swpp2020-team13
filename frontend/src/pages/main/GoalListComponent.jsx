@@ -8,60 +8,35 @@ import GoalBodyComponent from '../../components/GoalBody/GoalBodyComponent'
 import './GoalListComponent.css'
 import Axios from 'axios'
 import * as actionCreators from '../../store/actions/'
+import moment from 'moment'
 
-const mapStateToProps = state => {
-    return{
-        goalList: state.goal.goals
-    }
-}
 
-const mapDispatchToProps = dispatch => {
-    return{
-        onGetAllGoals: () => dispatch(actionCreators.getAllGoal())
-    }
-}
 class GoalList extends Component {
+
+    state = {
+        today: new Date()
+    }
 
     componentDidMount(){
         this.props.onGetAllGoals()
     }
 
-    stringtoDate = (string) => {
-        var ymd = string.split(" ")[0]
-        var syear = ymd.split("-")[0]
-        var smonth = ymd.split("-")[1]
-        var sdate = ymd.split("-")[2]
-        return new Date(Number(syear), Number(smonth)-1, Number(sdate))
-    }
-
     selectTodayGoals() {
-        var today = new Date()
-        // today = new Date(today.getTime()+ 540*60*1000)
-        // console.log("todaydate")
-        // console.log(today)
-        const todayGoals = this.props.goalList.filter((goal)=> {
-            let created_at = this.stringtoDate(goal.created_at)
-            let deadline = this.stringtoDate(goal.deadline)
-            // console.log("selectTodaygoals")
-            // console.log(created_at)
-            // console.log(deadline)
-            return ((created_at <= today) && (today <= deadline))
-        })
+        const today = moment(this.state.today).unix()
+        const todayGoals = this.props.goalList.filter(goal => today <= goal.deadline)
         return todayGoals
+    }
+ 
+    onDeadlineSubmit = (date) => {
+        this.setState({today: date})
     }
 
     render(){
 
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
-        console.log(todayGoalsList)
-        const toGoalBody = todayGoalsList.map((goal) => {
-                return(<GoalBodyComponent 
-                    title={goal.title} 
-                    id={goal.id} 
-                    deadline={goal.deadline} 
-                    tags={goal.tags}/>)
-            })
+        const toGoalBody = todayGoalsList.map(goal => <GoalBodyComponent goal={goal} key={goal.id} />)
+        console.log("[DEBUG] GoalListComponent is rendering")
 
         return(
             <div>
@@ -70,7 +45,7 @@ class GoalList extends Component {
                     <MenuBar/>
                 </div>
                 <div className='calendarpanel'>
-                    <CalendarPanel/>
+                    <CalendarPanel onSubmit={this.onDeadlineSubmit}/>
                 </div>
                 <div className='goallist'>
                     <h2 className="componentTitle">What's for today?</h2>
@@ -78,6 +53,20 @@ class GoalList extends Component {
                 </div>
             </div>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    return{
+        goalList: state.goal.goals,
+        // taskList: state.task.tasks,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onGetAllGoals: () => dispatch(actionCreators.getAllGoal()),
+        // onGetAllTasks: () => dispatch(actionCreators.getAllTask())
     }
 }
 

@@ -2,10 +2,13 @@
 .TaskBarListContent {
     padding-top: 7.5px !important;
     font-size: 15px;
+    flex-shrink: 1;
 }
 
 .TaskBarListTriangle {
-    padding-top: 8.5px !important;
+    padding-top: 1.5px !important;
+    padding-bottom: 1.5px !important;
+    background-color: #ffffff !important;
     /* font-size: 15px; */
 }
 

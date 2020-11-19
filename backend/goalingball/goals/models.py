@@ -12,13 +12,13 @@ class Goal(models.Model):
         related_name='goals'
     )
     # image = models.ImageField(blank=True, upload_to="images", null=True)
-    photo = models.URLField(max_length=2047)
+    photo = models.URLField(max_length=2047, blank=True, null=True)
     tags = TaggableManager(blank=True)
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 
-    deadline = models.DateTimeField()
+    deadline = models.DateTimeField(blank=True, null=True)
     # TODO : categories
     # categories = models.ManytoManyField()
     # def updateCategories():
@@ -30,7 +30,7 @@ class Goal(models.Model):
 
         # Upon save, update timestamps
         self.updated_at = timezone.localtime()
-        
+
         return super().save(*args, **kwargs)
 
     def __str__(self):

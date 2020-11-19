@@ -5,6 +5,7 @@
     margin-right: 40px;
     margin-left: 140px;
     margin-bottom: 10px;
+    /* transform: scale(0.7, 0.7, 0.7); */
 }
 
 #photo {
@@ -13,8 +14,11 @@
     margin-right: auto;
     margin-top: 0px;
     margin-bottom: 30px;
+    transform: scale(0.7, 0.7, 0.7);
 }
-
+.userProfileDivider {
+    height: 100% !important;
+}
 /*#nameBio {
     word-wrap: break-word;
 }*/

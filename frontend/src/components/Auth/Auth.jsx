@@ -8,7 +8,7 @@ import './Auth.css'
 
 const Auth = (props) => {
     // useSelector is equivalent to mapStateToProps
-    const isAuthModalOpen = useSelector(state => state.modal.auth)
+    const isAuthModalOpen = useSelector(state => state.modal.authModal)
     // useState is equivalent to this.state
     const [authMode, setAuthMode] = useState(props.authMode)
 
@@ -19,9 +19,9 @@ const Auth = (props) => {
     return (
         <Segment className="SegmentModal">
         <Modal isOpen={isAuthModalOpen}>
-            <div className="modal-container small-container modal-auth">
+            <div className="modal-container small-container modal-auth" id="Auth">
                 <ButtonGroup className="ButtonGroupModal" floated="right">
-                <Button onClick={() => setAuthMode('signup')}>Sign Up</Button>
+                <Button onClick={() => setAuthMode('signup')} id="AuthSignup">Sign Up</Button>
                 <Button onClick={() => setAuthMode('login')}>Log In</Button>
                 </ButtonGroup>
                 {/* <div>{authMode == AuthMode.signup ? 'Sign Up' : 'Log In'}</div> */}
