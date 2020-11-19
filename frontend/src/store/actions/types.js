@@ -23,3 +23,7 @@ export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 
 // achievement //
+
+// profile //
+export const GET_PROFILE = 'GET_PROFILE'
+export const EDIT_PROFILE = 'EDIT_PROFILE'
