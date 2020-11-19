@@ -7,6 +7,7 @@ import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
 import EditPage from './pages/edit/EditPageComponent'
 import Profile from './pages/profile/index'
+import EditProfile from './pages/profile/EditProfileComponent/EditProfileComponent';
 
 function App(props) {
     return (
