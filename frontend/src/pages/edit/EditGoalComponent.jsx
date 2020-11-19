@@ -12,9 +12,10 @@ import "react-datepicker/dist/react-datepicker.css"
 import { isThisSecond } from 'date-fns';
 // import axios from 'axios'
 // import * as actionCreators from '../../../store/actions'
-// import { addGoal } from '../../../store/actions'
+import { editGoal } from '../../store/actions'
 // import { isThisMonth } from 'date-fns/esm'
 import './EditGoal.css'
+import { es } from 'date-fns/locale';
 
 // const mapStateToProps = state => {
 //     return{
@@ -34,7 +35,7 @@ class EditGoal extends Component {
       startdate: new Date(),
       tags: [],
       tagOptions:[],
-      isCreating: false,
+      isEditing: false,
     }
 
     renderDefaultDate() {
@@ -181,17 +182,24 @@ class EditGoal extends Component {
         let data = new FormData()
         data.append("title", this.state.title)
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
-        console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
+        // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
         data.append("tags", JSON.stringify(this.state.tags))
-        // this.props.addGoal(data, this.state.file)
-        // this.setState({ isCreating: true })
+
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+        const re = new RegExp(s3prefix)
+        const key = this.props.selectedGoal.photo.replace(re, '')
+        console.log("[DEBUG] EditGoalComponent key: ", key)
+
+        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key )
+        // this.setState({ isEditing: true })
     }
 
     render(){
+        console.log("selected goal: ", this.props.selectedGoal)
         return(
             <LoadingOverlay
-                active={this.state.isCreating}
+                active={this.state.isEditing}
                 spinner
                 text='Editing a new goal...'
             >
@@ -214,4 +222,4 @@ class EditGoal extends Component {
 
 }
 
-export default EditGoal
+export default connect(null, { editGoal })(EditGoal)

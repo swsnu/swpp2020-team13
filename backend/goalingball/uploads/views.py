@@ -32,7 +32,25 @@ def get_s3_url(request):
         data = {'key': key, 'url': url}
         return JsonResponse(data, status=200)
     
+    elif request.method == 'PUT':
+        req_data = json.loads(request.body.decode())
+        try:
+            key = req_data['key']
+        except(KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+
+        url = s3.generate_presigned_url(
+            ClientMethod='put_object',
+            Params={
+                'Bucket': 'goalingball-test',
+                'ContentType':'image/jpeg',
+                'Key': key
+            }
+        )
+        data = {'key': key, 'url': url}
+        return JsonResponse(data, status=200)
+
     else:
-        return HttpResponseNotAllowed(['GET'])
+        return HttpResponseNotAllowed(['GET', 'PUT'])
 
 # 'ap-northeast-2\' is wrong; expecting \'us-east-1
