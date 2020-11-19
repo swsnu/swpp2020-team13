@@ -67,7 +67,7 @@ def goalList(request):
                         'created_at': int(new_goal.created_at.timestamp()),
                         'updated_at' : int(new_goal.updated_at.timestamp()), 
                         'deadline': int(new_goal.deadline.timestamp()), 
-                        'tags': new_goal.tags.names()[0]}
+                        'tags': new_goal.tags.names()[0], 'tasks': []}
         # print("tags.names(): ", new_goal.tags.names())
         print("tags.names()[0]: ", new_goal.tags.names()[0])
         # print("tags: ", [tag for tag in new_goal.tags.names()])
@@ -77,15 +77,17 @@ def goalList(request):
 
 @csrf_exempt
 def goalDetail(request, goal_id=""):
+    try:
+        goal = Goal.objects.get(id=goal_id)
+    except Goal.DoesNotExist:
+        return HttpResponse(status=404)
+
     if request.method == 'GET':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
-            # GET goal Detail
-        try:
-            g = Goal.objects.get(id=goal_id)
-        except Goal.DoesNotExist:
-            return HttpResponse(status=404)
-
+        
+        # GET goal Detail
+        g = goal
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
         tags = ([tag for tag in g.tags.names()])[0]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
@@ -98,18 +100,21 @@ def goalDetail(request, goal_id=""):
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
 
-        goal = Goal.objects.get(id=goal_id)
         if goal.user.id is not request.user.id: # check if the user is the goal owner
             return HttpResponse(status=403)
 
+        req_data = json.loads(request.body.decode())
+        print("[DEBUG] req_data for PUT goal: ", req_data)
         try:
-            goal_title = request.PUT['title']
-            goal_photo = request.PUT['photo']
-            goal_deadline = request.PUT['deadline']
-            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
-            if 'tags' in request.PUT: # tags should be added after an intance is created
-                goal_tags = request.PUT.getlist['tags']
+            goal_title = req_data['title']
+            goal_photo = req_data['photo']
+            goal_deadline = req_data['deadline']
+            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
+
+            if 'tags' in req_data: # tags should be added after an intance is created
+                goal_tags = req_data.getlist['tags']
                 goal.tags.set(*goal_tags, clear=True)
+
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
 

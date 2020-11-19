@@ -5,7 +5,7 @@ import history from './history'
 import HomePage from './pages/login/index'
 import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
-import EditPage from './pages/edit/EditGoalComponent'
+import EditPage from './pages/edit/EditPageComponent'
 import Profile from './pages/profile/index'
 import EditProfile from './pages/profile/EditProfileComponent/EditProfileComponent';
 

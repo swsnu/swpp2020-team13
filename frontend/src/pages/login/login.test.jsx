@@ -16,9 +16,10 @@ import { getMockStore } from '../../test-utils/mocks'
 
 const stubInitialState = {
     auth: null,
-    modal: {
-        auth: true
-    }
+    // modal: {
+    //     auth: true
+    // }
+    authModal: true
 }
 const mockStore = getMockStore(stubInitialState);
 
@@ -33,27 +34,27 @@ describe('<Login />', () => {
   })
 
 // TODO : not working
-//   it('should return form when isUserLoggedIn is true', ()=> {
-//     const stubInitialStateLogin = {
-//         auth: {
-//             id: "1",
-//             username: "login"
-//         },
+  // it('should return form when isUserLoggedIn is true', ()=> {
+  //   const stubInitialStateLogin = {
+  //       auth: {
+  //           id: "1",
+  //           username: "login"
+  //       },
         
-//             authModal: false,
-//             addTask: false
+  //           auth: false,
+  //           addTask: false
     
-//     }
-//     const mockStoreLogin = getMockStore(stubInitialStateLogin);
-//     let WrappedLoginTrue = (
-//             <Provider store={mockStoreLogin}>
-//                 <Login />
-//             </Provider>
-//     )
-//       const component = mount(WrappedLoginTrue)
-//       const wrapper = component.find('.Redirect')
-//       expect(wrapper).to.have.lengthOf(1)
-//     }) 
+  //   }
+  //   const mockStoreLogin = getMockStore(stubInitialStateLogin);
+  //   let WrappedLoginTrue = (
+  //           <Provider store={mockStoreLogin}>
+  //               <Login />
+  //           </Provider>
+  //   )
+  //     const component = mount(WrappedLoginTrue)
+  //     const wrapper = component.find('.Redirect')
+  //     expect(wrapper).to.have.lengthOf(1)
+  //   }) 
 
   it('should return form when isUserLoggedIn is false', ()=> {
       const component = mount(WrappedLogin)

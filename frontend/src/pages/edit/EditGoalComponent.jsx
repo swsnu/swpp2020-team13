@@ -7,22 +7,22 @@ import LoadingOverlay from 'react-loading-overlay';
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
-import './EditGoal.css'
 
 import "react-datepicker/dist/react-datepicker.css"
 import { isThisSecond } from 'date-fns';
 // import axios from 'axios'
 // import * as actionCreators from '../../../store/actions'
-// import { addGoal } from '../../../store/actions'
+import { editGoal } from '../../store/actions'
 // import { isThisMonth } from 'date-fns/esm'
+import './EditGoal.css'
+import { es } from 'date-fns/locale';
 
-
-const mapStateToProps = state => {
-    return{
-        selectedGoal: state.goal.selectedGoal,
-        // taskList: state.task.tasks,
-    }
-}
+// const mapStateToProps = state => {
+//     return{
+//         selectedGoal: state.goal.selectedGoal,
+//         // taskList: state.task.tasks,
+//     }
+// }
 
 class EditGoal extends Component {
 
@@ -35,7 +35,7 @@ class EditGoal extends Component {
       startdate: new Date(),
       tags: [],
       tagOptions:[],
-      isCreating: false,
+      isEditing: false,
     }
 
     renderDefaultDate() {
@@ -107,7 +107,7 @@ class EditGoal extends Component {
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
             <input type="file" id="file" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " defaultValue="Add new photo" readOnly
+            <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
               value={this.state.fileName}
             />
             <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
@@ -179,34 +179,37 @@ class EditGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 60)
-        console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
+        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
+        // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
         data.append("tags", JSON.stringify(this.state.tags))
-        // this.props.addGoal(data, this.state.file)
-        // this.setState({ isCreating: true })
+
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+        const re = new RegExp(s3prefix)
+        const key = this.props.selectedGoal.photo.replace(re, '')
+        console.log("[DEBUG] EditGoalComponent key: ", key)
+
+        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key )
+        // this.setState({ isEditing: true })
     }
 
     render(){
+        console.log("selected goal: ", this.props.selectedGoal)
         return(
             <LoadingOverlay
-                className="spinner"
-                active={this.state.isCreating}
+                active={this.state.isEditing}
                 spinner
                 text='Editing a new goal...'
             >
-            <div className='menubar'>
+            {/* <div className='menubar'>
                 <MenuBar/>
-            </div>
-            <div className='FormCreate'>
-                 <h2 id="header">Edit a Goal</h2>
-                 <Form id="FormCreateForm">
+            </div> */}
+            <div>
+                <Form className="EditGoalForm">
                 {this.renderTitle()}
                 {this.renderPhoto()}
-                {/* {this.fileRender()} */}
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
@@ -219,4 +222,4 @@ class EditGoal extends Component {
 
 }
 
-export default connect(mapStateToProps, null) (EditGoal)
+export default connect(null, { editGoal })(EditGoal)

@@ -31,11 +31,7 @@ export const getGoal = (id) => {
 export const addGoal_ = (goal) => {
     return {
         type: actionTypes.ADD_GOAL,
-        title: goal.title,
-        photo: goal.photo ? goal.photo : null, 
-        created_at: goal.created_at ? goal.created_at : null,
-        deadline: goal.deadline ? goal.deadline : null,
-        tags: goal.tags ? goal.tags : null
+        payload: goal
     }
 }
 
@@ -69,6 +65,33 @@ export const addGoal = (formData, file) => async dispatch => {
     history.push('/main')
 }
 
+export const editGoal = (goal_id, formData, file, key) => async dispatch => {
+    
+    // TODO: It cannot distinguish whether a user is deleting an existing photo 
+    // or the user has never set a photo yet.
+    if (file) { // edit file
+        const res = await axios.put('/api/v1/uploads/', { key: key })
+
+        const response = await axios.put(res.data.url, file, {
+            headers: {
+                'Content-Type': 'image/jpeg' 
+            }
+        })
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+        const imageUrl = s3prefix + res.data.key
+
+    } else {
+        // TODO
+    }
+    const res = await axios.put('/api/v1/goals/', formData, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    // dispatch(addGoal_(res.data))
+    history.push('/main')
+}
+
 export const deleteGoal_ = (id) => {
     return {
         type: actionTypes.DELETE_GOAL,
@@ -93,9 +116,9 @@ export const editGoal_ = (goal) => {
     }
 }
 
-export const editGoal = (goal) => {
-    return (dispatch) => {
-        return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
-        .then(res => dispatch(editGoal_(goal)))
-    }
-}
+// export const editGoal = (goal) => {
+//     return (dispatch) => {
+//         return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
+//         .then(res => dispatch(editGoal_(goal)))
+//     }
+// }

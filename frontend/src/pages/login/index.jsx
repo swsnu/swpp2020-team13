@@ -46,6 +46,7 @@ class HomePage extends React.Component {
                 </Grid.Column>
                 </Grid>
                 {this.props.isAuthModalOpen && <Auth authMode={this.state.authMode} />}
+                {console.log("DEBUG: ", this.props.isAuthModalOpen)}
             </Segment>
             </Form>
         )
@@ -55,7 +56,7 @@ class HomePage extends React.Component {
 const mapStateToProps = state => {
     return {
         isUserLoggedIn: state.auth, 
-        isAuthModalOpen: state.modal.auth 
+        isAuthModalOpen: state.modal.authModal 
     }
 }
 
