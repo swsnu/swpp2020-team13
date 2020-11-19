@@ -78,17 +78,15 @@ def goalList(request):
 
 @csrf_exempt
 def goalDetail(request, goal_id=""):
-    try:
-        goal = Goal.objects.get(id=goal_id)
-    except Goal.DoesNotExist:
-        return HttpResponse(status=404)
-
     if request.method == 'GET':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         
         # GET goal Detail
-        g = goal
+        try:
+            g = Goal.objects.get(id=goal_id)
+        except Goal.DoesNotExist:
+            return HttpResponse(status=404)
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
         tags = ([tag for tag in g.tags.names()])[0]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
@@ -100,6 +98,11 @@ def goalDetail(request, goal_id=""):
     elif request.method == 'PUT' or request.method == 'PATCH':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
+
+        try:
+            goal = Goal.objects.get(id=goal_id)
+        except Goal.DoesNotExist:
+            return HttpResponse(status=404)
 
         if goal.user.id is not request.user.id: # check if the user is the goal owner
             return HttpResponse(status=403)
@@ -131,7 +134,12 @@ def goalDetail(request, goal_id=""):
     elif request.method == 'DELETE':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
-        goal = Goal.objects.get(id=goal_id)
+
+        try:
+            goal = Goal.objects.get(id=goal_id)
+        except Goal.DoesNotExist:
+            return HttpResponse(status=404)
+            
         if goal.user.id is not request.user.id:
             return HttpResponse(status=403)
         goal.delete()
