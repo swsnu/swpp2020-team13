@@ -1,17 +1,17 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { Image, Button, Item, Segment, Divider, Header, Card, Icon, Form, Grid, Container, Placeholder } from 'semantic-ui-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import "./User.css"
 
 const UserComponent = (props) => {
-
     return (
         <div class='profilePage' id="UserProfile">
             <MenuBar/>
 
             {/* header */}
             <h1>This is user profile page</h1>
-            <Button id='editButton' floated='right'>Edit Profile</Button>
+            <button id='editButton' onClick={()=> {props.history.push('/profile/edit')}} floated='right'>Edit Profile</button>
             <br></br>
             <Divider section className='userProfileDivider'/>
 
@@ -115,4 +115,4 @@ const UserComponent = (props) => {
     )
 }
 
-export default UserComponent;
+export default withRouter(UserComponent);

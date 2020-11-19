@@ -18,6 +18,7 @@ function App(props) {
                 <Route path="/edit" exact component={EditPage}/>
                 <Route path="/main" exact component={GoalList} />
                 <Route path="/profile" exact component={Profile} />
+                <Route path="/profile/edit" exact component={EditPage} />
             </Switch>
         </div>
     </Router>
