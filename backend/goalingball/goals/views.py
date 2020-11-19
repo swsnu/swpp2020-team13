@@ -29,6 +29,7 @@ def goalList(request):
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             # tag_json = ([tag for tag in g.tags.names()])[0]
             tags = g.tags.names()[0]
+            # print("goalList tags: ", tags)
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
@@ -103,6 +104,7 @@ def goalDetail(request, goal_id=""):
         if goal.user.id is not request.user.id: # check if the user is the goal owner
             return HttpResponse(status=403)
 
+        print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
         req_data = json.loads(request.body.decode())
         print("[DEBUG] req_data for PUT goal: ", req_data)
         try:

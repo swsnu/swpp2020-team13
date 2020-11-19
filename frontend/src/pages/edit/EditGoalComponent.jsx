@@ -186,12 +186,15 @@ class EditGoal extends Component {
         data.append("deadline", deadline)
         data.append("tags", JSON.stringify(this.state.tags))
 
-        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
-        const re = new RegExp(s3prefix)
-        const key = this.props.selectedGoal.photo.replace(re, '')
+        let key = ''
+        if (this.props.selectedGoal.photo != '') {
+            const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+            const re = new RegExp(s3prefix)
+            key = this.props.selectedGoal.photo.replace(re, '')
+        }
         console.log("[DEBUG] EditGoalComponent key: ", key)
 
-        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key )
+        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
         // this.setState({ isEditing: true })
     }
 

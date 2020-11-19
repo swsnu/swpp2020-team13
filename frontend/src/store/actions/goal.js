@@ -67,9 +67,15 @@ export const addGoal = (formData, file) => async dispatch => {
 
 export const editGoal = (goal_id, formData, file, key) => async dispatch => {
     
-    // TODO: It cannot distinguish whether a user is deleting an existing photo 
-    // or the user has never set a photo yet.
-    if (file) { // edit file
+    if (file) { // edit a photo or create a new one
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+
+        // no photo has been set yet
+        if (!key) { 
+            const res = await axios.get('/api/v1/uploads/')
+            key = res.data.key
+        }
+
         const res = await axios.put('/api/v1/uploads/', { key: key })
 
         const response = await axios.put(res.data.url, file, {
@@ -77,13 +83,24 @@ export const editGoal = (goal_id, formData, file, key) => async dispatch => {
                 'Content-Type': 'image/jpeg' 
             }
         })
-        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+        
         const imageUrl = s3prefix + res.data.key
+        formData.append('photo', imageUrl)
 
     } else {
-        // TODO
+        if (key) {  // delete a photo
+            // TODO
+            // make another axios call
+        }
     }
-    const res = await axios.put('/api/v1/goals/', formData, {
+
+    const data = {
+        title: formData.get('title'),
+        photo: formData.get('photo'),
+        deadline: formData.get('deadline')
+    }
+    
+    const res = await axios.put(`/api/v1/goals/${goal_id}/`, data, {
         headers: {
             "Content-Type": "application/json"
         }
