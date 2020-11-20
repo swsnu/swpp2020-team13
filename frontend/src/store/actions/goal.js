@@ -65,9 +65,9 @@ export const addGoal = (formData, file) => async dispatch => {
     history.push('/main')
 }
 
-export const editGoal = (goal_id, formData, file, key) => async dispatch => {
+export const editGoal = (goal_id, data, file, key) => async dispatch => {
     
-    console.log("[DEBUG] editGoal formData: ", formData)
+    console.log("[DEBUG] editGoal data: ", data)
 
     if (file) { // edit a photo or create a new one
         const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
@@ -87,8 +87,8 @@ export const editGoal = (goal_id, formData, file, key) => async dispatch => {
         })
         
         const imageUrl = s3prefix + res.data.key
-        formData.set('photo', imageUrl)
-        console.log("changed photo: ", formData.get('photo'))
+        data['photo'] = imageUrl
+        // console.log("changed photo: ", data['photo'])
 
     } else {
         if (key) {  // delete a photo
@@ -97,14 +97,17 @@ export const editGoal = (goal_id, formData, file, key) => async dispatch => {
         }
     }
 
-    const data = {
-        title: formData.get('title'),
-        photo: formData.get('photo'),
-        deadline: formData.get('deadline'),
-        tags: formData.get('tags')
-    }
+    console.log('Edit goal data: ', data)
+    // const data = {
+    //     title: formData.get('title'),
+    //     photo: formData.get('photo'),
+    //     deadline: formData.get('deadline'),
+    //     tags: formData.get('tags')
+    // }
+    // const data_json = JSON.stringify(Object.fromEntries(formData))
+    // console.log("data_json: ", data_json)
     
-    console.log("[DEBUG] edit goal data: ", data)
+    // console.log("[DEBUG] edit goal data: ", datsa)
 
     const res = await axios.put(`/api/v1/goals/${goal_id}/`, data, {
         headers: {
