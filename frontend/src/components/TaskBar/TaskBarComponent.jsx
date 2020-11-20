@@ -2,6 +2,10 @@ import React, {Component} from 'react'
 import { List, Icon, Checkbox, Grid, Button} from 'semantic-ui-react'
 import './TaskBar.css'
 import AccSegment from '../AccDetail/AccSegmentComponent'
+import AddAccModal from '../AddAcc/AddAccModal'
+import { openAddAccModal } from '../../store/actions/index'
+import { connect } from 'react-redux'
+
 class TaskBarComponent extends Component {
 
 
@@ -9,12 +13,18 @@ class TaskBarComponent extends Component {
         acc_open: false
     }
 
+
+    AddaccOpenHandler = () => {
+        console.log("CLICKED:", this.props.task)
+        this.props.openAddAccModal()
+    }
+
     isRecurrent(daylist) {
         // console.log("[DEBUG] TaskBarComponent isRecurrent daylist: ", daylist)
         if(daylist.length == 0) {
             return(
                 <Button.Group size="tiny" floated="right">
-                <Button icon className="TaskBarButton">
+                <Button icon className="TaskBarButton" onClick={this.AddaccOpenHandler}>
                     <Icon name='pencil alternate' />
                 </Button>
                 </Button.Group>
@@ -26,7 +36,7 @@ class TaskBarComponent extends Component {
             <Button icon className="TaskBarButton">
               <Icon name='redo' />
           </Button>
-          <Button icon className="TaskBarButton">
+          <Button icon className="TaskBarButton" onClick={this.AddaccOpenHandler}>
               <Icon name='pencil alternate' />
           </Button>
           </Button.Group>
@@ -34,6 +44,7 @@ class TaskBarComponent extends Component {
           )
         }
     }
+
     accOpenHandler = () => {
         if(this.state.acc_open == false) {this.setState({acc_open: true})}
         else{
@@ -60,9 +71,16 @@ class TaskBarComponent extends Component {
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
             {this.state.acc_open && <AccSegment task={this.props.task}/>}
+            {this.props.isAddAccModalOpen && <AddAccModal/>}
             </>
         )
     }
 }
 
-export default TaskBarComponent
+const mapStateToProps = state => {
+    console.log(state)
+    return {
+        isAddAccModalOpen: state.modal.addAcc
+    }
+}
+export default connect(mapStateToProps, { openAddAccModal }) (TaskBarComponent)
