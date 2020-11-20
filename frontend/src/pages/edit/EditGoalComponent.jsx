@@ -184,18 +184,21 @@ class EditGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        let data = new FormData()
+        let data = {}
         console.log("EditGoalComponent this.state.title: ", this.state.title)
         console.log("EditGoalComponent this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
 
-        data.append("title", this.state.title)
+        data['title'] = this.state.title
+        // data.append("title", this.state.title)
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
-        data.append("deadline", deadline)
+        data['deadline'] = deadline
+        // data.append("deadline", deadline)
         console.log("DEBUG: this state tags", this.state.tags)
-        for (const tag of this.state.tags) {
-            data.append("tags", tag)
-        }
+        data['tags'] = this.state.tags
+        // for (const tag of this.state.tags) {
+        //     data.append("tags", tag)
+        // }
 
         let key = ''
         if (this.props.selectedGoal.photo) { // A user already has a photo
@@ -206,6 +209,14 @@ class EditGoal extends Component {
         } 
         console.log("[DEBUG] EditGoalComponent key: ", key)
         console.log("[DEBUG] EditGoalComponent formData: ", data)
+
+
+    // const data = {
+    //     title: formData.get('title'),
+    //     photo: formData.get('photo'),
+    //     deadline: formData.get('deadline'),
+    //     tags: formData.get('tags')
+    // }
 
         this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
         // this.setState({ isEditing: true })

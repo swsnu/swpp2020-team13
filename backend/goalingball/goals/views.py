@@ -100,7 +100,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=401)
 
         try:
-            goal = Goal.objects.selects_related('user').get(id=goal_id)
+            goal = Goal.objects.select_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
 
@@ -111,13 +111,14 @@ def goalDetail(request, goal_id=""):
         req_data = json.loads(request.body.decode())
 
         try:
-            goal_title = req_data['title']
-            goal_photo = req_data['photo']
-            goal_deadline = req_data['deadline']
+            goal_title = req_data.get('title')
+            goal_photo = req_data.get('photo', '')
+            goal_deadline = req_data.get('deadline', None)
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
 
             if 'tags' in req_data: # tags should be added after an intance is created
                 goal_tags = req_data['tags']
+                print("req_data['tags']: ", req_data['tags'])
                 # breakpoint()
                 goal.tags.set(*goal_tags, clear=True)
 

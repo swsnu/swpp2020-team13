@@ -171,6 +171,7 @@ class CreateGoal extends Component {
         for (const tag of this.state.tags) {
             data.append("tags", tag)
         }
+        console.log("Create goal data.get('tags'): ", data.get('tags'))
 
         this.props.addGoal(data, this.state.file)
         this.setState({ isCreating: true })
