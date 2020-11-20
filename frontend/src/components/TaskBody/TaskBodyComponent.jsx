@@ -36,9 +36,9 @@ class TaskBodyComponent extends Component {
        this.setState({editmode: neweditmode, readmode: newreadmode})
     }
 
-    onClickDeleteHandler = () => {
-        // TODO
-    }
+    // onClickDeleteHandler = () => {
+    //     // TODO
+    // }
 
     // deadline is a timestamp
     deadlineDate = (deadline) => {
@@ -173,8 +173,7 @@ class TaskBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteTaskButtonGroupAnother" floated="right">
-                        <Button size="tiny" compact icon className="EditTaskButtonA" id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}><Icon name='edit'/></Button>
-                        <Button size="tiny" compact icon className="DeleteTaskButtonA" id="DeleteButtonTaskBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
+                        <Button size="tiny" compact icon className="EditTaskButtonA" id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}><Icon name='edit'/>&nbsp;Edit</Button>
                     </Button.Group> 
             </List.Item>
             <br></br>

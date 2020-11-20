@@ -75,6 +75,7 @@ def taskList(request):
                         'updated_at' : int(new_task.updated_at.timestamp()),
                         'deadline': new_task_deadline,
                         }
+        print(response_dict)
 
         return JsonResponse(response_dict, status=201, safe=False)
     else:

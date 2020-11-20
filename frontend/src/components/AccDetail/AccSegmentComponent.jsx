@@ -9,10 +9,19 @@ import './AccSegment.css'
 import {VictoryPie, VictoryTheme, VictoryLabel} from 'victory'
 import SVG from 'react-inlinesvg'
 import Rating from '@material-ui/lab/Rating'
+import { openAddAccModal } from '../../store/actions/index'
+import AddAccModal from '../AddAcc/AddAccModal'
+
 class AccSegment extends Component {
 
     state = {
-        metric: 21
+        metric: 21,
+        addAccModal: false
+    }
+
+    onClickAddAccHandler = () => {
+        this.setState({ addAccModal : true})
+        this.props.openAddAccModal()
     }
 
     renderChart = () => {
@@ -80,10 +89,23 @@ class AccSegment extends Component {
                     <Icon name='pencil alternate' style={{color: '#5F5F5F'}}/>Example Description
                     {/* <p>Example Description</p> */}
                 </div>
-                {/* <p>Example Description</p> */}
+                <div className="description">
+                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Add or Edit</Button>
+                    {this.props.isAddAccModalOpen && <AddAccModal/>}
+                    <br></br>
+                    <br></br>
+                </div>
             </Segment>
         )
     }
 }
 
-export default AccSegment
+
+const mapStateToProps = state => {
+    return {
+        isAddAccModalOpen: state.modal.addAcc
+    }
+}
+
+export default connect(mapStateToProps, { openAddAccModal }) (AccSegment)
+
