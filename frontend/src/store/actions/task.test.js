@@ -17,7 +17,15 @@ const stubInitialState = {
     addTask: false,
     goals: [{
         id: 1, 
-        tasks: [],
+        tasks: [
+          {
+            title: 'title1',
+            id: '1',
+            deadline: '2020-12-31',
+            day_of_week: [ '' ],
+            goal_id: 1
+          }
+        ],
         deadline: '2020-11-13',
         title: 'TEST',
         tags: [ 'tags' ]
@@ -63,13 +71,14 @@ describe("Action task.js", () => {
         let taskForm = new FormData
         taskForm.append('goal', 1)
 
-        mockStore.dispatch(actionCreatorsTask.addTask(taskForm, "file")).then(() => {
+        mockStore.dispatch(actionCreatorsTask.addTask(1, 1)).then(() => {
         expect(spy).toHaveBeenCalledTimes(1);
         done();
         })
     })
 
     it('deletTask should delete task properly', (done)=> {
+
         const spy = jest.spyOn(axios, 'delete')
           .mockImplementation(url => {
             return new Promise((resolve, reject) => {
@@ -81,7 +90,7 @@ describe("Action task.js", () => {
             })
           })
     
-        store.dispatch(actionCreatorsTask.deleteTask()).then(() => {
+        mockStore.dispatch(actionCreatorsTask.deleteTask(1,1)).then(() => {
           expect(spy).toHaveBeenCalledTimes(1)
           done()
         })
