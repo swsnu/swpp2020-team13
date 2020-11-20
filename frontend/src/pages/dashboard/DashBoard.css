@@ -1,0 +1,7 @@
+.dashboard .dashboardTitle {
+    padding-left: 140px !important;
+    padding-top: 23px;
+    padding-bottom: 10px;
+    font-size: 30px;
+    /* z-index: 99 !important; */
+}
