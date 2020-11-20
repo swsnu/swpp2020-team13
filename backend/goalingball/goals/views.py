@@ -25,10 +25,8 @@ def goalList(request):
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-            # tag_json = ([tag for tag in g.tags.names()])[0]
-            # tags = g.tags.names()[0]
-            tags = ([tag for tag in g.tags.names()])[0]
-            # print("goalList tags: ", tags)
+            tags = [tag for tag in g.tags.names()]
+            print("goalList tags: ", tags)
             user = g.user.id
 
             goal_list.append({
