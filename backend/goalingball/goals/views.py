@@ -34,7 +34,6 @@ def goalList(request):
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
                 'tasks': tasks, 'user': user,
                 'tags': tags,
-                # 'tags': json.loads(tags)
             })
         return JsonResponse(goal_list, safe=False, status=200)
 
@@ -58,13 +57,9 @@ def goalList(request):
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
         if 'tags' in request.POST: # tags should be added after an intance is created
-            print("tags in POST: ", request.POST.get('tags'))
-            print("tags2 in POST: ", request.POST.getlist('tags'))
             tags = request.POST.getlist('tags') 
-            print("tags from POST : ", tags)
             new_goal.tags.add(*tags)
             new_goal.save()
-            # print("[DEBUG] tags in post: ", json.loads(*tags))
             print("new_goal.tags.names(): ", new_goal.tags.names())
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
@@ -73,9 +68,7 @@ def goalList(request):
                         'updated_at' : int(new_goal.updated_at.timestamp()), 
                         'deadline': int(new_goal.deadline.timestamp()), 
                         'tags': [tag for tag in new_goal.tags.names()], 'tasks': []}
-        # print("tags.names(): ", new_goal.tags.names())
-        # print("tags.names()[0]: ", new_goal.tags.names()[0])
-        # print("tags: ", [tag for tag in new_goal.tags.names()])
+
         return JsonResponse(response_dict, status=201, safe=False)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -94,14 +87,10 @@ def goalDetail(request, goal_id=""):
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
         
         tags = [tag for tag in g.tags.names()]
-        # tags = ([tag for tag in g.tags.names()])[0]
-        print("[tag for tag in g.tags.names()]: ", [tag for tag in g.tags.names()])
-        print("([tag for tag in g.tags.names()])[0]: ", ([tag for tag in g.tags.names()])[0])
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
                         'user': g.user.id, 'created_at': g.created_at, 
                         'updated_at': g.updated_at, 'deadline': g.deadline, 
                         'tags': tags,
-                        # 'tags': json.loads(tags), 
                         'tasks': tasks
                         }
         return JsonResponse(response_dict, safe=False, status=200)
@@ -120,7 +109,7 @@ def goalDetail(request, goal_id=""):
 
         print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
         req_data = json.loads(request.body.decode())
-        print("[DEBUG] req_data for PUT goal: ", req_data)
+
         try:
             goal_title = req_data['title']
             goal_photo = req_data['photo']
@@ -128,7 +117,7 @@ def goalDetail(request, goal_id=""):
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
 
             if 'tags' in req_data: # tags should be added after an intance is created
-                goal_tags = [req_data['tags']]
+                goal_tags = req_data['tags']
                 # breakpoint()
                 goal.tags.set(*goal_tags, clear=True)
 
