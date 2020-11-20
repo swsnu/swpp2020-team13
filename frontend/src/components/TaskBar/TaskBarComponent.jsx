@@ -3,7 +3,7 @@ import { List, Icon, Checkbox, Grid, Button} from 'semantic-ui-react'
 import './TaskBar.css'
 import AccSegment from '../AccDetail/AccSegmentComponent'
 import AddAccModal from '../AddAcc/AddAccModal'
-import { openAddAccModal } from '../../store/actions/index'
+import { deleteTask } from '../../store/actions/index'
 import { connect } from 'react-redux'
 
 class TaskBarComponent extends Component {
@@ -13,10 +13,9 @@ class TaskBarComponent extends Component {
         acc_open: false
     }
 
-
-    AddaccOpenHandler = () => {
-        console.log("CLICKED:", this.props.task)
-        this.props.openAddAccModal()
+    deleteTaskHandler = () => {
+        console.log("DEBUG date send", this.props.goal, this.props.task.id)
+        this.props.deleteTask(this.props.goal, this.props.task.id)
     }
 
     isRecurrent(daylist) {
@@ -24,8 +23,8 @@ class TaskBarComponent extends Component {
         if(daylist.length == 0) {
             return(
                 <Button.Group size="tiny" floated="right">
-                <Button icon className="TaskBarButton" onClick={this.AddaccOpenHandler}>
-                    <Icon name='pencil alternate' />
+                <Button icon className="TaskBarButton" onClick={this.deleteTaskHandler}>
+                    <Icon name='x' />
                 </Button>
                 </Button.Group>
             )
@@ -36,8 +35,8 @@ class TaskBarComponent extends Component {
             <Button icon className="TaskBarButton">
               <Icon name='redo' />
           </Button>
-          <Button icon className="TaskBarButton" onClick={this.AddaccOpenHandler}>
-              <Icon name='pencil alternate' />
+          <Button icon className="TaskBarButton" onClick={this.deleteTaskHandler}>
+              <Icon name='x' />
           </Button>
           </Button.Group>
           
@@ -77,10 +76,5 @@ class TaskBarComponent extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    console.log(state)
-    return {
-        isAddAccModalOpen: state.modal.addAcc
-    }
-}
-export default connect(mapStateToProps, { openAddAccModal }) (TaskBarComponent)
+
+export default connect(null, { deleteTask }) (TaskBarComponent)

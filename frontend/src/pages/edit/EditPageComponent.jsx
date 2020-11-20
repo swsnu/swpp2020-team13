@@ -25,7 +25,7 @@ class EditPage extends Component {
 
     returnIfNull = () => {
         if(this.props.selectedGoal == null) {
-            history.goBack()
+            history.push('/')
         }
     }
 
@@ -51,7 +51,7 @@ class EditPage extends Component {
                     : 
                     <>
                     <h2>Edit Tasks</h2> 
-                    {(this.props.selectedGoal.tasks !== undefined) ? <EditTask tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
+                    {(this.props.selectedGoal.tasks).length > 0 ? <EditTask tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
                     </>}
                 </div>
             </div>
