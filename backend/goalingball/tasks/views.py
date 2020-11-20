@@ -51,7 +51,7 @@ def taskList(request):
         try:
             goal_id = request.POST['goal_id'] # connected to which goal?
             task_title = request.POST['title']
-            task_importance = request.POST.getlist('importance')[0] # task importance
+            task_importance = int(request.POST['importance']) # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
             
             if request.POST['deadline'] is None:
@@ -72,6 +72,7 @@ def taskList(request):
                         'updated_at' : int(new_task.updated_at.timestamp()),
                         'deadline': int(new_task.deadline.timestamp()),
                         }
+        print(response_dict)
 
         return JsonResponse(response_dict, status=201, safe=False)
     else:
