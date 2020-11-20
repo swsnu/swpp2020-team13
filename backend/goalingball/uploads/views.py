@@ -1,17 +1,20 @@
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import uuid 
 import boto3
 from botocore.config import Config
 import requests
+import json
 
 
 # @login_required
+@csrf_exempt
 def get_s3_url(request):
+    s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
+
     if request.method == 'GET':
-        s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
-        # The location (url) of a file will be aws_s3_prefix + key
-        
+          # The location (url) of a file will be aws_s3_prefix + key        
         key = str(request.user.id) + '/' + str(uuid.uuid4()) + '.jpeg/'
         if request.user.id is None:
             return HttpResponse(status=401) # Only logged in users are allowed

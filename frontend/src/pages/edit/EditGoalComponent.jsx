@@ -60,6 +60,7 @@ class EditGoal extends Component {
 
     componentWillMount() {
         this.renderDefaultTagOptions()
+        // this.setState({title: this.props.selectedGoal.title})
         // this.renderDefaultDate()
     }
 
@@ -181,6 +182,9 @@ class EditGoal extends Component {
     onClickHandler() {
         // e.preventDefault()
         let data = new FormData()
+        console.log("EditGoalComponent this.state.title: ", this.state.title)
+        console.log("EditGoalComponent this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
+
         data.append("title", this.state.title)
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
@@ -188,12 +192,14 @@ class EditGoal extends Component {
         data.append("tags", this.state.tags)
 
         let key = ''
-        if (this.props.selectedGoal.photo != '') {
+        if (this.props.selectedGoal.photo) { // A user already has a photo
+            console.log("[DEBUG] this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
             const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
             const re = new RegExp(s3prefix)
             key = this.props.selectedGoal.photo.replace(re, '')
-        }
+        } 
         console.log("[DEBUG] EditGoalComponent key: ", key)
+        console.log("[DEBUG] EditGoalComponent formData: ", data)
 
         this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
         // this.setState({ isEditing: true })
