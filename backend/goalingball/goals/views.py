@@ -26,13 +26,14 @@ def goalList(request):
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             # tag_json = ([tag for tag in g.tags.names()])[0]
-            tags = g.tags.names()[0]
+            # tags = g.tags.names()[0]
+            tags = ([tag for tag in g.tags.names()])[0]
             # print("goalList tags: ", tags)
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': tags
+                'tasks': tasks, 'tags': json.loads(tags)
             })
         return JsonResponse(goal_list, safe=False, status=200)
 
@@ -115,7 +116,8 @@ def goalDetail(request, goal_id=""):
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
 
             if 'tags' in req_data: # tags should be added after an intance is created
-                goal_tags = req_data.getlist['tags']
+                goal_tags = [req_data['tags']]
+                # breakpoint()
                 goal.tags.set(*goal_tags, clear=True)
 
         except(KeyError, JSONDecodeError) as e:

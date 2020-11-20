@@ -150,7 +150,9 @@ class EditGoal extends Component {
     }
 
     onTagsChanged(tags) {
+        console.log("tag changing")
         this.setState({tags: tags})
+        console.log(this.state.tags)
     }
 
     addTagOptions(e,data) {
@@ -160,6 +162,7 @@ class EditGoal extends Component {
     }
 
     setTag(data) {
+        console.log("DEBUG: data change", data.value)
         this.onTagsChanged(data.value)
     }
 
@@ -171,7 +174,7 @@ class EditGoal extends Component {
                     clearable multiple allowAdditions fluid 
                     defaultValue={this.state.tags}
                     onAddItem={(e,data) => this.addTagOptions(e, data)} 
-                    onChange={(e,data)=>this.setTag(data)}
+                    onChange={(e,data)=>this.onTagsChanged(data.value)}
                     options={this.state.tagOptions}
                 />
             </FormField>
@@ -189,7 +192,8 @@ class EditGoal extends Component {
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
-        data.append("tags", this.state.tags)
+        console.log("DEBUG: this state tags", this.state.tags)
+        data.append("tags", JSON.stringify(this.state.tags))
 
         let key = ''
         if (this.props.selectedGoal.photo) { // A user already has a photo

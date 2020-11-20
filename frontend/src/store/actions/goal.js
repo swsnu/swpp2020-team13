@@ -100,7 +100,8 @@ export const editGoal = (goal_id, formData, file, key) => async dispatch => {
     const data = {
         title: formData.get('title'),
         photo: formData.get('photo'),
-        deadline: formData.get('deadline')
+        deadline: formData.get('deadline'),
+        tags: formData.get('tags')
     }
     
     console.log("[DEBUG] edit goal data: ", data)
