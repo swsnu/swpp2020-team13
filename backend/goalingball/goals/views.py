@@ -6,14 +6,12 @@ import json
 from json import JSONDecodeError
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
-from .models import Goal
-from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from django.http import QueryDict
+from .models import Goal
 
-# Create your views here.
+
 @csrf_exempt
 def goalList(request):
     # print("request.body: ", request.POST)
