@@ -36,7 +36,7 @@ matrix:
     install:
     - pip install -r requirements.txt
     script:
-    - pylint **/*.py --load-plugins pylint_django
+    # - pylint **/*.py --load-plugins pylint_django
     - pytest --cov --cov-report xml
     - cd .. && sonar-scanner
     after_success:

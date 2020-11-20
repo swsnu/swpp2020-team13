@@ -6,8 +6,10 @@ export const LOGOUT_USER = 'LOGOUT_USER'
 // modal //
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const OPEN_AUTH_MODAL = 'OPEN_AUTH_MODAL'
-export const OPEN_ADD_TASK_MODAL = 'OPEN_ADD_TASK_GOAL'
+export const OPEN_ADD_TASK_MODAL = 'OPEN_ADD_TASK_MODAL'
 export const CLOSE_ADD_TASK_MODAL = 'CLOSE_ADD_TASK_MODAL'
+export const OPEN_ADD_ACC_MODAL = 'OPEN_ADD_ACC_MODAL'
+export const CLOSE_ADD_ACC_MODAL = 'CLOSE_ADD_ACC_MODAL'
 
 // goal //
 export const GET_ALL_GOAL = 'GET_ALL_GOAL';

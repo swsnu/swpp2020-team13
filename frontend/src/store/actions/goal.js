@@ -40,7 +40,7 @@ export const addGoal = (formData, file) => async dispatch => {
     console.log("[DEBUG] addGoal formData: ", formData)
     if (file) {
         const res = await axios.get('/api/v1/uploads/')
-        console.log("[DEBUG] response.data in addGoal: ", res.data)
+        console.log("[DEBUG] response.data in addGoal: ", res)
 
         const response = await axios.put(res.data.url, file, {
             headers: {
@@ -62,6 +62,55 @@ export const addGoal = (formData, file) => async dispatch => {
     })
     console.log("[DEBUG] res from server when adding goal: ", res.data)
     dispatch(addGoal_(res.data))
+    history.push('/main')
+}
+
+export const editGoal = (goal_id, formData, file, key) => async dispatch => {
+    
+    console.log("[DEBUG] editGoal formData: ", formData)
+
+    if (file) { // edit a photo or create a new one
+        const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
+
+        // no photo has been set yet
+        if (!key) { 
+            const res = await axios.get('/api/v1/uploads/')
+            key = res.data.key
+        }
+
+        const res = await axios.put('/api/v1/uploads/', { key: key })
+
+        const response = await axios.put(res.data.url, file, {
+            headers: {
+                'Content-Type': 'image/jpeg' 
+            }
+        })
+        
+        const imageUrl = s3prefix + res.data.key
+        formData.set('photo', imageUrl)
+        console.log("changed photo: ", formData.get('photo'))
+
+    } else {
+        if (key) {  // delete a photo
+            // TODO
+            // make another axios call
+        }
+    }
+
+    const data = {
+        title: formData.get('title'),
+        photo: formData.get('photo'),
+        deadline: formData.get('deadline')
+    }
+    
+    console.log("[DEBUG] edit goal data: ", data)
+
+    const res = await axios.put(`/api/v1/goals/${goal_id}/`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    // dispatch(addGoal_(res.data))
     history.push('/main')
 }
 
@@ -89,9 +138,9 @@ export const editGoal_ = (goal) => {
     }
 }
 
-export const editGoal = (goal) => {
-    return (dispatch) => {
-        return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
-        .then(res => dispatch(editGoal_(goal)))
-    }
-}
+// export const editGoal = (goal) => {
+//     return (dispatch) => {
+//         return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
+//         .then(res => dispatch(editGoal_(goal)))
+//     }
+// }

@@ -1,0 +1,10 @@
+.SegmentAddAcc {
+    width: 50% !important;
+    position: relative !important;
+    left: 25% !important;
+    top: 10% !important;
+    transform: scale(0.9, 0.9, 0.9) !important;
+    outline: none !important;
+    /* border: none !important; */
+    /* border-color: black !important; */
+} 

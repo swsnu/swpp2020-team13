@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { List, Icon, Checkbox, Grid, Button} from 'semantic-ui-react'
 import './TaskBar.css'
+import AccSegment from '../AccDetail/AccSegmentComponent'
 class TaskBarComponent extends Component {
 
 
@@ -58,7 +59,7 @@ class TaskBarComponent extends Component {
                 </List.Content>
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
-            {this.state.acc_open && <p>"Show Accomplishment"</p>}
+            {this.state.acc_open && <AccSegment task={this.props.task}/>}
             </>
         )
     }

@@ -10,6 +10,7 @@ import './EditPage.css'
 
 
 const mapStateToProps = state => {
+    console.log("EditPageComponent selectedGoal: ", state.goal.selectedGoal)
     return{
         selectedGoal: state.goal.selectedGoal,
         // taskList: state.task.tasks,
