@@ -20,7 +20,7 @@ def goalList(request):
             return HttpResponse(status=401)
         # else
         goal_list = []
-        for g in Goal.objects.all():
+        for g in Goal.objects.select_related('user').all():
             created_at = int(g.created_at.timestamp()) 
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
@@ -28,11 +28,12 @@ def goalList(request):
             # tag_json = ([tag for tag in g.tags.names()])[0]
             tags = g.tags.names()[0]
             # print("goalList tags: ", tags)
+            user = g.user.id
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': tags
+                'tasks': tasks, 'tags': tags, 'user': user
             })
         return JsonResponse(goal_list, safe=False, status=200)
 
@@ -82,15 +83,20 @@ def goalDetail(request, goal_id=""):
         
         # GET goal Detail
         try:
-            g = Goal.objects.get(id=goal_id)
+            g = Goal.objects.select_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-        tags = ([tag for tag in g.tags.names()])[0]
+        
+        tags = [tag for tag in g.tags.names()]
+        # tags = ([tag for tag in g.tags.names()])[0]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
                         'user': g.user.id, 'created_at': g.created_at, 
                         'updated_at': g.updated_at, 'deadline': g.deadline, 
-                        'tags': json.loads(tags), 'tasks': tasks}
+                        'tags': tags,
+                        # 'tags': json.loads(tags), 
+                        'tasks': tasks
+                        }
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -98,7 +104,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=401)
 
         try:
-            goal = Goal.objects.get(id=goal_id)
+            goal = Goal.objects.selects_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
 

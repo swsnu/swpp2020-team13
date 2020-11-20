@@ -51,6 +51,7 @@ def taskList(request):
         try:
             goal_id = request.POST['goal_id'] # connected to which goal?
             task_title = request.POST['title']
+            print("task_importance: ", request.POST.getlist('importance'))
             task_importance = request.POST.getlist('importance')[0] # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
             
@@ -84,7 +85,7 @@ def taskDetail(request, task_id=""):
             return HttpResponse(status=401)
             # GET goal Detail
         try:
-            t = Task.objects.get(id=task_id)
+            t = Task.objects.select_related('user').select_related('goal').get(id=task_id)
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
@@ -97,7 +98,7 @@ def taskDetail(request, task_id=""):
     elif request.method == 'DELETE':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
-        task = Task.objects.get(id=task_id)
+        task = Task.objects.select_related('user').get(id=task_id)
         if task.user.id is not request.user.id:
             return HttpResponse(status=403)
         task.delete()
