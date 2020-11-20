@@ -5,6 +5,7 @@ import EditGoal from './EditGoalComponent'
 import EditTask from './EditTaskComponent'
 import { Button, Container } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import history from '../../history'
 import './EditPage.css'
 
 
@@ -22,9 +23,16 @@ class EditPage extends Component {
         editGoal: false
     }
 
+    returnIfNull = () => {
+        if(this.props.selectedGoal == null) {
+            history.goBack()
+        }
+    }
+
     render() {
         return (
             <div>
+                {this.returnIfNull}
                 <div className='menubar'>
                     <MenuBar/>
                 </div>
