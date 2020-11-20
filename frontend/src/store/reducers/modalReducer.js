@@ -9,7 +9,7 @@ const initialState = {
 const modalReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.CLOSE_MODAL:
-            return { authModal: false }
+            return { authModal: false, addAcc: false }
         case ActionTypes.OPEN_AUTH_MODAL:
             return { authModal: true }
         case ActionTypes.OPEN_ADD_TASK_MODAL:
