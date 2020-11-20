@@ -26,7 +26,7 @@ def goalList(request):
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             tags = [tag for tag in g.tags.names()]
-            print("goalList tags: ", tags)
+            # print("goalList tags: ", tags)
             user = g.user.id
 
             goal_list.append({
@@ -58,6 +58,8 @@ def goalList(request):
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
         if 'tags' in request.POST: # tags should be added after an intance is created
+            print("tags in POST: ", request.POST.get('tags'))
+            print("tags2 in POST: ", request.POST.getlist('tags'))
             tags = request.POST.getlist('tags') 
             print("tags from POST : ", tags)
             new_goal.tags.add(*tags)
@@ -72,7 +74,7 @@ def goalList(request):
                         'deadline': int(new_goal.deadline.timestamp()), 
                         'tags': [tag for tag in new_goal.tags.names()], 'tasks': []}
         # print("tags.names(): ", new_goal.tags.names())
-        print("tags.names()[0]: ", new_goal.tags.names()[0])
+        # print("tags.names()[0]: ", new_goal.tags.names()[0])
         # print("tags: ", [tag for tag in new_goal.tags.names()])
         return JsonResponse(response_dict, status=201, safe=False)
     else:
