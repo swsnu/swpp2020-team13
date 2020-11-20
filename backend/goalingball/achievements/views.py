@@ -1,6 +1,8 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 from goals.models import Goal
 from tasks.models import Task
@@ -29,18 +31,27 @@ def achievementList(request):
             return HttpResponse(status=403) # Permission Denied
         
         title = request.POST.get('title', '')
-        description = request.POST.get('description', None)
-        pecentage_complete = request.POST.get('pecentage_complete', -1)
+        description = request.POST.get('description', '')
+        percentage_complete = request.POST.get('percentage_complete', -1)
+        try:
+            percentage_complete = float(percentage_complete)
+        except ValueError:
+            print("[DEBUG] percentage_complete is not a valid flaot")
+            return HttpResponse(status=400) 
+
+        print("percentage_complete type: ", type(percentage_complete))
         photo = request.POST.get('photo', '')
 
         if not title or percentage_complete < 0:
             print("[DEBUG] title and percentage_complete should be included in a request form.")
             return HttpResponseBadRequest() # 400
         
-        Achievement.objects.create(
+        achievement = Achievement.objects.create(
             title=title, description=description, percentage_complete=percentage_complete, 
             user=User.objects.get(id=task.user.id), task=Task.objects.get(id=task_id)
         )
+
+        return JsonResponse(model_to_dict(achievement))
         
         
     
@@ -55,33 +66,35 @@ def achievementListOfGoal(request, goal_id):
             return HttpResponse(status=401)
         
         try:
-            goal = Goal.objects.select_related('tasks').get(id=goal_id)
+            goal = Goal.objects.get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
 
         achievements = []
-        for task in goal.tasks:
-            achievements.append({ task_id: [model_to_dict(achievement) for achievement in task.achievements]})
+        for task in goal.tasks.all():
+            achievements.append({ task.id: [model_to_dict(achievement) for achievement in task.achievements.all()]})
 
-        return JsonResponse(achievements)
+        return JsonResponse(achievements, safe=False)
     
     else:
         return HttpResponseNotAllowed(['GET'])
 
 
 @csrf_exempt
-def achievementListOfTask(request):
+def achievementListOfTask(request, task_id):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         
         try:
-            task = Task.objects.select_related('achievements').get(id=task_id)
+            task = Task.objects.get(id=task_id)
         except Task.DoesNotExist:
             return HttpResponse(status=404) 
         
-        achievements = [model_to_dict(achievement) for achievement in task.achievements]
-        return JsonResponse(achievements)
+        
+        achievements = [model_to_dict(achievement) for achievement in task.achievements.all()]
+
+        return JsonResponse(achievements, safe=False)
 
     
     else:

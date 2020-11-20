@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from tasks.models import Task
 from django.contrib.auth.models import User
@@ -8,7 +9,7 @@ class Achievement(models.Model):
     title = models.TextField(max_length=255, blank=False) 
     description = models.TextField(max_length=2047, blank=True) # 2200 characters limit in an Instagram post
 
-    pecentage_complete = models.FloatField(blank=False, default=0.0)
+    percentage_complete = models.FloatField(blank=False, default=0.0)
 
     photo = models.URLField(max_length=2047, blank=True, null=True)
 
