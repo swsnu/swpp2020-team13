@@ -189,9 +189,7 @@ class EditGoal extends Component {
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
-        data.append("tags", JSON.stringify(this.state.tags))
-        
-        data.append("photo", this.props.selectedGoal.photo)
+        data.append("tags", this.state.tags)
 
         let key = ''
         if (this.props.selectedGoal.photo) { // A user already has a photo

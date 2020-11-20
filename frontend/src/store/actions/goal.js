@@ -40,7 +40,7 @@ export const addGoal = (formData, file) => async dispatch => {
     console.log("[DEBUG] addGoal formData: ", formData)
     if (file) {
         const res = await axios.get('/api/v1/uploads/')
-        console.log("[DEBUG] response.data in addGoal: ", res.data)
+        console.log("[DEBUG] response.data in addGoal: ", res)
 
         const response = await axios.put(res.data.url, file, {
             headers: {
