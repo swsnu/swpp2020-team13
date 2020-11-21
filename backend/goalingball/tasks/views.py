@@ -54,7 +54,10 @@ def taskList(request):
             task_importance = request.POST.get('importance', 3) # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
             task_deadline = request.POST.get('deadline', None)
-            if task_deadline is not None:
+            # NOTE: when frontend sends empty deadline, it is read as ''. So this is first changed to None for the backend to recognize.
+            if task_deadline == '':
+                task_deadline = None
+            elif task_deadline != '':
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
             # else:
             #     task_deadline = timezone.localtime()
