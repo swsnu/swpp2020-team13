@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
+import { Grid, GridColumn } from 'semantic-ui-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import './DashBoard.css'
+import {DashBoardPanel} from './DashBoardPanel/DashBoardPanelComponent'
 class DashBoardComponent extends Component {
     render(){
         return(
@@ -8,9 +10,15 @@ class DashBoardComponent extends Component {
                 <div className='menubar'>
                     <MenuBar/>
                 </div>
-                <div>
-                    <h2 className="dashboardTitle">Your Dashboard</h2>
-                </div>
+                <Grid columns='2' divided >
+                    <GridColumn className="dashboardGrid">
+                        {/* <h2 className="dashboardTitle">Your Dashboard</h2> */}
+                        <DashBoardPanel/>
+                    </GridColumn>
+                    <GridColumn>
+
+                    </GridColumn>
+                </Grid>
             </div>
         )
     }
