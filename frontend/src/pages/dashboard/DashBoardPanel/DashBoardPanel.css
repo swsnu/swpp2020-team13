@@ -1,0 +1,20 @@
+.DashBoardPanel {
+    width: 300px !important;
+    margin-left: 125px !important;
+    padding-left: 24px !important;
+    padding-top: 10px !important;
+    /* color: #656565 !important; */
+}
+.DashBoardPanelGrid {
+    border: #656565 !important;
+}
+.wordCloud {
+    max-width: 250px !important;
+    max-height: 140px !important;
+}
+.goalsDoneSegment{
+    min-width: 280px !important;
+}
+.goalsDoneRow {
+    padding: 0px !important;
+}

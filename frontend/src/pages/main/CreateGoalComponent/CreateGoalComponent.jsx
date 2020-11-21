@@ -166,8 +166,13 @@ class CreateGoal extends Component {
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
-        // console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
-        data.append("tags", JSON.stringify(this.state.tags))
+
+        // If you add more than one item to the same key, it makes a list.
+        for (const tag of this.state.tags) {
+            data.append("tags", tag)
+        }
+        console.log("Create goal data.get('tags'): ", data.get('tags'))
+
         this.props.addGoal(data, this.state.file)
         this.setState({ isCreating: true })
     }

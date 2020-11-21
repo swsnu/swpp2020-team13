@@ -5,3 +5,7 @@
     font-size: 30px;
     /* z-index: 99 !important; */
 }
+.dashboardGrid {
+    max-width: max-content!important;
+    min-height: 840px !important;
+}

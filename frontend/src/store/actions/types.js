@@ -18,6 +18,7 @@ export const ADD_GOAL = 'ADD_GOAL'
 export const EDIT_GOAL = 'EDIT_GOAL'
 export const DELETE_GOAL = 'DELETE_GOAL'
 export const ADD_TASK_TO_GOAL = 'ADD_TASK_TO_GOAL'
+export const DELETE_TASK_TO_GOAL = 'DELETE_TASK_TO_GOAL'
 
 // task //
 export const GET_ALL_TASK = 'GET_ALL_TASK'

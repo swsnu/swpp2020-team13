@@ -50,6 +50,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
+    "react-wordcloud": "^1.2.7",
     "reactjs-tag-input": "^2.0.15",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
@@ -57,7 +58,8 @@
     "semantic-ui-react": "^2.0.1",
     "semantic-ui-react-input-file": "^1.0.3",
     "victory": "^35.3.5",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "word-cloud-react": "^0.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

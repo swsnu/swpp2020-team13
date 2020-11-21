@@ -20,19 +20,20 @@ def goalList(request):
             return HttpResponse(status=401)
         # else
         goal_list = []
-        for g in Goal.objects.all():
+        for g in Goal.objects.select_related('user').all():
             created_at = int(g.created_at.timestamp()) 
             updated_at = int(g.updated_at.timestamp()) 
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-            # tag_json = ([tag for tag in g.tags.names()])[0]
-            tags = g.tags.names()[0]
+            tags = [tag for tag in g.tags.names()]
             # print("goalList tags: ", tags)
+            user = g.user.id
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
-                'tasks': tasks, 'tags': tags
+                'tasks': tasks, 'user': user,
+                'tags': tags,
             })
         return JsonResponse(goal_list, safe=False, status=200)
 
@@ -59,17 +60,15 @@ def goalList(request):
             tags = request.POST.getlist('tags') 
             new_goal.tags.add(*tags)
             new_goal.save()
-            # print("[DEBUG] tags in post: ", json.loads(*tags))
+            print("new_goal.tags.names(): ", new_goal.tags.names())
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
                         'title': new_goal.title, 'photo': new_goal.photo, 
                         'created_at': int(new_goal.created_at.timestamp()),
                         'updated_at' : int(new_goal.updated_at.timestamp()), 
                         'deadline': int(new_goal.deadline.timestamp()), 
-                        'tags': new_goal.tags.names()[0], 'tasks': []}
-        # print("tags.names(): ", new_goal.tags.names())
-        print("tags.names()[0]: ", new_goal.tags.names()[0])
-        # print("tags: ", [tag for tag in new_goal.tags.names()])
+                        'tags': [tag for tag in new_goal.tags.names()], 'tasks': []}
+
         return JsonResponse(response_dict, status=201, safe=False)
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
@@ -82,15 +81,18 @@ def goalDetail(request, goal_id=""):
         
         # GET goal Detail
         try:
-            g = Goal.objects.get(id=goal_id)
+            g = Goal.objects.select_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
         tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
-        tags = ([tag for tag in g.tags.names()])[0]
+        
+        tags = [tag for tag in g.tags.names()]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
                         'user': g.user.id, 'created_at': g.created_at, 
                         'updated_at': g.updated_at, 'deadline': g.deadline, 
-                        'tags': json.loads(tags), 'tasks': tasks}
+                        'tags': tags,
+                        'tasks': tasks
+                        }
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -98,7 +100,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=401)
 
         try:
-            goal = Goal.objects.get(id=goal_id)
+            goal = Goal.objects.select_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
 
@@ -107,15 +109,17 @@ def goalDetail(request, goal_id=""):
 
         print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
         req_data = json.loads(request.body.decode())
-        print("[DEBUG] req_data for PUT goal: ", req_data)
+
         try:
-            goal_title = req_data['title']
-            goal_photo = req_data['photo']
-            goal_deadline = req_data['deadline']
+            goal_title = req_data.get('title')
+            goal_photo = req_data.get('photo', '')
+            goal_deadline = req_data.get('deadline', None)
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
 
             if 'tags' in req_data: # tags should be added after an intance is created
-                goal_tags = req_data.getlist['tags']
+                goal_tags = req_data['tags']
+                print("req_data['tags']: ", req_data['tags'])
+                # breakpoint()
                 goal.tags.set(*goal_tags, clear=True)
 
         except(KeyError, JSONDecodeError) as e:

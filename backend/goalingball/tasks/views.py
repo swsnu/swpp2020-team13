@@ -51,27 +51,34 @@ def taskList(request):
         try:
             goal_id = request.POST['goal_id'] # connected to which goal?
             task_title = request.POST['title']
-            task_importance = request.POST.getlist('importance')[0] # task importance
+            task_importance = request.POST.get('importance', 3) # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
-            
-            if request.POST['deadline'] is None:
-                task_deadline = request.POST['deadline']
+            task_deadline = request.POST.get('deadline', None)
+            # NOTE: when frontend sends empty deadline, it is read as ''. So this is first changed to None for the backend to recognize.
+            if task_deadline == '':
+                task_deadline = None
+            elif task_deadline != '':
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
-            else:
-                task_deadline = timezone.localtime()
+            # else:
+            #     task_deadline = timezone.localtime()
         except(KeyError, JSONDecodeError) as e:
+            # print("task POST keyerror e: ", e)
             return HttpResponseBadRequest()
 
         new_task = Task(title=task_title, user=request.user, goal=Goal.objects.get(id=goal_id), deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
         new_task.save() # goal_created_at and goal_updated_at is made when new goal is saved
+        new_task_deadline = new_task.deadline
+        if new_task_deadline is not None:
+            new_task_deadline = int(new_task_deadline.timestamp())
         
         response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal_id': new_task.goal.id,
                         'title': new_task.title, 'importance': new_task.importance, 
                         'day_of_week': new_task.day_of_week,
                         'created_at': int(new_task.created_at.timestamp()),
                         'updated_at' : int(new_task.updated_at.timestamp()),
-                        'deadline': int(new_task.deadline.timestamp()),
+                        'deadline': new_task_deadline,
                         }
+        print(response_dict)
 
         return JsonResponse(response_dict, status=201, safe=False)
     else:
@@ -84,7 +91,7 @@ def taskDetail(request, task_id=""):
             return HttpResponse(status=401)
             # GET goal Detail
         try:
-            t = Task.objects.get(id=task_id)
+            t = Task.objects.select_related('user').select_related('goal').get(id=task_id)
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
@@ -97,7 +104,7 @@ def taskDetail(request, task_id=""):
     elif request.method == 'DELETE':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
-        task = Task.objects.get(id=task_id)
+        task = Task.objects.select_related('user').get(id=task_id)
         if task.user.id is not request.user.id:
             return HttpResponse(status=403)
         task.delete()
