@@ -3,6 +3,7 @@ import { Grid, GridColumn } from 'semantic-ui-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import './DashBoard.css'
 import {DashBoardPanel} from './DashBoardPanel/DashBoardPanelComponent'
+import {DashBoardCards} from './DashBoardCards/DashBoardCardsComponent'
 class DashBoardComponent extends Component {
     render(){
         return(
@@ -16,7 +17,7 @@ class DashBoardComponent extends Component {
                         <DashBoardPanel/>
                     </GridColumn>
                     <GridColumn>
-
+                        <DashBoardCards/>
                     </GridColumn>
                 </Grid>
             </div>
