@@ -38,7 +38,7 @@ class AccSegment extends Component {
         )
     }
 
-    render() {
+    renderSegment() {
         return(
             <Segment className="AccContainer" >
                 <h4>Your accomplishment of {this.props.task.title}:</h4>
@@ -97,11 +97,23 @@ class AccSegment extends Component {
                 </div>
                 <div className="description">
                     <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Edit</Button>
-                    {this.state.addAccForm && <AddAccForm/>}
                     <br></br>
                     <br></br>
                 </div>
             </Segment>
+        )
+    }
+
+    onCloseSubmit = (value) => {
+        this.setState({addAccForm: value})
+    }
+
+    render() {
+        return(
+            <> 
+            {this.state.addAccForm ? "" : this.renderSegment()}
+            {this.state.addAccForm && <AddAccForm onSubmit={this.onCloseSubmit}/>}
+            </>
         )
     }
 }
