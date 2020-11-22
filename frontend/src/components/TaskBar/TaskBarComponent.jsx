@@ -8,7 +8,6 @@ import DefaultAccSegment from '../AccDetail/DefaultAccSeg'
 
 class TaskBarComponent extends Component {
 
-
     state = {
         acc_open: false,
         accomplishment: "sth",
@@ -21,7 +20,7 @@ class TaskBarComponent extends Component {
 
     //need to fetch accomplishments from a selected task
     //select the accomplishment with the same date
-    
+
     deleteTaskHandler = () => {
         console.log("DEBUG date send", this.props.goal, this.props.task.id)
         this.props.deleteTask(this.props.goal, this.props.task.id)
