@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
-import { List, Icon, Checkbox, Grid, Button} from 'semantic-ui-react'
+import { List, Icon, Checkbox, Grid, Button, Segment} from 'semantic-ui-react'
 import './TaskBar.css'
 import AccSegment from '../AccDetail/AccSegmentComponent'
-import AddAccModal from '../AddAcc/AddAccModal'
 import { deleteTask } from '../../store/actions/index'
 import { connect } from 'react-redux'
+import DefaultAccSegment from '../AccDetail/DefaultAccSeg'
 
 class TaskBarComponent extends Component {
 
 
     state = {
-        acc_open: false
+        acc_open: false,
+        accomplishment: "sth",
+        addAccopen: false,
     }
 
+    // componentDidMount = () => {
+    //     console.log("TODAY in taskbar" ,this.props.today)
+    // }
+
+    //need to fetch accomplishments from a selected task
+    //select the accomplishment with the same date
+    
     deleteTaskHandler = () => {
         console.log("DEBUG date send", this.props.goal, this.props.task.id)
         this.props.deleteTask(this.props.goal, this.props.task.id)
@@ -54,7 +63,7 @@ class TaskBarComponent extends Component {
     render() {
         const { title, id, deadline, day_of_week } = this.props.task
         console.log("[DEBUG] TaskBarComponent is rendering. task: ", this.props.task)
-        
+
         return(
         <> 
         <List.Item className="TaskBarListItem">
@@ -69,8 +78,10 @@ class TaskBarComponent extends Component {
                 </List.Content>
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
-            {this.state.acc_open && <AccSegment task={this.props.task}/>}
-            {this.props.isAddAccModalOpen && <AddAccModal/>}
+            {(this.state.acc_open && (this.state.accomplishment == null)) && 
+            <DefaultAccSegment/>
+            }
+            {(this.state.acc_open && (this.state.accomplishment !== null)) && <AccSegment task={this.props.task}/>}
             </>
         )
     }

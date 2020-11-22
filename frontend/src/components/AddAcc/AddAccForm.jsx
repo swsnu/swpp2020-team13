@@ -101,6 +101,10 @@ class AddAccForm extends Component {
         )
     }
 
+    closeHandler = () => {
+        this.props.onSubmit(false)
+    }
+
     render(){
         return(
             <Form>
@@ -141,7 +145,10 @@ class AddAccForm extends Component {
                             </Grid>
                         </div>
                         {this.renderDes()}
-                    <Form.Button className="AddAccSubmitButton">Submit</Form.Button>                    
+                        <Button.Group>
+                            <Form.Button className="AddAccSubmitButton">Submit</Form.Button>
+                            <Form.Button className="AddAccSubmitButton" onClick={this.closeHandler}>Close</Form.Button>                           
+                        </Button.Group>
                 </Segment>
             </Form>
         )

@@ -1,4 +1,6 @@
-
+.AddAccForm{
+    margin-top: 5px !important;
+}
 .SliderRoot {
     margin-top: 5px !important;
     min-width: 600px !important;

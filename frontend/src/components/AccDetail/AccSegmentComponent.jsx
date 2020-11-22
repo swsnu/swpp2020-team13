@@ -4,24 +4,22 @@ import { connect } from 'react-redux'
 import Axios from 'axios'
 import moment from 'moment'
 import history from '../../history'
-import AccCard from './AccCardComponent'
 import './AccSegment.css'
 import {VictoryPie, VictoryTheme, VictoryLabel} from 'victory'
 import SVG from 'react-inlinesvg'
 import Rating from '@material-ui/lab/Rating'
 import { openAddAccModal } from '../../store/actions/index'
-import AddAccModal from '../AddAcc/AddAccModal'
+import AddAccForm from '../AddAcc/AddAccForm'
 
 class AccSegment extends Component {
 
     state = {
         metric: 21,
-        addAccModal: false
+        addAccForm: false
     }
 
     onClickAddAccHandler = () => {
-        this.setState({ addAccModal : true})
-        this.props.openAddAccModal()
+        this.setState({ addAccForm : true})
     }
 
     renderChart = () => {
@@ -80,7 +78,15 @@ class AccSegment extends Component {
                         <p className="AccChartTitle">percentage done</p>
                     </Grid.Column>
                     <Grid.Column width={9} className="AccContainerDetail">
-                        <AccCard/>
+                        {/* <AccCard/> */}
+                        <Grid columns='2'>
+                            <Grid.Column width='5'>
+                                <h5>See Photo Preview</h5>
+                            </Grid.Column>
+                            <Grid.Column width='10'>
+                            <img id="image" src={'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png'} className="AccPreviewImage"></img>
+                            </Grid.Column>
+                        </Grid>
                     </Grid.Column>
                     {/* <p>"Example Description"</p> */}
                 </Grid>
@@ -90,8 +96,8 @@ class AccSegment extends Component {
                     {/* <p>Example Description</p> */}
                 </div>
                 <div className="description">
-                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Add or Edit</Button>
-                    {this.props.isAddAccModalOpen && <AddAccModal/>}
+                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Edit</Button>
+                    {this.state.addAccForm && <AddAccForm/>}
                     <br></br>
                     <br></br>
                 </div>
@@ -101,11 +107,6 @@ class AccSegment extends Component {
 }
 
 
-const mapStateToProps = state => {
-    return {
-        isAddAccModalOpen: state.modal.addAcc
-    }
-}
 
-export default connect(mapStateToProps, { openAddAccModal }) (AccSegment)
+export default AccSegment
 
