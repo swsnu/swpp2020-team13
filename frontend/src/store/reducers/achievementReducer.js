@@ -17,3 +17,14 @@ export default reducer = (state = {}, action) => {
             return state
     }
 }
+
+/* 
+When use state.achievement in a component, fetch it like below:
+
+const mapStateToProps = state => {
+    return {
+        ...,
+        achievements: Object.values(state.achievement),
+    };
+};
+*/
