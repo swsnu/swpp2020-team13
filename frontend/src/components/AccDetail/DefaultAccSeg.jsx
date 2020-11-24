@@ -25,9 +25,9 @@ class DefaultAccSegment extends Component {
 
     render() {
         return(
-            <Segment>
+            <Segment className="DefaultAccSeg">
                 <h4>No achievements yet. Add one if you're done!</h4>
-                {(!this.state.addAccopen) && <Button onClick={this.onClickAddAccHandler}>Add an Achievement</Button>}
+                {(!this.state.addAccopen) && <Button className="AddAccButton" onClick={this.onClickAddAccHandler}>Add an Achievement</Button>}
                 {this.state.addAccopen && <AddAccForm onSubmit={this.onCloseSubmit}/>}
             </Segment>
         )

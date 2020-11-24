@@ -1,10 +1,6 @@
 import React from 'react'
-import { Router} from 'react-router-dom';
-import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme'
 import AccSegmentComponent from './AccSegmentComponent'
-import { getMockStore } from '../../test-utils/mocks'
-import history from '../../history'
 import chai, { expect } from 'chai'
 
 describe('<AccSegmentComponent />', () => {
@@ -15,10 +11,10 @@ describe('<AccSegmentComponent />', () => {
     }
   
     it("should render without errors", ()=> {
-        const component = mount(<AccSegmentComponent task={mockTask}/>)
+        const component = shallow(<AccSegmentComponent task={mockTask}/>)
         const wrapper = component.find('.AccContainer')
         // console.log(component.debug())
-        expect(wrapper.length).eql(2)
+        expect(wrapper.length).eql(1)
     })
 
     it("should call onClickAddAccHandler", ()=> {

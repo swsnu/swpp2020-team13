@@ -34,38 +34,38 @@ describe('<Auth />', () => {
         expect(wrapper.length).eql(2)
     })
 
-    fit("should show the sign up modal when the button is clicked", ()=> {
-      const component = mount(WrappedAuth)
-      const wrapper = component.find('#AuthSignup')
-      wrapper.simulate('click')
-      // TODO: expect(setAuthMode).toHaveBeenCalledTimes(1)
-      // expect(authMode).toBe('signup')
-      // // console.log(component.debug())
-      // expect(wrapper.length).eql(2)
-    })
+    // xit("should show the sign up modal when the button is clicked", ()=> {
+    //   const component = mount(WrappedAuth)
+    //   const wrapper = component.find('#AuthSignup')
+    //   wrapper.simulate('click')
+    //   TODO: expect(setAuthMode).toHaveBeenCalledTimes(1)
+    //   expect(authMode).toBe('signup')
+    //   // console.log(component.debug())
+    //   expect(wrapper.length).eql(2)
+    // })
 
-    xit("should show the log in modal when the button is clicked", ()=> {
-      // const component = mount(WrappedAuth)
-      // const wrapper = component.find('.SegmentModal')
-      // // console.log(component.debug())
-      // expect(wrapper.length).eql(2)
-    })
+    // xit("should show the log in modal when the button is clicked", ()=> {
+    //   const component = mount(WrappedAuth)
+    //   const wrapper = component.find('.SegmentModal')
+    //   // console.log(component.debug())
+    //   expect(wrapper.length).eql(2)
+    // })
 
-    xit("should switch between sign up and log in", ()=> {
-      // const component = mount(WrappedAuth)
-      // const wrapper = component.find('.SegmentModal')
-      // // console.log(component.debug())
-      // expect(wrapper.length).eql(2)
-    })
+    // xit("should switch between sign up and log in", ()=> {
+    //   const component = mount(WrappedAuth)
+    //   const wrapper = component.find('.SegmentModal')
+    //   // console.log(component.debug())
+    //   expect(wrapper.length).eql(2)
+    // })
 
-    xit("should handle submit", ()=> {
-      // const component = mount(WrappedAuth)
-      // const wrapper = component.find('.SegmentModal')
-      // // console.log(component.debug())
-      // expect(wrapper.length).eql(2)
-    })
+    // xit("should handle submit", ()=> {
+    //   const component = mount(WrappedAuth)
+    //   const wrapper = component.find('.SegmentModal')
+    //   // console.log(component.debug())
+    //   expect(wrapper.length).eql(2)
+    // })
 
-    // should reset the input fields when the form is switched
+    //should reset the input fields when the form is switched
 
     afterEach(() => {
         jest.clearAllMocks()
