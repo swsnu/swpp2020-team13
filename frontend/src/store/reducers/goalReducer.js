@@ -15,14 +15,7 @@ const reducer = (state = initialState, action) => {
             return {...state, selectedGoal: action.target}
 
         case actionTypes.ADD_GOAL:
-            const newGoal = {
-                id: action.id,
-                title: action.title,
-                photo: action.photo,
-                created_at: action.created_at,
-                deadline: action.deadline,
-                tags: action.tags,
-            }
+            const newGoal = action.payload
             return {...state, goals: [...state.goals, newGoal]}
 
         case actionTypes.EDIT_GOAL:
@@ -44,11 +37,16 @@ const reducer = (state = initialState, action) => {
             return {...state, goals: deleted}
 
         case actionTypes.ADD_TASK_TO_GOAL:
-            // There might be a more elegat way than the logic below
-            const target = state.goals.filter(goal => goal.id == action.payload.goal_id)[0]
-            const rest = state.goals.filter(goal => goal.id != action.payload.goal_id)
-            target.tasks = [...target.tasks, action.payload]
-            return { ...state, goals: [...rest, target]}
+            const target = state.goals.filter(goal => goal.id == action.payload.goal)[0]
+            const rest = state.goals.filter(goal => goal.id != action.payload.goal)
+            return { ...state, goals: [...rest, {...target, tasks: [...target.tasks, action.payload]}]}
+
+        case actionTypes.DELETE_TASK_TO_GOAL:
+            const target_delete = state.goals.filter(goal => goal.id == action.payload.goal)[0]
+            // console.log(typeof target_delete)
+            const target_deleted_task = target_delete.tasks.filter(t => t.id !== action.payload.id)
+            const rest_delete = state.goals.filter(goal => goal.id != action.payload.goal)
+            return { ...state, goals: [...rest_delete, {...target_delete, tasks: target_deleted_task}]}
 
         default:
             break

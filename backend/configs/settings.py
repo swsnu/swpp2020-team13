@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'goals.apps.GoalsConfig',
     'tasks.apps.TasksConfig',
     'uploads.apps.UploadsConfig',
+    'achievements.apps.AchievementsConfig',
 ]
 
 MIDDLEWARE = [

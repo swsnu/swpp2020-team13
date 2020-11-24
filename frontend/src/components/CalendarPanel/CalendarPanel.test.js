@@ -9,7 +9,7 @@ describe('<CalendarPanel />', ()=> {
         const component = shallow(<CalendarPanel />)
         const wrapper = component.find('.CalendarPanel')
         // TODO: This is failing
-        // expect(wrapper.length).toBe(1)
+        expect(wrapper.length).toBe(1)
     })
 
     it("should accept changes", ()=> {
@@ -17,6 +17,6 @@ describe('<CalendarPanel />', ()=> {
         const component = shallow(<CalendarPanel onSubmit={mockMyEventHandler}/>)
         const wrapper = component.find('.CalendarPanel #Calendar')
         // TODO: This is failing. wrapper is not found
-        // wrapper.simulate('change')
+        wrapper.simulate('change')
     })
 })
