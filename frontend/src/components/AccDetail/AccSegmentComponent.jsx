@@ -96,7 +96,7 @@ class AccSegment extends Component {
                     {/* <p>Example Description</p> */}
                 </div>
                 <div className="description">
-                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Edit</Button>
+                    <Button floated='right' size="tiny" className="EditDescription" onClick={this.onClickAddAccHandler}>Edit</Button>
                     <br></br>
                     <br></br>
                 </div>
