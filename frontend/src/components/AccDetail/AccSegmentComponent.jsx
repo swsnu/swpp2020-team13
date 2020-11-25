@@ -24,7 +24,7 @@ class AccSegment extends Component {
 
     renderChart = () => {
         return (
-
+            
         <VictoryPie 
             padAngle={0}
             // used to hide labels

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import * as actionTypes from '../actions/types'
 
-export default reducer = (state = {}, action) => {
+const reducer = (state = {}, action) => {
     switch(action.type) {
         case actionTypes.GET_ACHIEVEMENTS_OF_TASK:
             return {...state, ..._.mapKeys(action.payload, 'id')}
@@ -17,6 +17,7 @@ export default reducer = (state = {}, action) => {
             return state
     }
 }
+export default reducer
 
 /* 
 When use state.achievement in a component, fetch it like below:
