@@ -71,10 +71,10 @@ def achievementDetail(request, achievement_id):
             return HttpResponse(status=404)
         
         serialized_achv = model_to_dict(achv)
-        print("[DEBUG] serialized_arch before: ", serialized_achv)
+        print("[DEBUG] serialized_achv before: ", serialized_achv)
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_arch after: ", serialized_achv)
+        print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
     
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -105,10 +105,10 @@ def achievementDetail(request, achievement_id):
         achv.save()
 
         serialized_achv = model_to_dict(achv)
-        print("[DEBUG] serialized_arch before: ", serialized_achv)
+        print("[DEBUG] serialized_achv before: ", serialized_achv)
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_arch after: ", serialized_achv)
+        print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
 
     elif request.method == 'DELETE':
@@ -122,7 +122,7 @@ def achievementDetail(request, achievement_id):
             
         if achv.user.id is not request.user.id:
             return HttpResponse(status=403)
-            
+
         achv.delete()
         return HttpResponse(status=200)
 

@@ -114,8 +114,16 @@ export const editGoal = (goal_id, data, file, key) => async dispatch => {
             "Content-Type": "application/json"
         }
     })
-    // dispatch(addGoal_(res.data))
+    
+    dispatch(editGoal_(res.data))
     history.push('/main')
+}
+
+export const editGoal_ = (goal) => {
+    return {
+        type: actionTypes.EDIT_GOAL,
+        payload: goal
+    }
 }
 
 export const deleteGoal_ = (id) => {
@@ -132,19 +140,5 @@ export const deleteGoal = (id) => {
     }
 }
 
-export const editGoal_ = (goal) => {
-    return {
-        type: actionTypes.EDIT_GOAL,
-        title: goal.title,
-        photo: goal.photo, 
-        deadline: goal.deadline,
-        tags: goal.tags
-    }
-}
 
-// export const editGoal = (goal) => {
-//     return (dispatch) => {
-//         return axios.put('/api/v1/goals/'+ goal.id + '/', goal)
-//         .then(res => dispatch(editGoal_(goal)))
-//     }
-// }
+
