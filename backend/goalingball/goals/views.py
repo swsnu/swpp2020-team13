@@ -42,9 +42,10 @@ def goalList(request):
             return HttpResponse(status=401)
 
         try:
-            goal_title = request.POST['title']
-            goal_deadline = request.POST['deadline']
-            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
+            goal_title = request.POST.get('title')
+            goal_deadline = request.POST.get('deadline', None)
+            if goal_deadline is not None:
+                goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
             # goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
         except(KeyError, JSONDecodeError) as e:
             return HttpResponseBadRequest()
@@ -114,7 +115,8 @@ def goalDetail(request, goal_id=""):
             goal_title = req_data.get('title')
             goal_photo = req_data.get('photo', '')
             goal_deadline = req_data.get('deadline', None)
-            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
+            if goal_deadline is not None:
+                goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
 
             if 'tags' in req_data: # tags should be added after an intance is created
                 goal_tags = req_data['tags']
