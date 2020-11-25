@@ -91,7 +91,8 @@ class EditGoal extends Component {
                 <label>Goal Title</label>
                 <Input placeholder='Enter Title Here' 
                 defaultValue={this.props.selectedGoal.title}
-                onChange={(e)=>this.setState({title: e.target.value})}></Input>
+                onChange={(e)=>this.setState({title: e.target.value})}
+                className="GoalTitleInput"></Input>
             </Form.Field>
         )
     }
@@ -141,7 +142,8 @@ class EditGoal extends Component {
                     </Grid.Column >
                     <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
                     <Grid.Column  width={5}>
-                    <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
+                    <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} className="DeadlinePicker"
+                                onChange={(date)=>{this.selectDeadline(date)}} />
                     </Grid.Column>
                     </Grid>
                 </FormField>
@@ -240,7 +242,7 @@ class EditGoal extends Component {
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right" className="ConfirmButton">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>

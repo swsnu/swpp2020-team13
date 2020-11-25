@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 import AccSegmentComponent from './AccSegmentComponent'
-import chai, { expect } from 'chai'
 
 describe('<AccSegmentComponent />', () => {
 
@@ -11,10 +10,10 @@ describe('<AccSegmentComponent />', () => {
     }
   
     it("should render without errors", ()=> {
-        const component = shallow(<AccSegmentComponent task={mockTask}/>)
+        const component = mount(<AccSegmentComponent task={mockTask}/>)
         const wrapper = component.find('.AccContainer')
         // console.log(component.debug())
-        expect(wrapper.length).eql(1)
+        expect(wrapper.length).toBe(1)
     })
 
     it("should call onClickAddAccHandler", ()=> {
@@ -22,6 +21,6 @@ describe('<AccSegmentComponent />', () => {
         const button = component.find('.EditDescription')
         button.at(0).simulate('click');
         const wrapper = component.find('AddAccForm')
-        expect(wrapper.length).eql(1)
+        expect(wrapper.length).toBe(1)
     })
 })
