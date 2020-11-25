@@ -47,9 +47,9 @@ export const DashBoardCards = (props) => {
                         Only show ongoings
                 </Button>
                 <Button.Group>
-                <Button size="tiny" disabled={select == 0 ? true : false} onClick={() => prevHandler()} icon='angle left'>
+                <Button size="tiny" disabled={select == 0 ? true : false} onClick={() => prevHandler()} icon='angle left' className="dashcardprev">
                 </Button>
-                <Button size="tiny" disabled={select == (Math.floor(max)) ? true : false} onClick={() => nextHandler()} icon='angle right'></Button>
+                <Button size="tiny" disabled={select == (Math.floor(max)) ? true : false} onClick={() => nextHandler()} icon='angle right' className="dashcardnext"></Button>
                 {/* {console.log("DEBUG: next and max", select, Math.floor(max))} */}
             </Button.Group>
             <Segment>

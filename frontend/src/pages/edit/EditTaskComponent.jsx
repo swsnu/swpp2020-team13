@@ -7,10 +7,10 @@ class EditTask extends Component {
         toTaskBody = this.props.tasks.map(t => <TaskBody task={t} key={t.id} />)
 
         return (
-            <>
+            <div className="EditTaskComp">
             {console.log("DEBUG: tasks info", this.props.tasks)}
             {toTaskBody}
-            </>
+            </div>
         )
     }
 }

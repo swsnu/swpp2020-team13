@@ -4,7 +4,7 @@ import { Card, Icon, Button } from "semantic-ui-react";
 export default class GoalCard extends React.Component {
   render() {
     return (
-      <Card>
+      <Card className="DashGoalCardComp">
         <Card.Content header={"Test Goal Card"} textAlign="center" />
         <Card.Content
           style={{

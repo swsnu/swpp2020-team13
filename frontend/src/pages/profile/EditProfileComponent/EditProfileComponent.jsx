@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 class EditProfile extends Component {
 
 
     render() {
         return (
-            <div>Edit Profile</div>
+            <div className="EditProfile">Edit Profile</div>
         )
     }
 }

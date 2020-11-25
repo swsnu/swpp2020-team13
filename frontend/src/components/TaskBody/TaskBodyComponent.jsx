@@ -69,7 +69,8 @@ class TaskBodyComponent extends Component {
     setDeadlineString = (string) => {
         console.log("[DEBUG] dadline string: ", string)
         const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
-        setDeadline(deadline)
+        // setDeadline(deadline)
+        this.setState({deadline: deadline})
     }
 
     onSubmit = () => { // e: event
@@ -140,8 +141,8 @@ class TaskBodyComponent extends Component {
                         />
                     </Form.Group>
                     <Button.Group>
-                        <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit}>Submit</Form.Button>
-                        <Button icon onClick={this.closeHandler}><Icon name='x'/></Button>
+                        <Button className="EditTaskSubmitButton" id="EditTaskSubmit" onClick={this.onSubmit}>Submit</Button>
+                        <Button icon className="EditTaskCloseButton" id="EditTaskClose" onClick={this.closeHandler}><Icon name='x'/></Button>
                     </Button.Group>
                     {/* <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit()}>Submit</Form.Button>                     */}
                 </Segment>
