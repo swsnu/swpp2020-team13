@@ -65,15 +65,15 @@ def logout(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-def detail(request, pk):
-    if request.method == 'GET':
-        try:
-            user = User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            return HttpResponse(status=404)
+# def detail(request, pk):
+#     if request.method == 'GET':
+#         try:
+#             user = User.objects.get(pk=pk)
+#         except user.DoesNotExist:
+#             return HttpResponse(status=404)
         
-        serialized_user = model_to_dict(user)
-        return JsonResponse(serialized_user, status=200)
+#         serialized_user = model_to_dict(user)
+#         return JsonResponse(serialized_user, status=200)
     
-    else:
-        return HttpResponseNotAllowed(['GET'])
+#     else:
+#         return HttpResponseNotAllowed(['GET'])
