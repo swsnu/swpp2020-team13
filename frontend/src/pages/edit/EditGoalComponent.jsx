@@ -10,19 +10,9 @@ import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, lab
 
 import "react-datepicker/dist/react-datepicker.css"
 import { isThisSecond } from 'date-fns';
-// import axios from 'axios'
-// import * as actionCreators from '../../../store/actions'
 import { editGoal } from '../../store/actions'
-// import { isThisMonth } from 'date-fns/esm'
 import './EditGoal.css'
-import { es } from 'date-fns/locale';
 
-// const mapStateToProps = state => {
-//     return{
-//         selectedGoal: state.goal.selectedGoal,
-//         // taskList: state.task.tasks,
-//     }
-// }
 
 class EditGoal extends Component {
 
@@ -91,7 +81,9 @@ class EditGoal extends Component {
                 <label>Goal Title</label>
                 <Input placeholder='Enter Title Here' 
                 defaultValue={this.props.selectedGoal.title}
-                onChange={(e)=>this.setState({title: e.target.value})}></Input>
+                onChange={(e)=>this.setState({title: e.target.value})}
+                id="EditGoalFormTitle"
+                ></Input>
             </Form.Field>
         )
     }
@@ -239,8 +231,10 @@ class EditGoal extends Component {
                 {this.renderPhoto()}
                 {this.renderDeadline()}
                 {this.renderTag()}
+                {/* <Button floated="right">Go Back</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button> */}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right" className="ConfirmButton" id="ConfirmButtonEditGoalForm">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>
