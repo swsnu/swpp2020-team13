@@ -30,7 +30,7 @@ export const add_achievement = (formValues, file) => async dispatch => {
             }
         })
         const imageUrl = s3prefix + res.data.key
-        formData.append('photo', imageUrl)
+        formValues.append('photo', imageUrl)
     } 
 
     const res = await axios.post('/api/v1/achievements/', formValues, {
