@@ -18,25 +18,24 @@ class AddAccForm extends Component {
         return `${value}°%`;
     }
 
-    DiscreteSlider = () => {
-        const classes = useStyles()
-      
-        return (
-          <div className="slider">
-            <h5>
-                How much percentage did you do?
-            </h5>
-            <Slider
-              defaultValue={80}
-              getAriaValueText={this.valuetext}
-              aria-labelledby="discrete-slider-always"
-              step={10}
-              // marks={marks}
-              valueLabelDisplay="on"
-            />
-          </div>
-        )
-      }
+    // DiscreteSlider = () => {
+    //     // const classes = useStyles()  
+    //     return (
+    //       <div className="slider">
+    //         <h5>
+    //             How much percentage did you do?
+    //         </h5>
+    //         <Slider
+    //           defaultValue={80}
+    //           getAriaValueText={this.valuetext}
+    //           aria-labelledby="discrete-slider-always"
+    //           step={10}
+    //           // marks={marks}
+    //           valueLabelDisplay="on"
+    //         />
+    //       </div>
+    //     )
+    //   }
 
       fileChange = e => {
         if(e.target.files){
@@ -72,7 +71,7 @@ class AddAccForm extends Component {
 
       renderPhoto() {
         return (
-            <Segment>
+            <Segment className="AddAccPhoto">
             <Form.Field>
                 <label id="PhotoInput">Add Achievement Photo</label>
             <Button as="label" htmlFor="file" type="button" animated="fade">
@@ -81,7 +80,7 @@ class AddAccForm extends Component {
               </Button.Content>
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
-            <input type="file" id="file" hidden onChange={this.fileChange}/>
+            <input type="file" id="file" className="AccPhoto" hidden onChange={this.fileChange}/>
             <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
               value={this.state.fileName}
             />
@@ -147,7 +146,7 @@ class AddAccForm extends Component {
                         {this.renderDes()}
                         <Button.Group>
                             <Form.Button className="AddAccSubmitButton">Submit</Form.Button>
-                            <Form.Button className="AddAccSubmitButton" onClick={this.closeHandler}>Close</Form.Button>                           
+                            <Form.Button className="AddAccCloseButton" onClick={this.closeHandler}>Close</Form.Button>                           
                         </Button.Group>
                 </Segment>
             </Form>
