@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import uuid 
@@ -6,6 +6,7 @@ import boto3
 from botocore.config import Config
 import requests
 import json
+from json import JSONDecodeError
 
 
 # @login_required

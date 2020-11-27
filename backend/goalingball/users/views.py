@@ -43,8 +43,6 @@ def login(request):
         if user is not None:
             auth_login(request, user)
             payload = {"id": str(user.id), "username": user.username}
-            print("[DEBUG] payload for login response: ", payload)
-            # print("[DEBUG] payload for login response: ", payload)
             return JsonResponse(payload, status=200)
         else:
             return HttpResponse(status=401)

@@ -2,6 +2,8 @@ import pytest
 from faker import Faker
 from django.urls import reverse
 from django.contrib.auth.models import User
+import json
+
 
 pytestmark = pytest.mark.django_db
 fake = Faker()
@@ -23,8 +25,6 @@ def test_get_s3_url(client, django_user_model):
     # methods not allowed
     response = client.post(url)
     assert response.status_code == 405
-    # response = client.put(url)
-    # assert response.status_code == 405
     response = client.delete(url)
     assert response.status_code == 405
 
@@ -48,3 +48,11 @@ def test_get_s3_url(client, django_user_model):
     assert response.status_code == 200
     assert 'key' in response.content.decode()
     assert 'url' in response.content.decode()
+
+    data = {}
+    response = client.put(url, json.dumps(data))
+    assert response.status_code == 400
+
+    data['key'] = 'key'
+    response = client.put(url, json.dumps(data))
+    assert response.status_code == 200
