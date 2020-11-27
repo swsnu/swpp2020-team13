@@ -41,14 +41,13 @@ def goalList(request):
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
 
-        try:
-            goal_title = request.POST.get('title')
-            goal_deadline = request.POST.get('deadline', None)
-            if goal_deadline is not None:
-                goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
-            # goal_deadline = timezone.make_aware(datetime.strptime(goal_deadline, '%Y-%m-%d %H:%M:%S')) # JSON string for deadline should be '%Y-%m-%d %H:%M:%S'
-        except(KeyError, JSONDecodeError) as e:
+        goal_title = request.POST.get('title', None)
+        if goal_title is None:
             return HttpResponseBadRequest()
+
+        goal_deadline = request.POST.get('deadline', None)
+        if goal_deadline is not None:
+            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
 
         if 'photo' in request.POST:
             goal_photo = request.POST['photo']
@@ -77,7 +76,7 @@ def goalList(request):
 @csrf_exempt
 def goalDetail(request, goal_id=""):
     if request.method == 'GET':
-        if request.user.is_authenticated is False:
+        if not request.user.is_authenticated:
             return HttpResponse(status=401)
         
         # GET goal Detail
@@ -111,21 +110,20 @@ def goalDetail(request, goal_id=""):
         print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
         req_data = json.loads(request.body.decode())
 
-        try:
-            goal_title = req_data.get('title')
-            goal_photo = req_data.get('photo', '')
-            goal_deadline = req_data.get('deadline', None)
-            if goal_deadline is not None:
-                goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
-
-            if 'tags' in req_data: # tags should be added after an intance is created
-                goal_tags = req_data['tags']
-                print("req_data['tags']: ", req_data['tags'])
-                # breakpoint()
-                goal.tags.set(*goal_tags, clear=True)
-
-        except(KeyError, JSONDecodeError) as e:
+        goal_title = req_data.get('title', None)
+        if goal_title is None:
             return HttpResponseBadRequest()
+            
+        goal_photo = req_data.get('photo', '')
+        goal_deadline = req_data.get('deadline', None)
+        if goal_deadline is not None:
+            goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
+
+        if 'tags' in req_data: # tags should be added after an intance is created
+            goal_tags = req_data['tags']
+            # print("req_data['tags']: ", req_data['tags'])
+            # breakpoint()
+            goal.tags.set(*goal_tags, clear=True)
 
         goal.title = goal_title
         goal.photo = goal_photo
