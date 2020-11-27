@@ -67,7 +67,7 @@ def detail(request, pk):
     if request.method == 'GET':
         try:
             user = User.objects.get(pk=pk)
-        except User.DoesNotExist:
+        except user.DoesNotExist:
             return HttpResponse(status=404)
         
         serialized_user = model_to_dict(user)

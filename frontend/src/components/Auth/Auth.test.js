@@ -10,9 +10,10 @@ import chai, { expect } from 'chai'
 const stubInitialState = {
     auth: null,
     modal: {
-        auth: true,
+        authModal: true,
         addTask: true
-    }
+    },
+    authModal: true
 }
 const mockStore = getMockStore(stubInitialState);
 
@@ -22,7 +23,7 @@ describe('<Auth />', () => {
     beforeEach(() => {
       WrappedAuth = (
         <Provider store={mockStore}>
-          <Auth authMode={''}/>
+          <Auth authMode={'signup'}/>
         </Provider>
       )
     })
@@ -32,6 +33,20 @@ describe('<Auth />', () => {
         const wrapper = component.find('.SegmentModal')
         // console.log(component.debug())
         expect(wrapper.length).eql(2)
+    })
+
+    it("should accept signup click", ()=> {
+      const component = mount(WrappedAuth)
+      const wrapper = component.find('.SegmentModal #AuthSignup button')
+      // console.log(component.debug())
+      wrapper.simulate("click")
+      expect(wrapper.length).eql(1)
+      })
+
+  it("should accept login click", ()=> {
+    const component = mount(WrappedAuth)
+    const wrapper = component.find('.SegmentModal #AuthLogin button')
+    wrapper.simulate("click")
     })
 
     afterEach(() => {

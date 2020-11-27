@@ -11,7 +11,7 @@ const Auth = (props) => {
     const isAuthModalOpen = useSelector(state => state.modal.authModal)
     // useState is equivalent to this.state
     const [authMode, setAuthMode] = useState(props.authMode)
-
+    
     const form = authMode === 'signup' 
         ? CreateSignupForm()
         : CreateLoginForm()
@@ -22,7 +22,7 @@ const Auth = (props) => {
             <div className="modal-container small-container modal-auth" id="Auth">
                 <ButtonGroup className="ButtonGroupModal" floated="right">
                 <Button onClick={() => setAuthMode('signup')} id="AuthSignup">Sign Up</Button>
-                <Button onClick={() => setAuthMode('login')}>Log In</Button>
+                <Button onClick={() => setAuthMode('login')} id="AuthLogin">Log In</Button>
                 </ButtonGroup>
                 {/* <div>{authMode == AuthMode.signup ? 'Sign Up' : 'Log In'}</div> */}
                 <br></br>
