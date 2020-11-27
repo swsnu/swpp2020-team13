@@ -68,9 +68,9 @@ class EditGoal extends Component {
         }
         else {
         //    this.setState({file: default_goal_pic})
-           console.log(this.state.file)
-           const imageUrl = URL.createObjectURL(this.state.file)
-            console.log(imageUrl)
+        //    console.log(this.state.file)
+        //    const imageUrl = URL.createObjectURL(this.state.file)
+        //     console.log(imageUrl)
         }
         
     }
@@ -100,7 +100,7 @@ class EditGoal extends Component {
               </Button.Content>
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
-            <input type="file" id="file" hidden onChange={this.fileChange}/>
+            <input type="file" id="file" className="EditGoalPhoto" hidden onChange={this.fileChange}/>
             <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
               value={this.state.fileName}
             />

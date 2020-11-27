@@ -27,6 +27,17 @@ const mockGoal = {
     isEditing: false,
 }
 
+const mockGoal_P = {
+    title: "TEST_TITLE",
+    photo: "https://goalingball-test.s3.amazonaws.com/photo",
+    deadline: new Date(),
+    startdate: new Date(),
+    tags: ["TEST_TAG"],
+    tagOptions:[],
+    isEditing: false,
+}
+
+
 const mockId = 1;
 const mockData = null;
 const mockFile = null;
@@ -75,5 +86,39 @@ describe('<EditGoalComponent />', () => {
     })
     
     // TODO: fileChange and onTagChange should be simulated and tested
+    it("should accept file change", ()=>{
+        const component = mount(WrappedEdit)
+        // console.log(component.debug())
+        const wrapper = component.find(".EditGoalForm .EditGoalPhoto")
+        const fileContents = 'file contents';
+        const file = new Blob([fileContents], {type : 'text/plain'}, {name: "name"});
+        const event = {target:{files: [file]}}
+        wrapper.simulate("change", event)
+    })
+
+    it("should not handle file when file is null", ()=>{
+        const component = mount(WrappedEdit)
+        const wrapper = component.find(".EditGoalForm .EditGoalPhoto")
+        const event = {target:{files: null}}
+        wrapper.simulate("change", event)
+    })
+
+    it("should handle when user already has a photo", ()=>{
+        const WrappedEdit_P = (
+            <Provider store={mockStore}>
+              <EditGoalComponent selectedGoal={mockGoal_P} editGoal={spyEditGoal}/>
+            </Provider>
+          )
+        const component = mount(WrappedEdit_P)
+        const wrapper = component.find('.ConfirmButton #ConfirmButtonEditGoalForm')
+        wrapper.at(0).simulate("click");
+    })
+
+    it("should accept changes in tag", ()=> {
+        const component = mount(WrappedEdit)
+        const wrapper = component.find(".EditGoalForm Dropdown")
+        const event = {data:{value:"test"}}
+        wrapper.simulate("change", event)
+    })
 
 })
