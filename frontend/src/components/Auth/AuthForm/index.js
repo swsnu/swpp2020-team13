@@ -22,7 +22,7 @@ export const CreateSignupForm = () => {
 
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
-    const onSubmit =(data, e) => { // e: event
+    const onSubmit = (data) => { // e: event
         console.log("[DEBUG] signup form data: ", data)
         if (data.password1 !== data.password2) {
             // error
@@ -35,7 +35,7 @@ export const CreateSignupForm = () => {
     }
  
 
-    const onError = (errors, e) => console.log(errors, e);
+    const onError = (errors, e) => console.log("ERROR", errors);
 
     watch() // watchAllFields
 
