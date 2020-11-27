@@ -22,21 +22,20 @@ class AccSegment extends Component {
         this.setState({ addAccForm : true})
     }
 
-    renderChart = () => {
-        return (
-            
-        <VictoryPie 
-            padAngle={0}
-            // used to hide labels
-            labelComponent={<span/>}
-            innerRadius={70}
-            width={200} height={200}
-            data={[{'key': "", 'y': this.state.metric}, {'key': "", 'y': (100-this.state.metric)} ]}
-            colorScale={["#19B3A6", "#EEEEEE" ]}
-        />
+    // renderChart = () => {
+    //     return (       
+    //     <VictoryPie className="AchPercentageChart"
+    //         padAngle={0}
+    //         // used to hide labels
+    //         labelComponent={<span/>}
+    //         innerRadius={70}
+    //         width={200} height={200}
+    //         data={[{'key': "", 'y': this.state.metric}, {'key': "", 'y': (100-this.state.metric)} ]}
+    //         colorScale={["#19B3A6", "#EEEEEE" ]}
+    //     />
 
-        )
-    }
+    //     )
+    // }
 
     renderSegment() {
         return(
@@ -96,7 +95,7 @@ class AccSegment extends Component {
                     {/* <p>Example Description</p> */}
                 </div>
                 <div className="description">
-                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler}>Edit</Button>
+                    <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler} id="EditAchButton">Edit</Button>
                     <br></br>
                     <br></br>
                 </div>
