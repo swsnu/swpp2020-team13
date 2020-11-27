@@ -92,7 +92,7 @@ class EditGoal extends Component {
                 <Input placeholder='Enter Title Here' 
                 defaultValue={this.props.selectedGoal.title}
                 onChange={(e)=>this.setState({title: e.target.value})}
-                className="GoalTitleInput"></Input>
+                id="EditGoalFormTitle"></Input>
             </Form.Field>
         )
     }
@@ -242,7 +242,7 @@ class EditGoal extends Component {
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right" className="ConfirmButton">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right" className="ConfirmButton" id="ConfirmButtonEditGoalForm">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>
