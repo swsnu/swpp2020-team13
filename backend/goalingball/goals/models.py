@@ -12,7 +12,7 @@ class Goal(models.Model):
         related_name='goals'
     )
     # image = models.ImageField(blank=True, upload_to="images", null=True)
-    photo = models.URLField(max_length=2047)
+    photo = models.URLField(max_length=2047, blank=True, null=True)
     tags = TaggableManager(blank=True)
 
     created_at = models.DateTimeField(editable=False)

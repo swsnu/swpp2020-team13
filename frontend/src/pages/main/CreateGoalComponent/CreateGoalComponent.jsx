@@ -14,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import axios from 'axios'
 import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
-import { isThisMonth } from 'date-fns/esm'
+// import { isThisMonth } from 'date-fns/esm'
 
 
 const mapDispatchToProps = dispatch => {
@@ -134,6 +134,7 @@ class CreateGoal extends Component {
     addTagOptions(e,data) {
         const tagOptions = this.state.tagOptions
         tagOptions.push({key: data.value, text: data.value, value: data.value})
+        console.log(tagOptions)
         this.setState({tagOptions:tagOptions})
     }
 
@@ -162,11 +163,16 @@ class CreateGoal extends Component {
         let data = new FormData()
         data.append("title", this.state.title)
         // let deadline = moment(this.state.deadline).add(1, 'days')
-        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 60)
+        let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
         data.append("deadline", deadline)
-        // console.log("DEBUG: in UNIX timestamp", data.get('deadline'))
-        data.append("tags", JSON.stringify(this.state.tags))
+
+        // If you add more than one item to the same key, it makes a list.
+        for (const tag of this.state.tags) {
+            data.append("tags", tag)
+        }
+        console.log("Create goal data.get('tags'): ", data.get('tags'))
+
         this.props.addGoal(data, this.state.file)
         this.setState({ isCreating: true })
     }

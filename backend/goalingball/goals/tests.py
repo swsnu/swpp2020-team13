@@ -56,6 +56,9 @@ def test_goalList(client, django_user_model):
     response = client.get(url)
     assert response.status_code == 401
 
+    response = client.post(url)
+    assert response.status_code == 401
+
     # user is logeed in
     url = reverse('login')
     response = client.post(url, user_data, headers=headers)
@@ -63,10 +66,19 @@ def test_goalList(client, django_user_model):
 
     # user can creat a goal
     url = reverse('goalList')
+    photo = goal_data['photo']
     response = client.post(url, goal_data, headers=headers)
     assert response.status_code == 201
     assert title.replace('\n', '\\n') in response.content.decode()
     assert photo in response.content.decode()
+
+    # in case there is no photo
+    photo = goal_data['photo']
+    del goal_data['photo']
+    response = client.post(url, goal_data, headers=headers)
+    assert response.status_code == 201
+    # recover photo
+    goal_data['photo'] = photo
 
     # cannot create a goal with invalid fields
     response = client.post(url, invalid_goal_data, headers=headers)
@@ -91,6 +103,7 @@ def test_goalDetail(client, django_user_model):
     url = reverse('login')
     response = client.post(url, user_data, headers=headers)
     assert response.status_code == 200
+
     # create a goal
     url = reverse('goalList')
     response = client.post(url, goal_data, headers=headers)
@@ -98,23 +111,52 @@ def test_goalDetail(client, django_user_model):
     goal_id = json.loads(response.content.decode())['id']
     assert goal_id == 1
 
-
-    url = reverse('goalDetail', kwargs={'goal_id': fake.pyint()})
-
-    # a method not allowed
-    response = client.post(url)
-    assert response.status_code == 405
-
     # goal does not exist
+    url = reverse('goalDetail', kwargs={'goal_id': fake.pyint()})
     response = client.get(url)
     assert response.status_code == 404
 
-    url = reverse('goalDetail', kwargs={'goal_id': goal_id})
     
+    # user is not logged in
+    url = reverse('logout')
+    response = client.post(url)
+    assert response.status_code == 204
+    url = reverse('goalDetail', kwargs={'goal_id': goal_id})
+    response = client.get(url)
+    assert response.status_code == 401
+    response = client.put(url, json.dumps(goal_data))
+    assert response.status_code == 401
+    response = client.delete(url)
+    assert response.status_code == 401
+
+    # user is logged in again
+    url = reverse('login')
+    response = client.post(url, user_data)
+    assert response.status_code == 200
+    
+    # goal does not exist
+    url = reverse('goalDetail', kwargs={'goal_id': fake.pyint()})
+    response = client.get(url)
+    assert response.status_code == 404
+    response = client.put(url, json.dumps(goal_data), headers=headers)
+    assert response.status_code == 404
+    esponse = client.delete(url)
+    assert response.status_code == 404
+
     # methods allowed
+    url = reverse('goalDetail', kwargs={'goal_id': goal_id})
     response = client.get(url)
     assert response.status_code == 200
-    # response = client.put(url, goal_data, headers=headers)
-    # assert response.status_code == 200
+
+    response = client.put(url, json.dumps(goal_data), headers=headers)
+    assert response.status_code == 200
+    
     response = client.delete(url)
     assert response.status_code == 200
+
+    # invalid goal data
+    response = client.put(url, json.dumps(invalid_goal_data), headers=headers)
+    assert response.status_code == 404
+    
+
+    # TODO: user does not own the goal (status=403)

@@ -4,7 +4,7 @@ import UserInfo from '../../components/User/UserComponent'
 class Profile extends React.Component {
     render() {
         return (
-            <div>
+            <div className="Profile">
                 <UserInfo/>
             </div>
         )

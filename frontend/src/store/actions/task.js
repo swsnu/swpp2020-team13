@@ -39,7 +39,7 @@ export const addTaskToGoal = task => {
         type: actionTypes.ADD_TASK_TO_GOAL,
         payload: {
             id: task.id,
-            goal_id: task.goal_id,
+            goal: task.goal_id,
             title: task.title,
             deadline: task.deadline,
             importance: task.importance,
@@ -48,17 +48,28 @@ export const addTaskToGoal = task => {
     }
 }
 
+export const deleteTaskToGoal = (goal, id) => {
+    return {
+        type: actionTypes.DELETE_TASK_TO_GOAL,
+        payload : {
+            id: id,
+            goal: goal
+        }
+    }   
+}
+
 export const addTask = (formData, file) => async dispatch => {
     const res = await axios.post('/api/v1/tasks/', formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
-    })
+    }) 
     console.log("addTask res.data: ", res.data)
-    dispatch(addTaskToGoal(res.data))
+    // dispatch(addTaskToGoal(res.data))
     dispatch(addTask_(res.data))
     // history.push('/main')
     dispatch(closeModal())
+    dispatch(addTaskToGoal(res.data))
 }
 
 export const deleteTask_ = (id) => {
@@ -70,9 +81,18 @@ export const deleteTask_ = (id) => {
     }
 }
 
-export const deleteTask = (id) => {
-    return dispatch => {
-        return axios.delete('/api/v1/tasks/'+ id)
-        .then(res => dispatch(deleteTask_(id)))
-    }
+export const deleteTask = (goal, id) => async dispatch =>{
+    const res = await axios.delete('/api/v1/tasks/'+ id)
+    dispatch(deleteTask_(id))
+    dispatch(deleteTaskToGoal(goal, id))
 }
+
+// export const deleteTask = (goal, id) => {
+//     return dispatch => {
+//         return axios.delete('/api/v1/tasks/'+ id)
+//         .then(res => 
+//             dispatch(deleteTask_(id))
+//             dispatch(addTaskToGoal(goal, id))
+//         )   
+//     }
+// }

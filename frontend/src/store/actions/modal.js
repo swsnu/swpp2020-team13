@@ -27,3 +27,17 @@ export const closeAddTaskModal = () => {
         payload: null
     }
 }
+
+export const openAddAccModal = () => {
+    return {
+        type: ActionTypes.OPEN_ADD_ACC_MODAL,
+        payload: null
+    }
+}
+
+export const closeAddAccModal = () => {
+    return {
+        type: ActionTypes.CLOSE_ADD_ACC_MODAL,
+        payload: null
+    }
+}

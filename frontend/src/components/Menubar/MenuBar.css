@@ -16,11 +16,12 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
+    transition: all .1s ease;
 }
 
 .Sidebar .button-create:hover {
     /* background-color: #FA7f72; */
-    color: #61261ec4;
+    transform: scale(1.1);
     border: none;
     
 }
@@ -36,10 +37,11 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
+    transition: all .1s ease;
 }
 .Sidebar .button-logout:hover {
     /* background-color: #FA7f72; */
-    color: #61261ec4;
+    transform: scale(1.1);
     border: none;
     
 }
@@ -54,12 +56,13 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
+    transition: all .1s ease;
 }
 
 .Sidebar .button:hover {
     /* background-color: #FA7f72; */
-    color: #61261ec4;
     border: none;
+    transform: scale(1.1);
     
 }
 
@@ -73,11 +76,12 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
     align-items: center;
+    transition: all .1s ease;
 }
 
 .Sidebar .button:hover {
     /* background-color: #FA7f72; */
-    color: #61261ec4;
+    transform: scale(1.1);
     border: none;
     
 }

@@ -1,17 +1,21 @@
-from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import uuid 
 import boto3
 from botocore.config import Config
 import requests
+import json
+from json import JSONDecodeError
 
 
 # @login_required
+@csrf_exempt
 def get_s3_url(request):
+    s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
+
     if request.method == 'GET':
-        s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
-        # The location (url) of a file will be aws_s3_prefix + key
-        
+          # The location (url) of a file will be aws_s3_prefix + key        
         key = str(request.user.id) + '/' + str(uuid.uuid4()) + '.jpeg/'
         if request.user.id is None:
             return HttpResponse(status=401) # Only logged in users are allowed
@@ -32,7 +36,26 @@ def get_s3_url(request):
         data = {'key': key, 'url': url}
         return JsonResponse(data, status=200)
     
+    elif request.method == 'PUT':
+        req_data = json.loads(request.body.decode())
+        try:
+            key = req_data['key']
+        except(KeyError, JSONDecodeError) as e:
+            return HttpResponseBadRequest()
+
+        url = s3.generate_presigned_url(
+            ClientMethod='put_object',
+            Params={
+                'Bucket': 'goalingball-test',
+                'ContentType':'image/jpeg',
+                'Key': key
+            }
+        )
+        data = {'key': key, 'url': url}
+        print("get_s3_url PUT data: ", data)
+        return JsonResponse(data, status=200)
+
     else:
-        return HttpResponseNotAllowed(['GET'])
+        return HttpResponseNotAllowed(['GET', 'PUT'])
 
 # 'ap-northeast-2\' is wrong; expecting \'us-east-1

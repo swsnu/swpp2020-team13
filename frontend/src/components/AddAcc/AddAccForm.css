@@ -1,0 +1,29 @@
+.AddAccForm{
+    margin-top: 5px !important;
+}
+.SliderRoot {
+    margin-top: 5px !important;
+    min-width: 600px !important;
+    margin-left: 30px !important;
+}
+
+.SliderRoot .SliderRootTitle {
+    padding-top: 3px !important;
+}
+
+.AccPreviewImage {
+    max-width: 170px !important;
+    max-height: 200px !important;
+    min-width: 170px !important;
+    min-height: 170px !important;
+}
+
+.AccPhotoForm {
+    margin-left: 30px !important
+}
+
+.AddAccDes {
+    margin-left: 32px !important;
+    margin-top: 8px !important;
+    margin-right: 55px !important;
+}
