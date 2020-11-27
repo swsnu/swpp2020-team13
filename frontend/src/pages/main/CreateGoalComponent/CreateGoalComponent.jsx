@@ -8,20 +8,13 @@ import MenuBar from '../../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
-import { InputFile } from 'semantic-ui-react-input-file'
 
 import "react-datepicker/dist/react-datepicker.css"
-import axios from 'axios'
 import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
 // import { isThisMonth } from 'date-fns/esm'
 
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onAddGoal: (formData, file) => dispatch(actionCreators.addGoal(formData, file))
-    }
-}
 class CreateGoal extends Component {
 
     state = {
@@ -44,32 +37,17 @@ class CreateGoal extends Component {
           )
         }
         else {
-        //    this.setState({file: default_goal_pic})
-           console.log(this.state.file)
-           const imageUrl = URL.createObjectURL(this.state.file)
-            console.log(imageUrl)
         }
         
     }
-
-    // fileRender() {
-    //     if (this.state.upload == true) {
-    //         const imageUrl = URL.createObjectURL(this.state.file)
-    //         console.log(imageUrl)
-    //         return(
-    //             <img id="image" src={imageUrl}></img>
-    //         )
-    //     }
-    //     else{
-    //         return null;
-    //     }
-    // }
 
     renderTitle() {
         return (
             <Form.Field>
                 <label>Goal Title</label>
-                <Input placeholder='Enter Title Here' onChange={(e)=>this.setState({title: e.target.value})}></Input>
+                <Input placeholder='Enter Title Here' 
+                className="CreateGoalTitle"
+                onChange={(e)=>this.setState({title: e.target.value})}></Input>
             </Form.Field>
         )
     }
@@ -86,7 +64,7 @@ class CreateGoal extends Component {
               </Button.Content>
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
-            <input type="file" id="file" hidden onChange={this.fileChange}/>
+            <input type="file" id="file" className="GoalPhoto" hidden onChange={this.fileChange}/>
             <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
               value={this.state.fileName}
             />
@@ -151,6 +129,7 @@ class CreateGoal extends Component {
                     onAddItem={(e,data) => this.addTagOptions(e, data)} 
                     onChange={(e,data)=>this.setTag(data)}
                     options={this.state.tagOptions}
+                    className="GoalDropDown"
                 />
             </FormField>
         )
@@ -220,7 +199,7 @@ class CreateGoal extends Component {
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} floated="right" className="GoalSubmitButton">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>
@@ -231,4 +210,4 @@ class CreateGoal extends Component {
 
 
 
-export default connect(mapDispatchToProps, { addGoal })(withRouter(CreateGoal))
+export default connect(null, { addGoal })(withRouter(CreateGoal))

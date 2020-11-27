@@ -23,7 +23,7 @@ describe('AddAcc', () => {
     it("should accept file change", ()=>{
         const component = mount(<AddAccForm/>)
         // console.log(component.debug())
-        const wrapper = component.find(".AddAccForm #AccPhoto")
+        const wrapper = component.find(".AddAccForm .AccPhoto")
         const fileContents = 'file contents';
         const file = new Blob([fileContents], {type : 'text/plain'}, {name: "name"});
         const event = {target:{files: [file]}}
@@ -33,7 +33,7 @@ describe('AddAcc', () => {
     it("should not handle file when file is null", ()=>{
         const component = mount(<AddAccForm/>)
         // console.log(component.debug())
-        const wrapper = component.find(".AddAccForm #AccPhoto")
+        const wrapper = component.find(".AddAccForm .AccPhoto")
         // const fileContents = 'file contents';
         // const file = new Blob([fileContents], {type : 'text/plain'}, {name: "name"});
         const event = {target:{files: null}}

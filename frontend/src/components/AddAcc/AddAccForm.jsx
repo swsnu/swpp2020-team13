@@ -80,7 +80,7 @@ class AddAccForm extends Component {
               </Button.Content>
               <Button.Content hidden>Choose a File</Button.Content>
             </Button>
-            <input type="file" id="AccPhoto" hidden onChange={this.fileChange}/>
+            <input type="file" id="file" className="AccPhoto" hidden onChange={this.fileChange}/>
             <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
               value={this.state.fileName}
             />
