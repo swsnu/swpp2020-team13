@@ -43,7 +43,7 @@ class TaskBarComponent extends Component {
             <Button icon className="TaskBarButton">
               <Icon name='redo' />
           </Button>
-          <Button icon className="TaskBarButton" onClick={this.deleteTaskHandler}>
+          <Button icon className="TaskBarButton" id="X" onClick={this.deleteTaskHandler}>
               <Icon name='x' />
           </Button>
           </Button.Group>

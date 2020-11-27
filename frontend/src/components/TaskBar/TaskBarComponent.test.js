@@ -76,5 +76,27 @@ describe('<Taskbar />', ()=> {
         let wrapper = component.find('#Recurrent')
         expect(wrapper.length).toBe(0)
     })   
+
+    it("should delete when delete clicked", ()=>{
+      const component = mount(WrappedTaskBar)
+      const wrapper = component.find("#X button")
+      // console.log(component.debug())
+      wrapper.simulate("click")
+    })
+
+    it("should show ach detail ", ()=>{
+      const component = mount(WrappedTaskBar)
+      const wrapper = component.find(".TaskBarListTriangle button")
+      // console.log(component.debug())
+      wrapper.simulate("click")
+    })
+
+    it("should close ach detail ", ()=>{
+      const component = mount(WrappedTaskBar)
+      const wrapper = component.find(".TaskBarListTriangle button")
+      // console.log(component.debug())
+      wrapper.simulate("click")
+      wrapper.simulate("click")
+    })
     
 })
