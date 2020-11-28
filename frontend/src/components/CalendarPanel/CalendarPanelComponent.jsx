@@ -13,7 +13,7 @@ class CalendarPanelComponent extends Component {
    
     onChange = date => {
         this.setState({ date })
-        // console.log("DEBUG on Calendar",moment(date).endOf("day"))
+        console.log("DEBUG on Calendar",moment(date).endOf("day"))
         this.props.onSubmit(date)
     }
     
