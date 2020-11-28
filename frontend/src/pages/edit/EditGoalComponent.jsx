@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import DatePicker from "react-datepicker"
 import LoadingOverlay from 'react-loading-overlay';
-
+import { DateInput} from 'semantic-ui-calendar-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 
 import "react-datepicker/dist/react-datepicker.css"
-import { isThisSecond } from 'date-fns';
+// import { isThisSecond } from 'date-fns';
 import { editGoal } from '../../store/actions'
 import './EditGoal.css'
 
@@ -22,16 +22,16 @@ class EditGoal extends Component {
       fileName: "",
       upload: false,
       deadline: new Date(),
-      startdate: new Date(),
+      start_at: new Date(),
       tags: [],
       tagOptions:[],
       isEditing: false,
     }
 
     renderDefaultDate() {
-        const startdate = moment(this.props.selectedGoal.created_at).format("MM/DD/YYYY")
+        const start_at = new Date(this.props.selectedGoal.start_at)
         const deadline = new Date(this.props.selectedGoal.deadline)
-        this.setState({startdate: startdate, deadline: deadline})
+        this.setState({start_at: start_at, deadline: deadline})
     }
 
     renderDefaultTagOptions() {
@@ -110,36 +110,94 @@ class EditGoal extends Component {
         )
     }
 
-    selectDeadline(date) {
-        this.setState({deadline:date})
+    // selectDeadline(date) {
+    //     this.setState({deadline:date})
+    // }
+
+    // formatDate(d) {
+    //     // console.log(date.toString('MM/dd/yyyy'))
+    //     var curr_date = d.getDate();
+    //     var curr_month = d.getMonth() + 1; //Months are zero based
+    //     var curr_year = d.getFullYear();
+    //     return curr_month + "/" + curr_date + "/" + curr_year
+    // }
+
+    handleChangeStart = (event, {name, value}) => {
+        this.setState({ [name]: value });
+     }
+
+   handleChangeDeadline = (event, {name, value}) => {
+       this.setState({ [name]: value });
     }
 
-    formatDate(d) {
-        // console.log(date.toString('MM/dd/yyyy'))
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth() + 1; //Months are zero based
-        var curr_year = d.getFullYear();
-        return curr_month + "/" + curr_date + "/" + curr_year
-    }
+   renderDeadline() {
+       return(
+           <Segment>
+               <FormField>
+                   {/* <label>Select Goal Deadline</label> */}
+                   <Grid columns='two' textAlign='center' className="DeadlineGrid">
+                   <Grid.Column width={5}>
+                   {/* <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input> */}
+                   <DateInput
+                               id="GoalFormStart"
+                               label='Starting From'
+                               name="start_at"
+                               placeholder="Date"
+                               value={moment(this.state.start_at).format('YYYY-MM-DD')}
+                               iconPosition="left"
+                               dateFormat="YYYY-MM-DD"
+                               onChange={this.handleChangeStart}
+                           />  
+                   </Grid.Column >
+                   {/* <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column> */}
+                   <Grid.Column  width={5}>
+                   {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} /> */}
+                   <DateInput
+                               id="GoalFormDeadline"
+                               label='Deadline'
+                               name="deadline"
+                               placeholder="Date"
+                               value={moment(this.state.deadline).format('YYYY-MM-DD')}
+                               iconPosition="left"
+                               dateFormat="YYYY-MM-DD"
+                               onChange={this.handleChangeDeadline}
+                           />  
+                   </Grid.Column>
+                   </Grid>
+               </FormField>
+           </Segment>
+       )
+   }
 
-    renderDeadline() {
-        return(
-            <Segment>
-                <FormField>
-                    <label>Select Goal Deadline</label>
-                    <Grid columns='three' textAlign='center' className="DeadlineGrid">
-                    <Grid.Column width={5}>
-                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.state.startdate}></Input>
-                    </Grid.Column >
-                    <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
-                    <Grid.Column  width={5}>
-                    <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
-                    </Grid.Column>
-                    </Grid>
-                </FormField>
-            </Segment>
-        )
-    }
+   onTagsChanged(tags) {
+       this.setState({tags: tags})
+   }
+
+   addTagOptions(e,data) {
+       const tagOptions = this.state.tagOptions
+       tagOptions.push({key: data.value, text: data.value, value: data.value})
+       console.log(tagOptions)
+       this.setState({tagOptions:tagOptions})
+   }
+
+   setTag(data) {
+       this.onTagsChanged(data.value)
+   }
+
+   renderTag() {
+       return(
+           <FormField>
+               <label>Add Tags</label>
+               <Dropdown placeholder="add goal tags here" search selection 
+                   clearable multiple allowAdditions fluid 
+                   onAddItem={(e,data) => this.addTagOptions(e, data)} 
+                   onChange={(e,data)=>this.setTag(data)}
+                   options={this.state.tagOptions}
+                   className="GoalDropDown"
+               />
+           </FormField>
+       )
+   }
 
     onTagsChanged(tags) {
         console.log("tag changing")
@@ -182,8 +240,10 @@ class EditGoal extends Component {
 
         data['title'] = this.state.title
         // data.append("title", this.state.title)
+        let start_at = moment(this.state.start_at).startOf('day').unix()
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
         // console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
+        data['start_at'] = start_at
         data['deadline'] = deadline
         // data.append("deadline", deadline)
         console.log("DEBUG: this state tags", this.state.tags)

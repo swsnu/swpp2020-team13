@@ -23,7 +23,7 @@ class GoalList extends Component {
 
     selectTodayGoals() {
         const today = moment(this.state.today).unix()
-        const todayGoals = this.props.goalList.filter(goal => today <= goal.deadline)
+        const todayGoals = this.props.goalList.filter(goal => (goal.start_at <= today && today <= goal.deadline))
         return todayGoals
     }
  

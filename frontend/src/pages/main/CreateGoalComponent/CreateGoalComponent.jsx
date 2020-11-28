@@ -9,9 +9,10 @@ import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 
-import "react-datepicker/dist/react-datepicker.css"
+// import "react-datepicker/dist/react-datepicker.css"
 import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
+import { DateInput} from 'semantic-ui-calendar-react'
 // import { isThisMonth } from 'date-fns/esm'
 
 
@@ -23,7 +24,7 @@ class CreateGoal extends Component {
       fileName: "",
       upload: false,
       deadline: new Date(),
-      startdate: new Date(),
+      start_at: new Date(),
       tags: [],
       tagOptions:[],
       isCreating: false,
@@ -74,30 +75,59 @@ class CreateGoal extends Component {
         )
     }
 
-    selectDeadline(date) {
-        this.setState({deadline:date})
-    }
+    // selectDeadline(date) {
+    //     this.setState({deadline:date})
+    // }
 
-    formatDate(d) {
-        // console.log(date.toString('MM/dd/yyyy'))
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth() + 1; //Months are zero based
-        var curr_year = d.getFullYear();
-        return curr_month + "/" + curr_date + "/" + curr_year
-    }
+    // formatDate(d) {
+    //     // console.log(date.toString('MM/dd/yyyy'))
+    //     var curr_date = d.getDate();
+    //     var curr_month = d.getMonth() + 1; //Months are zero based
+    //     var curr_year = d.getFullYear();
+    //     return curr_month + "/" + curr_date + "/" + curr_year
+    // }
+
+
+    handleChangeStart = (event, {name, value}) => {
+         this.setState({ [name]: value });
+      }
+
+    handleChangeDeadline = (event, {name, value}) => {
+        this.setState({ [name]: value });
+     }
 
     renderDeadline() {
         return(
             <Segment>
                 <FormField>
-                    <label>Select Goal Deadline</label>
-                    <Grid columns='three' textAlign='center' className="DeadlineGrid">
+                    {/* <label>Select Goal Deadline</label> */}
+                    <Grid columns='two' textAlign='center' className="DeadlineGrid">
                     <Grid.Column width={5}>
-                    <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input>
+                    {/* <Input id="todayDate" style={{ width: "175px" }} readOnly value={this.formatDate(this.state.startdate)}></Input> */}
+                    <DateInput
+                                id="GoalFormStart"
+                                label='Starting From'
+                                name="start_at"
+                                placeholder="Date"
+                                value={moment(this.state.start_at).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={this.handleChangeStart}
+                            />  
                     </Grid.Column >
-                    <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column>
+                    {/* <Grid.Column width={1}><Container><h5>to</h5></Container></Grid.Column> */}
                     <Grid.Column  width={5}>
-                    <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} />
+                    {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={this.state.deadline} onChange={(date)=>{this.selectDeadline(date)}} /> */}
+                    <DateInput
+                                id="GoalFormDeadline"
+                                label='Deadline'
+                                name="deadline"
+                                placeholder="Date"
+                                value={moment(this.state.deadline).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={this.handleChangeDeadline}
+                            />  
                     </Grid.Column>
                     </Grid>
                 </FormField>
@@ -138,12 +168,13 @@ class CreateGoal extends Component {
 
     onClickHandler() {
         // e.preventDefault()
-        console.log(this.state.tags)
+        // console.log(this.state.tags)
         let data = new FormData()
         data.append("title", this.state.title)
-        // let deadline = moment(this.state.deadline).add(1, 'days')
+        let start_at = moment(this.state.start_at).startOf('day').unix()
         let deadline = moment(this.state.deadline).startOf('day').unix() + (24*60*60 - 1)
-        console.log("Modified deadline: ", moment.unix(deadline).format('MMMM Do YYYY, h:mm:ss a'))
+        console.log("Modified deadline: ", moment.unix(start_at).format('MMMM Do YYYY, h:mm:ss a'))
+        data.append("start_at", start_at)
         data.append("deadline", deadline)
 
         // If you add more than one item to the same key, it makes a list.
