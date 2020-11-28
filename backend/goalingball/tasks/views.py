@@ -60,7 +60,7 @@ def taskList(request):
             if task_deadline is not None:
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
                 if task_deadline > goal.deadline:
-                    task_deadline = goal.deadline
+                    task_deadline = goal.deadline #Task deadline cannot go further than goal deadline
             # if task_deadline == '':
             #     task_deadline = None
             # elif task_deadline != '':
