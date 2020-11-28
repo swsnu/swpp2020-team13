@@ -18,10 +18,13 @@ const AddTaskForm = (props) => {
         // console.log("type of deadline", deadline_date)
         // console.log(title, day_of_week, deadline, importance)
         const deadline_in_ts = moment(deadline).startOf('day').unix() + (24*60*60 - 1)
+        const start_in_ts = moment(start_at).startOf('day').unix()
+
         const dataForm = new FormData()
         dataForm.append("title", title)
         dataForm.append("goal_id", props.goal_id)
-        dataForm.append("day_of_week", day_of_week)        
+        dataForm.append("day_of_week", day_of_week)  
+        dataForm.append('start_at', start_in_ts)      
         dataForm.append("deadline", deadline_in_ts)
         dataForm.append("importance", importance)
         dispatch(actionCreators.addTask(dataForm))
@@ -43,6 +46,7 @@ const AddTaskForm = (props) => {
     const [importance, setImportance] = React.useState(2)
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
+    const [start_at, setStartAt] = React.useState(new Date)
     const [deadline, setDeadline] = React.useState(new Date)
     // const [deadlineString, setDeadlineString] = React.useState("")
 
@@ -54,8 +58,8 @@ const AddTaskForm = (props) => {
     //     setDeadline(deadline)
     // }
 
-    const handleChange = (event, {name, value}) => {
-        if(moment(value) > props.goal_deadline){
+    const handleChangeDeadline = (event, {name, value}) => {
+        if(moment(value).unix() > props.goal_deadline){
             window.alert("task deadline cannot be longer than goal deadline. Goal deadline will be set.")
             // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
             setDeadline(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
@@ -64,6 +68,21 @@ const AddTaskForm = (props) => {
             setDeadline(moment(value))
         }
       }
+
+    const handleChangeStart = (event, {name, value}) => {
+        console.log(moment(value))
+        console.log(props.goal_start_at)
+        if(moment(value).unix() < props.goal_start_at){
+            window.alert("task start date cannot be earlier than goal start date. Goal start date will be set.")
+            // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
+            setStartAt(moment.unix(props.goal_start_at).format("YYYY-MM-DD"))
+            setDeadline(moment.unix(props.goal_start_at).format("YYYY-MM-DD"))
+        }
+        else {
+            setStartAt(moment(value))
+            setDeadline(moment(value))
+        }
+     }
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -82,6 +101,17 @@ const AddTaskForm = (props) => {
                                 placeholder='Day of Week'
                             />
                             <DateInput
+                                id="AddTaskFormStartAt"
+                                label='Start at'
+                                name="start_at"
+                                placeholder="Date"
+                                value={moment(start_at).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={handleChangeStart}
+                                // disabled={day_of_week.length == 0 ? true : false}
+                            /> 
+                            <DateInput
                                 id="AddTaskFormDeadline"
                                 label='Deadline'
                                 name="deadline"
@@ -89,7 +119,7 @@ const AddTaskForm = (props) => {
                                 value={moment(deadline).format('YYYY-MM-DD')}
                                 iconPosition="left"
                                 dateFormat="YYYY-MM-DD"
-                                onChange={handleChange}
+                                onChange={handleChangeDeadline}
                                 disabled={day_of_week.length == 0 ? true : false}
                             />                 
                             </Form.Group>

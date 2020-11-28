@@ -43,6 +43,7 @@ class Task(models.Model):
 
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
+    start_at = models.DateTimeField(blank=True, null=True)
     deadline = models.DateTimeField(blank=True, null=True) # only for recurrent tasks, default is same as created_at
 
     def save(self, *args, **kwargs):

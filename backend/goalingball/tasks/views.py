@@ -36,12 +36,13 @@ def taskList(request):
         # else
         task_list = []
         for t in Task.objects.all().values():
-            created_at = int(t.created_at.timestamp()) 
-            updated_at = int(t.updated_at.timestamp()) 
-            deadline = int(t.deadline.timestamp()) 
+            created_at = int(t["created_at"].timestamp()) 
+            updated_at = int(t["updated_at"].timestamp())
+            start_at = int(t["start_at"].timestamp()) 
+            deadline = int(t["deadline"].timestamp()) 
             task_list.append({'id': t["id"], 'user': t["user_id"], 'goal_id': t["goal_id"], 
                                'title': t["title"], 'created_at': created_at, 'updated_at': updated_at, 
-                               'deadline': deadline, 'importance': t["importance"], 
+                               'start_at':start_at, 'deadline': deadline, 'importance': t["importance"], 
                                'day_of_week': t["day_of_week"]})
         return JsonResponse(task_list, safe=False, status=200)
 
@@ -54,10 +55,14 @@ def taskList(request):
             task_title = request.POST['title']
             task_importance = request.POST.get('importance', 3) # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
+            task_start_at = request.POST.get('start_at', None)
             task_deadline = request.POST.get('deadline', None)
             # NOTE: when frontend sends empty deadline, it is read as ''. So this is first changed to None for the backend to recognize.
             # -> Do not include 'deadline' field if you want to make it None
-            if task_deadline is not None:
+            # if task_deadline is not None:
+            #     task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
+            if task_deadline is not None and task_start_at is not None:
+                task_start_at = timezone.make_aware(datetime.fromtimestamp(int(task_start_at)))
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
             # if task_deadline == '':
             #     task_deadline = None
@@ -101,7 +106,7 @@ def taskDetail(request, task_id=""):
 
         response_dict = {'id': t.id, 'user': t.user_id, 'goal_id': t.goal_id, 
                         'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
-                        'deadline': deadline, 'importance': t.importance, 
+                        'start_at': t.start_at, 'deadline': t.deadline, 'importance': t.importance, 
                         'day_of_week': t.day_of_week}
         return JsonResponse(response_dict, safe=False, status=200)
 

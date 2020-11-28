@@ -1,11 +1,8 @@
 import React, { Component, useRef } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import DatePicker from "react-datepicker"
 import LoadingOverlay from 'react-loading-overlay';
 import { DateInput} from 'semantic-ui-calendar-react'
-import MenuBar from '../../components/Menubar/MenuBarComponent'
-import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 
 import "react-datepicker/dist/react-datepicker.css"

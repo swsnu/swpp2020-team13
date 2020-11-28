@@ -22,7 +22,8 @@ def goalList(request):
         goal_list = []
         for g in Goal.objects.select_related('user').all():
             created_at = int(g.created_at.timestamp()) 
-            updated_at = int(g.updated_at.timestamp()) 
+            updated_at = int(g.updated_at.timestamp())
+            start_at = int(g.start_at.timestamp())
             deadline = int(g.deadline.timestamp())
             tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             tags = [tag for tag in g.tags.names()]
@@ -31,7 +32,8 @@ def goalList(request):
 
             goal_list.append({
                 'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
-                'created_at': created_at, 'updated_at': updated_at, 'deadline': deadline, 
+                'created_at': created_at, 'updated_at': updated_at, 
+                'start_at': start_at, 'deadline': deadline, 
                 'tasks': tasks, 'user': user,
                 'tags': tags,
             })
@@ -46,14 +48,18 @@ def goalList(request):
             return HttpResponseBadRequest()
 
         goal_deadline = request.POST.get('deadline', None)
-        if goal_deadline is not None:
+        goal_start_at = request.POST.get('start_at', None)
+
+        if goal_deadline is not None and goal_start_at is not None:
+            goal_start_at = timezone.make_aware(datetime.fromtimestamp(int(goal_start_at)))
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
 
         if 'photo' in request.POST:
             goal_photo = request.POST['photo']
         else:
             goal_photo = None
-        new_goal = Goal(title=goal_title, photo=goal_photo, deadline=goal_deadline, user=request.user)
+
+        new_goal = Goal(title=goal_title, photo=goal_photo, start_at=goal_start_at, deadline=goal_deadline, user=request.user)
         new_goal.save() # goal_created_at and goal_updated_at is made when new goal is saved
         
         if 'tags' in request.POST: # tags should be added after an intance is created
@@ -66,6 +72,7 @@ def goalList(request):
                         'title': new_goal.title, 'photo': new_goal.photo, 
                         'created_at': int(new_goal.created_at.timestamp()),
                         'updated_at' : int(new_goal.updated_at.timestamp()), 
+                        'start_at': int(new_goal.start_at.timestamp()),
                         'deadline': int(new_goal.deadline.timestamp()), 
                         'tags': [tag for tag in new_goal.tags.names()], 'tasks': []}
 
@@ -88,8 +95,9 @@ def goalDetail(request, goal_id=""):
         
         tags = [tag for tag in g.tags.names()]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
-                        'user': g.user.id, 'created_at': g.created_at, 
-                        'updated_at': g.updated_at, 'deadline': g.deadline, 
+                        'user': g.user_id, 'created_at': g.created_at, 
+                        'updated_at': g.updated_at, 
+                        'start_at': g.start_at, 'deadline': g.deadline, 
                         'tags': tags,
                         'tasks': tasks
                         }
@@ -116,8 +124,13 @@ def goalDetail(request, goal_id=""):
             
         goal_photo = req_data.get('photo', '')
         goal_deadline = req_data.get('deadline', None)
+        goal_start_at = req_data.get('start_at', None)
+
         if goal_deadline is not None:
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline))) 
+
+        if goal_start_at is not None:
+            goal_start_at = timezone.make_aware(datetime.fromtimestamp(int(goal_start_at))) 
 
         if 'tags' in req_data: # tags should be added after an intance is created
             goal_tags = req_data['tags']
@@ -127,10 +140,17 @@ def goalDetail(request, goal_id=""):
 
         goal.title = goal_title
         goal.photo = goal_photo
+        goal.start_at = goal_start_at
         goal.deadline = goal_deadline
         goal.save()
 
-        response_dict = {'id': goal.id, 'title': goal.title, 'photo': goal.photo, 'user': goal.user.id, 'created_at': (goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 'updated_at' : (goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'), 'deadline': (goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 'tags': [tag for tag in goal.tags.names()]}
+        response_dict = {'id': goal.id, 'title': goal.title, 
+                        'photo': goal.photo, 'user': goal.user.id, 
+                        'created_at': (goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'updated_at' : (goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'),
+                        'start_at': (goal.start_at).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'deadline': (goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'tags': [tag for tag in goal.tags.names()]}
         return JsonResponse(response_dict, safe=False, status=200)
         
     elif request.method == 'DELETE':

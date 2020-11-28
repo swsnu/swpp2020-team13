@@ -34,21 +34,26 @@ class GoalBodyComponent extends Component {
         this.props.openAddTaskModal()
     }
 
+    // start_at is a timestamp
+    startAtDate = (start_at) => {
+        return moment.unix(start_at).format('MMMM Do YYYY')
+        // return moment.unix(deadline).format('LL')
+    }
+
     // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return moment.unix(deadline).format('MMMM Do YYYY, HH:mm:ss')
+        return moment.unix(deadline).format('MMMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 
     render() {
         console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
-        const { title, id, deadline, tags, tasks } = this.props.goal
+        const { title, id, deadline, start_at, tags, tasks } = this.props.goal
         const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
   
         // let toTaskBar = []
         // if((tasks !== undefined) && (tasks.length > 0)){toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)}
         
-
         // console.log("[DEBUG] GoalBodyComponent is rendering. this.props.goal: ", this.props.goal)
         // console.log("[DEBUG] GoalBodyComponent is rendering. tasks: ", tasks)
 
@@ -60,7 +65,7 @@ class GoalBodyComponent extends Component {
                     <List.Content className="GoalBodyListTitle">
                         <List.Header className="GoalBodyListTitleHeader">{title}</List.Header>
                         {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
-                        <div className="GoalBodyListDeadline">Until {this.deadlineDate(deadline)}</div>
+                        <div className="GoalBodyListDeadline">From {this.startAtDate(start_at)}, Until {this.deadlineDate(deadline)}</div>
                     </List.Content>
                 </List.Item>
             </List>
@@ -75,7 +80,7 @@ class GoalBodyComponent extends Component {
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={id} goal_deadline={deadline}/>}
+            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={id} goal_deadline={deadline} goal_start_at={start_at}/>}
             <br></br>
         </Segment>
     )

@@ -12,7 +12,7 @@ const AddTaskModal = (props) => {
         <Modal isOpen={isAddTaskModalOpen} className="SegmentAddTask">
             <div className="modal-container small-container modal-addTask">
                 <div className="modal__body">
-                   <AddTaskForm goal_id={props.goal_id} goal_deadline={props.goal_deadline}/>
+                   <AddTaskForm goal_id={props.goal_id} goal_deadline={props.goal_deadline} goal_start_at={props.goal_start_at}/>
                 </div>
             </div>
         </Modal>
