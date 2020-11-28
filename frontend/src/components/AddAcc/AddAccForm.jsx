@@ -2,7 +2,6 @@ import React, { Component, useRef } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container, GridColumn} from 'semantic-ui-react'
-import { makeStyles } from "@material-ui/core/styles"
 import Slider from "@material-ui/core/Slider"
 import './AddAccForm.css'
   

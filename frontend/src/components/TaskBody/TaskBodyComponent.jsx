@@ -6,28 +6,19 @@ import Axios from 'axios'
 // import {} from '../../store/actions/index'
 import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
-
+import { DateInput,} from 'semantic-ui-calendar-react'
 class TaskBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
     // the tasks here are originally from backend
     // TODO: connect with redux
 
     state = {
-        // selectedDate: null,
-        // addTaskModal: false,
-        // tasks: this.props.goal.tasks ? this.props.goal.tasks : []
         editmode: false,
         readmode: true,
         title: this.props.task.title,
         importance: this.props.task.importance,
         day_of_week: this.props.task.day_of_week,
         deadline: this.props.task.deadline
-        // const [importance, setImportance] = React.useState(2)
-        // const [day_of_week, setDayOfWeek] = React.useState([])
-        // const [title, setTitle] = React.useState("")
-        // const [deadline, setDeadline] = React.useState("")
-        
-        
     }
 
     onClickEditTaskHandler = () => {
@@ -46,12 +37,12 @@ class TaskBodyComponent extends Component {
         // return moment.unix(deadline).format('LL')
     }
 
-    renderDeadlineString = (task) => {
+    renderDeadlineString = (day_of_week, deadline) => {
         let str = "Until: "
-        str = str + this.deadlineDate(task.deadline)
-        if(task.day_of_week.length !== 0) {
+        str = str + this.deadlineDate(deadline)
+        if(day_of_week.length !== 0) {
             var daystr = "On every "
-            for (var d of task.day_of_week) {
+            for (var d of day_of_week) {
                 d = d.toLowerCase()
                 d = d.charAt(0).toUpperCase() + d.slice(1);
                 daystr = daystr + d + ","+ " "
@@ -76,6 +67,7 @@ class TaskBodyComponent extends Component {
     onSubmit = () => { // e: event
         // TODO: cannot call setState during render
         // this.setState({editmode: false})
+
         const neweditmode = !(this.state.editmode)
         const newreadmode = !(this.state.readmode)
         this.setState({editmode: neweditmode, readmode: newreadmode})
@@ -86,6 +78,13 @@ class TaskBodyComponent extends Component {
         const newreadmode = !(this.state.readmode)
         this.setState({editmode: neweditmode, readmode: newreadmode})
     }
+
+    handleChange = (event, {name, value}) => {
+        if (this.state.hasOwnProperty(name)) {
+            console.log(moment(value))
+          this.setState({ [name]: value });
+        }
+      }
 
     renderEditMode = () => {
         const options = [
@@ -119,15 +118,16 @@ class TaskBodyComponent extends Component {
                                 onChange={(e,data)=>this.setState({day_of_week: data.value})}
                                 placeholder='Day of Week'
                             />
-                            <Form.Input label='Deadline' 
-                            placeholder='Deadline'
-                            id="EditTaskFormDeadline"
-                            defaultValue={moment(this.state.deadline).format("YYYY-MM-DD")}
-                            disabled={(this.state.day_of_week.length == 0) ? true : false}
-                            onChange={(e,data)=>this.setState({deadline: this.setDeadlineString(data.value)})}
-                            // error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
+                            <DateInput
+                                label='Deadline'
+                                name="deadline"
+                                placeholder="Date"
+                                value={moment(this.state.deadline).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={this.handleChange}
                             />
-                            {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={deadline} onChange={(date)=>{setDeadline(date)}} /> */}                        </Form.Group>
+                        </Form.Group>
                     <Form.Group inline>
                     <label>Importance</label>
                         <Rating
@@ -141,7 +141,7 @@ class TaskBodyComponent extends Component {
                         />
                     </Form.Group>
                     <Button.Group>
-                        <Button className="EditTaskSubmitButton" id="EditTaskSubmit" onClick={this.onSubmit}>Submit</Button>
+                        <Button className="EditTaskSubmitButton" id="EditTaskSubmit" onClick={() => this.onSubmit()}>Submit</Button>
                         <Button icon className="EditTaskCloseButton" id="EditTaskClose" onClick={this.closeHandler}><Icon name='x'/></Button>
                     </Button.Group>
                     {/* <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit()}>Submit</Form.Button>                     */}
@@ -159,16 +159,16 @@ class TaskBodyComponent extends Component {
                 <Icon name='circle' className="TaskBodyListIcon" size="small"/>
                     <List.Content className="TaskBodyListTitle">
                         <List.Header className="TaskBodyListTitleHeader">    
-                            {title}
+                            {this.state.title}
                             <Rating className="TaskBodyListRating"
                                     name="simple-controlled"
                                     size="small"
                                     id="AddTaskFormImportance"
-                                    value={importance}
+                                    value={this.state.importance}
                                     readOnly
                                 />
                         </List.Header>
-                            {this.renderDeadlineString(this.props.task)}
+                            {this.renderDeadlineString(this.state.day_of_week, this.state.deadline)}
                     </List.Content>
                 </List.Item>
             </List>
@@ -188,7 +188,7 @@ class TaskBodyComponent extends Component {
         {this.state.readmode && this.renderReadMode()}
         {/* {this.renderReadMode()} */}
         {this.state.editmode && this.renderEditMode()}
-        {console.log(this.state.readmode, this.state.editmode)}
+        {/* {console.log(this.state.readmode, this.state.editmode)} */}
         </>
     )
     }

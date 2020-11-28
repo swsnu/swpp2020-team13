@@ -8,6 +8,7 @@ import './AddTaskForm.css'
 import Rating from '@material-ui/lab/Rating';
 import DatePicker from "react-datepicker"
 import moment from 'moment'
+import { DateInput} from 'semantic-ui-calendar-react'
 
 const AddTaskForm = (props) => {
     const { register, handleSubmit, watch, errors , reset} = useForm()
@@ -16,11 +17,12 @@ const AddTaskForm = (props) => {
         // const deadline_date = moment((deadline + ' '+ 'OO:OO:OO'), 'YYYY-MM-DD HH:MM:SS')     // as deadline is set as Form.Input instead of datepicker
         // console.log("type of deadline", deadline_date)
         // console.log(title, day_of_week, deadline, importance)
+        const deadline_in_ts = moment(deadline).startOf('day').unix() + (24*60*60 - 1)
         const dataForm = new FormData()
         dataForm.append("title", title)
         dataForm.append("goal_id", props.goal_id)
         dataForm.append("day_of_week", day_of_week)        
-        dataForm.append("deadline", deadline)
+        dataForm.append("deadline", deadline_in_ts)
         dataForm.append("importance", importance)
         dispatch(actionCreators.addTask(dataForm))
         reset()
@@ -42,17 +44,20 @@ const AddTaskForm = (props) => {
     const [importance, setImportance] = React.useState(2)
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
-    const today_in_ts = moment(new Date).startOf('day').unix() + (24*60*60 - 1)
-    const [deadline, setDeadline] = React.useState(today_in_ts)
+    const [deadline, setDeadline] = React.useState(new Date)
     // const [deadlineString, setDeadlineString] = React.useState("")
 
-    const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')
+    // const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')
 
-    const setDeadlineString = (string) => {
-        console.log("[DEBUG] dadline string: ", string)
-        const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
-        setDeadline(deadline)
-    }
+    // const setDeadlineString = (string) => {
+    //     console.log("[DEBUG] dadline string: ", string)
+    //     const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
+    //     setDeadline(deadline)
+    // }
+
+    const handleChange = (event, {name, value}) => {
+        setDeadline(moment(value))
+      }
 
     return (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -70,14 +75,17 @@ const AddTaskForm = (props) => {
                                 onChange={(e,data)=>setDayOfWeek(data.value)}
                                 placeholder='Day of Week'
                             />
-                            <Form.Input label='Deadline' 
-                            placeholder='Deadline'
-                            id="AddTaskFormDeadline"
-                            disabled={(day_of_week.length == 0) ? true : false}
-                            onChange={(e,data)=>setDeadlineString(data.value)}
-                            // error={reg_deadline.test(deadline) ? false : {content: "Enter date in YYYY-MM-DD format!"}}
-                            />
-                            {/* <DatePicker style={{ width: "150px" }} dateformat={"YYYY-MM-DD"} selected={deadline} onChange={(date)=>{setDeadline(date)}} /> */}                        </Form.Group>
+                            <DateInput
+                                label='Deadline'
+                                name="deadline"
+                                placeholder="Date"
+                                value={moment(deadline).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={handleChange}
+                                disabled={day_of_week.length == 0 ? true : false}
+                            />                 
+                            </Form.Group>
                     <Form.Group inline>
                     <label>Importance</label>
                         <Rating

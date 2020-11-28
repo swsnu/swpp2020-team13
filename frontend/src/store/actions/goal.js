@@ -115,14 +115,16 @@ export const editGoal = (goal_id, data, file, key) => async dispatch => {
         }
     })
     
-    dispatch(editGoal_(res.data))
+    dispatch(editGoal_(goal_id, res.data))
+    // console.log("pushed")
     history.push('/main')
 }
 
-export const editGoal_ = (goal) => {
+export const editGoal_ = (goal_id, goal) => {
     return {
         type: actionTypes.EDIT_GOAL,
-        payload: goal
+        payload: goal,
+        id: goal_id
     }
 }
 

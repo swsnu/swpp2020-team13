@@ -35,14 +35,14 @@ def taskList(request):
             return HttpResponse(status=401)
         # else
         task_list = []
-        for t in Task.objects.all():
+        for t in Task.objects.all().values():
             created_at = int(t.created_at.timestamp()) 
             updated_at = int(t.updated_at.timestamp()) 
             deadline = int(t.deadline.timestamp()) 
-            task_list.append({'id': t.id, 'user': t.user.id, 'goal_id': t.goal.id, 
-                               'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
-                               'deadline': deadline, 'importance': t.importance, 
-                               'day_of_week': t.day_of_week})
+            task_list.append({'id': t["id"], 'user': t["user_id"], 'goal_id': t["goal_id"], 
+                               'title': t["title"], 'created_at': created_at, 'updated_at': updated_at, 
+                               'deadline': deadline, 'importance': t["importance"], 
+                               'day_of_week': t["day_of_week"]})
         return JsonResponse(task_list, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -50,6 +50,7 @@ def taskList(request):
             return HttpResponse(status=401)
         try:
             goal_id = request.POST['goal_id'] # connected to which goal?
+            goal = Goal.objects.get(id=goal_id)
             task_title = request.POST['title']
             task_importance = request.POST.get('importance', 3) # task importance
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
@@ -58,6 +59,8 @@ def taskList(request):
             # -> Do not include 'deadline' field if you want to make it None
             if task_deadline is not None:
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
+                if task_deadline > goal.deadline:
+                    task_deadline = goal.deadline
             # if task_deadline == '':
             #     task_deadline = None
             # elif task_deadline != '':
@@ -68,13 +71,13 @@ def taskList(request):
             print("task POST keyerror e: ", e)
             return HttpResponseBadRequest()
 
-        new_task = Task(title=task_title, user=request.user, goal=Goal.objects.get(id=goal_id), deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
+        new_task = Task(title=task_title, user=request.user, goal=goal, deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
         new_task.save() # goal_created_at and goal_updated_at is made when new goal is saved
         new_task_deadline = new_task.deadline
         if new_task_deadline is not None:
             new_task_deadline = int(new_task_deadline.timestamp())
         
-        response_dict = {'id': new_task.id, 'user': new_task.user.id, 'goal_id': new_task.goal.id,
+        response_dict = {'id': new_task.id, 'user': new_task.user_id, 'goal_id': new_task.goal_id,
                         'title': new_task.title, 'importance': new_task.importance, 
                         'day_of_week': new_task.day_of_week,
                         'created_at': int(new_task.created_at.timestamp()),
@@ -98,7 +101,7 @@ def taskDetail(request, task_id=""):
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
-        response_dict = {'id': t.id, 'user': t.user.id, 'goal_id': t.goal.id, 
+        response_dict = {'id': t.id, 'user': t.user_id, 'goal_id': t.goal_id, 
                         'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
                         'deadline': deadline, 'importance': t.importance, 
                         'day_of_week': t.day_of_week}

@@ -211,12 +211,15 @@ class EditGoal extends Component {
     // }
 
         this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
+
         // this.setState({ isEditing: true })
     }
 
     render(){
         console.log("selected goal: ", this.props.selectedGoal)
         return(
+            <div>
+                {/* {this.props.selectedGoal == null} */}
             <LoadingOverlay
                 active={this.state.isEditing}
                 spinner
@@ -238,6 +241,7 @@ class EditGoal extends Component {
                 </Form>
             </div>
             </LoadingOverlay>
+            </div>
         )
     }
 
