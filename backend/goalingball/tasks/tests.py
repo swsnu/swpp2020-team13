@@ -34,12 +34,15 @@ goal_data = {
 goal_id = 1
 importance = [4]
 day_of_week = ['MONDAY', 'WEDNESDAY']
+
 task_data = {
+    'title': 'task_title',
     'goal_id': goal_id,
-    'importance': json.dumps(importance),
-    'day-of-week': json.dumps(day_of_week),
+    'importance': importance,
+    'day-of-week': day_of_week,
     deadline: deadline
 }
+
 
 invalid_task_data = {
     'name': title,
@@ -58,8 +61,6 @@ def test_taskList(client, django_user_model):
 
     # create a new user
     user = django_user_model.objects.create_user(username=username, password=password)
-
-    # create a new task
 
     # user is not logged in
     response = client.get(url)
@@ -81,8 +82,11 @@ def test_taskList(client, django_user_model):
 
     ##### Test tasks ######
 
-    # url = reverse('taskList')
-    # response = client.post(url, task_data, headers=headers)
-    # assert response.status_code == 201
+    # create a new task
+    url = reverse('taskList')
+    response = client.post(url, task_data, headers=headers)
+    assert response.status_code == 201
+
+    # TODO: include a list in a proper format
     # assert day_of_week[0] in response.content.decode()
     # assert importance[0] in response.content.decode()

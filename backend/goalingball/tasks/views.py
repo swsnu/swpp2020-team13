@@ -55,14 +55,17 @@ def taskList(request):
             task_day_of_week = request.POST.getlist('day_of_week') # task day_of_week
             task_deadline = request.POST.get('deadline', None)
             # NOTE: when frontend sends empty deadline, it is read as ''. So this is first changed to None for the backend to recognize.
-            if task_deadline == '':
-                task_deadline = None
-            elif task_deadline != '':
+            # -> Do not include 'deadline' field if you want to make it None
+            if task_deadline is not None:
                 task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
+            # if task_deadline == '':
+            #     task_deadline = None
+            # elif task_deadline != '':
+            #     task_deadline = timezone.make_aware(datetime.fromtimestamp(int(task_deadline)))
             # else:
             #     task_deadline = timezone.localtime()
         except(KeyError, JSONDecodeError) as e:
-            # print("task POST keyerror e: ", e)
+            print("task POST keyerror e: ", e)
             return HttpResponseBadRequest()
 
         new_task = Task(title=task_title, user=request.user, goal=Goal.objects.get(id=goal_id), deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
