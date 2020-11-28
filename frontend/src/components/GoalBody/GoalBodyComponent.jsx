@@ -46,10 +46,54 @@ class GoalBodyComponent extends Component {
         // return moment.unix(deadline).format('LL')
     }
 
+    to_weekdays = (num) => {
+        switch(num){
+            case(1):
+                return "MONDAY"
+            case(2):
+                return "TUESDAY"
+            case(3):
+                return "WEDNESDAY"
+            case(4):
+                return "THURSDAY"
+            case(5):
+                return "FRIDAY"
+            case(6):
+                return "SATURDAY"
+            case(0):
+                return "SUNDAY"
+        }
+    }
+
     render() {
         console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
         const { title, id, deadline, start_at, tags, tasks } = this.props.goal
-        const toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
+        const today = moment(this.props.today).unix()
+        // console.log(today)
+
+        const filtered_tasks_date = tasks.reduce((pre, t)=> {
+            // today should be included in the range
+           if((moment(t.start_at).unix() < today) && (moment(t.deadline).unix() > today)) {
+               pre.push(t)
+           }
+           return pre
+        }, [])
+
+        const filtered_tasks = filtered_tasks_date.reduce((pre, t) => {
+            if(t.day_of_week.length == 0) {pre.push(t)}
+            else {
+                console.log(moment(this.props.today).weekday())
+                const weekday = this.to_weekdays(moment(this.props.today).weekday())
+                if(t.day_of_week.includes(weekday)) {
+                    pre.push(t)
+                }
+            }
+            return pre
+        }, [])
+
+        // console.log(tasks)
+        // console.log(filtered_tasks_date)
+        const toTaskBar = filtered_tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
   
         // let toTaskBar = []
         // if((tasks !== undefined) && (tasks.length > 0)){toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)}
