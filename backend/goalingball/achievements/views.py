@@ -51,7 +51,7 @@ def achievementList(request):
             user=User.objects.get(id=task.user.id), task=Task.objects.get(id=task_id)
         )
 
-        return JsonResponse(model_to_dict(achievement))
+        return JsonResponse(model_to_dict(achievement), status=201)
         
         
     

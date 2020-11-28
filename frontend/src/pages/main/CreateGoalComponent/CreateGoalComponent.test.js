@@ -69,8 +69,8 @@ describe('CreateGoal', () => {
     it("should accept deadline change", ()=> {
         const component = mount(WrappedCreate)
         const wrapper = component.find(".FormCreate .react-datepicker__input-container")
-        const date = new Date
-        wrapper.simulate("change", date)
+        const testnewdate = new Date('December 17, 2020 03:24:00');;
+        wrapper.simulate("change", { target: { selected:testnewdate } });
         wrapper.simulate("click")
     })
 

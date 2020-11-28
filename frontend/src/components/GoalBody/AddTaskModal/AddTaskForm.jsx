@@ -42,7 +42,8 @@ const AddTaskForm = (props) => {
     const [importance, setImportance] = React.useState(2)
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
-    const [deadline, setDeadline] = React.useState("")
+    const today_in_ts = moment(new Date).startOf('day').unix() + (24*60*60 - 1)
+    const [deadline, setDeadline] = React.useState(today_in_ts)
     // const [deadlineString, setDeadlineString] = React.useState("")
 
     const reg_deadline = new RegExp('^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$')

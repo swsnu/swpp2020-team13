@@ -31,7 +31,7 @@ class EditPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="EditPage">
                 {/* {this.returnIfNull} */}
                 <div className='menubar'>
                     <MenuBar/>
