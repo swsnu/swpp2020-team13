@@ -36,7 +36,7 @@ describe('<AddTaskForm />', ()=> {
 
     it("should accept title input", ()=> {
         const component = mount(WrappedAddTaskForm)
-        // console.log(component.debug())
+        console.log(component.debug())
         const wrapper = component.find('#AddTaskFormTitle .ui input')
         wrapper.simulate('change', {data:{value: "TEST_TITLE"}})
     })
@@ -44,7 +44,7 @@ describe('<AddTaskForm />', ()=> {
     it("should accept deadline input", ()=> {
         const component = mount(WrappedAddTaskForm)
         // console.log(component.debug())
-        const wrapper = component.find('#AddTaskFormDeadline .ui input')
+        const wrapper = component.find('#AddTaskFormDeadline input')
         wrapper.simulate('change', {data:{value: "2020-11-23"}})
     })
 

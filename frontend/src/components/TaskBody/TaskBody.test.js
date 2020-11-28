@@ -41,7 +41,7 @@ describe("<TaskBody/>", ()=>{
         const component = mount(<TaskBodyComponent task={stubTask}/>)
         const wrapper1 = component.find('.TaskBodySegment .EditTaskButtonA #EditButtonTaskBody')
         wrapper1.simulate("click")
-        const wrapper = component.find('Input #EditTaskFormDeadline')
+        const wrapper = component.find('#EditTaskFormDeadline input')
         // console.log(component.debug())
         const event = { data: { value: "2020-11-12" } }
         wrapper.simulate("change", event)

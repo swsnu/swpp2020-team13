@@ -40,7 +40,6 @@ const AddTaskForm = (props) => {
         { key: 's', text: 'Saturday', value: 'SATURDAY' },
         { key: 'su', text: 'Sunday', value: 'SUNDAY' },
       ]
-    const today = new Date()
     const [importance, setImportance] = React.useState(2)
     const [day_of_week, setDayOfWeek] = React.useState([])
     const [title, setTitle] = React.useState("")
@@ -83,6 +82,7 @@ const AddTaskForm = (props) => {
                                 placeholder='Day of Week'
                             />
                             <DateInput
+                                id="AddTaskFormDeadline"
                                 label='Deadline'
                                 name="deadline"
                                 placeholder="Date"

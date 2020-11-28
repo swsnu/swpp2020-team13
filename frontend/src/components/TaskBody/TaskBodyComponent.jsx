@@ -120,6 +120,7 @@ class TaskBodyComponent extends Component {
                             />
                             <DateInput
                                 label='Deadline'
+                                id="EditTaskFormDeadline"
                                 name="deadline"
                                 placeholder="Date"
                                 value={moment(this.state.deadline).format('YYYY-MM-DD')}
