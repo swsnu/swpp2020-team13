@@ -52,7 +52,7 @@ class EditPage extends Component {
                     <>
                     <h2>Edit Tasks</h2> 
                     {(this.props.selectedGoal) ? "" : history.push('/main')}
-                    {((this.props.selectedGoal !== null) && (this.props.selectedGoal.tasks).length > 0) ? <EditTask tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
+                    {((this.props.selectedGoal !== null) && (this.props.selectedGoal.tasks).length > 0) ? <EditTask goal_deadline={this.props.selectedGoal.deadline} tasks={this.props.selectedGoal.tasks}/> : <h5>"Please add tasks first!"</h5>}
                     </>}
                 </div>
             </div>

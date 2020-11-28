@@ -4,7 +4,7 @@ class EditTask extends Component {
 
     render(){
         let toTaskBody = []
-        toTaskBody = this.props.tasks.map(t => <TaskBody task={t} key={t.id} />)
+        toTaskBody = this.props.tasks.map(t => <TaskBody task={t} key={t.id} goal_deadline={this.props.goal_deadline}/>)
 
         return (
             <div className="EditTaskComp">

@@ -7,6 +7,7 @@ import Axios from 'axios'
 import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
 import { DateInput,} from 'semantic-ui-calendar-react'
+
 class TaskBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
     // the tasks here are originally from backend
@@ -57,12 +58,12 @@ class TaskBodyComponent extends Component {
         )
     }
 
-    setDeadlineString = (string) => {
-        console.log("[DEBUG] dadline string: ", string)
-        const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
-        // setDeadline(deadline)
-        this.setState({deadline: deadline})
-    }
+    // setDeadlineString = (string) => {
+    //     console.log("[DEBUG] dadline string: ", string)
+    //     const deadline = moment(string, 'YYYY-MM-DD').startOf('day').unix() + (24*60*60 - 1)
+    //     // setDeadline(deadline)
+    //     this.setState({deadline: deadline})
+    // }
 
     onSubmit = () => { // e: event
         // TODO: cannot call setState during render
@@ -79,10 +80,23 @@ class TaskBodyComponent extends Component {
         this.setState({editmode: neweditmode, readmode: newreadmode})
     }
 
+    // handleChange = (event, {name, value}) => {
+    //     if (this.state.hasOwnProperty(name)) {
+    //         console.log(moment(value))
+    //       this.setState({ [name]: value });
+    //     }
+    //   }
+
     handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
-            console.log(moment(value))
-          this.setState({ [name]: value });
+        console.log(moment(value),this.props.goal_deadline )
+        if(moment(value) > moment(this.props.goal_deadline)){
+            window.alert("Task deadline cannot be longer than goal deadline. Goal deadline will be set.")
+            // console.log(moment(this.props.goal_deadline).format("YYYY-MM-DD"))
+            // setDeadline(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
+            this.setState({ [name]:  moment(this.props.goal_deadline).format("YYYY-MM-DD")  });
+        }
+        else {
+            this.setState({ [name]: value });
         }
       }
 
