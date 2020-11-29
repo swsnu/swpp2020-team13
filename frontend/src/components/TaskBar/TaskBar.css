@@ -15,3 +15,10 @@
 .TaskBarButton {
     background-color: #ffffff !important;
 }
+
+.recWeekday {
+    margin-top: 5px !important;
+    /* padding-left: 20px !important; */
+    font-size: small !important;
+    color:#807e7e !important;
+}

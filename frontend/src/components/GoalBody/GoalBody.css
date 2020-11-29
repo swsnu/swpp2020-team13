@@ -6,6 +6,14 @@
     max-width: 680px !important;
 }
 
+
+.ui.buttons .button.toggle.active, .ui.toggle.buttons .active.button {
+    background-color: #fa9287 !important;
+    box-shadow: none!important;
+    text-shadow: none;
+    color: #fff!important;
+}
+
 .ui.list, ol.ui.list, ul.ui.list .GoalBodyTitleList{
     margin: 5px !important;
 }

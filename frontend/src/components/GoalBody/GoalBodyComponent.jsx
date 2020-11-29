@@ -17,6 +17,7 @@ class GoalBodyComponent extends Component {
     state = {
         selectedDate: null,
         addTaskModal: false,
+        showAll:false,
         // tasks: this.props.goal.tasks ? this.props.goal.tasks : []
     }
 
@@ -68,12 +69,13 @@ class GoalBodyComponent extends Component {
     render() {
         console.log("GoalBodyComponent this.props.goal: ", this.props.goal)
         const { title, id, deadline, start_at, tags, tasks } = this.props.goal
-        const today = moment(this.props.today).unix()
+        const today = moment(this.props.today).startOf('day').unix()
         // console.log(today)
 
         const filtered_tasks_date = tasks.reduce((pre, t)=> {
             // today should be included in the range
-           if((moment(t.start_at).unix() < today) && (moment(t.deadline).unix() > today)) {
+        console.log("DEBUG for task moment",moment(t.start_at).unix(), moment(t.deadline), moment(this.props.today).startOf('day'))
+           if((moment(t.start_at).unix() <= today) && (moment(t.deadline).unix() >= today)) {
                pre.push(t)
            }
            return pre
@@ -93,8 +95,13 @@ class GoalBodyComponent extends Component {
 
         // console.log(tasks)
         // console.log(filtered_tasks_date)
-        const toTaskBar = filtered_tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
-  
+        let toTaskBar = []
+        if(this.state.showAll) {
+            toTaskBar =  tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
+        }
+        else {
+            toTaskBar = filtered_tasks.map(task => <TaskBarComponent task={task} key={task.id} goal={this.props.goal.id} today={this.props.today}/>)
+        }
         // let toTaskBar = []
         // if((tasks !== undefined) && (tasks.length > 0)){toTaskBar = tasks.map(task => <TaskBarComponent task={task} key={task.id} />)}
         
@@ -107,7 +114,12 @@ class GoalBodyComponent extends Component {
                 <List.Item className="GoalBodyListItem">
                 <Icon name='circle' className="GoalBodyListIcon" size="small"/>
                     <List.Content className="GoalBodyListTitle">
-                        <List.Header className="GoalBodyListTitleHeader">{title}</List.Header>
+                        <List.Header className="GoalBodyListTitleHeader">
+                            {title}
+                            <Button floated="right" size="tiny"
+                            toggle active={this.state.showAll} 
+                            onClick={()=>{this.setState({showAll: !(this.state.showAll)})}}>Show All Tasks</Button>
+                        </List.Header>
                         {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
                         <div className="GoalBodyListDeadline">From {this.startAtDate(start_at)}, Until {this.deadlineDate(deadline)}</div>
                     </List.Content>

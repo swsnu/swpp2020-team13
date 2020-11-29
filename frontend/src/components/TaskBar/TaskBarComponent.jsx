@@ -26,6 +26,34 @@ class TaskBarComponent extends Component {
         this.props.deleteTask(this.props.goal, this.props.task.id)
     }
 
+    to_weekdays = (num) => {
+        switch(num){
+            case("MONDAY"):
+                return "Mon"
+            case("TUESDAY"):
+                return "Tue"
+            case("WEDNESDAY"):
+                return "Wed"
+            case("THURSDAY"):
+                return "Thu"
+            case("FRIDAY"):
+                return "Fri"
+            case("SATURDAY"):
+                return "Sat"
+            case("SUNDAY"):
+                return "Sun"
+        }
+    }
+
+    toRecString(daylist) {
+        let str = ""
+        const d_str = daylist.map(d => this.to_weekdays(d))
+        for (var d of d_str) {
+            str = str + d + ", " 
+        }
+        return str.substring(0, (str.length)-2)
+    }
+
     isRecurrent(daylist) {
         // console.log("[DEBUG] TaskBarComponent isRecurrent daylist: ", daylist)
         if(daylist.length == 0) {
@@ -39,15 +67,14 @@ class TaskBarComponent extends Component {
         }
         else {
             return (
-          <Button.Group size="tiny" floated="right" id="Recurrent">
-            <Button icon className="TaskBarButton">
-              <Icon name='redo' />
-          </Button>
-          <Button icon className="TaskBarButton" id="X" onClick={this.deleteTaskHandler}>
-              <Icon name='x' />
-          </Button>
-          </Button.Group>
-          
+                <Button.Group size="tiny" floated="right" id="Recurrent">
+                    <Button icon className="TaskBarButton">
+                    <Icon name='redo' />
+                </Button>
+                <Button icon className="TaskBarButton" id="X" onClick={this.deleteTaskHandler}>
+                    <Icon name='x' />
+                </Button>
+                </Button.Group>
           )
         }
     }
@@ -62,7 +89,6 @@ class TaskBarComponent extends Component {
     render() {
         const { title, id, deadline, day_of_week } = this.props.task
         console.log("[DEBUG] TaskBarComponent is rendering. task: ", this.props.task)
-
         return(
         <> 
         <List.Item className="TaskBarListItem">
@@ -72,8 +98,10 @@ class TaskBarComponent extends Component {
             {/* <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button> */}
             {/* <Icon className="TaskBarListTriangle" name='right triangle'/> */}
             <List.Content className="TaskBarListContent">
-            <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
-                {title}
+                    <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
+                    {title} 
+            {/* <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
+                {title}  */}
                 </List.Content>
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>

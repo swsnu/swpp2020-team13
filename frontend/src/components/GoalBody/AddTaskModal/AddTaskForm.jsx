@@ -61,10 +61,10 @@ const AddTaskForm = (props) => {
     const handleChangeDeadline = (event, {name, value}) => {
         if(moment(value).unix() > props.goal_deadline){
             window.alert("task deadline cannot be longer than goal deadline. Goal deadline will be set.")
-            // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
             setDeadline(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
         }
         else {
+            console.log("DEBUG in addtask:", moment(value))
             setDeadline(moment(value))
         }
       }
