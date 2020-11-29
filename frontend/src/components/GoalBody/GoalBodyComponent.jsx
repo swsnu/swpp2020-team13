@@ -37,13 +37,13 @@ class GoalBodyComponent extends Component {
 
     // start_at is a timestamp
     startAtDate = (start_at) => {
-        return moment.unix(start_at).format('MMMM Do YYYY')
+        return moment.unix(start_at).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 
     // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return moment.unix(deadline).format('MMMM Do YYYY')
+        return moment.unix(deadline).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 

@@ -35,18 +35,18 @@ class TaskBodyComponent extends Component {
 
     // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return moment(deadline).format('MMMM Do YYYY')
+        return moment(deadline).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 
     startAtDate = (start_at) => {
-        return moment(start_at).format('MMMM Do YYYY')
+        return moment(start_at).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 
     renderDeadlineString = (day_of_week, start_at, deadline) => {
         let str = "From "
-        str = str +  this.startAtDate(start_at) + " Until " + this.deadlineDate(deadline)
+        str = str +  this.startAtDate(start_at) + ", Until " + this.deadlineDate(deadline)
         if(day_of_week.length !== 0) {
             var daystr = "On every "
             for (var d of day_of_week) {
@@ -56,7 +56,7 @@ class TaskBodyComponent extends Component {
             }
             daystr = daystr.slice(0, daystr.length-2)
             return (
-            <div className="TaskBodyListDeadline">{str}&nbsp;&nbsp;{daystr}</div>
+            <div className="TaskBodyListDeadline">{str}<br></br>{daystr}</div>
             )
         }
         return (

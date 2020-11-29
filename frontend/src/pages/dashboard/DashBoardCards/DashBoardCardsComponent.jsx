@@ -3,21 +3,21 @@ import { useState, useEffect } from 'react';
 import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container, Card} from 'semantic-ui-react'
 import './DashBoardCards.css'
 import GoalCard from '../../../components/DashBoardGoalCards/DashBoardGoalCard'
-import { set } from 'date-fns';
-
+import { useSelector } from 'react-redux';
+import history from '../../../history';
+import moment from 'moment'
 
 export const DashBoardCards = (props) => {
-
-    const testCard = <GoalCard/>
+    let goalCardList = useSelector(state => state.goal.goals)
+    console.log(goalCardList)
+    goalCardList = goalCardList.map(g => <GoalCard goal={g}/>)
     const [select, setSelect] = useState(0)
-    const testCardList = [testCard, testCard, testCard, testCard, testCard, testCard, testCard]
-    const max = (testCardList.length)/6
-    const [buttonList, setButtonList] = useState([])
+    const max = (goalCardList.length)/6
 
     const renderSelect = () => {
         let start = (select*6)
         return (
-            testCardList.slice(start, start+6)
+            goalCardList.slice(start, start+6)
         )
     }
 
