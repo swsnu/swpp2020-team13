@@ -19,6 +19,7 @@ class TaskBodyComponent extends Component {
         title: this.props.task.title,
         importance: this.props.task.importance,
         day_of_week: this.props.task.day_of_week,
+        start_at: this.props.task.start_at,
         deadline: this.props.task.deadline
     }
 
@@ -38,9 +39,14 @@ class TaskBodyComponent extends Component {
         // return moment.unix(deadline).format('LL')
     }
 
-    renderDeadlineString = (day_of_week, deadline) => {
-        let str = "Until: "
-        str = str + this.deadlineDate(deadline)
+    startAtDate = (start_at) => {
+        return moment(start_at).format('MMMM Do YYYY')
+        // return moment.unix(deadline).format('LL')
+    }
+
+    renderDeadlineString = (day_of_week, start_at, deadline) => {
+        let str = "From "
+        str = str +  this.startAtDate(start_at) + " Until " + this.deadlineDate(deadline)
         if(day_of_week.length !== 0) {
             var daystr = "On every "
             for (var d of day_of_week) {
@@ -87,7 +93,21 @@ class TaskBodyComponent extends Component {
     //     }
     //   }
 
-    handleChange = (event, {name, value}) => {
+    handleChangeStart = (event, {name, value}) => {
+        console.log(moment(value))
+        if(moment(value) < moment(this.props.goal_start_at)){
+            window.alert("task start date cannot be earlier than goal start date. Goal start date will be set.")
+            // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
+            this.setState({start_at: moment(this.props.goal_start_at).format("YYYY-MM-DD")})
+            this.setState({start_at: moment(this.props.goal_start_at).format("YYYY-MM-DD")})
+        }
+        else {
+            this.setState({start_at: moment(value)})
+            this.setState({deadline: value})
+        }
+     }
+
+    handleChangeDeadline = (event, {name, value}) => {
         console.log(moment(value),this.props.goal_deadline )
         if(moment(value) > moment(this.props.goal_deadline)){
             window.alert("Task deadline cannot be longer than goal deadline. Goal deadline will be set.")
@@ -135,12 +155,22 @@ class TaskBodyComponent extends Component {
                             <DateInput
                                 label='Deadline'
                                 id="EditTaskFormDeadline"
+                                name="start_at"
+                                placeholder="Date"
+                                value={moment(this.state.start_at).format('YYYY-MM-DD')}
+                                iconPosition="left"
+                                dateFormat="YYYY-MM-DD"
+                                onChange={this.handleChangeStart}
+                            />
+                            <DateInput
+                                label='Deadline'
+                                id="EditTaskFormDeadline"
                                 name="deadline"
                                 placeholder="Date"
                                 value={moment(this.state.deadline).format('YYYY-MM-DD')}
                                 iconPosition="left"
                                 dateFormat="YYYY-MM-DD"
-                                onChange={this.handleChange}
+                                onChange={this.handleChangeDeadline}
                             />
                         </Form.Group>
                     <Form.Group inline>
@@ -183,7 +213,7 @@ class TaskBodyComponent extends Component {
                                     readOnly
                                 />
                         </List.Header>
-                            {this.renderDeadlineString(this.state.day_of_week, this.state.deadline)}
+                            {this.renderDeadlineString(this.state.day_of_week, this.state.start_at, this.state.deadline)}
                     </List.Content>
                 </List.Item>
             </List>
