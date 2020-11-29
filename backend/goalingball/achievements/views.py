@@ -3,7 +3,8 @@ from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from django.contrib.auth.models import User
-
+from datetime import datetime
+from django.utils import timezone
 from goals.models import Goal
 from tasks.models import Task
 from achievements.models import Achievement
@@ -27,14 +28,18 @@ def achievementList(request):
         except Task.DoesNotExist:
             return HttpResponse(status=404) # Not Found
         
-        if request.user.id is not task.user.id:
-            return HttpResponse(status=403) # Permission Denied
+        # if request.user.id is not task.user.id:
+        #     return HttpResponse(status=403) # Permission Denied
         
-        title = request.POST.get('title', '')
         description = request.POST.get('description', '')
         percentage_complete = request.POST.get('percentage_complete', -1)
+        written_at = request.POST.get('written_at', None)
+        photo = request.POST.get('photo')
+
+        if written_at is not None:
+            written_at = timezone.make_aware(datetime.fromtimestamp(int(written_at)))
         try:
-            percentage_complete = float(percentage_complete)
+            percentage_complete = int(percentage_complete)
         except ValueError:
             print("[DEBUG] percentage_complete is not a valid flaot")
             return HttpResponse(status=400) 
@@ -42,19 +47,23 @@ def achievementList(request):
         print("percentage_complete type: ", type(percentage_complete))
         photo = request.POST.get('photo', '')
 
-        if not title or percentage_complete < 0:
-            print("[DEBUG] title and percentage_complete should be included in a request form.")
+        if percentage_complete < 0:
+            print("[DEBUG] percentage_complete should be included in a request form.")
             return HttpResponseBadRequest() # 400
         
         achievement = Achievement.objects.create(
-            title=title, description=description, percentage_complete=percentage_complete, 
+            description=description, percentage_complete=percentage_complete, written_at=written_at, photo=photo,
             user=User.objects.get(id=task.user.id), task=Task.objects.get(id=task_id)
         )
 
-        return JsonResponse(model_to_dict(achievement), status=201)
+        achievement.save()
+        response_dict = {'id': achievement.id, 'description': description, 'percentage_complete': percentage_complete,
+                        'written_at': int(written_at.timestamp()), 'photo': achievement.photo,
+                        'user_id': achievement.user_id, 'task_id': achievement.task_id
+           }
+
+        return JsonResponse(response_dict, status=201)
         
-        
-    
     else:
         return HttpResponseNotAllowed(['POST'])
 
@@ -72,6 +81,7 @@ def achievementDetail(request, achievement_id):
         
         serialized_achv = model_to_dict(achv)
         print("[DEBUG] serialized_achv before: ", serialized_achv)
+        serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
         print("[DEBUG] serialized_achv after: ", serialized_achv)
@@ -95,7 +105,7 @@ def achievementDetail(request, achievement_id):
             achv_title = req_data.get('title')
             achv_description = req_data.get('description')
             achv_photo = req_data.get('photo', '')
-            achv_percentage_complete = req_data.get('percentage_complete', None) # 0.0
+            achv_percentage_complete = req_data.get('percentage_complete', None) # 0
         except KeyError:
             return HttpResponseBadRequest()
         
@@ -106,6 +116,7 @@ def achievementDetail(request, achievement_id):
 
         serialized_achv = model_to_dict(achv)
         print("[DEBUG] serialized_achv before: ", serialized_achv)
+        serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
         print("[DEBUG] serialized_achv after: ", serialized_achv)
@@ -161,12 +172,15 @@ def achievementListOfTask(request, task_id):
         except Task.DoesNotExist:
             return HttpResponse(status=404) 
         
-        
-        achievements = [model_to_dict(achievement) for achievement in task.achievements.all()]
-
+        achievements = []
+        for achievement in task.achievements.all().values():
+            achievements.append({
+                'id': achievement["id"], 'description': achievement["description"], 'percentage_complete': achievement["percentage_complete"],
+                'written_at': int(achievement["written_at"].timestamp()), 'photo': achievement['photo'],
+                'user_id': achievement["user_id"], 'task_id': achievement["task_id"]
+            })
         return JsonResponse(achievements, safe=False)
 
-    
     else:
         return HttpResponseNotAllowed(['GET'])
 

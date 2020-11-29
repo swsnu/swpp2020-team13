@@ -157,7 +157,7 @@ class TaskBodyComponent extends Component {
                                 id="EditTaskFormDeadline"
                                 name="start_at"
                                 placeholder="Date"
-                                value={moment(this.state.start_at).format('YYYY-MM-DD')}
+                                value={moment.unix(this.state.start_at).format('YYYY-MM-DD')}
                                 iconPosition="left"
                                 dateFormat="YYYY-MM-DD"
                                 onChange={this.handleChangeStart}
@@ -167,7 +167,7 @@ class TaskBodyComponent extends Component {
                                 id="EditTaskFormDeadline"
                                 name="deadline"
                                 placeholder="Date"
-                                value={moment(this.state.deadline).format('YYYY-MM-DD')}
+                                value={moment.unix(this.state.deadline).format('YYYY-MM-DD')}
                                 iconPosition="left"
                                 dateFormat="YYYY-MM-DD"
                                 onChange={this.handleChangeDeadline}

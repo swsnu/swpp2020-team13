@@ -9,7 +9,7 @@ class Achievement(models.Model):
     title = models.TextField(max_length=255, blank=False) 
     description = models.TextField(max_length=2047, blank=True) # 2200 characters limit in an Instagram post
 
-    percentage_complete = models.FloatField(blank=False, default=0.0)
+    percentage_complete = models.IntegerField(blank=False, default=0)
 
     photo = models.URLField(max_length=2047, blank=True, null=True)
 
@@ -25,6 +25,7 @@ class Achievement(models.Model):
         related_name='achievements'
     )
 
+    written_at = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(editable=False)
     updated_at = models.DateTimeField()
 

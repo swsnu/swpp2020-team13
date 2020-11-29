@@ -4,12 +4,15 @@ import moment from 'moment'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container, GridColumn} from 'semantic-ui-react'
 import Slider from "@material-ui/core/Slider"
 import './AddAccForm.css'
+import { add_achievement } from '../../store/actions/index';
   
 class AddAccForm extends Component {
     state = {
+        percentage_complete: 0,
+        today: (this.props.today == undefined) ? null : moment(this.props.today).startOf('day').unix() + (24*60*60) - 1,
         file: null,
         fileName: "",
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png',
+        photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png',
         des: ""
     }
 
@@ -45,10 +48,10 @@ class AddAccForm extends Component {
           console.log(this.state.file)
           let reader = new FileReader()
           reader.onloadend = () => {
-            this.setState({ imageUrl: reader.result });
+            this.setState({ photo: reader.result });
           }
           reader.readAsDataURL(e.target.files[0])
-          console.log(this.state.imageUrl) // caution: do not accept heic files
+          console.log(this.state.photo) // caution: do not accept heic files
         }  
     }
 
@@ -60,7 +63,7 @@ class AddAccForm extends Component {
                         <h5>See Photo Preview</h5>
                     </GridColumn>
                     <GridColumn width='10'>
-                    <img id="image" src={this.state.imageUrl} className="AccPreviewImage"></img>
+                    <img id="image" src={this.state.photo} className="AccPreviewImage"></img>
                     </GridColumn>
                 </Grid>
                 {/* <AccPhotoPreview url={imageUrl}></AccPhotoPreview> */}
@@ -103,9 +106,25 @@ class AddAccForm extends Component {
         this.props.onSubmit(false)
     }
 
+    handleChange = (event, newValue) => {
+      this.setState({percentage_complete: newValue})  
+    }
+
+    handleSubmit = () =>{
+        let form = new FormData()
+        form.append("task_id", this.props.task_id)
+        form.append("percentage_complete", this.state.percentage_complete)
+        form.append("written_at", this.state.today)
+        form.append("description", this.state.des)
+        form.append("photo", this.state.photo)
+        this.props.add_achievement(form, this.state.file)
+        this.props.onSubmit(false)
+    }
+
     render(){
         return(
             <Form>
+                {/* {console.log("DEBUG ADD Ac", this.props)} */}
                 <Segment className="AddAccForm" id="AddAccFormSegment">
                 <h3>&nbsp; Add Achievements</h3>
 
@@ -120,7 +139,7 @@ class AddAccForm extends Component {
                         </GridColumn>
                         <GridColumn width={8}>
                             <Slider
-                            defaultValue={80}
+                            defaultValue={0}
                             getAriaValueText={this.valuetext}
                             aria-labelledby="discrete-slider-always"
                             step={10}
@@ -144,7 +163,7 @@ class AddAccForm extends Component {
                         </div>
                         {this.renderDes()}
                         <Button.Group>
-                            <Form.Button className="AddAccSubmitButton">Submit</Form.Button>
+                            <Form.Button className="AddAccSubmitButton" onClick={()=>this.handleSubmit()}>Submit</Form.Button>
                             <Form.Button className="AddAccCloseButton" onClick={this.closeHandler}>Close</Form.Button>                           
                         </Button.Group>
                 </Segment>
@@ -154,4 +173,4 @@ class AddAccForm extends Component {
 
 }
 
-export default AddAccForm
+export default connect(null, {add_achievement})(AddAccForm)

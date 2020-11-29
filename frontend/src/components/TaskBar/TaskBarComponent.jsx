@@ -2,15 +2,14 @@ import React, {Component} from 'react'
 import { List, Icon, Checkbox, Grid, Button, Segment} from 'semantic-ui-react'
 import './TaskBar.css'
 import AccSegment from '../AccDetail/AccSegmentComponent'
-import { deleteTask } from '../../store/actions/index'
+import { deleteTask, get_achievements_of_task } from '../../store/actions/index'
 import { connect } from 'react-redux'
-import DefaultAccSegment from '../AccDetail/DefaultAccSeg'
 
 class TaskBarComponent extends Component {
 
     state = {
         acc_open: false,
-        accomplishment: "sth",
+        accomplishment: null,
         addAccopen: false,
     }
 
@@ -79,8 +78,12 @@ class TaskBarComponent extends Component {
         }
     }
 
-    accOpenHandler = () => {
-        if(this.state.acc_open == false) {this.setState({acc_open: true})}
+    accOpenHandler = async () => {
+        if(this.state.acc_open == false) {
+            await this.props.get_achievements_of_task(this.props.task.id)
+            console.log("ACHIEVEMENTS", this.props.achievements)
+            this.setState({acc_open: true})
+        }
         else{
             this.setState({acc_open: false})
         }
@@ -98,21 +101,24 @@ class TaskBarComponent extends Component {
             {/* <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button> */}
             {/* <Icon className="TaskBarListTriangle" name='right triangle'/> */}
             <List.Content className="TaskBarListContent">
-                    <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
+                    <Button icon className="TaskBarListTriangle" onClick={()=>this.accOpenHandler()}><Icon name='right triangle'/></Button>
                     {title} 
             {/* <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
                 {title}  */}
                 </List.Content>
                 {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
-            {(this.state.acc_open && (this.state.accomplishment == null)) && 
-            <DefaultAccSegment/>
-            }
-            {(this.state.acc_open && (this.state.accomplishment !== null)) && <AccSegment task={this.props.task}/>}
+            {this.state.acc_open && <AccSegment task={this.props.task} today={this.props.today} achievements={this.props.achievements}/>}
             </>
         )
     }
 }
 
 
-export default connect(null, { deleteTask }) (TaskBarComponent)
+const mapStateToProps = state => {
+    return {
+        achievements: Object.values(state.achievement),
+    }
+}
+
+export default connect(mapStateToProps, { deleteTask, get_achievements_of_task }) (TaskBarComponent)

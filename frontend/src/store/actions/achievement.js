@@ -3,7 +3,7 @@ import axios from 'axios'
 import history from '../../history'
 
 export const get_achievements_of_task = task_id => async dispatch => {
-     const res = await axios.get(`/api/v1/achievements/tasks/${task_id}/`)
+     const res = await axios.get(`/api/v1/achievements/task/${task_id}/`)
      console.log("[DEBUG] get_achievements_of_task res.data: ", res.data)
      dispatch({
          type: actionTypes.GET_ACHIEVEMENTS_OF_TASK,
@@ -12,7 +12,7 @@ export const get_achievements_of_task = task_id => async dispatch => {
 }
 
 export const get_achievements_of_goal = goal_id => async dispatch => {
-    const res = await axios.get(`/api/v1/achievements/goals/${goal_id}/`)
+    const res = await axios.get(`/api/v1/achievements/goal/${goal_id}/`)
     console.log("[DEBUG] get_achievements_of_goal res.data: ", res.data)
     dispatch({
         type: actionTypes.GET_ACHIEVEMENTS_OF_GOAL,
@@ -30,7 +30,7 @@ export const add_achievement = (formValues, file) => async dispatch => {
             }
         })
         const imageUrl = s3prefix + res.data.key
-        formValues.append('photo', imageUrl)
+        formValues.set('photo', imageUrl)
     } 
 
     const res = await axios.post('/api/v1/achievements/', formValues, {
