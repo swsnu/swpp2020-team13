@@ -15,6 +15,7 @@ class GoalBodyComponent extends Component {
     // TODO: connect with redux
 
     state = {
+        tasks: this.props.goal.tasks,
         selectedDate: null,
         addTaskModal: false,
         showAll:false,
@@ -74,8 +75,7 @@ class GoalBodyComponent extends Component {
 
         const filtered_tasks_date = tasks.reduce((pre, t)=> {
             // today should be included in the range
-        console.log("DEBUG for task moment",moment(t.start_at).unix(), moment(t.deadline), moment(this.props.today).startOf('day'))
-           if((moment(t.start_at).unix() <= today) && (moment(t.deadline).unix() >= today)) {
+           if((t.start_at <= today) && (t.deadline >= today)) {
                pre.push(t)
            }
            return pre
@@ -136,7 +136,7 @@ class GoalBodyComponent extends Component {
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
             {/* <Button circular floated="right" icon="add" size="mini" className="GoalBodyAddButton"></Button> */}
-            {this.props.isAddTaskModalOpen && <AddTaskModal goal_id={id} goal_deadline={deadline} goal_start_at={start_at}/>}
+            {(this.state.addTaskModal && this.props.isAddTaskModalOpen) && <AddTaskModal goal_id={id} goal_deadline={deadline} goal_start_at={start_at}/>}
             <br></br>
         </Segment>
     )

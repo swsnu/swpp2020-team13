@@ -27,6 +27,7 @@ export const addTask_ = (task) => {
             id: task.id,
             goal_id: task.goal_id,
             title: task.title,
+            start_at: task.start_at,
             deadline: task.deadline,
             importance: task.importance,
             day_of_week: task.day_of_week
@@ -41,6 +42,7 @@ export const addTaskToGoal = task => {
             id: task.id,
             goal: task.goal_id,
             title: task.title,
+            start_at: task.start_at,
             deadline: task.deadline,
             importance: task.importance,
             day_of_week: task.day_of_week
@@ -65,7 +67,6 @@ export const addTask = (formData, file) => async dispatch => {
         }
     }) 
     console.log("addTask res.data: ", res.data)
-    // dispatch(addTaskToGoal(res.data))
     dispatch(addTask_(res.data))
     // history.push('/main')
     dispatch(closeModal())
@@ -82,7 +83,7 @@ export const deleteTask_ = (id) => {
 }
 
 export const deleteTask = (goal, id) => async dispatch =>{
-    const res = await axios.delete('/api/v1/tasks/'+ id)
+    const res = await axios.delete('/api/v1/tasks/'+ id + '/')
     dispatch(deleteTask_(id))
     dispatch(deleteTaskToGoal(goal, id))
 }

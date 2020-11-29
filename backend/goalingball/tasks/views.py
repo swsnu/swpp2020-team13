@@ -80,9 +80,9 @@ def taskList(request):
 
         # if new_task_deadline is not None:
         #     new_task_deadline = int(new_task_deadline.timestamp())
-        
+        # breakpoint()
         response_dict = {'id': new_task.id, 'user': new_task.user_id, 'goal_id': new_task.goal_id,
-                        'title': new_task.title, 'importance': new_task.importance, 
+                        'title': new_task.title, 'importance': int(new_task.importance), 
                         'day_of_week': new_task.day_of_week,
                         'created_at': int(new_task.created_at.timestamp()),
                         'updated_at' : int(new_task.updated_at.timestamp()),

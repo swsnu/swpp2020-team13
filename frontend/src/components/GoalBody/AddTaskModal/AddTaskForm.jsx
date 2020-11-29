@@ -19,11 +19,13 @@ const AddTaskForm = (props) => {
         // console.log(title, day_of_week, deadline, importance)
         const deadline_in_ts = moment(deadline).startOf('day').unix() + (24*60*60 - 1)
         const start_in_ts = moment(start_at).startOf('day').unix()
-
         const dataForm = new FormData()
         dataForm.append("title", title)
         dataForm.append("goal_id", props.goal_id)
-        dataForm.append("day_of_week", day_of_week)  
+        day_of_week.forEach(item => {
+            dataForm.append('day_of_week', item);
+           });
+        // dataForm.append("day_of_week", day_of_week)  
         dataForm.append('start_at', start_in_ts)      
         dataForm.append("deadline", deadline_in_ts)
         dataForm.append("importance", importance)

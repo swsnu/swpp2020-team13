@@ -35,12 +35,12 @@ class TaskBodyComponent extends Component {
 
     // deadline is a timestamp
     deadlineDate = (deadline) => {
-        return moment(deadline).format('MMM Do YYYY')
+        return moment.unix(deadline).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 
     startAtDate = (start_at) => {
-        return moment(start_at).format('MMM Do YYYY')
+        return moment.unix(start_at).format('MMM Do YYYY')
         // return moment.unix(deadline).format('LL')
     }
 

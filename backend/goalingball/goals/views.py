@@ -25,7 +25,14 @@ def goalList(request):
             updated_at = int(g.updated_at.timestamp())
             start_at = int(g.start_at.timestamp())
             deadline = int(g.deadline.timestamp())
-            tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
+            
+            tasks = []
+            for t in g.tasks.filter(goal_id=g.id).values():
+                tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
+                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
+                })
+            print(tasks)
+            # tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             tags = [tag for tag in g.tags.names()]
             # print("goalList tags: ", tags)
             user = g.user.id
@@ -91,7 +98,12 @@ def goalDetail(request, goal_id=""):
             g = Goal.objects.select_related('user').get(id=goal_id)
         except Goal.DoesNotExist:
             return HttpResponse(status=404)
-        tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
+
+        tasks = []
+        for t in g.tasks.filter(goal_id=g.id).values():
+            tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
+                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
+        })
         
         tags = [tag for tag in g.tags.names()]
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
