@@ -15,22 +15,21 @@ yarn start // start frontend
 
 ### Backend
 
-1. Change `env.txt` file to `.env` 
-2. Add `.env` file to `/backend/config`
-3. Start virtual environment
+1. Add `.env` file to `/backend/config`
+2. Start virtual environment
 
     ```
     virtualenv --python=python3.7 venv
     source venv/bin/activate
     ```
 
-4. Install requirements
+3. Install requirements
 
     ```
     pip install -r requirements.txt
     ```
 
-5. Start server
+4. Start server
 
     ```
     python manage.py runserver
