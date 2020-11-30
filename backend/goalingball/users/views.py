@@ -17,6 +17,7 @@ def signup(request):
         password = request.POST['password']
 
         user = User.objects.create_user(username, password=password)
+        user.init_vector() # save default vector
 
         # A new user is automatically logged in
         auth_login(request, user)

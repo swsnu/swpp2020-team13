@@ -11,7 +11,10 @@ from datetime import datetime
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from .models import Goal
-
+import numpy as np
+import requests
+import base64
+import pickle
 
 @csrf_exempt
 def goalList(request):
@@ -75,6 +78,38 @@ def goalList(request):
             new_goal.tags.add(*tags)
             new_goal.save()
             print("new_goal.tags.names(): ", new_goal.tags.names())
+
+        # First save initial vector #
+        new_goal.init_vector()
+        # test print
+        # np_bytes_init = base64.b64decode(new_goal.vector)
+        # np_array_init = pickle.loads(np_bytes_init)
+        # print("INITIAL")
+        # print(np_array_init)
+
+        # From here, request to receive goal vector is sent #
+        data = {"data": tags}
+        data_json = json.dumps(data)
+        response = requests.post('https://tsiik55j32.execute-api.us-east-1.amazonaws.com/test/blazingtext', data=data_json)
+
+        j_to_dict = response.json() # in python dictionary class
+
+        if 'statusCode' in j_to_dict.keys(): # if succeed, update goal vector
+            # the following changes the list of vectors into one numpy vector
+            vector_total = np.zeros(shape=(100,), dtype=np.float32)
+
+            for word_dict in j_to_dict['body']:
+                vector = word_dict['vector']
+                vector_total += np.array(vector)
+
+            vector_avg = vector_total/len(j_to_dict['body']) # divide by n
+            print(vector_avg)
+            new_goal.update_vector(vector_avg) # update
+            # test print
+            # np_bytes_aft = base64.b64decode(new_goal.vector)
+            # np_array_aft = pickle.loads(np_bytes_aft)
+            # print("AFT")
+            # print(np_array_aft)
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
                         'title': new_goal.title, 'photo': new_goal.photo, 
