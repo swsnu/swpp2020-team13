@@ -2,7 +2,8 @@ from django.db import models
 from django.utils import timezone
 
 from tasks.models import Task
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 
 
 class Achievement(models.Model):

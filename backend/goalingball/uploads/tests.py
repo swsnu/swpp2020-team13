@@ -1,7 +1,8 @@
 import pytest
 from faker import Faker
 from django.urls import reverse
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 import json
 
 

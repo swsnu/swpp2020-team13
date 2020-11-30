@@ -3,7 +3,8 @@ from multiselectfield import MultiSelectField
 from django.utils import timezone
 
 from goals.models import Goal
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 
 
 DAYS_OF_WEEK = (

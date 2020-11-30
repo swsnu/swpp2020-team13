@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.forms.models import model_to_dict
 

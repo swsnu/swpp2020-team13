@@ -2,7 +2,8 @@ from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed, Http
 from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 from datetime import datetime
 from django.utils import timezone
 from goals.models import Goal

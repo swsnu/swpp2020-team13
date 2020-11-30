@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest, JsonResponse
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import User 
 from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
