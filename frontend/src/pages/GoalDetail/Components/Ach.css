@@ -1,0 +1,50 @@
+.AccContainer {
+    padding-top: 0px !important;
+    padding-left: 20px !important;
+    margin-right: 0 !important;
+    margin-left: 10px !important;
+    border: #bcbcbc !important;
+    height: max-content!important;
+}
+
+.AccGrid {
+    /* padding-top: 10px !important; */
+    margin-left: 30px !important;
+    margin-bottom: 10px !important;
+    max-height: 350px !important;
+    height: 225px !important;
+    /* margin-bottom: 10px !important; */
+}
+
+.AccContainerDetail {
+    padding-bottom: 0 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    align-content: center !important;
+}
+
+.AccContainer .description {
+    padding-top: 5px !important;
+    margin-left: 45px !important;
+}
+
+.AccChartTitle {
+    padding-top: 2px !important;
+    text-align: center !important;
+}
+
+.AccPhotoTitle {
+    margin-left: 65px !important;
+}
+.AccContainer .importance {
+    margin-left: 47px !important;
+    /* padding: 0px !important; */
+    /* padding-left: 0px !important; */
+    padding-right: 0px !important;
+}
+
+.ImportanceRating {
+    transform: scale(0.8, 0.8, 0.8) !important;
+    /* margin-left: 8px !important; */
+    margin-top: 1.5px !important;
+}

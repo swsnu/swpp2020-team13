@@ -17,14 +17,6 @@ class AccSegment extends Component {
         addAccopen: false
     }
 
-    // selectAchievement = () => {
-    //     console.log("called")
-    //     const today_ts = moment(this.props.today).startOf('day').unix() + (24*60*60) -1
-    //     const achievement_selected = this.props.achievements.filter(a => ( a.written_at == today_ts ) )
-    //     if(achievement_selected.length > 0) {
-    //         this.setState({achievement: achievement_selected[0]})
-    //     }
-    // }
     onClickAddAccHandler = () => {
         this.setState({ addAccopen : true})
     }
@@ -126,7 +118,6 @@ class AccSegment extends Component {
     render() {
         return(
             <>
-            {/* {this.selectAchievement} */}
             {this.state.addAccopen ? "" : this.renderTotal()}
             {this.state.addAccopen && <AddAccForm today={this.props.today} task_id={this.props.task.id} onSubmit={this.onCloseSubmit}/>}
             </>

@@ -37,8 +37,15 @@ export const DashBoardPanel = (props)  => {
     const cloud_options = {
         rotations: 2,
         rotationAngles: [-90, 0],
-        fontFamily: "Impact",
-        colors: ["#24b4ab", "#9fe3c1", "#fa8072", ]
+        fontFamily: "impact",
+        fontSizes: [12, 38],
+        fontStyle: "normal",
+        fontWeight: "normal",
+        colors: [
+            "#173f5f70",
+            "#20639b",	
+            "#ed553b",	
+            "#04837c" ]
     }
 
     
@@ -70,7 +77,10 @@ export const DashBoardPanel = (props)  => {
             <h2>Overall Info</h2>
             <Grid className="DashBoardPanelGrid">
                 <Grid.Row>
-                    <Segment>
+                    <Segment
+                    style={
+                        {boxShadow: "none"}
+                        }>
                         <h5>WordCloud of goal tags</h5>
                         <ReactWordcloud 
                         className="wordCloud" 
@@ -80,7 +90,10 @@ export const DashBoardPanel = (props)  => {
                     </Segment>
                 </Grid.Row>
                 <Grid.Row className="goalsDoneRow">
-                    <Segment className="goalsDoneSegment">
+                    <Segment className="goalsDoneSegment"
+                    style={
+                        {boxShadow: "none"}
+                        }>
                         <h5>Percentage of Finished Goals</h5>
                         {renderPie()}
                         {/* <h5>of goals are finished until now!</h5> */}

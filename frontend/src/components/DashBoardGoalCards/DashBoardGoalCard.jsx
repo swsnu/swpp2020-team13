@@ -1,43 +1,56 @@
 import React from "react";
 import { Card, Icon, Button, Label } from "semantic-ui-react";
 import moment from 'moment'
-export default class GoalCard extends React.Component {
+import { withRouter } from 'react-router-dom'
+import history from '../../history'
+
+class GoalCard extends React.Component {
 
   state = {
     title: this.props.goal.title,
     url: ((this.props.goal.photo).length == 0) ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png' : this.props.goal.photo
   }
 
-  // getRandomInt = (min, max) => {
-  //   min = Math.ceil(min);
-  //   max = Math.floor(max);
-  //   return Math.floor(Math.random() * (max - min + 1)) + min;
-  // }
+  getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   renderTags = () => {
     let label = []
     label = this.props.goal.tags.map(t => {
-      // const color = this.randomColor()
+      const color = this.randomColor()
     return (<Label horizontal style={
-      {marginTop: '2px', marginBottom: '2px', backgroundColor: "#24b4ab"}
+      {marginTop: '2px', marginBottom: '2px', backgroundColor: color, color: '#FFFFFF'}
     }>{t}</Label>)
-    }
+      }
     )
     return label
   }
   // BUG: randomColor func is generating undesired popups
-  // randomColor = () => {
-  //   let randomNumber = this.getRandomInt(0, 2)
-  //   print(randomNumber)
-  //   switch(randomNumber) {
-  //     case(0):
-  //       return "#24b4ab"
-  //     case(1):
-  //       return "#9fe3c1"
-  //     case(2):
-  //       return "#fa8072"
-  //   } 
-  // }
+  randomColor = () => {
+    let randomNumber = this.getRandomInt(0, 5)
+    switch(randomNumber) {
+      case(0):
+        return "#24b4ab"
+      case(1):
+        return "#173f5f"
+      case(2):
+        return "#686566"
+      case(3):
+        return "#20639b"
+      case(4):
+        return "#ed553b"
+      case(5):
+        return "#04837c"
+    } 
+  }
+
+  onClickHandler = () => {
+    history.push('/goalhistory/' + this.props.goal.id)
+  }
+
   render() {
     
     const url = 'url(' + this.state.url + ')'
@@ -68,7 +81,7 @@ export default class GoalCard extends React.Component {
               From {moment.unix(this.props.goal.start_at).format('MMM Do YYYY')} <br></br> Until {moment.unix(this.props.goal.deadline).format('MMM Do YYYY')}
             </Card.Description>
         <Card.Content extra>
-          <Button floated="right" fluid>
+          <Button floated="right" fluid onClick={this.onClickHandler}>
             Click for Details
           </Button>
         </Card.Content>
@@ -76,3 +89,5 @@ export default class GoalCard extends React.Component {
     );
   }
 }
+
+export default (withRouter(GoalCard))

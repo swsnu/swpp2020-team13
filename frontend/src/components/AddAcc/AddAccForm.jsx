@@ -128,7 +128,10 @@ class AddAccForm extends Component {
         return(
             <Form>
                 {/* {console.log("DEBUG ADD Ac", this.props)} */}
-                <Segment className="AddAccForm" id="AddAccFormSegment">
+                <Segment className="AddAccForm" id="AddAccFormSegment"
+                style={
+                    {boxShadow: "none"}
+                    }>
                 <h3>&nbsp; Add Achievements</h3>
 
                 {/* Add slider to record done_percentage */}            

@@ -42,7 +42,7 @@ def achievementList(request):
         try:
             percentage_complete = int(percentage_complete)
         except ValueError:
-            print("[DEBUG] percentage_complete is not a valid flaot")
+            print("[DEBUG] percentage_complete is not a valid float")
             return HttpResponse(status=400) 
 
         print("percentage_complete type: ", type(percentage_complete))
