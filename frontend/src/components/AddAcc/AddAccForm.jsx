@@ -108,17 +108,19 @@ class AddAccForm extends Component {
 
     handleChange = (event, newValue) => {
       this.setState({percentage_complete: newValue})  
+      console.log(this.state.percentage_complete)
     }
 
     handleSubmit = async () =>{
         let form = new FormData()
+        console.log("DEBUG Ach form: sending percentage_complete", this.state.percentage_complete)
         form.append("task_id", this.props.task_id)
         form.append("percentage_complete", this.state.percentage_complete)
         form.append("written_at", this.state.today)
         form.append("description", this.state.des)
         form.append("photo", this.state.photo)
         await this.props.add_achievement(form, this.state.file)
-        
+
         this.props.onSubmit(false)
     }
 
@@ -144,6 +146,7 @@ class AddAccForm extends Component {
                             getAriaValueText={this.valuetext}
                             aria-labelledby="discrete-slider-always"
                             step={10}
+                            onChange={this.handleChange}
                             // marks={marks}
                             valueLabelDisplay="on"
                             />
