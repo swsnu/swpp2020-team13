@@ -82,10 +82,10 @@ def goalList(request):
         # First save initial vector #
         new_goal.init_vector()
         # test print
-        # np_bytes_init = base64.b64decode(new_goal.vector)
-        # np_array_init = pickle.loads(np_bytes_init)
-        # print("INITIAL")
-        # print(np_array_init)
+        np_bytes_init = base64.b64decode(new_goal.vector)
+        np_array_init = pickle.loads(np_bytes_init)
+        print("INITIAL")
+        print(np_array_init)
 
         # From here, request to receive goal vector is sent #
         data = {"data": tags}
@@ -104,12 +104,18 @@ def goalList(request):
 
             vector_avg = vector_total/len(j_to_dict['body']) # divide by n
             print(vector_avg)
-            new_goal.update_vector(vector_avg) # update
+            new_goal.update_vector(vector_avg) # update goal vector
             # test print
-            # np_bytes_aft = base64.b64decode(new_goal.vector)
-            # np_array_aft = pickle.loads(np_bytes_aft)
-            # print("AFT")
-            # print(np_array_aft)
+            np_bytes_aft = base64.b64decode(new_goal.vector)
+            np_array_aft = pickle.loads(np_bytes_aft)
+            print("AFT")
+            print(np_array_aft)
+
+            # also update user vector #
+            count = Goal.objects.filter(user_id=request.user.id).count()
+            user = request.user
+            user.update_vector(vector_avg, count)
+
 
         response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
                         'title': new_goal.title, 'photo': new_goal.photo, 

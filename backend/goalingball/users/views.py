@@ -5,7 +5,10 @@ from django.views.decorators.csrf import csrf_exempt
 from users.models import User 
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.forms.models import model_to_dict
-
+import numpy as np
+import requests
+import base64
+import pickle
 
 @csrf_exempt
 def signup(request):
@@ -18,6 +21,11 @@ def signup(request):
 
         user = User.objects.create_user(username, password=password)
         user.init_vector() # save default vector
+        # test print
+        # np_bytes_init = base64.b64decode(user.vector)
+        # np_array_init = pickle.loads(np_bytes_init)
+        # print("INITIAL")
+        # print(np_array_init)
 
         # A new user is automatically logged in
         auth_login(request, user)
