@@ -40,6 +40,3 @@ class User(AbstractUser):
         self.vector = np_base64_update
         self.save()
 
-
-
-

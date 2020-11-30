@@ -110,14 +110,15 @@ class AddAccForm extends Component {
       this.setState({percentage_complete: newValue})  
     }
 
-    handleSubmit = () =>{
+    handleSubmit = async () =>{
         let form = new FormData()
         form.append("task_id", this.props.task_id)
         form.append("percentage_complete", this.state.percentage_complete)
         form.append("written_at", this.state.today)
         form.append("description", this.state.des)
         form.append("photo", this.state.photo)
-        this.props.add_achievement(form, this.state.file)
+        await this.props.add_achievement(form, this.state.file)
+        
         this.props.onSubmit(false)
     }
 
