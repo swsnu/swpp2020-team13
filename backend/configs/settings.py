@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'uploads.apps.UploadsConfig',
     'achievements.apps.AchievementsConfig',
+    'explore.apps.ExploreConfig',
 ]
 
 MIDDLEWARE = [

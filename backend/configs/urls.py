@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/v1/tasks/', include('goalingball.tasks.urls')),
     path('api/v1/achievements/', include('goalingball.achievements.urls')),
     path('api/v1/uploads/', include('goalingball.uploads.urls')),
+    path('api/v1/explore/', include('goalingball.explore.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
