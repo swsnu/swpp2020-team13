@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container, Card} from 'semantic-ui-react'
 import './DashBoardCards.css'
 import GoalCard from '../../../components/DashBoardGoalCards/DashBoardGoalCard'

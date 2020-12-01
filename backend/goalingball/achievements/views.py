@@ -154,7 +154,13 @@ def achievementListOfGoal(request, goal_id):
 
         achievements = []
         for task in goal.tasks.all():
-            achievements.append({ task.id: [model_to_dict(achievement) for achievement in task.achievements.all()]})
+            # achievements.append({ task.id: [model_to_dict(achievement) for achievement in task.achievements.all()]})
+            for achievement in task.achievements.all().values():
+                achievements.append({
+                    'id': achievement["id"], 'description': achievement["description"], 'percentage_complete': achievement["percentage_complete"],
+                    'written_at': int(achievement["written_at"].timestamp()), 'photo': achievement['photo'],
+                    'user_id': achievement["user_id"], 'task_id': achievement["task_id"]
+                })
 
         return JsonResponse(achievements, safe=False)
     

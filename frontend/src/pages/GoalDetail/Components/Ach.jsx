@@ -5,11 +5,14 @@ import './Ach.css'
 import {VictoryPie, VictoryTheme, VictoryLabel} from 'victory'
 import SVG from 'react-inlinesvg'
 import Rating from '@material-ui/lab/Rating'
+import moment from 'moment'
 
 export const Ach = (props) => {
+    const percentage = props.achievement.percentage_complete
+    const dateString = moment.unix(props.achievement.written_at).format('MMM Do YYYY')
     return(
         <Segment className="AccContainer" >
-            <h4>Your achievement on Dec 20, 2020</h4>
+            <h4>Your achievement on {dateString}</h4>
             <br></br>
             <Grid columns='2'className="AccGrid" divided
             style={
@@ -26,7 +29,7 @@ export const Ach = (props) => {
                         standalone={false}
                         labelComponent={<span/>}
                         width={520} height={520}
-                        data={[{'key': "", 'y': 21}, {'key': "", 'y': (100-21)} ]}
+                        data={[{'key': "", 'y': percentage}, {'key': "", 'y': (100-percentage)} ]}
                         innerRadius={166}
                         colorScale={["#19B3A6", "#EEEEEE" ]}
                         // style={{ labels: { fontSize: 20, fill: "white" } }}
@@ -35,7 +38,7 @@ export const Ach = (props) => {
                         textAnchor="middle"
                         style={{ fontSize: 50 }}
                         x={260} y={260}
-                        text={21 + "%"}
+                        text={percentage + "%"}
                         />
                     </svg>
                     <p className="AccChartTitle">percentage done</p>
@@ -51,14 +54,14 @@ export const Ach = (props) => {
                             {paddingLeft: '0px'}
                         }
                         >
-                        <img id="image" src={'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png'} className="AccPreviewImage"></img>
+                        <img id="image" src={props.achievement.photo} className="AccPreviewImage"></img>
                         </Grid.Column>
                     </Grid>
                 </Grid.Column>
                 {/* <p>"Example Description"</p> */}
             </Grid>
             <div className="description">
-                <Icon name='pencil alternate' style={{color: '#5F5F5F'}}/>{'example description'}
+                <Icon name='pencil alternate' style={{color: '#5F5F5F'}}/>{props.achievement.description}
                 {/* <p>Example Description</p> */}
             </div>
             <div className="description">

@@ -1,5 +1,6 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Button, Segment, List, Icon, Grid } from 'semantic-ui-react'
 import Rating from '@material-ui/lab/Rating'
 import moment from 'moment'
@@ -8,6 +9,7 @@ import './TaskInfo.css'
 export const TaskInfo = (props) => {
 
     const [select, setSelect] = useState(false)
+    const dispatch = useDispatch()
 
     const deadlineDate = (deadline) => {
         return moment.unix(deadline).format('MMM Do YYYY')
@@ -46,8 +48,8 @@ export const TaskInfo = (props) => {
     }
 
    const onSelectTaskHandler = () => {
-       console.log("task selected")
         setSelect(true)
+        props.onSelect(props.task.id)
    }
 
     return (
@@ -95,7 +97,6 @@ export const TaskInfo = (props) => {
                                             size="small"
                                             id="AddTaskFormImportance"
                                             value={props.task.importance}
-                                            readOnly
                                         />
                                 </List.Header>
                                 {renderDeadlineString(props.task.day_of_week, props.task.start_at, props.task.deadline)}
