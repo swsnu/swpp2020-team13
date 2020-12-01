@@ -7,6 +7,16 @@ import {AchInfo} from './Components/AchInfo'
 
 class TaskAndAchTotal extends Component {
 
+
+    renderTaskInfo = () => {
+        let taskInfo = []
+        taskInfo = this.props.tasks.map(t => <TaskInfo task={t}/>)
+        if(taskInfo.length == 0) {
+            return <p style={{fontWeight: '600', fontSize: "15px"}}>&nbsp;&nbsp;No tasks added for this goal yet. Go and add one!</p>
+        }
+        return taskInfo
+    }
+
     render(){
         return(
             <Segment className="TaskAndAchContainer"
@@ -25,11 +35,7 @@ class TaskAndAchTotal extends Component {
                     }
                     >
                     <p>&nbsp;&nbsp;TASKS YOU'VE DONE</p>
-                    
-                    <TaskInfo/>
-                    <TaskInfo/>
-                    <TaskInfo/>
-                    <TaskInfo/>
+                    {this.renderTaskInfo()}
                     </Grid.Column>
 
                     <Grid.Column

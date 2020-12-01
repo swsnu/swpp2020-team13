@@ -1,0 +1,7 @@
+.TaskSelectTrue {
+    color: "black" !important;
+}
+.TaskSelectfalse{
+    color: "#686566" !important;
+    opacity: 80% !important;
+}

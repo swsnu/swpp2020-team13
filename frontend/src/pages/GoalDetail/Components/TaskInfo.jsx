@@ -1,7 +1,55 @@
 import React from 'react'
+import { useState } from 'react';
 import { Button, Segment, List, Icon, Grid } from 'semantic-ui-react'
 import Rating from '@material-ui/lab/Rating'
+import moment from 'moment'
+import './TaskInfo.css'
+
 export const TaskInfo = (props) => {
+
+    const [select, setSelect] = useState(false)
+
+    const deadlineDate = (deadline) => {
+        return moment.unix(deadline).format('MMM Do YYYY')
+        // return moment.unix(deadline).format('LL')
+    }
+
+    const startAtDate = (start_at) => {
+        return moment.unix(start_at).format('MMM Do YYYY')
+        // return moment.unix(deadline).format('LL')
+    }
+
+    const renderDeadlineString = (day_of_week, start_at, deadline) => {
+        let str = "From "
+        str = str +  startAtDate(start_at) + ", Until " + deadlineDate(deadline)
+        if(day_of_week.length !== 0) {
+            var daystr = "On every "
+            for (var d of day_of_week) {
+                d = d.toLowerCase()
+                d = (d.charAt(0).toUpperCase() + d.slice(1)).slice(0,3)
+                daystr = daystr + d + ","+ " "
+            }
+            daystr = daystr.slice(0, daystr.length-2)
+            return (
+            <p style={
+                {fontSize: '14px', color: "#807d7d"}
+            }>
+                {str}<br></br>{daystr}
+            </p>
+            )
+        }
+        return (
+            <p style={
+                {fontSize: '14px', color: "#807d7d"}
+            }>{str}</p>
+        )
+    }
+
+   const onSelectTaskHandler = () => {
+       console.log("task selected")
+        setSelect(true)
+   }
+
     return (
         <Segment
         style={
@@ -18,10 +66,14 @@ export const TaskInfo = (props) => {
                 }>
                     <Button icon style={
                         {backgroundColor: '#FFFFFF'}
-                    }>
+                    }
+                    onClick={onSelectTaskHandler}
+                    >
                     <Icon name='check circle outline' size="large" style={
-                        {paddingTop: '15px', paddingLeft: '20px', color: "#807e7e90"}
-                    }>
+                        {paddingTop: '11px', paddingLeft: '20px'}
+                    }
+                    className={`TaskSelect${select && 'True'}`}
+                    >
                     </Icon>
                     </Button>
                 </Grid.Column>
@@ -37,22 +89,16 @@ export const TaskInfo = (props) => {
                                     {fontSize: '19px', paddingBottom: '15px', paddingTop: '0px',}
                                 }
                                 >    
-                                    task.title&nbsp;&nbsp;&nbsp;
+                                    {props.task.title}&nbsp;&nbsp;&nbsp;
                                     <Rating className="TaskInfoListRating"
                                             name="simple-controlled"
                                             size="small"
                                             id="AddTaskFormImportance"
-                                            value='5'
+                                            value={props.task.importance}
                                             readOnly
                                         />
                                 </List.Header>
-                                <p style={
-                                    {fontSize: '14px', color: "#807d7d"}
-                                }>
-                                From Dec.12 2020 Until Dec 20. 2020
-                                    <br></br>
-                                    On every Monday
-                                </p>
+                                {renderDeadlineString(props.task.day_of_week, props.task.start_at, props.task.deadline)}
                             </List.Content>
                         </List.Item>
                     </List>
