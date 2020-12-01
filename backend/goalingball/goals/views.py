@@ -186,6 +186,10 @@ def goalDetail(request, goal_id=""):
         if goal_start_at is not None:
             goal_start_at = timezone.make_aware(datetime.fromtimestamp(int(goal_start_at))) 
 
+        # TODO check whether tags have changed or not #
+        # if changed, update goal vector #
+        # print("new_goal.tags.names(): ", new_goal.tags.names()) #
+
         if 'tags' in req_data: # tags should be added after an intance is created
             goal_tags = req_data['tags']
             # print("req_data['tags']: ", req_data['tags'])
@@ -202,8 +206,8 @@ def goalDetail(request, goal_id=""):
                         'photo': goal.photo, 'user': goal.user.id, 
                         'created_at': (goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
                         'updated_at' : (goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'),
-                        'start_at': (goal.start_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'deadline': (goal.deadline).strftime('%Y-%m-%d %H:%M:%S'), 
+                        'start_at': int(goal.start_at.timestamp()), 
+                        'deadline': int(goal.deadline.timestamp()), 
                         'tags': [tag for tag in goal.tags.names()]}
         return JsonResponse(response_dict, safe=False, status=200)
         

@@ -109,7 +109,7 @@ def taskDetail(request, task_id=""):
 
         response_dict = {'id': t.id, 'user': t.user_id, 'goal_id': t.goal_id, 
                         'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
-                        'start_at': t.start_at, 'deadline': t.deadline, 'importance': t.importance, 
+                        'start_at': int(t.start_at.timestamp()), 'deadline': int(t.deadline.timestamp()), 'importance': t.importance, 
                         'day_of_week': t.day_of_week}
         return JsonResponse(response_dict, safe=False, status=200)
 
