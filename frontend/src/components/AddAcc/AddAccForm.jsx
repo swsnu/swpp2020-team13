@@ -5,19 +5,17 @@ import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, lab
 import Slider from "@material-ui/core/Slider"
 import './AddAccForm.css'
 import { add_achievement } from '../../store/actions/index';
-  
+import LoadingOverlay from 'react-loading-overlay';
+
 class AddAccForm extends Component {
     state = {
+        isCreating: false,
         percentage_complete: 0,
         today: (this.props.today == undefined) ? null : moment(this.props.today).startOf('day').unix() + (24*60*60) - 1,
         file: null,
         fileName: "",
         photo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png',
         des: ""
-    }
-
-    valuetext = (value) => {
-        return `${value}°%`;
     }
 
     // DiscreteSlider = () => {
@@ -112,6 +110,7 @@ class AddAccForm extends Component {
     }
 
     handleSubmit = async () =>{
+        this.setState({ isCreating: true })
         let form = new FormData()
         console.log("DEBUG Ach form: sending percentage_complete", this.state.percentage_complete)
         form.append("task_id", this.props.task_id)
@@ -120,17 +119,22 @@ class AddAccForm extends Component {
         form.append("description", this.state.des)
         form.append("photo", this.state.photo)
         await this.props.add_achievement(form, this.state.file)
-
         this.props.onSubmit(false)
     }
 
     render(){
         return(
+        <LoadingOverlay
+            className="AddAccForm"
+            active={this.state.isCreating}
+            spinner
+            text='Adding your achievement...'
+            >
             <Form>
                 {/* {console.log("DEBUG ADD Ac", this.props)} */}
                 <Segment className="AddAccForm" id="AddAccFormSegment"
                 style={
-                    {boxShadow: "none"}
+                    {boxShadow: "none", border: "none"}
                     }>
                 <h3>&nbsp; Add Achievements</h3>
 
@@ -146,7 +150,6 @@ class AddAccForm extends Component {
                         <GridColumn width={8}>
                             <Slider
                             defaultValue={0}
-                            getAriaValueText={this.valuetext}
                             aria-labelledby="discrete-slider-always"
                             step={10}
                             onChange={this.handleChange}
@@ -175,6 +178,7 @@ class AddAccForm extends Component {
                         </Button.Group>
                 </Segment>
             </Form>
+            </LoadingOverlay>
         )
     }
 

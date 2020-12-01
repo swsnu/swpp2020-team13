@@ -151,7 +151,7 @@ def goalDetail(request, goal_id=""):
         response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
                         'user': g.user_id, 'created_at': g.created_at, 
                         'updated_at': g.updated_at, 
-                        'start_at': g.start_at, 'deadline': g.deadline, 
+                        'start_at': int(g.start_at.timestamp()), 'deadline': int(g.deadline.timestamp()), 
                         'tags': tags,
                         'tasks': tasks
                         }

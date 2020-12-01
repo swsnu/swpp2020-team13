@@ -52,7 +52,7 @@ export const DashBoardCards = (props) => {
             </Button.Group>
             <Segment
             style={
-                {boxShadow: "none"}
+                {boxShadow: "none", border: 'none'}
                 }>
                 <Card.Group itemsPerRow={3}>
                     {renderSelect()}
