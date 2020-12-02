@@ -16,13 +16,14 @@ import pickle
 import base64
 
 # Create your views here.
+@csrf_exempt
 def recommend(request):
     # only allow GET - other: 405
     if request.method == 'GET':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         # else
-        user = User.objects.get(request.user.id)
+        user = User.objects.get(id=request.user.id)
 
         if user.vector is None:
             return HttpResponse(status=404)
@@ -32,12 +33,12 @@ def recommend(request):
 
         if norm(user_vector) == 0:
             # get default goal list
-            goal_list = default_recent()
+            goal_list = default_recent(user.id)
             goal_response = [{'status': 'default'}]
 
         else:
             # get recommended goal list
-            goal_list = find_similar_goals(user_vector)
+            goal_list = find_similar_goals(user_vector, user.id)
             goal_response = [{'status': 'recommend'}]
 
         for goal_dict in goal_list:
