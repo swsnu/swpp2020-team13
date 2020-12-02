@@ -10,7 +10,10 @@ from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from .recommendations import find_similar_goals
+from .recommendations import find_similar_goals, default_recent
+from numpy.linalg import norm
+import pickle
+import base64
 
 # Create your views here.
 def recommend(request):
@@ -23,18 +26,28 @@ def recommend(request):
 
         if user.vector is None:
             return HttpResponse(status=404)
-        
-        # get recommended goal list
-        goal_list = find_similar_goals(user.vector)
-        goal_response = []
 
-        for g in goal_list:
+        np_bytes = base64.b64decode(user.vector)
+        user_vector = pickle.loads(np_bytes)
+
+        if norm(user_vector) == 0:
+            # get default goal list
+            goal_list = default_recent()
+            goal_response = [{'status': 'default'}]
+
+        else:
+            # get recommended goal list
+            goal_list = find_similar_goals(user_vector)
+            goal_response = [{'status': 'recommend'}]
+
+        for goal_dict in goal_list:
+            g = goal_dict['goal']
             created_at = int(g.created_at.timestamp()) 
             updated_at = int(g.updated_at.timestamp())
             start_at = int(g.start_at.timestamp())
             deadline = int(g.deadline.timestamp())
             tags = [tag for tag in g.tags.names()]
-            user = g.user.id
+            username = goal_dict['username']
 
             tasks = []
             for t in g.tasks.values():
@@ -43,10 +56,10 @@ def recommend(request):
                 })
 
             goal_response.append({
-                'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
+                'id': g.id, 'user': g.user_id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 
                 'start_at': start_at, 'deadline': deadline, 
-                'tasks': tasks, 'user': user,
+                'tasks': tasks, 'username': username,
                 'tags': tags,
             })
 
