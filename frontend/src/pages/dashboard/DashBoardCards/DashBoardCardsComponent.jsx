@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { useState, useEffect } from 'react'
-import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Container, Card} from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, Grid, List, Segment, Button, Dropdown, Card} from 'semantic-ui-react'
 import './DashBoardCards.css'
 import GoalCard from '../../../components/DashBoardGoalCards/DashBoardGoalCard'
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,20 +14,66 @@ export const DashBoardCards = (props) => {
     const dispatch = useDispatch()
     console.log(goalCardList)
 
-    goalCardList = goalCardList.map(g => <GoalCard goal={g}/>)
+    // goalCardList = goalCardList.map(g => <GoalCard goal={g}/>)
     const [select, setSelect] = useState(0)
+    const [show, setShow] = useState(0)
     const max = (goalCardList.length)/6
-
-    const renderSelect = () => {
-        let start = (select*6)
-        return (
-            goalCardList.slice(start, start+6)
-        )
-    }
 
     useEffect(()=>{
         dispatch(getAllGoal())
     }, [])
+
+
+    const showOptions = [
+        { key: 1, text: 'Show All', value: 1 },
+        { key: 2, text: 'Ongoing', value: 2 },
+        { key: 3, text: 'Finished', value: 3 },
+        { key: 4, text: 'Future', value: 4 },
+    ]
+    
+    const renderShowbyTime = (value) =>{
+        const today = moment(new Date).startOf('day').unix()
+        let list = []
+        switch(value) {
+            case(1):
+                return goalCardList.map(g => <GoalCard goal={g}/>)
+            case(2):
+                list = goalCardList.reduce((pre, g) => {
+                    if((g.start_at <= today) && (g.deadline >= today)) {
+                        pre.push(g)
+                    }
+                    return pre
+                }, [])
+                return list.map(g => <GoalCard goal={g}/>)
+            case(3):
+                list = goalCardList.reduce((pre, g) => {
+                    if(g.deadline < today) {
+                        pre.push(g)
+                    }
+                    return pre
+                }, [])
+                return list.map(g => <GoalCard goal={g}/>)
+            case(4):
+                list = goalCardList.reduce((pre, g) => {
+                    if(g.start_at > today) {
+                        pre.push(g)
+                    }
+                    return pre
+                }, [])
+                return list.map(g => <GoalCard goal={g}/>)
+            default:
+                return goalCardList.map(g => <GoalCard goal={g}/>)
+        }
+    }
+
+    // range select by clicking buttons
+    const renderSelect = () => {
+        let start = (select*6)
+        let selectedList = renderShowbyTime(show)
+        return (
+            selectedList.slice(start, start+6)
+        )
+    }
 
     const prevHandler = () => {
        setSelect(select-1)
@@ -35,8 +81,7 @@ export const DashBoardCards = (props) => {
 
     const nextHandler = () => {
         setSelect(select+1)
-     } 
-     
+    } 
 
     return (
         <div className="DashBoardGoalCards">
@@ -45,9 +90,11 @@ export const DashBoardCards = (props) => {
                 { paddingTop: '5px' }
             }
             >Your Goals</h2>        
-                <Button>
-                        Only show ongoings
-                </Button>
+
+                <Dropdown placeholder='Filter by' search selection options={showOptions} onChange={(e,data)=>setShow(data.value)}
+                style = {{border: 'none', marginRight: '20px', marginLeft: '5px'}}
+                />
+
                 <Button.Group>
                 <Button size="tiny" disabled={select == 0 ? true : false} onClick={() => prevHandler()} icon='angle left' className="dashcardprev">
                 </Button>

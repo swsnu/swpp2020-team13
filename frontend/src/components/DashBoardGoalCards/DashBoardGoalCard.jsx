@@ -3,6 +3,8 @@ import { Card, Icon, Button, Label } from "semantic-ui-react";
 import moment from 'moment'
 import { withRouter } from 'react-router-dom'
 import history from '../../history'
+import {getGoal, deleteGoal} from '../../store/actions/index'
+import { connect } from "react-redux";
 
 class GoalCard extends React.Component {
 
@@ -51,13 +53,25 @@ class GoalCard extends React.Component {
     history.push('/goalhistory/' + this.props.goal.id)
   }
 
+  onClickEditGoalHandler = async () => {
+    await this.props.getGoal(this.props.goal.id)
+    history.push('/edit')
+  }
+
+  onClickDeleteHandler = () => {
+      var deleteGoal = window.confirm("Tasks and achievements of this goal will be lost. Are you sure?")
+      if(deleteGoal) {
+        this.props.deleteGoal(this.props.goal.id)
+      }
+  }
+
   render() {
     
     const url = 'url(' + this.state.url + ')'
     return (
       <Card className="DashGoalCardComp"
       style={{
-        width: '200px'
+        width: '210px'
       }}
       >
         <Card.Content
@@ -85,13 +99,17 @@ class GoalCard extends React.Component {
               From {moment.unix(this.props.goal.start_at).format('MMM Do YYYY')} <br></br> Until {moment.unix(this.props.goal.deadline).format('MMM Do YYYY')}
             </Card.Description>
         <Card.Content extra>
-          <Button floated="right" fluid onClick={this.onClickHandler}>
+          <Button.Group size='tiny'>
+          <Button onClick={this.onClickHandler}>
             Click for Details
           </Button>
+          <Button size="tiny" compact icon onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
+          <Button size="tiny" compact icon onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
+          </Button.Group>
         </Card.Content>
       </Card>
     );
   }
 }
 
-export default (withRouter(GoalCard))
+export default connect(null, {getGoal, deleteGoal})(withRouter(GoalCard))
