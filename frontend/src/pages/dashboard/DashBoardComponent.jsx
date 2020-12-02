@@ -25,6 +25,26 @@ class DashBoardComponent extends Component {
         return (Math.floor( (list.length * 100 ) / (this.props.goals.length) ))
     }
 
+    // get wordcloud list 
+    getWordCloud = () => {
+        let wordList = []
+        for(var goal of this.props.goals){
+            for(var tag of goal.tags) {
+                let obj = wordList.find(w => w.text == tag)
+                if(obj == undefined) {
+                    // add new
+                    wordList.push({text: tag, value: 10})
+                }
+                // already exist, just add 1
+                else {
+                    obj.value += 10
+                }
+            }
+        }
+        console.log("wordlist", wordList)
+        return wordList
+    }
+
     render(){
         return(
             <div className='dashboard'>
@@ -34,7 +54,7 @@ class DashBoardComponent extends Component {
                 <Grid columns='2' divided >
                     <GridColumn className="dashboardGrid">
                         {/* <h2 className="dashboardTitle">Your Dashboard</h2> */}
-                        <DashBoardPanel metric={this.getMetric()}/>
+                        <DashBoardPanel metric={this.getMetric()} wordList={this.getWordCloud()}/>
                     </GridColumn>
                     <GridColumn>
                         <DashBoardCards goalCardList={this.props.goals}/>

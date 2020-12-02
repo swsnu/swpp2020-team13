@@ -18,22 +18,22 @@ export const DashBoardPanel = (props)  => {
         setMetric(wantedMetric); // Setting the data that we want to display
     }, []);
 
-    const data = [
-        {text: "test" ,value: 210},
-        {text: "test1" ,value: 100},
-        {text: "test2" ,value: 90},
-        {text: "test3" ,value: 100},
-        {text: "test4" ,value: 60},
-        {text: "test5" ,value: 150},
-        {text: "test6" ,value: 170},
-        {text: "test7" ,value: 80},
-        {text: "test8" ,value: 210},
-        {text: "test9" ,value: 100},
-        {text: "test10" ,value: 90},
-        {text: "test11" ,value: 100},
-        {text: "test12" ,value: 60},
+    // const data = [
+    //     {text: "test" ,value: 210},
+    //     {text: "test1" ,value: 100},
+    //     {text: "test2" ,value: 90},
+    //     {text: "test3" ,value: 100},
+    //     {text: "test4" ,value: 60},
+    //     {text: "test5" ,value: 150},
+    //     {text: "test6" ,value: 170},
+    //     {text: "test7" ,value: 80},
+    //     {text: "test8" ,value: 210},
+    //     {text: "test9" ,value: 100},
+    //     {text: "test10" ,value: 90},
+    //     {text: "test11" ,value: 100},
+    //     {text: "test12" ,value: 60},
 
-    ]
+    // ]
     const cloud_options = {
         rotations: 2,
         rotationAngles: [-90, 0],
@@ -84,7 +84,7 @@ export const DashBoardPanel = (props)  => {
                         <h5>WordCloud of goal tags</h5>
                         <ReactWordcloud 
                         className="wordCloud" 
-                        words={data} 
+                        words={props.wordList} 
                         options={cloud_options}
                         />                        
                     </Segment>
