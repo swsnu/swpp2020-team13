@@ -31,7 +31,7 @@ def find_similar_goals(user_vector):
     # get goals from the users with highest similarity NOTE : the limit is set to 20 #
     goal_list = []
     for user in user_dict:
-        for goal in Goal.objects.filter(user_id=user['id']).values():
+        for goal in Goal.objects.filter(user_id=user['id']):
             goal_list.append(goal)
             if len(goal_list) > 20:
                 return goal_list
