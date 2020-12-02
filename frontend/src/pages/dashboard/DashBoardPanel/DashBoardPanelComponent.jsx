@@ -8,7 +8,7 @@ import SVG from 'react-inlinesvg'
 
 export const DashBoardPanel = (props)  => {
 
-    const percentage = 55
+    const percentage = props.metric
     const wantedMetric = [{ y: percentage }, { y: 100-percentage }]; // Data that we want to display
     const defaultMetric = [{ y: 0 }, { y: 100 }, ]; 
 
@@ -96,7 +96,6 @@ export const DashBoardPanel = (props)  => {
                         }>
                         <h5>Percentage of Finished Goals</h5>
                         {renderPie()}
-                        {/* <h5>of goals are finished until now!</h5> */}
                     </Segment>
                 </Grid.Row>
                 <Grid.Row>

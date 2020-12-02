@@ -54,7 +54,7 @@ def achievementList(request):
         
         achievement = Achievement.objects.create(
             description=description, percentage_complete=percentage_complete, written_at=written_at, photo=photo,
-            user=User.objects.get(id=task.user.id), task=Task.objects.get(id=task_id)
+            user=User.objects.get(id=task.user_id), task=Task.objects.get(id=task_id)
         )
 
         achievement.save()

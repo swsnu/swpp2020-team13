@@ -10,19 +10,12 @@ import { getAllGoal } from '../../../store/actions'
 
 export const DashBoardCards = (props) => {
 
-    let goalCardList = useSelector(state => state.goal.goals)
-    const dispatch = useDispatch()
-    console.log(goalCardList)
+    // console.log(props.goalCardList)
 
     // goalCardList = goalCardList.map(g => <GoalCard goal={g}/>)
     const [select, setSelect] = useState(0)
     const [show, setShow] = useState(0)
-    const max = (goalCardList.length)/6
-
-    useEffect(()=>{
-        dispatch(getAllGoal())
-    }, [])
-
+    const max = (props.goalCardList.length)/6
 
     const showOptions = [
         { key: 1, text: 'Show All', value: 1 },
@@ -36,9 +29,9 @@ export const DashBoardCards = (props) => {
         let list = []
         switch(value) {
             case(1):
-                return goalCardList.map(g => <GoalCard goal={g}/>)
+                return props.goalCardList.map(g => <GoalCard goal={g}/>)
             case(2):
-                list = goalCardList.reduce((pre, g) => {
+                list = props.goalCardList.reduce((pre, g) => {
                     if((g.start_at <= today) && (g.deadline >= today)) {
                         pre.push(g)
                     }
@@ -46,7 +39,7 @@ export const DashBoardCards = (props) => {
                 }, [])
                 return list.map(g => <GoalCard goal={g}/>)
             case(3):
-                list = goalCardList.reduce((pre, g) => {
+                list = props.goalCardList.reduce((pre, g) => {
                     if(g.deadline < today) {
                         pre.push(g)
                     }
@@ -54,7 +47,7 @@ export const DashBoardCards = (props) => {
                 }, [])
                 return list.map(g => <GoalCard goal={g}/>)
             case(4):
-                list = goalCardList.reduce((pre, g) => {
+                list = props.goalCardList.reduce((pre, g) => {
                     if(g.start_at > today) {
                         pre.push(g)
                     }
@@ -62,7 +55,7 @@ export const DashBoardCards = (props) => {
                 }, [])
                 return list.map(g => <GoalCard goal={g}/>)
             default:
-                return goalCardList.map(g => <GoalCard goal={g}/>)
+                return props.goalCardList.map(g => <GoalCard goal={g}/>)
         }
     }
 
