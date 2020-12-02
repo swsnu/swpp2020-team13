@@ -24,7 +24,7 @@ def goalList(request):
             return HttpResponse(status=401)
         # else
         goal_list = []
-        for g in Goal.objects.select_related('user').all():
+        for g in Goal.objects.select_related('user').filter(user_id=request.user.id):
             created_at = int(g.created_at.timestamp()) 
             updated_at = int(g.updated_at.timestamp())
             start_at = int(g.start_at.timestamp())

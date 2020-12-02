@@ -6,6 +6,7 @@ import achievementReducer from './achievementReducer'
 import { connectRouter } from 'connected-react-router'
 import history from '../../history'
 import modalReducer from './modalReducer'
+import exploreReducer from './exploreReducer'
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   task: taskReducer,
   achievement: achievementReducer,
   modal: modalReducer,
+  explore: exploreReducer,
   router: connectRouter(history)
 })
 

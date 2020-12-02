@@ -1,10 +1,9 @@
 import React from "react";
-import { Card, Icon, Button, Label } from "semantic-ui-react";
+import { Card, Icon, Button, Label, Image } from "semantic-ui-react";
 import moment from 'moment'
 import { withRouter } from 'react-router-dom'
-import history from '../../history'
-
-class GoalCard extends React.Component {
+import history from '../../../history'
+class RecCard extends React.Component {
 
   state = {
     title: this.props.goal.title,
@@ -28,7 +27,7 @@ class GoalCard extends React.Component {
     )
     return label
   }
-  // BUG: randomColor func is generating undesired popups
+
   randomColor = () => {
     let randomNumber = this.getRandomInt(0, 5)
     switch(randomNumber) {
@@ -47,19 +46,17 @@ class GoalCard extends React.Component {
     } 
   }
 
-  onClickHandler = () => {
-    history.push('/goalhistory/' + this.props.goal.id)
+onClickHandler = () => {
+    history.push('/explore/goalhistory/' + this.props.goal.id)
   }
 
   render() {
     
     const url = 'url(' + this.state.url + ')'
     return (
-      <Card className="DashGoalCardComp"
-      style={{
-        width: '200px'
-      }}
-      >
+      <Card className="RecCardComp" style={
+          {width: '200px'}
+      }>
         <Card.Content
           style={{
             height: "180px",
@@ -74,19 +71,19 @@ class GoalCard extends React.Component {
         <Card.Content header={this.props.goal.title} 
             textAlign="center"s
             style={
-              {padding: '12px'}
+              {padding: '12px', paddingBottom: '0px'}
             }
             > 
         </Card.Content>
         <Card.Description textAlign="center"
         style={
-          {color: "#807e7e", marginBottom: '2px'}
+          {color: "#807e7e", marginBottom: '5px'}
         }>
-              From {moment.unix(this.props.goal.start_at).format('MMM Do YYYY')} <br></br> Until {moment.unix(this.props.goal.deadline).format('MMM Do YYYY')}
+            <Icon name='user circle'></Icon>&nbsp;{this.props.goal.username}
             </Card.Description>
         <Card.Content extra>
           <Button floated="right" fluid onClick={this.onClickHandler}>
-            Click for Details
+            Look More
           </Button>
         </Card.Content>
       </Card>
@@ -94,4 +91,4 @@ class GoalCard extends React.Component {
   }
 }
 
-export default (withRouter(GoalCard))
+export default (withRouter(RecCard))

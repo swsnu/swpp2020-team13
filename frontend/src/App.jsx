@@ -9,6 +9,8 @@ import EditPage from './pages/edit/EditPageComponent'
 import DashBoard from './pages/dashboard/DashBoardComponent'
 import Profile from './pages/profile/index'
 import GoalDetailPage from './pages/GoalDetail/GoalDetailPage'
+import ExplorePage from './pages/explore/ExplorePageComponent'
+import ExploreGoalDetailPage from './pages/ExploreGoalDetail/ExploreGoalDetailPage'
 
 function App(props) {
     return (
@@ -20,6 +22,8 @@ function App(props) {
                 <Route path="/edit" exact component={EditPage}/>
                 <Route path="/main" exact component={GoalList} />
                 <Route path="/dashboard" exact component={DashBoard} />
+                <Route path="/explore" exact component={ExplorePage} />
+                <Route path="/explore/goalhistory/:id" exact component={ExploreGoalDetailPage} />
                 <Route path="/goalhistory/:id" exact component={GoalDetailPage}/>
                 <Route path="/profile" exact component={Profile} />
             </Switch>

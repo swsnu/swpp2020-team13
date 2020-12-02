@@ -21,7 +21,7 @@ class TaskAndAchTotal extends Component {
         let taskInfo = []
         taskInfo = this.props.tasks.map(t => <TaskInfo task={t} onSelect={this.onTaskSubmit}   />)
         if(taskInfo.length == 0) {
-            return <p style={{fontWeight: '600', fontSize: "15px"}}>&nbsp;&nbsp;No tasks added for this goal yet. Go and add one!</p>
+            return <p style={{fontWeight: '600', fontSize: "15px"}}>&nbsp;&nbsp;No tasks added for this goal yet!</p>
         }
         return taskInfo
     }

@@ -74,7 +74,7 @@ export const DashBoardPanel = (props)  => {
 
     return(
         <div className="DashBoardPanel">
-            <h2>Overall Info</h2>
+            {/* <h2>Overall Info</h2> */}
             <Grid className="DashBoardPanelGrid">
                 <Grid.Row>
                     <Segment

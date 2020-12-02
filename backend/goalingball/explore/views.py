@@ -50,18 +50,11 @@ def recommend(request):
             tags = [tag for tag in g.tags.names()]
             username = goal_dict['username']
 
-            tasks = []
-            for t in g.tasks.values():
-                tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
-                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
-                })
-
             goal_response.append({
                 'id': g.id, 'user': g.user_id ,'title': g.title, 'photo': g.photo, 
                 'created_at': created_at, 'updated_at': updated_at, 
                 'start_at': start_at, 'deadline': deadline, 
-                'tasks': tasks, 'username': username,
-                'tags': tags,
+                'username': username, 'tags': tags,
             })
 
         return JsonResponse(goal_response, safe=False, status=200)
@@ -70,6 +63,34 @@ def recommend(request):
 
 def search(request):
     return
+
+def recommendDetail(request, goal_id=""):
+    if request.method == 'GET':
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401)
+        # GET goal Detail
+        try:
+            g = Goal.objects.get(id=goal_id)
+        except Goal.DoesNotExist:
+            return HttpResponse(status=404)
+
+        tasks = []
+        for t in g.tasks.filter(goal_id=g.id).values():
+            tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
+                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
+        })
+        
+        tags = [tag for tag in g.tags.names()]
+        response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
+                        'user': g.user_id, 'created_at': g.created_at, 
+                        'updated_at': g.updated_at, 
+                        'start_at': int(g.start_at.timestamp()), 'deadline': int(g.deadline.timestamp()), 
+                        'tags': tags,
+                        'tasks': tasks
+                        }
+        return JsonResponse(response_dict, safe=False, status=200)
+    else:
+        return HttpResponseNotAllowed(['GET'])
 
 def recommendAchList(request, goal_id):
     # TODO return achievements of a selected goal

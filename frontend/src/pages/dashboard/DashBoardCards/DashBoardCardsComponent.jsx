@@ -40,7 +40,11 @@ export const DashBoardCards = (props) => {
 
     return (
         <div className="DashBoardGoalCards">
-            <h2>Your Goals</h2>        
+            <h2
+            style={
+                { paddingTop: '5px' }
+            }
+            >Your Goals</h2>        
                 <Button>
                         Only show ongoings
                 </Button>
@@ -54,7 +58,7 @@ export const DashBoardCards = (props) => {
             style={
                 {boxShadow: "none", border: 'none'}
                 }>
-                <Card.Group itemsPerRow={3}>
+                <Card.Group>
                     {renderSelect()}
                 </Card.Group>
             </Segment>

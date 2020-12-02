@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Segment, Grid, Label, List } from 'semantic-ui-react'
+import { Container, Segment, Grid, Label, List, Icon } from 'semantic-ui-react'
 import './GeneralGoalInfo.css'
 import moment from 'moment'
 class GeneralGoalInfo extends Component {
