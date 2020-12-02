@@ -26,8 +26,8 @@ class EditGoal extends Component {
     }
 
     renderDefaultDate() {
-        const start_at = new Date(this.props.selectedGoal.start_at)
-        const deadline = new Date(this.props.selectedGoal.deadline)
+        const start_at = moment.unix(this.props.selectedGoal.start_at).format("YYYY-MM-DD")
+        const deadline = moment.unix(this.props.selectedGoal.deadline).format("YYYY-MM-DD")
         this.setState({start_at: start_at, deadline: deadline})
     }
 

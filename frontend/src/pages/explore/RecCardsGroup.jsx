@@ -6,9 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 export const RecCardsGroup = (props) => {
 
-    // let goalCardList = useSelector(state => state.goal.goals)
-    // const dispatch = useDispatch()
-    // console.log(goalCardList)
     const [select, setSelect] = useState(0)
     let RecCardList = props.goals.map(g => <RecCard goal={g}/>)
 
