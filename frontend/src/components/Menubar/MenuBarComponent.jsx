@@ -26,7 +26,7 @@ const MenuBarComponent = (props) => {
         visible="true"
         // width='very thin'
         >   
-        <Grid verticalAlign='middle' rows={6} centered className="gridBar">
+        <Grid verticalAlign='middle' rows={5} centered className="gridBar">
         <Grid.Row>
             <Menu.Item as='a' >
                 <button class='ui basic button' onClick={()=> {props.history.push('/create')}} className='button-create' id="CreateButton">
@@ -65,7 +65,7 @@ const MenuBarComponent = (props) => {
                 </button>
             </Menu.Item>
             </Grid.Row>
-            <Grid.Row>
+            {/* <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>props.history.push('/profile')} className='button' id="ProfileButton">
                     <Icon name='user circle' size='large' id='icon'></Icon>
@@ -73,7 +73,7 @@ const MenuBarComponent = (props) => {
                     Profile
                 </button>
             </Menu.Item>
-            </Grid.Row>
+            </Grid.Row> */}
             <Grid.Row>
             <Menu.Item as='a'>
                 <button class='ui basic button' onClick={()=>onClickLogout()} className='button-logout' id="LogoutButton">

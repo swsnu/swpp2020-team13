@@ -11,7 +11,7 @@
     font-size: 0.35cm;
     border: none;
     outline: none;
-    /* padding-top: 0.7cm; */
+    margin-top: 1vh;
     /* padding-bottom: 0.3cm; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #ebebeb;
@@ -31,7 +31,7 @@
     font-size: 0.35cm;
     border: none;
     outline: none;
-    margin-top: 42vh;
+    margin-top: 50vh;
     position: relative;
     /* padding-bottom: 0.3cm; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;

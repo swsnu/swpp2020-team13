@@ -7,7 +7,6 @@ import GoalList from './pages/main/GoalListComponent'
 import CreatePage from './pages/main/CreateGoalComponent/CreateGoalComponent'
 import EditPage from './pages/edit/EditPageComponent'
 import DashBoard from './pages/dashboard/DashBoardComponent'
-import Profile from './pages/profile/index'
 import GoalDetailPage from './pages/GoalDetail/GoalDetailPage'
 import ExplorePage from './pages/explore/ExplorePageComponent'
 import ExploreGoalDetailPage from './pages/ExploreGoalDetail/ExploreGoalDetailPage'
@@ -25,7 +24,7 @@ function App(props) {
                 <Route path="/explore" exact component={ExplorePage} />
                 <Route path="/explore/goalhistory/:id" exact component={ExploreGoalDetailPage} />
                 <Route path="/goalhistory/:id" exact component={GoalDetailPage}/>
-                <Route path="/profile" exact component={Profile} />
+                {/* <Route path="/profile" exact component={Profile} /> */}
             </Switch>
         </div>
     </Router>
