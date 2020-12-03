@@ -29,7 +29,10 @@ class GoalBodyComponent extends Component {
     }
 
     onClickDeleteHandler = () => {
-        this.props.deleteGoal(this.props.goal.id)
+        var deleteGoal = window.confirm("Tasks and achievements of this goal will be lost. Are you sure?")
+        if(deleteGoal) {
+          this.props.deleteGoal(this.props.goal.id)
+        }
     }
 
     onClickAddTaskHandler = () => {

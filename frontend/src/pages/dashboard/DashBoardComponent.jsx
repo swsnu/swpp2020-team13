@@ -15,6 +15,7 @@ class DashBoardComponent extends Component {
     }
 
     getMetric = () => {
+        if(this.props.goals.length == 0) return 0
         const today = moment(new Date).startOf('day').unix()
         let list = this.props.goals.reduce((pre, g) => {
             if(g.deadline < today) {
