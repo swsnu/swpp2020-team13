@@ -124,7 +124,7 @@ export const editGoal_ = (goal_id, goal) => {
     return {
         type: actionTypes.EDIT_GOAL,
         payload: goal,
-        id: goal_id
+        // id: goal_id
     }
 }
 

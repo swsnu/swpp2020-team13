@@ -19,6 +19,10 @@ const reducer = (state = initialState, action) => {
             return {...state, goals: [...state.goals, newGoal]}
 
         case actionTypes.EDIT_GOAL:
+            // remove the old item and add the new item
+            let filteredGoals = state.goals.filter(g => g.id !== action.payload.id).append(action.payload)
+            return {...state, selectedGoal: action.payload, goals: filteredGoals}
+            /*
             const modifiedGoalList = state.goals.map((g)=> {
                 if(g.id == action.id) {
                     return {...g, title: action.title, photo: action.photo, deadline: action.deadline, tags: action.tags}
@@ -29,11 +33,11 @@ const reducer = (state = initialState, action) => {
             state.goals = modifiedGoalList
             const modified = modifiedGoalList.find(g=>g.id==action.id)
             return {...state, selectedGoal: modified}
+            */
 
         case actionTypes.DELETE_GOAL:
-            const deleted = state.goals.filter((g)=>{
-                return g.id != action.id
-            })
+            // g.id and action.id should be both integer (the same type)
+            const deleted = state.goals.filter(g => g.id !== action.id)
             return {...state, goals: deleted}
 
         case actionTypes.ADD_TASK_TO_GOAL:

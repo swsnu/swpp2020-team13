@@ -29,8 +29,8 @@ class GoalBodyComponent extends Component {
     }
 
     onClickDeleteHandler = () => {
-        var deleteGoal = window.confirm("Tasks and achievements of this goal will be lost. Are you sure?")
-        if(deleteGoal) {
+        let deleteGoal = window.confirm("Tasks and achievements of this goal will be lost. Are you sure?")
+        if (deleteGoal) {
           this.props.deleteGoal(this.props.goal.id)
         }
     }
@@ -120,9 +120,14 @@ class GoalBodyComponent extends Component {
                     <List.Content className="GoalBodyListTitle">
                         <List.Header className="GoalBodyListTitleHeader">
                             {title}
-                            <Button floated="right" size="tiny"
-                            toggle active={this.state.showAll} 
-                            onClick={()=>{this.setState({showAll: !(this.state.showAll)})}}>Show All Tasks</Button>
+                            <Button 
+                                floated="right" 
+                                size="tiny"
+                                toggle active={this.state.showAll} 
+                                onClick={()=>{this.setState({showAll: !(this.state.showAll)})}}
+                            >
+                                Show All Tasks
+                            </Button>
                         </List.Header>
                         {/* <List.Item className="GoalBodyListDeadline">Until {this.deadlineDate(this.props.deadline)}</List.Item> */}
                         <div className="GoalBodyListDeadline">From {this.startAtDate(start_at)}, Until {this.deadlineDate(deadline)}</div>
@@ -134,8 +139,8 @@ class GoalBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
-                    <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
-                    <Button size="tiny" compact icon className="DeleteGoalButtonA" id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
+                        <Button size="tiny" compact icon className="EditGoalButtonA" id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
+                        <Button size="tiny" compact icon className="DeleteGoalButtonA" id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
                     </Button.Group> 
                     <Button circular onClick={()=>this.onClickAddTaskHandler()} floated="right" icon="add" size="tiny" className="GoalBodyAddButton" id="AddButtonGoalBody"></Button>
             </List.Item>
