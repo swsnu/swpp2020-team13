@@ -113,10 +113,39 @@ def taskDetail(request, task_id=""):
                         'day_of_week': t.day_of_week}
         return JsonResponse(response_dict, safe=False, status=200)
 
+    elif request.method == 'PUT':
+        if request.user.is_authenticated is False:
+            return HttpResponse(status=401)
+        try:
+            task = Task.objects.select_related('user').get(id=task_id)
+        except Task.DoesNotExist:
+            return HttpResponse(status=404)
+
+        if task.user.id is not request.user.id:
+            return HttpResponse(status=403)
+        
+        req_data = json.loads(request.body.decode())
+        # title, importance, day_of_week, start_at, deadline are guaranteed to be included in req_data
+
+        print("edit task: ", task)
+        print("edit task data: ", req_data)
+        task.title = req_data.get('title')
+        task.importance = req_data.get('importance')
+        task.day_of_week = req_data.get('day_of_week')
+        task.start_at = timezone.make_aware(datetime.fromtimestamp(req_data.get('start_at')*1000))
+        task.deadline = timezone.make_aware(datetime.fromtimestamp(req_data.get('deadline')*1000))
+        task.save()
+
+        return HttpResponse(status=200)
+
     elif request.method == 'DELETE':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
-        task = Task.objects.select_related('user').get(id=task_id)
+        try:
+            task = Task.objects.select_related('user').get(id=task_id)
+        except Task.DoesNotExist:
+            return HttpResponse(status=404)
+
         if task.user.id is not request.user.id:
             return HttpResponse(status=403)
         task.delete()

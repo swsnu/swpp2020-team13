@@ -8,7 +8,7 @@ import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
 import { DateInput,} from 'semantic-ui-calendar-react'
 
-import { deleteTask } from '../../store/actions'
+import { editTask, deleteTask } from '../../store/actions'
 
 class TaskBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
@@ -76,9 +76,19 @@ class TaskBodyComponent extends Component {
     //     this.setState({deadline: deadline})
     // }
 
-    onSubmit = () => { // e: event
+    onSubmit = e => { // e: event
         // TODO: cannot call setState during render
         // this.setState({editmode: false})
+        const data = {
+            title: this.state.title,
+            importance: this.state.importance,
+            day_of_week: this.state.day_of_week,
+            start_at: moment(this.state.start_at).unix(),
+            deadline: moment(this.state.deadline).unix()
+        }
+        console.log("Edit task data: ", data)
+
+        this.props.editTask(this.props.task.id, data)
 
         const neweditmode = !(this.state.editmode)
         const newreadmode = !(this.state.readmode)
@@ -98,30 +108,25 @@ class TaskBodyComponent extends Component {
     //     }
     //   }
 
-    handleChangeStart = (event, {name, value}) => {
-        console.log(moment(value))
-        if(moment(value) < moment(this.props.goal_start_at)){
+    handleChangeStartAt = (event, { value }) => {
+        // this.props.goal_start_at is a timestamp
+        // value is in a "YYYY-MM-DD" format
+        if(moment(value) < moment.unix(this.props.goal_start_at)){
             window.alert("task start date cannot be earlier than goal start date. Goal start date will be set.")
-            // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
-            this.setState({start_at: moment(this.props.goal_start_at).format("YYYY-MM-DD")})
-            this.setState({start_at: moment(this.props.goal_start_at).format("YYYY-MM-DD")})
+            this.setState({start_at: this.props.goal_start_at})
         }
         else {
-            this.setState({start_at: moment(value)})
-            this.setState({deadline: value})
+            this.setState({ start_at: moment(value).unix() })
         }
      }
 
-    handleChangeDeadline = (event, {name, value}) => {
-        console.log(moment(value),this.props.goal_deadline )
-        if(moment(value) > moment(this.props.goal_deadline)){
+    handleChangeDeadline = (event, { value }) => {
+        if(moment(value) > moment.unix(this.props.goal_deadline)){
             window.alert("Task deadline cannot be longer than goal deadline. Goal deadline will be set.")
-            // console.log(moment(this.props.goal_deadline).format("YYYY-MM-DD"))
-            // setDeadline(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
-            this.setState({ [name]:  moment(this.props.goal_deadline).format("YYYY-MM-DD")  });
+            this.setState({ deadline: this.props.goal_deadline });
         }
         else {
-            this.setState({ [name]: value });
+            this.setState({ deadline: moment(value).unix() });
         }
       }
 
@@ -158,14 +163,14 @@ class TaskBodyComponent extends Component {
                                 placeholder='Day of Week'
                             />
                             <DateInput
-                                label='Deadline'
+                                label='Start At'
                                 id="EditTaskFormDeadline"
                                 name="start_at"
                                 placeholder="Date"
                                 value={moment.unix(this.state.start_at).format('YYYY-MM-DD')}
                                 iconPosition="left"
                                 dateFormat="YYYY-MM-DD"
-                                onChange={this.handleChangeStart}
+                                onChange={this.handleChangeStartAt}
                             />
                             <DateInput
                                 label='Deadline'
@@ -181,17 +186,17 @@ class TaskBodyComponent extends Component {
                     <Form.Group inline>
                     <label>Importance</label>
                         <Rating
-                        name="simple-controlled"
-                        size="large"
-                        id="EditTaskFormImportance"
-                        value={this.state.importance}
-                        onChange={(event, newValue) => {
-                            this.setState({importance: newValue})
-                        }} 
+                            name="simple-controlled"
+                            size="large"
+                            id="EditTaskFormImportance"
+                            value={this.state.importance}
+                            onChange={(event, newValue) => {
+                                this.setState({importance: newValue})
+                            }} 
                         />
                     </Form.Group>
                     <Button.Group>
-                        <Button className="EditTaskSubmitButton" id="EditTaskSubmit" onClick={() => this.onSubmit()}>Submit</Button>
+                        <Button className="EditTaskSubmitButton" id="EditTaskSubmit" onClick={this.onSubmit}>Submit</Button>
                         <Button icon className="EditTaskCloseButton" id="EditTaskClose" onClick={this.closeHandler}><Icon name='x'/></Button>
                     </Button.Group>
                     {/* <Form.Button className="EditTaskSubmitButton" onClick={this.onSubmit()}>Submit</Form.Button>                     */}
@@ -246,4 +251,4 @@ class TaskBodyComponent extends Component {
 }
 
 
-export default connect(null, { deleteTask })(TaskBodyComponent)
+export default connect(null, { editTask, deleteTask })(TaskBodyComponent)

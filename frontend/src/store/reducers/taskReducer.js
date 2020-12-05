@@ -16,6 +16,9 @@ const reducer = (state = initialState, action) => {
         case actionTypes.DELETE_TASK:
             const deleted = state.tasks.filter(t => t.id !== action.payload)
             return {...state, tasks: deleted}
+        case actionTypes.EDIT_TASK:
+            // TODO
+            return state
         default:
             break
     }

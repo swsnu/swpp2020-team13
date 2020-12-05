@@ -77,7 +77,7 @@ export const deleteTask_ = (id) => {
     }
 }
 
-export const deleteTask = (goal_id, task_id) => async dispatch =>{
+export const deleteTask = (goal_id, task_id) => async dispatch => {
     const res = await axios.delete('/api/v1/tasks/'+ task_id + '/')
     dispatch(deleteTask_(task_id))
     dispatch(deleteTaskToGoal(goal_id, task_id))
@@ -92,3 +92,20 @@ export const deleteTask = (goal_id, task_id) => async dispatch =>{
 //         )   
 //     }
 // }
+
+export const editTask = (task_id, data) => async dispatch => {
+    const res = await axios.put(`api/v1/tasks/${task_id}/`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    console.log("edit task res.data: ", res.data)
+
+    dispatch({
+        type: actionTypes.EDIT_TASK,
+        payload: res.data
+    })
+    // history.push('/edit')
+
+}

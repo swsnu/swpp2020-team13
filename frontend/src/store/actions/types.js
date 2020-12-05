@@ -24,6 +24,7 @@ export const DELETE_TASK_TO_GOAL = 'DELETE_TASK_TO_GOAL'
 export const GET_ALL_TASK = 'GET_ALL_TASK'
 export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
+export const EDIT_TASK = 'EDIT_TASK'
 
 // achievement //
 export const GET_ACHIEVEMENTS_OF_TASK = 'GET_ACHIEVEMENTS_OF_TASK'
