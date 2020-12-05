@@ -4,7 +4,7 @@ import history from '../../history'
 
 export const getAllGoal_ = (goals) => {
     console.log("getAllGoal_ goals: ", goals)
-    return { type: actionTypes.GET_ALL_GOAL, goals: goals }
+    return { type: actionTypes.GET_ALL_GOAL, payload: goals }
 }
 
 export const getAllGoal = () => {
@@ -15,7 +15,7 @@ export const getAllGoal = () => {
 }
 
 export const getGoal_ = (goal) => {
-    return { type: actionTypes.GET_GOAL, target: goal }
+    return { type: actionTypes.GET_GOAL, payload: goal }
 }
 
 export const getGoal = (id) => {

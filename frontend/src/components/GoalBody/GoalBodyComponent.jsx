@@ -24,6 +24,8 @@ class GoalBodyComponent extends Component {
 
     // TODO: implement selectCertainTask function - select tasks depending on date & deadline & day of week - done
     onClickEditGoalHandler = async () => {
+        // change "selectedGoal" in state.goals
+        // TODO: do we need to fetch it from backend? Why not just modify the store without accessing the backend?
         await this.props.getGoal(this.props.goal.id)
         history.push('/edit')
     }

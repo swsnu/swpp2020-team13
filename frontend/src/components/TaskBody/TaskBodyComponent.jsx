@@ -8,6 +8,8 @@ import moment from 'moment'
 import Rating from '@material-ui/lab/Rating'
 import { DateInput,} from 'semantic-ui-calendar-react'
 
+import { deleteTask } from '../../store/actions'
+
 class TaskBodyComponent extends Component {
     // props have goal id, title, deadline, and tags
     // the tasks here are originally from backend
@@ -29,9 +31,12 @@ class TaskBodyComponent extends Component {
        this.setState({editmode: neweditmode, readmode: newreadmode})
     }
 
-    // onClickDeleteHandler = () => {
-    //     // TODO
-    // }
+    onClickDeleteTaskHandler = () => {
+        // TODO
+        const task_id = this.props.task.id
+        const goal_id = this.props.task.goal_id
+        this.props.deleteTask(goal_id, task_id);
+    }
 
     // deadline is a timestamp
     deadlineDate = (deadline) => {
@@ -219,6 +224,7 @@ class TaskBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteTaskButtonGroupAnother" floated="right">
+                        <Button size="tiny" compact icon className="DeleteTaskButtonA" id="DeleteButtonTaskBody" onClick={this.onClickDeleteTaskHandler}><Icon name='delete'/>&nbsp;Delete</Button>
                         <Button size="tiny" compact icon className="EditTaskButtonA" id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}><Icon name='edit'/>&nbsp;Edit</Button>
                     </Button.Group> 
             </List.Item>
@@ -239,4 +245,5 @@ class TaskBodyComponent extends Component {
     }
 }
 
-export default (TaskBodyComponent)
+
+export default connect(null, { deleteTask })(TaskBodyComponent)

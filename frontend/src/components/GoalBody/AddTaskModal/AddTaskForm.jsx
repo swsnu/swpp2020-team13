@@ -17,6 +17,7 @@ const AddTaskForm = (props) => {
         // const deadline_date = moment((deadline + ' '+ 'OO:OO:OO'), 'YYYY-MM-DD HH:MM:SS')     // as deadline is set as Form.Input instead of datepicker
         // console.log("type of deadline", deadline_date)
         // console.log(title, day_of_week, deadline, importance)
+        // ts: timestamp
         const deadline_in_ts = moment(deadline).startOf('day').unix() + (24*60*60 - 1)
         const start_in_ts = moment(start_at).startOf('day').unix()
         const dataForm = new FormData()
@@ -62,7 +63,7 @@ const AddTaskForm = (props) => {
 
     const handleChangeDeadline = (event, {name, value}) => {
         if(moment(value).unix() > props.goal_deadline){
-            window.alert("task deadline cannot be longer than goal deadline. Goal deadline will be set.")
+            window.alert("task deadline cannot be later than goal deadline. Goal deadline will be set.")
             setDeadline(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
         }
         else {

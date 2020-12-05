@@ -9,15 +9,6 @@ import history from '../../history'
 import './EditPage.css'
 
 
-
-const mapStateToProps = state => {
-    console.log("EditPageComponent selectedGoal: ", state.goal.selectedGoal)
-    return{
-        selectedGoal: state.goal.selectedGoal,
-        // taskList: state.task.tasks,
-    }
-}
-
 class EditPage extends Component {
     state = {
         editGoal: false
@@ -57,6 +48,14 @@ class EditPage extends Component {
                 </div>
             </div>
         )
+    }
+}
+
+const mapStateToProps = state => {
+    console.log("EditPageComponent selectedGoal: ", state.goal.selectedGoal)
+    return{
+        selectedGoal: state.goal.selectedGoal,
+        // taskList: state.task.tasks,
     }
 }
 

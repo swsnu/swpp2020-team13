@@ -50,13 +50,10 @@ export const addTaskToGoal = task => {
     }
 }
 
-export const deleteTaskToGoal = (goal, id) => {
+export const deleteTaskToGoal = (goal_id, task_id) => {
     return {
         type: actionTypes.DELETE_TASK_TO_GOAL,
-        payload : {
-            id: id,
-            goal: goal
-        }
+        payload : { goal_id, task_id }
     }   
 }
 
@@ -76,16 +73,14 @@ export const addTask = (formData, file) => async dispatch => {
 export const deleteTask_ = (id) => {
     return {
         type: actionTypes.DELETE_TASK,
-        payload: {
-            id: id
-        }
+        payload: id
     }
 }
 
-export const deleteTask = (goal, id) => async dispatch =>{
-    const res = await axios.delete('/api/v1/tasks/'+ id + '/')
-    dispatch(deleteTask_(id))
-    dispatch(deleteTaskToGoal(goal, id))
+export const deleteTask = (goal_id, task_id) => async dispatch =>{
+    const res = await axios.delete('/api/v1/tasks/'+ task_id + '/')
+    dispatch(deleteTask_(task_id))
+    dispatch(deleteTaskToGoal(goal_id, task_id))
 }
 
 // export const deleteTask = (goal, id) => {
