@@ -52,7 +52,7 @@ def get_s3_url(request):
             }
         )
         data = {'key': key, 'url': url}
-        print("get_s3_url PUT data: ", data)
+        # print("get_s3_url PUT data: ", data)
         return JsonResponse(data, status=200)
 
     else:

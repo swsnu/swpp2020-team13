@@ -7,7 +7,7 @@ from users.models import User
 
 
 class Achievement(models.Model):
-    title = models.TextField(max_length=255, blank=False) 
+    title = models.TextField(max_length=255, blank=True, null=True) 
     description = models.TextField(max_length=2047, blank=True) # 2200 characters limit in an Instagram post
 
     percentage_complete = models.IntegerField(blank=False, default=0)

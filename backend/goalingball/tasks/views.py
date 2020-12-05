@@ -72,7 +72,7 @@ def taskList(request):
             # else:
             #     task_deadline = timezone.localtime()
         except(KeyError, JSONDecodeError) as e:
-            print("task POST keyerror e: ", e)
+            # print("task POST keyerror e: ", e)
             return HttpResponseBadRequest()
 
         new_task = Task(title=task_title, user=request.user, goal=goal, start_at=task_start_at, deadline=task_deadline, importance=task_importance, day_of_week=task_day_of_week)
@@ -90,7 +90,7 @@ def taskList(request):
                         'start_at': int(new_task.start_at.timestamp()),
                         'deadline': int(new_task.deadline.timestamp()), 
                         }
-        print(response_dict)
+        # print(response_dict)
 
         return JsonResponse(response_dict, status=201, safe=False)
     else:
@@ -127,8 +127,8 @@ def taskDetail(request, task_id=""):
         req_data = json.loads(request.body.decode())
         # title, importance, day_of_week, start_at, deadline are guaranteed to be included in req_data
 
-        print("edit task: ", task)
-        print("edit task data: ", req_data)
+        # print("edit task: ", task)
+        # print("edit task data: ", req_data)
         task.title = req_data.get('title')
         task.importance = req_data.get('importance')
         task.day_of_week = req_data.get('day_of_week')

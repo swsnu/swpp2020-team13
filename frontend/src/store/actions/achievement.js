@@ -71,8 +71,13 @@ export const edit_achievement = (achievement_id, data, file, key) => async dispa
         }
     }
     // else: no editing or creating a photo
-
-    const res = await axios.put(`/api/v1/achievements/${achievement_id}/`, data)
+    
+    const res = await axios.put(`/api/v1/achievements/${achievement_id}/`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    console.log('edit achievement res.data: ', res.data)
     dispatch({
         type: actionTypes.EDIT_ACHIEVEMENT,
         payload: res.data

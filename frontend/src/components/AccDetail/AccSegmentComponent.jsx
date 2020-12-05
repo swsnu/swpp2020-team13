@@ -5,7 +5,7 @@ import Axios from 'axios'
 import moment from 'moment'
 import history from '../../history'
 import './AccSegment.css'
-import {VictoryPie, VictoryTheme, VictoryLabel} from 'victory'
+import { VictoryPie, VictoryTheme, VictoryLabel } from 'victory'
 import SVG from 'react-inlinesvg'
 import Rating from '@material-ui/lab/Rating'
 import { openAddAccModal } from '../../store/actions/index'
@@ -14,22 +14,29 @@ import AddAccForm from '../AddAcc/AddAccForm'
 class AccSegment extends Component {
 
     state = {
-        addAccopen: false
+        addAccopen: false,
+        achievement: null
+    }
+
+    onClickEditAchievement = achievement => {
+        this.setState({ addAccopen : true, achievement })
     }
 
     onClickAddAccHandler = () => {
-        this.setState({ addAccopen : true})
+        this.setState({ addAccopen : true })
     }
 
     renderTotal = () => {
         let achievement = null
+        // this.props.today is a Date object
         const today_ts = moment(this.props.today).startOf('day').unix() + (24*60*60) -1
         const achievement_selected = this.props.achievements.filter(a => ( a.written_at == today_ts ) && (a.task_id == this.props.task.id) )
-        if(achievement_selected.length > 0) {
+        if (achievement_selected.length > 0) {
             achievement = achievement_selected[0]
         }
 
-        if(achievement) {
+        if (achievement) {
+            console.log("udpaet this.set.achievement")
             const metric = achievement.percentage_complete
             return(
                 <Segment className="AccContainer" >
@@ -52,19 +59,19 @@ class AccSegment extends Component {
                             {/* "percentage" */}
                             <svg viewBox="0 0 520 520">
                                 <VictoryPie
-                                standalone={false}
-                                labelComponent={<span/>}
-                                width={520} height={520}
-                                data={[{'key': "", 'y': metric}, {'key': "", 'y': (100-metric)} ]}
-                                innerRadius={166}
-                                colorScale={["#19B3A6", "#EEEEEE" ]}
-                                // style={{ labels: { fontSize: 20, fill: "white" } }}
+                                    standalone={false}
+                                    labelComponent={<span/>}
+                                    width={520} height={520}
+                                    data={[{'key': "", 'y': metric}, {'key': "", 'y': (100-metric)} ]}
+                                    innerRadius={166}
+                                    colorScale={["#19B3A6", "#EEEEEE" ]}
+                                    // style={{ labels: { fontSize: 20, fill: "white" } }}
                                 />
                                 <VictoryLabel
-                                textAnchor="middle"
-                                style={{ fontSize: 50 }}
-                                x={260} y={260}
-                                text={metric + "%"}
+                                    textAnchor="middle"
+                                    style={{ fontSize: 50 }}
+                                    x={260} y={260}
+                                    text={metric + "%"}
                                 />
                             </svg>
                             <p className="AccChartTitle">percentage done</p>
@@ -88,7 +95,7 @@ class AccSegment extends Component {
                         {/* <p>Example Description</p> */}
                     </div>
                     <div className="description">
-                        <Button floated='right' size="tiny" onClick={this.onClickAddAccHandler} id="EditAchButton">Edit</Button>
+                        <Button floated='right' size="tiny" onClick={() => this.onClickEditAchievement(achievement)} id="EditAchButton">Edit</Button>
                         <br></br>
                         <br></br>
                     </div>
@@ -96,7 +103,7 @@ class AccSegment extends Component {
             ) 
         }
         else {
-            console.log(this.props.achievements)
+            // console.log(this.props.achievements)
             return(
                 <Segment className="DefaultAchSegment">
                     <h4>No achievements yet. Add one if you're done!</h4>
@@ -107,8 +114,8 @@ class AccSegment extends Component {
         }
     }
     
-    onCloseSubmit = (value) => {
-        this.setState({addAccopen: value})
+    onCloseSubmit = () => {
+        this.setState({addAccopen: false})
     }
 
     onSetAccSubmit = (ach) => {
@@ -118,8 +125,15 @@ class AccSegment extends Component {
     render() {
         return(
             <>
-            {this.state.addAccopen ? "" : this.renderTotal()}
-            {this.state.addAccopen && <AddAccForm today={this.props.today} task_id={this.props.task.id} onSubmit={this.onCloseSubmit}/>}
+                {this.state.addAccopen ? 
+                    <AddAccForm 
+                        today={this.props.today} 
+                        task_id={this.props.task.id} 
+                        onSubmit={this.onCloseSubmit}
+                        achievement={this.state.achievement}
+                    /> 
+                    : this.renderTotal()
+                }
             </>
         )
     }

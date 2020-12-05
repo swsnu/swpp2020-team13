@@ -33,8 +33,8 @@ class User(AbstractUser):
         np_array = pickle.loads(np_bytes)
         np_array_update = (np_array*(count-1) + np_vector)/count
         # encode to binary again to save
-        print("USER_VECTOR_UPDATE")
-        print(np_array_update)
+        # print("USER_VECTOR_UPDATE")
+        # print(np_array_update)
         np_bytes_update = pickle.dumps(np_array_update)
         np_base64_update = base64.b64encode(np_bytes_update)
         self.vector = np_base64_update

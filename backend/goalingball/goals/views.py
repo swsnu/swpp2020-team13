@@ -35,7 +35,7 @@ def goalList(request):
                 tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
                             'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
                 })
-            print(tasks)
+            # print(tasks)
             # tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             tags = [tag for tag in g.tags.names()]
             # print("goalList tags: ", tags)
@@ -77,15 +77,15 @@ def goalList(request):
             tags = request.POST.getlist('tags') 
             new_goal.tags.add(*tags)
             new_goal.save()
-            print("new_goal.tags.names(): ", new_goal.tags.names())
+            # print("new_goal.tags.names(): ", new_goal.tags.names())
 
         # First save initial vector #
         new_goal.init_vector()
         # test print
         np_bytes_init = base64.b64decode(new_goal.vector)
         np_array_init = pickle.loads(np_bytes_init)
-        print("INITIAL")
-        print(np_array_init)
+        # print("INITIAL")
+        # print(np_array_init)
 
         # From here, request to receive goal vector is sent #
         data = {"data": tags}
@@ -108,8 +108,8 @@ def goalList(request):
             # test print
             np_bytes_aft = base64.b64decode(new_goal.vector)
             np_array_aft = pickle.loads(np_bytes_aft)
-            print("AFT")
-            print(np_array_aft)
+            # print("AFT")
+            # print(np_array_aft)
 
             # also update user vector #
             count = Goal.objects.filter(user_id=request.user.id).count()
@@ -169,7 +169,7 @@ def goalDetail(request, goal_id=""):
         if goal.user.id is not request.user.id: # check if the user is the goal owner
             return HttpResponse(status=403)
 
-        print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
+        # print("[DEBUG] PUT request.body.decode(): ", request.body.decode())
         req_data = json.loads(request.body.decode())
 
         goal_title = req_data.get('title', None)

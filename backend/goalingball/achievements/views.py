@@ -9,6 +9,8 @@ from django.utils import timezone
 from goals.models import Goal
 from tasks.models import Task
 from achievements.models import Achievement
+import json
+import time
 
 @csrf_exempt
 def achievementList(request):
@@ -42,14 +44,14 @@ def achievementList(request):
         try:
             percentage_complete = int(percentage_complete)
         except ValueError:
-            print("[DEBUG] percentage_complete is not a valid float")
+            # print("[DEBUG] percentage_complete is not a valid float")
             return HttpResponse(status=400) 
 
-        print("percentage_complete type: ", type(percentage_complete))
+        # print("percentage_complete type: ", type(percentage_complete))
         photo = request.POST.get('photo', '')
 
         if percentage_complete < 0:
-            print("[DEBUG] percentage_complete should be included in a request form.")
+            # print("[DEBUG] percentage_complete should be included in a request form.")
             return HttpResponseBadRequest() # 400
         
         achievement = Achievement.objects.create(
@@ -81,11 +83,11 @@ def achievementDetail(request, achievement_id):
             return HttpResponse(status=404)
         
         serialized_achv = model_to_dict(achv)
-        print("[DEBUG] serialized_achv before: ", serialized_achv)
+        # print("[DEBUG] serialized_achv before: ", serialized_achv)
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_achv after: ", serialized_achv)
+        # print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
     
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -101,26 +103,28 @@ def achievementDetail(request, achievement_id):
             return HttpResponse(status=403)
         
         req_data = json.loads(request.body.decode())
+        print("edit achv req_data: ", req_data)
 
-        try:
-            achv_title = req_data.get('title')
-            achv_description = req_data.get('description')
-            achv_photo = req_data.get('photo', '')
-            achv_percentage_complete = req_data.get('percentage_complete', None) # 0
-        except KeyError:
-            return HttpResponseBadRequest()
+        achv_title = req_data.get('title', '')
+        achv_description = req_data.get('description', '')
+        achv_photo = req_data.get('photo', '')
+        achv_written_at = req_data.get('written_at', int(time.time()))
+        # Why None instead of 0? 
+        achv_percentage_complete = req_data.get('percentage_complete', 0) # None
         
         achv.title = achv_title
-        achv.description = achv.description
+        achv.description = achv_description
         achv.photo = achv_photo
+        achv.write_at = timezone.make_aware(datetime.fromtimestamp(achv_written_at))
+        achv.percentage_complete = achv_percentage_complete
         achv.save()
 
         serialized_achv = model_to_dict(achv)
-        print("[DEBUG] serialized_achv before: ", serialized_achv)
+        # print("[DEBUG] serialized_achv before: ", serialized_achv)
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_achv after: ", serialized_achv)
+        # print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
 
     elif request.method == 'DELETE':
@@ -191,8 +195,3 @@ def achievementListOfTask(request, task_id):
     else:
         return HttpResponseNotAllowed(['GET'])
 
-
-@csrf_exempt
-def achievementDetail(request):
-    # TODO
-    return HttpResponse(status=400)

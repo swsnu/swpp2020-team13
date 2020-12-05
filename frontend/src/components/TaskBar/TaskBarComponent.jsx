@@ -81,7 +81,7 @@ class TaskBarComponent extends Component {
     accOpenHandler = async () => {
         if(this.state.acc_open == false) {
             await this.props.get_achievements_of_task(this.props.task.id)
-            console.log("ACHIEVEMENTS", this.props.achievements)
+            // console.log("ACHIEVEMENTS", this.props.achievements)
             this.setState({acc_open: true})
         }
         else{
@@ -94,19 +94,19 @@ class TaskBarComponent extends Component {
         console.log("[DEBUG] TaskBarComponent is rendering. task: ", this.props.task)
         return(
         <> 
-        <List.Item className="TaskBarListItem">
-            <List.Content floated='right'>
-            {this.isRecurrent(day_of_week)}
-            </List.Content>
-            {/* <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button> */}
-            {/* <Icon className="TaskBarListTriangle" name='right triangle'/> */}
-            <List.Content className="TaskBarListContent">
-                    <Button icon className="TaskBarListTriangle" onClick={()=>this.accOpenHandler()}><Icon name='right triangle'/></Button>
-                    {title} 
-            {/* <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
-                {title}  */}
+            <List.Item className="TaskBarListItem">
+                <List.Content floated='right'>
+                    {this.isRecurrent(day_of_week)}
                 </List.Content>
-                {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
+                {/* <Button icon className="TaskBarListTriangle"><Icon name='right triangle'/></Button> */}
+                {/* <Icon className="TaskBarListTriangle" name='right triangle'/> */}
+                <List.Content className="TaskBarListContent">
+                    <Button icon className="TaskBarListTriangle" onClick={()=>this.accOpenHandler()}><Icon name='right triangle'/></Button>
+                        {title} 
+                {/* <Button icon className="TaskBarListTriangle" onClick={this.accOpenHandler}><Icon name='right triangle'/></Button>
+                    {title}  */}
+                </List.Content>
+                    {/* {this.state.acc_open && <p>"Show Accomplishment"</p>} */}
             </List.Item>
             {this.state.acc_open && <AccSegment task={this.props.task} today={this.props.today} achievements={this.props.achievements}/>}
             </>
