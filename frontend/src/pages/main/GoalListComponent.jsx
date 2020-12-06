@@ -23,6 +23,7 @@ class GoalList extends Component {
 
     selectTodayGoals() {
         const today = moment(this.state.today).unix()
+        console.log("selectTodayGoals this.props.goalList: ", this.props.goalList)
         const todayGoals = this.props.goalList.filter(goal => (goal.start_at <= today && today <= goal.deadline))
         return todayGoals
     }
@@ -58,7 +59,8 @@ class GoalList extends Component {
 }
 
 const mapStateToProps = state => {
-    return{
+    console.log("goalList: ", state.goal.goals)
+    return {
         goalList: state.goal.goals,
         // taskList: state.task.tasks,
     }
