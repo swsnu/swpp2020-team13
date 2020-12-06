@@ -45,7 +45,7 @@ const reducer = (state = initialState, action) => {
             const rest = state.goals.filter(goal => goal.id != action.payload.goal)
             return { ...state, goals: [...rest, {...target, tasks: [...target.tasks, action.payload]}]}
 
-        case actionTypes.DELETE_TASK_TO_GOAL:
+        case actionTypes.DELETE_TASK_FROM_GOAL:
             const target_delete = state.goals.filter(goal => goal.id === action.payload.goal_id)[0]
             const target_deleted_task = target_delete.tasks.filter(t => t.id !== action.payload.task_id)
             const updated_goal = {...target_delete, tasks: target_deleted_task}

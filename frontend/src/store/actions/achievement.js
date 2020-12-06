@@ -82,9 +82,14 @@ export const edit_achievement = (achievement_id, data, file, key) => async dispa
         type: actionTypes.EDIT_ACHIEVEMENT,
         payload: res.data
     })
+    dispatch({
+        type: actionTypes.EDIT_TASK_OF_ACHIEVEMENT,
+        payload: res.data
+    })
     history.push('/main')
 }
 
+// Is it allowed to delete an existing achievement?
 export const delete_achievement = achievement_id => async dispatch => {
     const res = await axios.delete(`/api/v1/achievements/${achievement_id}/`)
     if (res.status == 200) {
@@ -92,6 +97,7 @@ export const delete_achievement = achievement_id => async dispatch => {
             type: actionTypes.DELETE_ACHIEVEMENT,
             payload: achievement_id
         })
+        // TODO: DELETE_ACHIEVEMENT_FROM_TASK
     }
     else {
         console.log("Fail to delete an achievement with id ", achievement_id)

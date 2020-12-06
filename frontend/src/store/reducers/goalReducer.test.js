@@ -134,7 +134,7 @@ describe("GoalReucer", () => {
         expect(newState).toEqual({goals: [newGoal], selectedGoal: null})
     })
 
-    it("Should render deleteTaskToGoal", () => {
+    it("Should render deleteTaskFromGoal", () => {
          const newGoal = {
             id: 1,
             title: "title",
@@ -149,7 +149,7 @@ describe("GoalReucer", () => {
             selectedGoal: null
         }
         const newState = reducerGoal(stubInitialState, {
-            type: actionTypes.DELETE_TASK_TO_GOAL,
+            type: actionTypes.DELETE_TASK_FROM_GOAL,
             payload: {
                 goal: 1,
                 id: 1

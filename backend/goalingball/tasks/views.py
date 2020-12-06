@@ -11,6 +11,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.forms.models import model_to_dict
 
     # title = models.TextField(max_length=255, blank=False) 
     # goal = models.ForeignKey(
@@ -41,10 +42,18 @@ def taskList(request):
             updated_at = int(t["updated_at"].timestamp())
             start_at = int(t["start_at"].timestamp()) 
             deadline = int(t["deadline"].timestamp()) 
-            task_list.append({'id': t["id"], 'user': t["user_id"], 'goal_id': t["goal_id"], 
-                               'title': t["title"], 'created_at': created_at, 'updated_at': updated_at, 
-                               'start_at':start_at, 'deadline': deadline, 'importance': t["importance"], 
-                               'day_of_week': t["day_of_week"]})
+            task_list.append({
+                'id': t["id"], 
+                'user': t["user_id"], 
+                'goal': t["goal_id"], 
+                'title': t["title"], 
+                'created_at': created_at, 
+                'updated_at': updated_at, 
+                'start_at':start_at, 
+                'deadline': deadline, 
+                'importance': t["importance"], 
+                'day_of_week': t["day_of_week"]
+            })
         return JsonResponse(task_list, safe=False, status=200)
 
     elif request.method == 'POST':
@@ -82,14 +91,18 @@ def taskList(request):
         # if new_task_deadline is not None:
         #     new_task_deadline = int(new_task_deadline.timestamp())
         # breakpoint()
-        response_dict = {'id': new_task.id, 'user': new_task.user_id, 'goal_id': new_task.goal_id,
-                        'title': new_task.title, 'importance': int(new_task.importance), 
-                        'day_of_week': new_task.day_of_week,
-                        'created_at': int(new_task.created_at.timestamp()),
-                        'updated_at' : int(new_task.updated_at.timestamp()),
-                        'start_at': int(new_task.start_at.timestamp()),
-                        'deadline': int(new_task.deadline.timestamp()), 
-                        }
+        response_dict = {
+            'id': new_task.id, 
+            'user': new_task.user_id, 
+            'goal': new_task.goal_id,
+            'title': new_task.title, 
+            'importance': int(new_task.importance), 
+            'day_of_week': new_task.day_of_week,
+            'created_at': int(new_task.created_at.timestamp()),
+            'updated_at' : int(new_task.updated_at.timestamp()),
+            'start_at': int(new_task.start_at.timestamp()),
+            'deadline': int(new_task.deadline.timestamp()), 
+        }
         # print(response_dict)
 
         return JsonResponse(response_dict, status=201, safe=False)
@@ -107,17 +120,25 @@ def taskDetail(request, task_id=""):
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
-        response_dict = {'id': t.id, 'user': t.user_id, 'goal_id': t.goal_id, 
-                        'title': t.title, 'created_at': created_at, 'updated_at': updated_at, 
-                        'start_at': int(t.start_at.timestamp()), 'deadline': int(t.deadline.timestamp()), 'importance': t.importance, 
-                        'day_of_week': t.day_of_week}
+        response_dict = {
+            'id': t.id, 
+            'user': t.user_id, 
+            'goal': t.goal_id, 
+            'title': t.title, 
+            'importance': t.importance, 
+            'day_of_week': t.day_of_week,
+            'created_at': created_at, 
+            'updated_at': updated_at, 
+            'start_at': int(t.start_at.timestamp()), 
+            'deadline': int(t.deadline.timestamp()), 
+        }
         return JsonResponse(response_dict, safe=False, status=200)
 
     elif request.method == 'PUT':
         if request.user.is_authenticated is False:
             return HttpResponse(status=401)
         try:
-            task = Task.objects.select_related('user').get(id=task_id)
+            task = Task.objects.select_related('user').select_related('goal').get(id=task_id)
         except Task.DoesNotExist:
             return HttpResponse(status=404)
 
@@ -128,15 +149,31 @@ def taskDetail(request, task_id=""):
         # title, importance, day_of_week, start_at, deadline are guaranteed to be included in req_data
 
         # print("edit task: ", task)
-        # print("edit task data: ", req_data)
+        # print("edit task req_data: ", req_data)
         task.title = req_data.get('title')
         task.importance = req_data.get('importance')
         task.day_of_week = req_data.get('day_of_week')
-        task.start_at = timezone.make_aware(datetime.fromtimestamp(req_data.get('start_at')*1000))
-        task.deadline = timezone.make_aware(datetime.fromtimestamp(req_data.get('deadline')*1000))
+        task.start_at = timezone.make_aware(datetime.fromtimestamp(req_data.get('start_at')))
+        task.deadline = timezone.make_aware(datetime.fromtimestamp(req_data.get('deadline')))
         task.save()
 
-        return HttpResponse(status=200)
+        serialized_task = model_to_dict(task)
+        print("serialized_task: ", serialized_task)
+
+        data = {
+            'id': task.id,
+            'user': task.user_id,
+            'goal': task.goal_id,
+            'title': task.title,
+            'importance': task.importance,
+            'day_of_week': task.day_of_week,
+            'start_at': int(task.start_at.timestamp()),
+            'deadline': int(task.deadline.timestamp()),
+            'created_at': int(task.created_at.timestamp()), 
+            'updated_at': int(task.updated_at.timestamp())
+        }
+        return JsonResponse(data)
+        # return HttpResponse(status=200)
 
     elif request.method == 'DELETE':
         if request.user.is_authenticated is False:

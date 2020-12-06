@@ -60,10 +60,15 @@ def achievementList(request):
         )
 
         achievement.save()
-        response_dict = {'id': achievement.id, 'description': description, 'percentage_complete': percentage_complete,
-                        'written_at': int(written_at.timestamp()), 'photo': achievement.photo,
-                        'user_id': achievement.user_id, 'task_id': achievement.task_id
-           }
+        response_dict = {
+            'id': achievement.id,
+            'user': achievement.user_id, 
+            'task': achievement.task_id, 
+            'description': description, 
+            'percentage_complete': percentage_complete,
+            'written_at': int(written_at.timestamp()), 
+            'photo': achievement.photo
+        }
 
         return JsonResponse(response_dict, status=201)
         
@@ -87,7 +92,7 @@ def achievementDetail(request, achievement_id):
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        # print("[DEBUG] serialized_achv after: ", serialized_achv)
+        print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
     
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -124,7 +129,7 @@ def achievementDetail(request, achievement_id):
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        # print("[DEBUG] serialized_achv after: ", serialized_achv)
+        print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
 
     elif request.method == 'DELETE':
@@ -161,9 +166,13 @@ def achievementListOfGoal(request, goal_id):
             # achievements.append({ task.id: [model_to_dict(achievement) for achievement in task.achievements.all()]})
             for achievement in task.achievements.all().values():
                 achievements.append({
-                    'id': achievement["id"], 'description': achievement["description"], 'percentage_complete': achievement["percentage_complete"],
-                    'written_at': int(achievement["written_at"].timestamp()), 'photo': achievement['photo'],
-                    'user_id': achievement["user_id"], 'task_id': achievement["task_id"]
+                    'id': achievement["id"],
+                    'user': achievement["user_id"], 
+                    'task': achievement["task_id"], 
+                    'description': achievement["description"], 
+                    'percentage_complete': achievement["percentage_complete"],
+                    'written_at': int(achievement["written_at"].timestamp()), 
+                    'photo': achievement['photo']
                 })
 
         return JsonResponse(achievements, safe=False)
@@ -186,9 +195,13 @@ def achievementListOfTask(request, task_id):
         achievements = []
         for achievement in task.achievements.all().values():
             achievements.append({
-                'id': achievement["id"], 'description': achievement["description"], 'percentage_complete': achievement["percentage_complete"],
-                'written_at': int(achievement["written_at"].timestamp()), 'photo': achievement['photo'],
-                'user_id': achievement["user_id"], 'task_id': achievement["task_id"]
+                'id': achievement["id"],
+                'user': achievement["user_id"], 
+                'task': achievement["task_id"], 
+                'description': achievement["description"], 
+                'percentage_complete': achievement["percentage_complete"],
+                'written_at': int(achievement["written_at"].timestamp()), 
+                'photo': achievement['photo']
             })
         return JsonResponse(achievements, safe=False)
 

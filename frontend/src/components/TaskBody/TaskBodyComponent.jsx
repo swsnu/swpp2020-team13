@@ -83,8 +83,8 @@ class TaskBodyComponent extends Component {
             title: this.state.title,
             importance: this.state.importance,
             day_of_week: this.state.day_of_week,
-            start_at: moment(this.state.start_at).unix(),
-            deadline: moment(this.state.deadline).unix()
+            start_at: moment(this.state.start_at).unix()*1000,
+            deadline: moment(this.state.deadline).unix()*1000
         }
         console.log("Edit task data: ", data)
 

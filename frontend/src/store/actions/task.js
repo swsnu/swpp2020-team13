@@ -25,12 +25,13 @@ export const addTask_ = (task) => {
         type: actionTypes.ADD_TASK,
         payload: {
             id: task.id,
-            goal_id: task.goal_id,
+            user: task.user_id,
+            goal: task.goal_id,
             title: task.title,
-            start_at: task.start_at,
-            deadline: task.deadline,
             importance: task.importance,
-            day_of_week: task.day_of_week
+            day_of_week: task.day_of_week,
+            start_at: task.start_at,
+            deadline: task.deadline
         }
     }
 }
@@ -40,6 +41,7 @@ export const addTaskToGoal = task => {
         type: actionTypes.ADD_TASK_TO_GOAL,
         payload: {
             id: task.id,
+            user: task.user_id,
             goal: task.goal_id,
             title: task.title,
             start_at: task.start_at,
@@ -50,9 +52,9 @@ export const addTaskToGoal = task => {
     }
 }
 
-export const deleteTaskToGoal = (goal_id, task_id) => {
+export const deleteTaskFromGoal = (goal_id, task_id) => {
     return {
-        type: actionTypes.DELETE_TASK_TO_GOAL,
+        type: actionTypes.DELETE_TASK_FROM_GOAL,
         payload : { goal_id, task_id }
     }   
 }
@@ -80,7 +82,7 @@ export const deleteTask_ = (id) => {
 export const deleteTask = (goal_id, task_id) => async dispatch => {
     const res = await axios.delete('/api/v1/tasks/'+ task_id + '/')
     dispatch(deleteTask_(task_id))
-    dispatch(deleteTaskToGoal(goal_id, task_id))
+    dispatch(deleteTaskFromGoal(goal_id, task_id))
 }
 
 // export const deleteTask = (goal, id) => {

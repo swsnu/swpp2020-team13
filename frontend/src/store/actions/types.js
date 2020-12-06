@@ -18,13 +18,14 @@ export const ADD_GOAL = 'ADD_GOAL'
 export const EDIT_GOAL = 'EDIT_GOAL'
 export const DELETE_GOAL = 'DELETE_GOAL'
 export const ADD_TASK_TO_GOAL = 'ADD_TASK_TO_GOAL'
-export const DELETE_TASK_TO_GOAL = 'DELETE_TASK_TO_GOAL'
+export const DELETE_TASK_FROM_GOAL = 'DELETE_TASK_FROM_GOAL'
 
 // task //
 export const GET_ALL_TASK = 'GET_ALL_TASK'
 export const ADD_TASK = 'ADD_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
+export const EDIT_TASK_OF_ACHIEVEMENT = 'EDIT_TASK_OF_ACHIEVEMENT'
 
 // achievement //
 export const GET_ACHIEVEMENTS_OF_TASK = 'GET_ACHIEVEMENTS_OF_TASK'

@@ -32,20 +32,31 @@ def goalList(request):
             
             tasks = []
             for t in g.tasks.filter(goal_id=g.id).values():
-                tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
-                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
+                tasks.append({
+                    'id': t["id"],
+                    'user':t["user_id"],
+                    'goal': t["goal_id"],  
+                    'title': t["title"], 
+                    'importance': t["importance"], 
+                    'day_of_week':t["day_of_week"], 
+                    "start_at":int(t["start_at"].timestamp()), 
+                    "deadline":int(t["deadline"].timestamp())
                 })
             # print(tasks)
             # tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
             tags = [tag for tag in g.tags.names()]
             # print("goalList tags: ", tags)
-            user = g.user.id
 
             goal_list.append({
-                'id': g.id, 'user': g.user.id ,'title': g.title, 'photo': g.photo, 
-                'created_at': created_at, 'updated_at': updated_at, 
-                'start_at': start_at, 'deadline': deadline, 
-                'tasks': tasks, 'user': user,
+                'id': g.id, 
+                'user': g.user.id,
+                'title': g.title, 
+                'photo': g.photo, 
+                'created_at': created_at, 
+                'updated_at': updated_at, 
+                'start_at': start_at, 
+                'deadline': deadline, 
+                'tasks': tasks, 
                 'tags': tags,
             })
         return JsonResponse(goal_list, safe=False, status=200)
@@ -117,13 +128,17 @@ def goalList(request):
             user.update_vector(vector_avg, count)
 
 
-        response_dict = {'id': new_goal.id, 'user': new_goal.user.id, 
-                        'title': new_goal.title, 'photo': new_goal.photo, 
-                        'created_at': int(new_goal.created_at.timestamp()),
-                        'updated_at' : int(new_goal.updated_at.timestamp()), 
-                        'start_at': int(new_goal.start_at.timestamp()),
-                        'deadline': int(new_goal.deadline.timestamp()), 
-                        'tags': [tag for tag in new_goal.tags.names()], 'tasks': []}
+        response_dict = {
+            'id': new_goal.id, 
+            'user': new_goal.user.id, 
+            'title': new_goal.title, 
+            'photo': new_goal.photo, 
+            'created_at': int(new_goal.created_at.timestamp()),
+            'updated_at' : int(new_goal.updated_at.timestamp()), 
+            'start_at': int(new_goal.start_at.timestamp()),
+            'deadline': int(new_goal.deadline.timestamp()), 
+            'tags': [tag for tag in new_goal.tags.names()], 'tasks': []
+        }
 
         return JsonResponse(response_dict, status=201, safe=False)
     else:
@@ -143,18 +158,30 @@ def goalDetail(request, goal_id=""):
 
         tasks = []
         for t in g.tasks.filter(goal_id=g.id).values():
-            tasks.append({'id': t["id"], 'title': t["title"], 'goal_id': t["goal_id"], 'user_id':t["user_id"], 'importance': t["importance"], 
-                            'day_of_week':t["day_of_week"], "start_at":int(t["start_at"].timestamp()), "deadline":int(t["deadline"].timestamp())
+            tasks.append({
+                'id': t["id"],
+                'user':t["user_id"],
+                'goal': t["goal_id"],   
+                'title': t["title"], 
+                'importance': t["importance"], 
+                'day_of_week':t["day_of_week"], 
+                "start_at":int(t["start_at"].timestamp()), 
+                "deadline":int(t["deadline"].timestamp())
         })
         
         tags = [tag for tag in g.tags.names()]
-        response_dict = {'id': g.id, 'title': g.title, 'photo': g.photo, 
-                        'user': g.user_id, 'created_at': g.created_at, 
-                        'updated_at': g.updated_at, 
-                        'start_at': int(g.start_at.timestamp()), 'deadline': int(g.deadline.timestamp()), 
-                        'tags': tags,
-                        'tasks': tasks
-                        }
+        response_dict = {
+            'id': g.id, 
+            'title': g.title, 
+            'photo': g.photo, 
+            'user': g.user_id, 
+            'created_at': g.created_at, 
+            'updated_at': g.updated_at, 
+            'start_at': int(g.start_at.timestamp()), 
+            'deadline': int(g.deadline.timestamp()), 
+            'tags': tags,
+            'tasks': tasks
+        }
         return JsonResponse(response_dict, safe=False, status=200)
             
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -202,13 +229,16 @@ def goalDetail(request, goal_id=""):
         goal.deadline = goal_deadline
         goal.save()
 
-        response_dict = {'id': goal.id, 'title': goal.title, 
-                        'photo': goal.photo, 'user': goal.user.id, 
-                        'created_at': (goal.created_at).strftime('%Y-%m-%d %H:%M:%S'), 
-                        'updated_at' : (goal.updated_at).strftime('%Y-%m-%d %H:%M:%S'),
-                        'start_at': int(goal.start_at.timestamp()), 
-                        'deadline': int(goal.deadline.timestamp()), 
-                        'tags': [tag for tag in goal.tags.names()]}
+        response_dict = {
+            'id': goal.id, 
+            'title': goal.title, 
+            'photo': goal.photo, 'user': goal.user.id, 
+            'created_at': int(goal.created_at.timestamp()), 
+            'updated_at': int(goal.updated_at.timestamp),
+            'start_at': int(goal.start_at.timestamp()), 
+            'deadline': int(goal.deadline.timestamp()), 
+            'tags': [tag for tag in goal.tags.names()]
+        }
         return JsonResponse(response_dict, safe=False, status=200)
         
     elif request.method == 'DELETE':

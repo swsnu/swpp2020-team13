@@ -30,7 +30,7 @@ class AccSegment extends Component {
         let achievement = null
         // this.props.today is a Date object
         const today_ts = moment(this.props.today).startOf('day').unix() + (24*60*60) -1
-        const achievement_selected = this.props.achievements.filter(a => ( a.written_at == today_ts ) && (a.task_id == this.props.task.id) )
+        const achievement_selected = this.props.achievements.filter(a => ( a.written_at == today_ts ) && (a.task == this.props.task.id) )
         if (achievement_selected.length > 0) {
             achievement = achievement_selected[0]
         }
