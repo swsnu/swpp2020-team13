@@ -37,7 +37,7 @@ def find_similar_goals(user_vector, user_id):
             np_bytes_goal = base64.b64decode(goal.vector)
             goal_vector = pickle.loads(np_bytes_goal)
             if norm(goal_vector) == 0:
-                goal_list.append({'goal': goal, 'similarity': 0, 'username': user.username})
+                goal_list.append({'goal': goal, 'similarity': 0, 'username': user['username']})
             else:
                 similarity = np.dot(user_vector, goal_vector)/(norm(user_vector)*norm(goal_vector))
                 goal_list.append({'goal': goal, 'similarity': similarity, 'username': user['username']})
