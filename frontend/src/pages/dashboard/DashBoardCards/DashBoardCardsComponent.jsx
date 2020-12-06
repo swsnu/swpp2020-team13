@@ -6,7 +6,6 @@ import GoalCard from '../../../components/DashBoardGoalCards/DashBoardGoalCard'
 import { useSelector, useDispatch } from 'react-redux';
 import history from '../../../history';
 import moment from 'moment'
-import { getAllGoal } from '../../../store/actions'
 
 export const DashBoardCards = (props) => {
 

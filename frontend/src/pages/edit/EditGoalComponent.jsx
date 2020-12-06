@@ -248,7 +248,6 @@ class EditGoal extends Component {
         // for (const tag of this.state.tags) {
         //     data.append("tags", tag)
         // }
-
         let key = ''
         if (this.props.selectedGoal.photo) { // A user already has a photo
             console.log("[DEBUG] this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
@@ -258,24 +257,22 @@ class EditGoal extends Component {
         } 
         console.log("[DEBUG] EditGoalComponent key: ", key)
         console.log("[DEBUG] EditGoalComponent formData: ", data)
-
-
+        data['photo'] = this.props.selectedGoal.photo
     // const data = {
     //     title: formData.get('title'),
     //     photo: formData.get('photo'),
     //     deadline: formData.get('deadline'),
     //     tags: formData.get('tags')
     // }
-
         this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
 
-        // this.setState({ isEditing: true })
+        this.setState({ isEditing: true })
     }
 
     render(){
         console.log("selected goal: ", this.props.selectedGoal)
         return(
-            <div>
+            <div className="EditGoalForm">
                 {/* {this.props.selectedGoal == null} */}
             <LoadingOverlay
                 active={this.state.isEditing}

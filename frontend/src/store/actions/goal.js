@@ -94,9 +94,9 @@ export const editGoal = (id, data, file, key) => async dispatch => {
         if (key) {  // delete a photo
             // TODO
             // make another axios call
+
         }
     }
-
     console.log('Edit goal data: ', data)
     // const data = {
     //     title: formData.get('title'),

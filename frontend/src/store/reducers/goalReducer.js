@@ -20,7 +20,8 @@ const reducer = (state = initialState, action) => {
 
         case actionTypes.EDIT_GOAL:
             // remove the old item and add the new item
-            let filteredGoals = state.goals.filter(g => g.id !== action.payload.id).append(action.payload)
+            console.log(state.goals.filter(g => g.id !== action.payload.id))
+            let filteredGoals = state.goals.filter(g => g.id !== action.payload.id).concat([action.payload])
             return {...state, selectedGoal: action.payload, goals: filteredGoals}
             /*
             const modifiedGoalList = state.goals.map((g)=> {
