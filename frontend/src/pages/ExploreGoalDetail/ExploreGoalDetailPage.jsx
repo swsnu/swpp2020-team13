@@ -26,7 +26,7 @@ class ExploreGoalDetailPage extends Component {
     }
 
     render() {
-        debugger
+        // debugger
         // {console.log(this.props.selectedGoal)}
         return (
             <div className="ExploreGoalDetailPage" style={

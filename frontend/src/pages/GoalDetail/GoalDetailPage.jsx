@@ -28,7 +28,7 @@ class GoalDetailPage extends Component {
     }
 
     render() {
-        // {console.log(this.props.selectedGoal)}
+        {console.log(this.props.achievements)}
         return (
             <div className="GoalDetailPage">
                 <div className='menubar'>

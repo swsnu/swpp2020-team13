@@ -38,10 +38,11 @@ class TaskAndAchTotal extends Component {
         if(this.state.selectedTask) {
 
         // filter achList
+        console.log(this.props.achievements)
         let achList
         let total = 0
         achList = this.props.achievements.reduce((list, a) => {
-            if(a.task_id == this.state.selectedTask) {
+            if(a.task == this.state.selectedTask) {
                 list.push(<Ach achievement={a}/>)
                 total = total + a.percentage_complete
             }
@@ -89,6 +90,7 @@ class TaskAndAchTotal extends Component {
     }
 
     render(){
+        console.log(this.state.selectedTask)
         return(
             <Segment className="TaskAndAchContainer"
             style={
