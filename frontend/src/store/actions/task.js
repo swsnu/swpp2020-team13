@@ -25,8 +25,8 @@ export const addTask_ = (task) => {
         type: actionTypes.ADD_TASK,
         payload: {
             id: task.id,
-            user: task.user_id,
-            goal: task.goal_id,
+            user: task.user,
+            goal: task.goal,
             title: task.title,
             importance: task.importance,
             day_of_week: task.day_of_week,
@@ -41,8 +41,8 @@ export const addTaskToGoal = task => {
         type: actionTypes.ADD_TASK_TO_GOAL,
         payload: {
             id: task.id,
-            user: task.user_id,
-            goal: task.goal_id,
+            user: task.user,
+            goal: task.goal,
             title: task.title,
             start_at: task.start_at,
             deadline: task.deadline,

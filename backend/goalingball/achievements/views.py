@@ -92,7 +92,7 @@ def achievementDetail(request, achievement_id):
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_achv after: ", serialized_achv)
+        # print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
     
     elif request.method == 'PUT' or request.method == 'PATCH':
@@ -108,7 +108,7 @@ def achievementDetail(request, achievement_id):
             return HttpResponse(status=403)
         
         req_data = json.loads(request.body.decode())
-        print("edit achv req_data: ", req_data)
+        # print("edit achv req_data: ", req_data)
 
         achv_title = req_data.get('title', '')
         achv_description = req_data.get('description', '')
@@ -129,7 +129,7 @@ def achievementDetail(request, achievement_id):
         serialized_achv['written_at'] = int(achv.written_at.timestamp())
         serialized_achv['created_at'] = int(achv.created_at.timestamp())
         serialized_achv['updated_at'] = int(achv.updated_at.timestamp())
-        print("[DEBUG] serialized_achv after: ", serialized_achv)
+        # print("[DEBUG] serialized_achv after: ", serialized_achv)
         return JsonResponse(serialized_achv, safe=False)
 
     elif request.method == 'DELETE':

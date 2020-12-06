@@ -20,13 +20,13 @@ const reducer = (state = initialState, action) => {
             const filtered = state.tasks.filter(task => task.id !== action.payload.id)
             return { ...state, tasks: [...filtered, action.payload]}
         }
-        case actionTypes.EDIT_TASK_OF_ACHIEVEMENT: {
-            const filtered = state.tasks.filter(task => task.id !== action.payload.task)
-            const target = state.tasks.filter(task => task.id === action.payload.task)[0]
-            target.achievements.filter(achv => achv.id !== action.payload.id)
-            target.achievements.append(action.payload)
-            return { ...state, tasks: [...filtered, target]}
-        }
+        // case actionTypes.EDIT_TASK_OF_ACHIEVEMENT: {
+        //     const filtered = state.tasks.filter(task => task.id !== action.payload.task)
+        //     const target = state.tasks.filter(task => task.id === action.payload.task)[0]
+        //     target.achievements.filter(achv => achv.id !== action.payload.id)
+        //     target.achievements.append(action.payload)
+        //     return { ...state, tasks: [...filtered, target]}
+        // }
         default:
             break
     }

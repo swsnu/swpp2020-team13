@@ -82,10 +82,8 @@ export const edit_achievement = (achievement_id, data, file, key) => async dispa
         type: actionTypes.EDIT_ACHIEVEMENT,
         payload: res.data
     })
-    dispatch({
-        type: actionTypes.EDIT_TASK_OF_ACHIEVEMENT,
-        payload: res.data
-    })
+    const task_id = res.data.task
+    dispatch(get_achievements_of_task(task_id))
     history.push('/main')
 }
 

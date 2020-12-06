@@ -65,7 +65,7 @@ export const addGoal = (formData, file) => async dispatch => {
     history.push('/main')
 }
 
-export const editGoal = (goal_id, data, file, key) => async dispatch => {
+export const editGoal = (id, data, file, key) => async dispatch => {
     
     console.log("[DEBUG] editGoal data: ", data)
 
@@ -109,22 +109,21 @@ export const editGoal = (goal_id, data, file, key) => async dispatch => {
     
     // console.log("[DEBUG] edit goal data: ", datsa)
 
-    const res = await axios.put(`/api/v1/goals/${goal_id}/`, data, {
+    const res = await axios.put(`/api/v1/goals/${id}/`, data, {
         headers: {
             "Content-Type": "application/json"
         }
     })
     
-    dispatch(editGoal_(goal_id, res.data))
+    dispatch(editGoal_(res.data))
     // console.log("pushed")
     history.push('/main')
 }
 
-export const editGoal_ = (goal_id, goal) => {
+export const editGoal_ = (goal) => {
     return {
         type: actionTypes.EDIT_GOAL,
         payload: goal,
-        // id: goal_id
     }
 }
 

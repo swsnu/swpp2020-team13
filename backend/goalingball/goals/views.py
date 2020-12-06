@@ -137,7 +137,8 @@ def goalList(request):
             'updated_at' : int(new_goal.updated_at.timestamp()), 
             'start_at': int(new_goal.start_at.timestamp()),
             'deadline': int(new_goal.deadline.timestamp()), 
-            'tags': [tag for tag in new_goal.tags.names()], 'tasks': []
+            'tags': [tag for tag in new_goal.tags.names()], 
+            'tasks': []
         }
 
         return JsonResponse(response_dict, status=201, safe=False)
