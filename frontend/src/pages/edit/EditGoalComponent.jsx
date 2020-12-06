@@ -257,7 +257,6 @@ class EditGoal extends Component {
         } 
         console.log("[DEBUG] EditGoalComponent key: ", key)
         console.log("[DEBUG] EditGoalComponent formData: ", data)
-        data['photo'] = this.props.selectedGoal.photo
     // const data = {
     //     title: formData.get('title'),
     //     photo: formData.get('photo'),
