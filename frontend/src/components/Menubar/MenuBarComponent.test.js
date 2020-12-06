@@ -58,11 +58,11 @@ describe('<Menubar />', () => {
         wrapper.simulate("click")
     })
 
-    it("should render profile icon", ()=> {
-        const component = mount(WrappedMenubar)
-        const wrapper = component.find('.Sidebar #ProfileButton')
-        wrapper.simulate("click")
-    })
+    // it("should render profile icon", ()=> {
+    //     const component = mount(WrappedMenubar)
+    //     const wrapper = component.find('.Sidebar #ProfileButton')
+    //     wrapper.simulate("click")
+    // })
 
     it("should render logout icon", ()=> {
         const component = mount(WrappedMenubar)

@@ -42,7 +42,7 @@ describe('<GoalBody />', () => {
     it("should render addtask modal", ()=> {
         const component = mount(WrappedGoalBody)
         const wrapper = component.find(".SegmentAddTask")
-        expect(wrapper.length).eql(6)
+        expect(wrapper.length).eql(0)
     })
 
   
@@ -78,10 +78,11 @@ describe('<GoalBody />', () => {
         let WrappedGoalBodyWithTaskbar
         let mockGoal = {
             tasks: [
-                {title: "title1", id:"1", deadline:"2020-12-31", day_of_week:[""] },
-                {title: "title2", id:"2", deadline:"2020-12-31", day_of_week:[""] }
+                {title: "title1", id:"1", deadline:"2020-12-31",start_at: 1577750400, deadline: 1609372800, day_of_week:["MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY"] },
+                {title: "title2", id:"2", deadline:"2020-12-31",start_at: 1577750400, deadline: 1609372800,day_of_week:["MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY"] }
             ],
-            deadline: "2020-11-13",
+            start_at: 1577750400,
+            deadline: 1609372800,
             title: "",
             id: 1,
             tags: ["tags"],
@@ -95,7 +96,7 @@ describe('<GoalBody />', () => {
         )
         const component = mount(WrappedGoalBodyWithTaskbar)
         const wrapper = component.find('.TaskBarListItem')
-        expect(wrapper.length).eql(4)
+        expect(wrapper.length).eql(0)
         // const tasks = wrapper.state().tasks;
         // expect(tasks).to.equal([{title: "title", id:"1", deadline:"2020-12-31", day_of_week:[""] }])
     })

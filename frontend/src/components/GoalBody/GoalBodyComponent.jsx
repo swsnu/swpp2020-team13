@@ -127,6 +127,7 @@ class GoalBodyComponent extends Component {
                                 size="tiny"
                                 toggle active={this.state.showAll} 
                                 onClick={()=>{this.setState({showAll: !(this.state.showAll)})}}
+                                id="showAllTaskButton"
                             >
                                 Show All Tasks
                             </Button>
