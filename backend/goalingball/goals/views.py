@@ -230,15 +230,27 @@ def goalDetail(request, goal_id=""):
         goal.deadline = goal_deadline
         goal.save()
 
+        tasks = [model_to_dict(task) for task in goal.tasks.all()]
+        # print("goal.tasks: ", goal.tasks.all())
+        # print("tasks: ", tasks)
+        for task in tasks:
+            # task['created_at'] = int(task['created_at'].timestamp())
+            task['updated_at'] = int(task['updated_at'].timestamp())
+            task['start_at'] = int(task['start_at'].timestamp())
+            task['deadline'] = int(task['deadline'].timestamp())
+
+        
+
         response_dict = {
             'id': goal.id, 
             'title': goal.title, 
             'photo': goal.photo, 'user': goal.user.id, 
             'created_at': int(goal.created_at.timestamp()), 
-            'updated_at': int(goal.updated_at.timestamp),
+            'updated_at': int(goal.updated_at.timestamp()),
             'start_at': int(goal.start_at.timestamp()), 
             'deadline': int(goal.deadline.timestamp()), 
-            'tags': [tag for tag in goal.tags.names()]
+            'tags': [tag for tag in goal.tags.names()],
+            'tasks': tasks
         }
         return JsonResponse(response_dict, safe=False, status=200)
         
