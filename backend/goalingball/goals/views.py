@@ -205,6 +205,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponseBadRequest()
             
         goal_photo = req_data.get('photo', '')
+        # print("In editing goal_photo: ", goal_photo)
         goal_deadline = req_data.get('deadline', None)
         goal_start_at = req_data.get('start_at', None)
 
