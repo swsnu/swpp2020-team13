@@ -92,19 +92,8 @@ export const editGoal = (id, data, file) => async dispatch => {
         const imageUrl = s3prefix + res.data.key
         data['photo'] = imageUrl
         // console.log("changed photo: ", data['photo'])
-<<<<<<< HEAD
     } 
 
-=======
-
-    } else {
-        if (key) {  // delete a photo
-            // TODO
-            // make another axios call
-
-        }
-    }
->>>>>>> 7e33650f739fb0f2a5398f51b1f7a2b40439791b
     console.log('Edit goal data: ', data)
     // const data = {
     //     title: formData.get('title'),

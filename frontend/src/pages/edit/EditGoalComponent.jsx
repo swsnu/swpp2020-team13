@@ -248,12 +248,8 @@ class EditGoal extends Component {
         // for (const tag of this.state.tags) {
         //     data.append("tags", tag)
         // }
-<<<<<<< HEAD
 
         // let key = ''
-=======
-        let key = ''
->>>>>>> 7e33650f739fb0f2a5398f51b1f7a2b40439791b
         if (this.props.selectedGoal.photo) { // A user already has a photo
             data['photo'] = this.props.selectedGoal.photo
             // console.log("[DEBUG] this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
@@ -266,12 +262,8 @@ class EditGoal extends Component {
     //     deadline: formData.get('deadline'),
     //     tags: formData.get('tags')
     // }
-<<<<<<< HEAD
 
         this.props.editGoal(this.props.selectedGoal.id, data, this.state.file)
-=======
-        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
->>>>>>> 7e33650f739fb0f2a5398f51b1f7a2b40439791b
 
         this.setState({ isEditing: true })
     }
