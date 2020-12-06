@@ -31,7 +31,7 @@ def goalList(request):
             deadline = int(g.deadline.timestamp())
             
             tasks = []
-            for t in g.tasks.filter(goal_id=g.id).values():
+            for t in g.tasks.values():
                 tasks.append({
                     'id': t["id"],
                     'user':t["user_id"],
@@ -158,7 +158,7 @@ def goalDetail(request, goal_id=""):
             return HttpResponse(status=404)
 
         tasks = []
-        for t in g.tasks.filter(goal_id=g.id).values():
+        for t in g.tasks.values():
             tasks.append({
                 'id': t["id"],
                 'user':t["user_id"],
@@ -230,16 +230,18 @@ def goalDetail(request, goal_id=""):
         goal.deadline = goal_deadline
         goal.save()
 
-        tasks = [model_to_dict(task) for task in goal.tasks.all()]
-        # print("goal.tasks: ", goal.tasks.all())
-        # print("tasks: ", tasks)
-        for task in tasks:
-            # task['created_at'] = int(task['created_at'].timestamp())
-            task['updated_at'] = int(task['updated_at'].timestamp())
-            task['start_at'] = int(task['start_at'].timestamp())
-            task['deadline'] = int(task['deadline'].timestamp())
-
-        
+        tasks = []
+        for t in goal.tasks.values():
+            tasks.append({
+                'id': t["id"],
+                'user':t["user_id"],
+                'goal': t["goal_id"],   
+                'title': t["title"], 
+                'importance': t["importance"], 
+                'day_of_week':t["day_of_week"], 
+                "start_at":int(t["start_at"].timestamp()), 
+                "deadline":int(t["deadline"].timestamp())
+        })
 
         response_dict = {
             'id': goal.id, 
