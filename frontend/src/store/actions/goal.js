@@ -65,20 +65,23 @@ export const addGoal = (formData, file) => async dispatch => {
     history.push('/main')
 }
 
-export const editGoal = (id, data, file, key) => async dispatch => {
+export const editGoal = (id, data, file) => async dispatch => {
     
     console.log("[DEBUG] editGoal data: ", data)
-
     if (file) { // edit a photo or create a new one
         const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
-
-        // no photo has been set yet
-        if (!key) { 
+        let key = ''
+        if ('photo' in data) {
+            const re = new RegExp(s3prefix)
+            key = data['photo'].replace(re, '')
+        }
+        // no photo has been set yet 
+        else {
             const res = await axios.get('/api/v1/uploads/')
             key = res.data.key
         }
 
-        const res = await axios.put('/api/v1/uploads/', { key: key })
+        const res = await axios.put('/api/v1/uploads/', { key })
 
         const response = await axios.put(res.data.url, file, {
             headers: {
@@ -89,13 +92,7 @@ export const editGoal = (id, data, file, key) => async dispatch => {
         const imageUrl = s3prefix + res.data.key
         data['photo'] = imageUrl
         // console.log("changed photo: ", data['photo'])
-
-    } else {
-        if (key) {  // delete a photo
-            // TODO
-            // make another axios call
-        }
-    }
+    } 
 
     console.log('Edit goal data: ', data)
     // const data = {

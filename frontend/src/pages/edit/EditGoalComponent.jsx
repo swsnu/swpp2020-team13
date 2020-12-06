@@ -229,7 +229,7 @@ class EditGoal extends Component {
     }
 
 
-    onClickHandler() {
+    onClickHandler = () => {
         // e.preventDefault()
         let data = {}
         console.log("EditGoalComponent this.state.title: ", this.state.title)
@@ -249,14 +249,12 @@ class EditGoal extends Component {
         //     data.append("tags", tag)
         // }
 
-        let key = ''
+        // let key = ''
         if (this.props.selectedGoal.photo) { // A user already has a photo
-            console.log("[DEBUG] this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
-            const s3prefix = 'https://goalingball-test.s3.amazonaws.com/'
-            const re = new RegExp(s3prefix)
-            key = this.props.selectedGoal.photo.replace(re, '')
+            data['photo'] = this.props.selectedGoal.photo
+            // console.log("[DEBUG] this.props.selectedGoal.photo: ", this.props.selectedGoal.photo)
         } 
-        console.log("[DEBUG] EditGoalComponent key: ", key)
+        // console.log("[DEBUG] EditGoalComponent key: ", key)
         console.log("[DEBUG] EditGoalComponent formData: ", data)
 
 
@@ -267,7 +265,7 @@ class EditGoal extends Component {
     //     tags: formData.get('tags')
     // }
 
-        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file, key)
+        this.props.editGoal(this.props.selectedGoal.id, data, this.state.file)
 
         // this.setState({ isEditing: true })
     }
@@ -294,7 +292,7 @@ class EditGoal extends Component {
                 {/* <Button floated="right">Go Back</Button>
                 <Button onClick={()=>this.onClickHandler()} floated="right">Confirm</Button> */}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right" className="ConfirmButton" id="ConfirmButtonEditGoalForm">Confirm</Button>
+                <Button onClick={this.onClickHandler} floated="right" className="ConfirmButton" id="ConfirmButtonEditGoalForm">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>
