@@ -7,7 +7,7 @@ class RecCard extends React.Component {
 
   state = {
     title: this.props.goal.title,
-    url: ((this.props.goal.photo).length == 0) ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png' : this.props.goal.photo
+    url: (this.props.goal.photo == null) ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png' : this.props.goal.photo
   }
 
   getRandomInt = (min, max) => {
