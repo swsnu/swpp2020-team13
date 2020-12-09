@@ -70,11 +70,11 @@ class DashBoardCards extends Component{
     }
 
     prevHandler = () => {
-       this.setState({select: (select-1)})
+       this.setState({select: (this.state.select-1)})
     }
 
     nextHandler = () => {
-        this.setState({select: (select+1)})
+        this.setState({select: (this.state.select+1)})
     } 
 
     render() {
