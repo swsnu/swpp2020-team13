@@ -236,7 +236,7 @@ class TaskBodyComponent extends Component {
                                 padding: '5px'
                             }
                         }
-                        onClick={this.onClickDeleteTaskHandler}><Icon name='delete'/>&nbsp;Delete</Button>
+                        onClick={()=>this.onClickDeleteTaskHandler()}><Icon name='delete'/>&nbsp;Delete</Button>
                         <Button icon id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}
                         style={
                             {
