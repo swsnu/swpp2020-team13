@@ -37,8 +37,8 @@ SECRET_KEY = 'w5)ua!&ry_!o@@7d4jjlseec&p^e1ad$qkh4s)75b&%8ee3rnm'
 # DEBUG = True
 DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['54.145.11.60']
 
 # Application definition
 
