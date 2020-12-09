@@ -13,22 +13,22 @@ import base64
 def find_similar_goals(user_vector, user_id):
     # find other users with highest cosine similarity
     user_dict = []
-    for user in User.objects.all().values():
+    for user in User.objects.all():
         if user['id'] == user_id:
             continue
         if user['vector'] is None:
-            user = User.objects.get(id=user['id'])
+            user = User.objects.get(id=user.id)
             user.init_vector()
             
-        np_bytes_other = base64.b64decode(user['vector'])
+        np_bytes_other = base64.b64decode(user.vector)
         user_vector_other = pickle.loads(np_bytes_other) # decode
 
         if norm(user_vector_other) == 0:
-            user_dict.append({'id': user['id'], 'similarity': 0 })
+            user_dict.append({'id': user.id, 'similarity': 0 })
 
         else:
             similarity = np.dot(user_vector, user_vector_other)/(norm(user_vector)*norm(user_vector_other)) # calculate cosine similarity
-            user_dict.append({'id': user['id'], 'similarity':similarity, 'username': user['username']}) # set a dictionary with key as user id and value as similarity
+            user_dict.append({'id': user.id, 'similarity':similarity, 'username': user.username}) # set a dictionary with key as user id and value as similarity
 
     # sort the dictionary by highest similarity
     user_dict = sorted(user_dict, key=(lambda u: u['similarity']))
