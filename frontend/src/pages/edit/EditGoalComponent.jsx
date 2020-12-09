@@ -23,7 +23,7 @@ class EditGoal extends Component {
       tags: [],
       tagOptions:[],
       isEditing: false,
-      preview: this.props.selectedGoal.photo
+      preview: (this.props.selectedGoal.photo == null) ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png' : this.props.selectedGoal.photo
     }
 
     renderDefaultDate() {
