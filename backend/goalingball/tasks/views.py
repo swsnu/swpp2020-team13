@@ -158,7 +158,7 @@ def taskDetail(request, task_id=""):
         task.save()
 
         serialized_task = model_to_dict(task)
-        print("serialized_task: ", serialized_task)
+        # print("serialized_task: ", serialized_task)
 
         data = {
             'id': task.id,
