@@ -14,9 +14,9 @@ def find_similar_goals(user_vector, user_id):
     # find other users with highest cosine similarity
     user_dict = []
     for user in User.objects.all():
-        if user['id'] == user_id:
+        if user.id == user_id:
             continue
-        if user['vector'] is None:
+        if user.vector is None:
             user = User.objects.get(id=user.id)
             user.init_vector()
             
