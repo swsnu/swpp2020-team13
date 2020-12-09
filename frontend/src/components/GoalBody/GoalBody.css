@@ -30,24 +30,20 @@
         transform: scale(0.7, 0.7, 0.7) !important;
 }
 
-.DeleteGoalButtonA{
+/* .DeleteGoalButtonA{
     background-color: #ffffff !important;
-    /* color: black !important; */
-    /* right: 0 !important; */
-    /* bottom: 5px !important; */
+
     Padding: 5px !important;
     opacity: 100% !important;
 
 }
 .EditGoalButtonA{
     background-color: #ffffff !important;
-    /* color: black !important; */
-    /* right: 0 !important; */
-    /* bottom: 5px !important; */
+
     Padding: 5px !important;
     opacity: 100% !important;
 
-}
+} */
 .GoalBodyListTitle {
     /* padding-top: 14px; */
     padding-bottom: 0px !important;
