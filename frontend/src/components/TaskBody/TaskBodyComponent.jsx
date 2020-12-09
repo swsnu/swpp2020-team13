@@ -229,7 +229,7 @@ class TaskBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteTaskButtonGroupAnother" floated="right">
-                        <Button size="tiny" compact icon id="DeleteButtonTaskBody" 
+                        <Button compact icon id="DeleteButtonTaskBody" 
                         style={
                             {
                                 backgroundColor: "#ffffff",
@@ -237,7 +237,7 @@ class TaskBodyComponent extends Component {
                             }
                         }
                         onClick={this.onClickDeleteTaskHandler}><Icon name='delete'/>&nbsp;Delete</Button>
-                        <Button size="tiny" compact icon id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}
+                        <Button compact icon id="EditButtonTaskBody" onClick={()=>this.onClickEditTaskHandler()}
                         style={
                             {
                                 backgroundColor: "#ffffff",

@@ -97,6 +97,7 @@ export const TaskInfo = (props) => {
                                             size="small"
                                             id="AddTaskFormImportance"
                                             value={props.task.importance}
+                                            readOnly
                                         />
                                 </List.Header>
                                 {renderDeadlineString(props.task.day_of_week, props.task.start_at, props.task.deadline)}
