@@ -36,6 +36,11 @@ const reducer = (state = initialState, action) => {
             return {...state, selectedGoal: modified}
             */
 
+        case actionTypes.EDIT_TASK_OF_SELECTED_GOAL:
+            const filteredTasks = state.selectedGoal.tasks.filter(task => task.id !== action.payload.id)
+            let modifiedSelectedGoal = {...state.selectedGoal, tasks: [...filteredTasks, action.payload]}
+            return {...state, selectedGoal: modifiedSelectedGoal}
+
         case actionTypes.DELETE_GOAL:
             // g.id and action.id should be both integer (the same type)
             const deleted = state.goals.filter(g => g.id !== action.id)

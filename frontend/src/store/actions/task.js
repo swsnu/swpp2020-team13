@@ -108,6 +108,10 @@ export const editTask = (task_id, data) => async dispatch => {
         type: actionTypes.EDIT_TASK,
         payload: res.data
     })
+    dispatch({
+        type: actionTypes.EDIT_TASK_OF_SELECTED_GOAL,
+        payload: res.data
+    })
     // history.push('/edit')
 
 }
