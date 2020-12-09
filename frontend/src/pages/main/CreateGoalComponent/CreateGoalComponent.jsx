@@ -154,7 +154,7 @@ class CreateGoal extends Component {
         return(
             <FormField>
                 <label>Add Tags</label>
-                <Dropdown placeholder="add goal tags here" search selection 
+                <Dropdown placeholder="add goal tags here. You should add a tag in order to add a goal" search selection 
                     clearable multiple allowAdditions fluid 
                     onAddItem={(e,data) => this.addTagOptions(e, data)} 
                     onChange={(e,data)=>this.setTag(data)}
@@ -230,7 +230,9 @@ class CreateGoal extends Component {
                 {this.renderDeadline()}
                 {this.renderTag()}
                 <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} floated="right" className="GoalSubmitButton">Confirm</Button>
+                <Button onClick={()=>this.onClickHandler()} 
+                disabled={(this.state.tags.length == 0) ? true : false}
+                floated="right" className="GoalSubmitButton">Confirm</Button>
                 </Form>
             </div>
             </LoadingOverlay>

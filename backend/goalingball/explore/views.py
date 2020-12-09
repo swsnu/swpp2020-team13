@@ -28,10 +28,11 @@ def recommend(request):
         if user.vector is None:
             return HttpResponse(status=404)
 
-        np_bytes = base64.b64decode(user.vector)
-        user_vector = pickle.loads(np_bytes)
+        if user.vector is not None:
+            np_bytes = base64.b64decode(user.vector)
+            user_vector = pickle.loads(np_bytes)
 
-        if norm(user_vector) == 0:
+        if (norm(user_vector) == 0) or user.vector is None:
             # get default goal list
             goal_list = default_recent(user.id)
             goal_response = [{'status': 'default'}]

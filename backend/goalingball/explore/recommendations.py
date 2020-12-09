@@ -16,6 +16,10 @@ def find_similar_goals(user_vector, user_id):
     for user in User.objects.all().values():
         if user['id'] == user_id:
             continue
+        if user['vector'] is None:
+            user = User.objects.get(id=user['id'])
+            user.init_vector()
+            
         np_bytes_other = base64.b64decode(user['vector'])
         user_vector_other = pickle.loads(np_bytes_other) # decode
 

@@ -105,7 +105,7 @@ def goalList(request):
 
         j_to_dict = response.json() # in python dictionary class
 
-        if 'statusCode' in j_to_dict.keys(): # if succeed, update goal vector
+        if ('statusCode' in j_to_dict.keys()) and (len(j_to_dict['body']) > 0): # if succeed, update goal vector
             # the following changes the list of vectors into one numpy vector
             vector_total = np.zeros(shape=(100,), dtype=np.float32)
 
