@@ -212,16 +212,17 @@ class CreateGoal extends Component {
 
     render(){
         return(
-            <LoadingOverlay
-                className="spinner"
-                active={this.state.isCreating}
-                spinner
-                text='Creating a new goal...'
-            >
+            <div>
             <div className='menubar'>
                 <MenuBar/>
             </div>
             <div className='FormCreate'>
+            <LoadingOverlay
+            className="spinner"
+            active={this.state.isCreating}
+            spinner
+            text='Creating a new goal...'
+        >
                  <h2 id="header">Add a Goal</h2>
                  <Form id="FormCreateForm">
                 {this.renderTitle()}
@@ -234,8 +235,9 @@ class CreateGoal extends Component {
                 disabled={(this.state.tags.length == 0) ? true : false}
                 floated="right" className="GoalSubmitButton">Confirm</Button>
                 </Form>
+                </LoadingOverlay>
             </div>
-            </LoadingOverlay>
+            </div>
         )
     }
 
