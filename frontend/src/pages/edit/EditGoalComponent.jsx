@@ -110,7 +110,7 @@ class EditGoal extends Component {
                             <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
                             value={this.state.fileName}
                             />
-                            <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
+                            {/* <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button> */}
                         </Form.Field>
                     </Grid.Column>
                     <Grid.Column width="5">

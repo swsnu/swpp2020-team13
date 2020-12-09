@@ -269,7 +269,7 @@ class CreateGoal extends Component {
         >
                  <h2 id="header" style={
                      {
-                        marginLeft: '150px',
+                        marginLeft: '130px',
                         marginTop: '50px'
                      }
                  }>Add a Goal</h2>
@@ -277,7 +277,7 @@ class CreateGoal extends Component {
                      {
                         marginRight: '10%',
                         maxWidth: '700px',
-                        marginLeft: '150px',
+                        marginLeft: '130px',
                      }
                  }>
                 {this.renderTitle()}

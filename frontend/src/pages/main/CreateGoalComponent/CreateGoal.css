@@ -38,10 +38,10 @@
 /* .FormCreate h2{
     text-align: left;
 } */
-.FormCreate #UploadPhotoButton {
+/* .FormCreate #UploadPhotoButton {
     display:flex;
  justify-content:center;
-}
+} */
 /* 
 #Form #PhotoInput {
     font-size: 15px;
