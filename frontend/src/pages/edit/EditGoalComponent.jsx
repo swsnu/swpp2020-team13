@@ -243,7 +243,7 @@ class EditGoal extends Component {
         data['start_at'] = start_at
         data['deadline'] = deadline
         // data.append("deadline", deadline)
-        console.log("DEBUG: this state tags", this.state.tags)
+        // console.log("DEBUG: this state tags", this.state.tags)
         data['tags'] = this.state.tags
         // for (const tag of this.state.tags) {
         //     data.append("tags", tag)
