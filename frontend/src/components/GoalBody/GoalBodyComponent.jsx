@@ -142,7 +142,7 @@ class GoalBodyComponent extends Component {
             </List>
             <List.Item>
                     <Button.Group className="DeleteGoalButtonGroupAnother" floated="left">
-                        <Button compact icon id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}
+                        <Button icon id="EditButtonGoalBody" onClick={()=>this.onClickEditGoalHandler()}
                             style={
                                 {
                                     backgroundColor: "#ffffff",
@@ -151,7 +151,7 @@ class GoalBodyComponent extends Component {
                             }>
                             <Icon name='edit'/>
                             </Button>
-                        <Button compact icon id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}
+                        <Button icon id="DeleteButtonGoalBody" onClick={()=>this.onClickDeleteHandler()}
                             style={
                                 {
                                     backgroundColor: "#ffffff",
