@@ -258,7 +258,8 @@ class CreateGoal extends Component {
             <div style={
                 {
                     marginLeft: '130px',
-                    marginTop: '20px'
+                    marginTop: '20px',
+                    maxWidth: '700px',
                 }
             }>
             <LoadingOverlay
