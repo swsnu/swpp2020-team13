@@ -28,6 +28,7 @@ class CreateGoal extends Component {
       tags: [],
       tagOptions:[],
       isCreating: false,
+      preview: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png'
     }
 
     fileChange = e => {
@@ -36,7 +37,9 @@ class CreateGoal extends Component {
           { file: e.target.files[0], fileName: e.target.files[0].name, upload: true},
           () => { console.log( "File chosen --->", this.state.file, console.log("File name  --->", this.state.fileName))},
           )
+          this.setState({ preview:  URL.createObjectURL( e.target.files[0])});
         }
+        
         else {
         }
         
@@ -57,20 +60,32 @@ class CreateGoal extends Component {
         const { statusCode } = this.state;
         return (
             <Segment>
-            <Form.Field>
-                <label id="PhotoInput">Add Goal Photo</label>
-            <Button as="label" htmlFor="file" type="button" animated="fade">
-              <Button.Content visible>
-                <Icon name="file" />
-              </Button.Content>
-              <Button.Content hidden>Choose a File</Button.Content>
-            </Button>
-            <input type="file" id="file" className="GoalPhoto" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
-              value={this.state.fileName}
-            />
-            <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
-          </Form.Field>
+                <Grid columns='2'>
+                    <Grid.Column width="11">
+                        <Form.Field style={
+                            {
+                                marginTop: '20px'
+                            }
+                        }>
+                                <label id="PhotoInput">Add Goal Photo</label>
+                            <Button as="label" htmlFor="file" type="button" animated="fade">
+                            <Button.Content visible>
+                                <Icon name="file" />
+                            </Button.Content>
+                            <Button.Content hidden>Choose a File</Button.Content>
+                            </Button>
+                            <input type="file" id="file" className="GoalPhoto" hidden onChange={this.fileChange}/>
+                            <Form.Input fluid label="Photo Chosen " placeholder="Use the above bar to browse your file system" readOnly
+                            value={this.state.fileName}
+                            />
+                            {/* <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button> */}
+                        </Form.Field>
+
+                    </Grid.Column>
+                    <Grid.Column width="5">
+                    {this.fileRender()}
+                    </Grid.Column>
+                </Grid>
           </Segment>
         )
     }
@@ -86,6 +101,30 @@ class CreateGoal extends Component {
     //     var curr_year = d.getFullYear();
     //     return curr_month + "/" + curr_date + "/" + curr_year
     // }
+
+    fileRender() {
+        return(
+
+                    <Segment style={
+                        {
+                            boxShadow: 'none',
+                            alignItems: 'center'
+                            
+                        }
+                    }
+                    textAlign='center'>
+                    <img id="image" src={this.state.preview} style={
+                        {
+                            maxWidth: '150px', 
+                            maxHeight: '180px',
+                            minWidth: '150px',
+                            minHeight: '150px',                      
+                        }
+                    }></img>
+                    </Segment>
+
+        )
+    }
 
 
     handleChangeStart = (event, {name, value}) => {
@@ -216,15 +255,31 @@ class CreateGoal extends Component {
             <div className='menubar'>
                 <MenuBar/>
             </div>
-            <div className='FormCreate'>
+            <div style={
+                {
+                    marginLeft: '130px',
+                    marginTop: '20px'
+                }
+            }>
             <LoadingOverlay
             className="spinner"
             active={this.state.isCreating}
             spinner
             text='Creating a new goal...'
         >
-                 <h2 id="header">Add a Goal</h2>
-                 <Form id="FormCreateForm">
+                 <h2 id="header" style={
+                     {
+                        marginLeft: '150px',
+                        marginTop: '50px'
+                     }
+                 }>Add a Goal</h2>
+                 <Form id="FormCreateForm" className='FormCreate' style={
+                     {
+                        marginRight: '10%',
+                        maxWidth: '700px',
+                        marginLeft: '150px',
+                     }
+                 }>
                 {this.renderTitle()}
                 {this.renderPhoto()}
                 {/* {this.fileRender()} */}

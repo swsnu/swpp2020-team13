@@ -23,6 +23,7 @@ class EditGoal extends Component {
       tags: [],
       tagOptions:[],
       isEditing: false,
+      preview: this.props.selectedGoal.photo
     }
 
     renderDefaultDate() {
@@ -62,6 +63,7 @@ class EditGoal extends Component {
           { file: e.target.files[0], fileName: e.target.files[0].name, upload: true},
           () => { console.log( "File chosen --->", this.state.file, console.log("File name  --->", this.state.fileName))},
           )
+          this.setState({ preview:  URL.createObjectURL( e.target.files[0])});
         }
         else {
         //    this.setState({file: default_goal_pic})
@@ -89,21 +91,55 @@ class EditGoal extends Component {
         const { statusCode } = this.state;
         return (
             <Segment>
-            <Form.Field>
-                <label id="PhotoInput">Add Goal Photo</label>
-            <Button as="label" htmlFor="file" type="button" animated="fade">
-              <Button.Content visible>
-                <Icon name="file" />
-              </Button.Content>
-              <Button.Content hidden>Choose a File</Button.Content>
-            </Button>
-            <input type="file" id="file" className="EditGoalPhoto" hidden onChange={this.fileChange}/>
-            <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
-              value={this.state.fileName}
-            />
-            <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
-          </Form.Field>
+                <Grid columns='2'>
+                    <Grid.Column width="11">
+                        <Form.Field
+                        style={
+                            {
+                                marginTop: '20px'
+                            }
+                        }>
+                            <label id="PhotoInput">Add Goal Photo</label>
+                            <Button as="label" htmlFor="file" type="button" animated="fade">
+                            <Button.Content visible>
+                                <Icon name="file" />
+                            </Button.Content>
+                            <Button.Content hidden>Choose a File</Button.Content>
+                            </Button>
+                            <input type="file" id="file" className="EditGoalPhoto" hidden onChange={this.fileChange}/>
+                            <Form.Input fluid label="Photo Chosen " placeholder="Upload to edit goal photo" readOnly
+                            value={this.state.fileName}
+                            />
+                            <Button style={{ marginTop: "7px" }} onClick={this.fileChange} id="UploadPhotoButton"> Upload </Button>
+                        </Form.Field>
+                    </Grid.Column>
+                    <Grid.Column width="5">
+                        {this.fileRender()}
+                    </Grid.Column>
+                </Grid>
           </Segment>
+        )
+    }
+
+    fileRender() {
+        return(
+                    <Segment style={
+                        {
+                            boxShadow: 'none',
+                            alignItems: 'center'
+                            
+                        }
+                    }
+                    textAlign='center'>
+                    <img id="image" src={this.state.preview} style={
+                        {
+                            maxWidth: '150px', 
+                            maxHeight: '180px',
+                            minWidth: '150px',
+                            minHeight: '150px',                      
+                        }
+                    }></img>
+                    </Segment>
         )
     }
 

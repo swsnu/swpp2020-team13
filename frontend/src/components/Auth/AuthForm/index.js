@@ -81,7 +81,7 @@ export const CreateSignupForm = () => {
             <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
             {errors.password2 && <span>This field is required</span>}
             </Segment>
-            <Button type="submit" className="submitButton">Go Submit</Button>
+            <Button type="submit" className="submitButton">Sign Up</Button>
         {/* </form> */}
         </Form>
     )
@@ -130,7 +130,7 @@ export const CreateLoginForm = () => {
                 <input id="password" name="password" type="password" placeholder="Enter password" ref={register({ required: true })} />
                 {errors.password && <span role="alert">{errors.password.message}</span>}
             </Segment>
-            <Button type="submit" className="submitButtonLogin">Go Submit</Button>
+            <Button type="submit" className="submitButtonLogin">Login</Button>
         </Form>
     )
 }
