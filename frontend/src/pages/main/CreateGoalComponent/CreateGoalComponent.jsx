@@ -259,7 +259,8 @@ class CreateGoal extends Component {
                 {
                     marginLeft: '130px',
                     marginTop: '20px',
-                    maxWidth: '700px',
+                    maxWidth: '800px',
+                    marginRight: '10%',
                 }
             }>
             <LoadingOverlay
@@ -275,11 +276,11 @@ class CreateGoal extends Component {
                      }
                  }>Add a Goal</h2>
                  <Form id="FormCreateForm" className='FormCreate' style={
-                     {
-                        marginRight: '10%',
-                        maxWidth: '700px',
-                        marginLeft: '130px',
-                     }
+                    //  {
+                    //     marginRight: '10%',
+                    //     maxWidth: '700px',
+                    //     marginLeft: '130px',
+                    //  }
                  }>
                 {this.renderTitle()}
                 {this.renderPhoto()}
