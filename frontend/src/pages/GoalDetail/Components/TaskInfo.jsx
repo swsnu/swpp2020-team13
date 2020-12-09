@@ -74,7 +74,7 @@ export const TaskInfo = (props) => {
                     <Icon name='check circle outline' size="large" style={
                         {paddingTop: '11px', paddingLeft: '20px'}
                     }
-                    className={`TaskSelect${select && 'True'}`}
+                    // className={`TaskSelect${select && 'True'}`}
                     >
                     </Icon>
                     </Button>
