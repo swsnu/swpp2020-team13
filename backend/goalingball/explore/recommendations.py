@@ -57,7 +57,7 @@ def default_recent(user_id):
     for goal in Goal.objects.all():
         if goal.user_id == user_id:
             continue
-        goal_list.append({'goal': goal, 'updated_at': int(goal.updated_at.timestamp()), 'username': User.object.get(id=goal.user_id).username})
+        goal_list.append({'goal': goal, 'updated_at': int(goal.updated_at.timestamp()), 'username': User.objects.get(id=goal.user_id).username})
         if len(goal_list) > 20:
             goal_list = sorted(goal_list, key=(lambda g: g['updated_at']))
             goal_list.reverse()

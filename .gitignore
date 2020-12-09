@@ -91,7 +91,7 @@ pip-delete-this-directory.txt
 static/
 
 # Distribution / packaging 
-.Python build/ 
+.Python
 develop-eggs/ 
 dist/ 
 downloads/ 
