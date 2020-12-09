@@ -24,7 +24,7 @@ def find_similar_goals(user_vector, user_id):
         user_vector_other = pickle.loads(np_bytes_other) # decode
 
         if norm(user_vector_other) == 0:
-            user_dict.append({'id': user.id, 'similarity': 0 })
+            user_dict.append({'id': user.id, 'similarity': 0, 'username': user.username})
 
         else:
             similarity = np.dot(user_vector, user_vector_other)/(norm(user_vector)*norm(user_vector_other)) # calculate cosine similarity
