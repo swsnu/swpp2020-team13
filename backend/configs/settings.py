@@ -159,7 +159,7 @@ STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     os.path.join(ROOT_DIR, 'goalingball', 'static')
 # ]
-STATIC_ROOT = os.path.join(ROOT_DIR, 'static')
+STATIC_ROOT = os.path.join(APP_DIR, 'static')
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 MEDIA_URL = '/media/'
 
