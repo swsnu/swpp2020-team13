@@ -258,8 +258,8 @@ class CreateGoal extends Component {
             <div style={
                 {
                     marginLeft: '130px',
-                    marginTop: '20px',
-                    maxWidth: '800px',
+                    marginTop: '50px',
+                    maxWidth: '700px',
                     marginRight: '10%',
                 }
             }>
@@ -269,19 +269,8 @@ class CreateGoal extends Component {
             spinner
             text='Creating a new goal...'
         >
-                 <h2 id="header" style={
-                     {
-                        marginLeft: '130px',
-                        marginTop: '50px'
-                     }
-                 }>Add a Goal</h2>
-                 <Form id="FormCreateForm" className='FormCreate' style={
-                    //  {
-                    //     marginRight: '10%',
-                    //     maxWidth: '700px',
-                    //     marginLeft: '130px',
-                    //  }
-                 }>
+                 <h2 id="header">Add a Goal</h2>
+                 <Form id="FormCreateForm" className='FormCreate'>
                 {this.renderTitle()}
                 {this.renderPhoto()}
                 {/* {this.fileRender()} */}
