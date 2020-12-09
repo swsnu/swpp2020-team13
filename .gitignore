@@ -87,6 +87,9 @@ coverage.xml
 pip-log.txt 
 pip-delete-this-directory.txt 
 
+# Static files
+static/
+
 # Distribution / packaging 
 .Python build/ 
 develop-eggs/ 
