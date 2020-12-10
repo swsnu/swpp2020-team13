@@ -55,7 +55,7 @@ onClickHandler = () => {
     const url = 'url(' + this.state.url + ')'
     return (
       <Card className="RecCardComp" style={
-          {width: '200px'}
+          {width: '190px'}
       }>
         <Card.Content
           style={{

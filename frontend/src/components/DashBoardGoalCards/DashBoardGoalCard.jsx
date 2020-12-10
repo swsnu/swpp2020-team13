@@ -71,7 +71,7 @@ class GoalCard extends React.Component {
     return (
       <Card className="DashGoalCardComp"
       style={{
-        width: '210px'
+        width: '200px'
       }}
       >
         <Card.Content
