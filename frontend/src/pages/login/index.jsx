@@ -32,10 +32,16 @@ class HomePage extends React.Component {
         return (
             <Form center={'true'} aligned={'true'} className="FormLogin">
             <Segment className="Segment">
-                <Grid columns={2} className="grid" divided='vertically'>
+                <Grid columns={2} className="grid" divided='vertically' style={
+                    {marginLeft: '10px'}
+                }>
                 <Grid.Column>
                 <h2 className="title">Goaling Ball</h2>
-                <h3 className="subtitle">Your goal management service.</h3>
+                <h3 className="subtitle" style={
+                    {
+                        fontSize: '17px'
+                    }
+                }>Your goal management service.</h3>
                 </Grid.Column>
                 <Grid.Column>
                 <ButtonGroup className="ButtonGroup">
