@@ -110,7 +110,7 @@ def recommendAchList(request, goal_id):
                 achievements.append({
                     'id': achievement["id"], 'description': achievement["description"], 'percentage_complete': achievement["percentage_complete"],
                     'written_at': int(achievement["written_at"].timestamp()), 'photo': achievement['photo'],
-                    'user_id': achievement["user_id"], 'task_id': achievement["task_id"]
+                    'user_id': achievement["user_id"], 'task': achievement["task_id"]
                 })
         return JsonResponse(achievements, safe=False)
     
