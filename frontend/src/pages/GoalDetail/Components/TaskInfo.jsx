@@ -42,7 +42,7 @@ export const TaskInfo = (props) => {
         }
         return (
             <p style={
-                {fontSize: '14px', color: "#807d7d"}
+                {fontSize: '13px', color: "#807d7d"}
             }>{str}</p>
         )
     }
