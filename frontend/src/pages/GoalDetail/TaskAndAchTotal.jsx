@@ -106,12 +106,14 @@ class TaskAndAchTotal extends Component {
                         {paddingTop: '0px', paddingLeft: '0px'
                     }
                     }
+                    width="6"
                     >
                     <p>&nbsp;&nbsp;TASKS YOU'VE DONE</p>
                     {this.renderTaskInfo()}
                     </Grid.Column>
 
                     <Grid.Column
+                    width="10"
                     style={
                         {paddingTop: '0px',}
                     }>
