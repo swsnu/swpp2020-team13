@@ -88,7 +88,7 @@ export const TaskInfo = (props) => {
                             <List.Content className="TaskInfoListTitle">
                                 <List.Header className="TaskInfoListTitleHeader"
                                 style={
-                                    {fontSize: '19px', paddingBottom: '15px', paddingTop: '0px',}
+                                    {fontSize: '16px', paddingBottom: '12px', paddingTop: '0px',}
                                 }
                                 >    
                                     {props.task.title}&nbsp;&nbsp;&nbsp;
