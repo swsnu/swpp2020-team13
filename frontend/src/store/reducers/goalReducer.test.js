@@ -7,6 +7,7 @@ const stubGoal = {
     title: "title",
     photo: "photo.com",
     deadline: 1000,
+    start_at: 1000,
     tags: [],
     tasks: []
 }
@@ -26,7 +27,7 @@ describe("GoalReucer", () => {
     it("should render getAllGoal", () => {
         const newState = reducerGoal(undefined, {
             type: actionTypes.GET_ALL_GOAL,
-            goals: [
+            payload: [
                 stubGoal
             ]
         })
@@ -36,7 +37,7 @@ describe("GoalReucer", () => {
     it("should render getGoal", () => {
         const newState = reducerGoal(undefined, {
             type: actionTypes.GET_GOAL,
-            target: 
+            payload: 
                 stubGoal
             
         })
@@ -53,7 +54,7 @@ describe("GoalReucer", () => {
         expect(newState).toEqual({goals: [stubGoal], selectedGoal: null})
     })
 
-    it("should render editGoal when id is different", () => {
+    it("should render editGoal when id is same", () => {
         const stubInitialState = {
             goals:[stubGoal],
             selectedGoal: null
@@ -70,12 +71,14 @@ describe("GoalReucer", () => {
 
         const newState = reducerGoal(stubInitialState, {
             type: actionTypes.EDIT_GOAL,
-            id: 1,
-            title: "new_title",
-            photo: "photo.com",
-            deadline: 1000,
-            tasks:[],
-            tags: []
+            payload: {
+                id: 1,
+                title: "new_title",
+                photo: "photo.com",
+                deadline: 1000,
+                tasks:[],
+                tags: []
+            }
             
         })
         expect(newState).toEqual({goals: [newGoal], selectedGoal: newGoal})
@@ -83,20 +86,32 @@ describe("GoalReucer", () => {
 
     it("should render editGoal when id is different", () => {
         const stubInitialState = {
-            goals:[stubGoal],
+            goals: [stubGoal],
             selectedGoal: null
         }
 
         const newState = reducerGoal(stubInitialState, {
             type: actionTypes.EDIT_GOAL,
-            id: 2,
+            payload: {
+                id: 2,
+                title: "new_title",
+                photo: "photo.com",
+                deadline: 1000,
+                tags: []
+            }
+            
+        })
+        expect(newState).toEqual({goals: [stubGoal, {id: 2,
             title: "new_title",
             photo: "photo.com",
             deadline: 1000,
-            tags: []
-            
-        })
-        expect(newState).toEqual({goals: [stubGoal], selectedGoal: undefined})
+            tags: []}], selectedGoal: {
+                id: 2,
+                title: "new_title",
+                photo: "photo.com",
+                deadline: 1000,
+                tags: []
+            }})
     })
 
     it("Should render deleteGoal", () => {
@@ -128,6 +143,7 @@ describe("GoalReucer", () => {
             title: "title",
             photo: "photo.com",
             deadline: 1000,
+            start_at: 1000,
             tags: [],
             tasks: [{goal: 1}]
         }
@@ -140,6 +156,7 @@ describe("GoalReucer", () => {
             title: "title",
             photo: "photo.com",
             deadline: 1000,
+            start_at: 1000,
             tags: [],
             tasks: [{goal: 1, id: 1}]
         }
@@ -151,12 +168,12 @@ describe("GoalReucer", () => {
         const newState = reducerGoal(stubInitialState, {
             type: actionTypes.DELETE_TASK_FROM_GOAL,
             payload: {
-                goal: 1,
-                id: 1
+                goal_id: 1,
+                task_id: 1
             }
         })
 
-        expect(newState).toEqual({goals: [stubGoal], selectedGoal: null})
+        expect(newState).toEqual({goals: [stubGoal], selectedGoal: stubGoal})
     })
 
 

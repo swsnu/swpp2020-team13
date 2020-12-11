@@ -1,0 +1,182 @@
+yarn run v1.22.10
+$ react-scripts test --coverage --watchAll=false
+--------------------------------------|---------|----------|---------|---------|----------------------------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                      
+--------------------------------------|---------|----------|---------|---------|----------------------------------------
+All files                             |   52.66 |    40.75 |    49.4 |   52.78 |                                        
+ src                                  |     100 |      100 |     100 |     100 |                                        
+  App.jsx                             |     100 |      100 |     100 |     100 |                                        
+  history.js                          |       0 |        0 |       0 |       0 |                                        
+ src/components/AccDetail             |   43.48 |       10 |      25 |   45.45 |                                        
+  AccSegmentComponent.jsx             |   43.48 |       10 |      25 |   45.45 | 22,26,34-107,118,122                   
+ src/components/AddAcc                |       0 |        0 |       0 |       0 |                                        
+  AddAccForm.jsx                      |       0 |        0 |       0 |       0 | 12-154                                 
+ src/components/Auth                  |     100 |      100 |     100 |     100 |                                        
+  Auth.jsx                            |     100 |      100 |     100 |     100 |                                        
+ src/components/Auth/AuthForm         |   55.56 |    71.43 |      50 |      56 |                                        
+  index.js                            |   55.56 |    71.43 |      50 |      56 | 26-34,100-103                          
+ src/components/CalendarPanel         |     100 |      100 |     100 |     100 |                                        
+  CalendarPanelComponent.jsx          |     100 |      100 |     100 |     100 |                                        
+ src/components/DashBoardGoalCards    |       0 |        0 |       0 |       0 |                                        
+  DashBoardGoalCard.jsx               |       0 |        0 |       0 |       0 | 11-107                                 
+ src/components/GoalBody              |   64.15 |       50 |   56.25 |      68 |                                        
+  GoalBodyComponent.jsx               |   64.15 |       50 |   56.25 |      68 | 29-30,34-36,60-66,70-72,96,106,129-154 
+ src/components/GoalBody/AddTaskModal |      50 |    33.33 |   54.55 |      50 |                                        
+  AddTaskForm.jsx                     |   45.45 |    33.33 |   44.44 |   46.51 | 21-34,66-67,76-86,103                  
+  AddTaskModal.jsx                    |     100 |      100 |     100 |     100 |                                        
+ src/components/Menubar               |     100 |      100 |     100 |     100 |                                        
+  MenuBarComponent.jsx                |     100 |      100 |     100 |     100 |                                        
+ src/components/TaskBar               |    6.06 |        0 |   11.11 |    6.25 |                                        
+  TaskBarComponent.jsx                |    6.06 |        0 |   11.11 |    6.25 | 10-104                                 
+ src/components/TaskBody              |       0 |        0 |       0 |       0 |                                        
+  TaskBodyComponent.jsx               |       0 |        0 |       0 |       0 | 18-256                                 
+ src/components/User                  |     100 |      100 |     100 |     100 |                                        
+  UserComponent.jsx                   |     100 |      100 |     100 |     100 |                                        
+ src/components/common/Modal          |   85.71 |       50 |     100 |     100 |                                        
+  Modal.js                            |   85.71 |       50 |     100 |     100 | 10                                     
+ src/pages/ExploreGoalDetail          |   14.29 |        0 |       0 |   14.29 |                                        
+  ExploreGoalDetailPage.jsx           |   14.29 |        0 |       0 |   14.29 | 12-31                                  
+ src/pages/GoalDetail                 |     2.7 |        0 |       0 |    2.78 |                                        
+  GoalDetailPage.jsx                  |    12.5 |        0 |       0 |    12.5 | 13-32                                  
+  TaskAndAchTotal.jsx                 |       0 |        0 |       0 |       0 | 10-94                                  
+ src/pages/GoalDetail/Components      |    5.36 |        0 |       0 |    5.36 |                                        
+  Ach.jsx                             |      25 |      100 |       0 |      25 | 11-13                                  
+  AchInfo.jsx                         |      20 |        0 |       0 |      20 | 6-10                                   
+  GeneralGoalInfo.jsx                 |       0 |        0 |       0 |       0 | 10-61                                  
+  TaskInfo.jsx                        |    4.35 |        0 |       0 |    4.35 | 11-55                                  
+ src/pages/dashboard                  |    4.17 |        0 |       0 |    4.55 |                                        
+  DashBoardComponent.jsx              |    4.17 |        0 |       0 |    4.55 | 14-50,71                               
+ src/pages/dashboard/DashBoardCards   |       0 |        0 |       0 |       0 |                                        
+  DashBoardCardsComponent.jsx         |       0 |        0 |       0 |       0 | 13-96                                  
+ src/pages/dashboard/DashBoardPanel   |   90.91 |      100 |   66.67 |   90.91 |                                        
+  DashBoardPanelComponent.jsx         |   90.91 |      100 |   66.67 |   90.91 | 18                                     
+ src/pages/edit                       |   78.48 |    78.57 |   67.65 |   78.21 |                                        
+  EditGoalComponent.jsx               |      75 |    83.33 |   60.71 |      75 | 159,163,206-227,242-249,259            
+  EditPageComponent.jsx               |     100 |       75 |     100 |     100 | 45-46                                  
+  EditTaskComponent.jsx               |     100 |      100 |     100 |     100 |                                        
+ src/pages/explore                    |   13.33 |        0 |       0 |   14.29 |                                        
+  ExplorePageComponent.jsx            |   16.67 |      100 |       0 |   16.67 | 11-16,40-41                            
+  RecCardsGroup.jsx                   |   11.11 |        0 |       0 |    12.5 | 9-43                                   
+ src/pages/explore/components         |       0 |        0 |       0 |       0 |                                        
+  RecCard.jsx                         |       0 |        0 |       0 |       0 | 8-56                                   
+ src/pages/login                      |   84.62 |       75 |     100 |   84.62 |                                        
+  index.jsx                           |   84.62 |       75 |     100 |   84.62 | 28-29                                  
+  index.old.jsx                       |       0 |        0 |       0 |       0 |                                        
+ src/pages/main                       |      90 |       50 |   77.78 |   94.44 |                                        
+  GoalListComponent.jsx               |      90 |       50 |   77.78 |   94.44 | 32                                     
+ src/pages/main/CreateGoalComponent   |   48.72 |       75 |   66.67 |   48.72 |                                        
+  CreateGoalComponent.jsx             |   48.72 |       75 |   66.67 |   48.72 | 131,135,182-185,198,211-226,280        
+ src/store                            |     100 |      100 |     100 |     100 |                                        
+  store.js                            |     100 |      100 |     100 |     100 |                                        
+ src/store/actions                    |   90.57 |    93.75 |   79.41 |   90.55 |                                        
+  achievement.js                      |     100 |      100 |     100 |     100 |                                        
+  auth.js                             |     100 |      100 |     100 |     100 |                                        
+  explore.js                          |   31.58 |      100 |       0 |   31.58 | 5-6,10-12,17,21-24,30-33,39            
+  goal.js                             |   96.55 |    83.33 |     100 |   96.43 | 75-76                                  
+  index.js                            |       0 |        0 |       0 |       0 |                                        
+  modal.js                            |     100 |      100 |     100 |     100 |                                        
+  task.js                             |   84.38 |      100 |   85.71 |   86.21 | 99-111                                 
+  types.js                            |     100 |      100 |     100 |     100 |                                        
+ src/store/reducers                   |   81.25 |     87.8 |   76.47 |   84.06 |                                        
+  achievementReducer.js               |     100 |      100 |     100 |     100 |                                        
+  authReducer.js                      |     100 |      100 |     100 |     100 |                                        
+  exploreReducer.js                   |    62.5 |       40 |     100 |    62.5 | 13-17                                  
+  goalReducer.js                      |   73.53 |       90 |      70 |      76 | 40-42,57-59                            
+  modalReducer.js                     |     100 |      100 |     100 |     100 |                                        
+  rootReducer.js                      |     100 |      100 |     100 |     100 |                                        
+  taskReducer.js                      |   78.57 |    83.33 |   66.67 |   83.33 | 20-21                                  
+ src/test-utils                       |     100 |      100 |     100 |     100 |                                        
+  mocks.js                            |     100 |      100 |     100 |     100 |                                        
+--------------------------------------|---------|----------|---------|---------|----------------------------------------
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+yarn run v1.22.10
+$ react-scripts test --coverage --watchAll=false
+--------------------------------------|---------|----------|---------|---------|-------------------------------------
+File                                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                   
+--------------------------------------|---------|----------|---------|---------|-------------------------------------
+All files                             |   53.14 |    40.75 |      50 |   53.08 |                                     
+ src                                  |     100 |      100 |     100 |     100 |                                     
+  App.jsx                             |     100 |      100 |     100 |     100 |                                     
+  history.js                          |       0 |        0 |       0 |       0 |                                     
+ src/components/AccDetail             |   43.48 |       10 |      25 |   45.45 |                                     
+  AccSegmentComponent.jsx             |   43.48 |       10 |      25 |   45.45 | 22,26,34-107,118,122                
+ src/components/AddAcc                |       0 |        0 |       0 |       0 |                                     
+  AddAccForm.jsx                      |       0 |        0 |       0 |       0 | 12-154                              
+ src/components/Auth                  |     100 |      100 |     100 |     100 |                                     
+  Auth.jsx                            |     100 |      100 |     100 |     100 |                                     
+ src/components/Auth/AuthForm         |   55.56 |    71.43 |      50 |      56 |                                     
+  index.js                            |   55.56 |    71.43 |      50 |      56 | 26-34,100-103                       
+ src/components/CalendarPanel         |     100 |      100 |     100 |     100 |                                     
+  CalendarPanelComponent.jsx          |     100 |      100 |     100 |     100 |                                     
+ src/components/DashBoardGoalCards    |       0 |        0 |       0 |       0 |                                     
+  DashBoardGoalCard.jsx               |       0 |        0 |       0 |       0 | 11-107                              
+ src/components/GoalBody              |   64.15 |       50 |   56.25 |      68 |                                     
+  GoalBodyComponent.jsx               |   64.15 |       50 |   56.25 |      68 | 29-30,34-36,60-68,72,96,106,129-154 
+ src/components/GoalBody/AddTaskModal |      50 |    33.33 |   54.55 |      50 |                                     
+  AddTaskForm.jsx                     |   45.45 |    33.33 |   44.44 |   46.51 | 21-34,66-67,76-86,103               
+  AddTaskModal.jsx                    |     100 |      100 |     100 |     100 |                                     
+ src/components/Menubar               |     100 |      100 |     100 |     100 |                                     
+  MenuBarComponent.jsx                |     100 |      100 |     100 |     100 |                                     
+ src/components/TaskBar               |    6.06 |        0 |   11.11 |    6.25 |                                     
+  TaskBarComponent.jsx                |    6.06 |        0 |   11.11 |    6.25 | 10-104                              
+ src/components/TaskBody              |       0 |        0 |       0 |       0 |                                     
+  TaskBodyComponent.jsx               |       0 |        0 |       0 |       0 | 18-256                              
+ src/components/User                  |     100 |      100 |     100 |     100 |                                     
+  UserComponent.jsx                   |     100 |      100 |     100 |     100 |                                     
+ src/components/common/Modal          |   85.71 |       50 |     100 |     100 |                                     
+  Modal.js                            |   85.71 |       50 |     100 |     100 | 10                                  
+ src/pages/ExploreGoalDetail          |   14.29 |        0 |       0 |   14.29 |                                     
+  ExploreGoalDetailPage.jsx           |   14.29 |        0 |       0 |   14.29 | 12-31                               
+ src/pages/GoalDetail                 |     2.7 |        0 |       0 |    2.78 |                                     
+  GoalDetailPage.jsx                  |    12.5 |        0 |       0 |    12.5 | 13-32                               
+  TaskAndAchTotal.jsx                 |       0 |        0 |       0 |       0 | 10-94                               
+ src/pages/GoalDetail/Components      |    5.36 |        0 |       0 |    5.36 |                                     
+  Ach.jsx                             |      25 |      100 |       0 |      25 | 11-13                               
+  AchInfo.jsx                         |      20 |        0 |       0 |      20 | 6-10                                
+  GeneralGoalInfo.jsx                 |       0 |        0 |       0 |       0 | 10-61                               
+  TaskInfo.jsx                        |    4.35 |        0 |       0 |    4.35 | 11-55                               
+ src/pages/dashboard                  |    4.17 |        0 |       0 |    4.55 |                                     
+  DashBoardComponent.jsx              |    4.17 |        0 |       0 |    4.55 | 14-50,71                            
+ src/pages/dashboard/DashBoardCards   |       0 |        0 |       0 |       0 |                                     
+  DashBoardCardsComponent.jsx         |       0 |        0 |       0 |       0 | 13-96                               
+ src/pages/dashboard/DashBoardPanel   |   90.91 |      100 |   66.67 |   90.91 |                                     
+  DashBoardPanelComponent.jsx         |   90.91 |      100 |   66.67 |   90.91 | 18                                  
+ src/pages/edit                       |   78.48 |    78.57 |   67.65 |   78.21 |                                     
+  EditGoalComponent.jsx               |      75 |    83.33 |   60.71 |      75 | 159,163,206-227,242-249,259         
+  EditPageComponent.jsx               |     100 |       75 |     100 |     100 | 45-46                               
+  EditTaskComponent.jsx               |     100 |      100 |     100 |     100 |                                     
+ src/pages/explore                    |   13.33 |        0 |       0 |   14.29 |                                     
+  ExplorePageComponent.jsx            |   16.67 |      100 |       0 |   16.67 | 11-16,40-41                         
+  RecCardsGroup.jsx                   |   11.11 |        0 |       0 |    12.5 | 9-43                                
+ src/pages/explore/components         |       0 |        0 |       0 |       0 |                                     
+  RecCard.jsx                         |       0 |        0 |       0 |       0 | 8-56                                
+ src/pages/login                      |   84.62 |       75 |     100 |   84.62 |                                     
+  index.jsx                           |   84.62 |       75 |     100 |   84.62 | 28-29                               
+  index.old.jsx                       |       0 |        0 |       0 |       0 |                                     
+ src/pages/main                       |      90 |       50 |   77.78 |   94.44 |                                     
+  GoalListComponent.jsx               |      90 |       50 |   77.78 |   94.44 | 32                                  
+ src/pages/main/CreateGoalComponent   |   48.72 |       75 |   66.67 |   48.72 |                                     
+  CreateGoalComponent.jsx             |   48.72 |       75 |   66.67 |   48.72 | 131,135,182-185,198,211-226,280     
+ src/store                            |     100 |      100 |     100 |     100 |                                     
+  store.js                            |     100 |      100 |     100 |     100 |                                     
+ src/store/actions                    |   90.57 |    93.75 |   79.41 |   90.55 |                                     
+  achievement.js                      |     100 |      100 |     100 |     100 |                                     
+  auth.js                             |     100 |      100 |     100 |     100 |                                     
+  explore.js                          |   31.58 |      100 |       0 |   31.58 | 5-6,10-12,17,21-24,30-33,39         
+  goal.js                             |   96.55 |    83.33 |     100 |   96.43 | 75-76                               
+  index.js                            |       0 |        0 |       0 |       0 |                                     
+  modal.js                            |     100 |      100 |     100 |     100 |                                     
+  task.js                             |   84.38 |      100 |   85.71 |   86.21 | 99-111                              
+  types.js                            |     100 |      100 |     100 |     100 |                                     
+ src/store/reducers                   |    87.5 |     87.8 |   88.24 |   88.41 |                                     
+  achievementReducer.js               |     100 |      100 |     100 |     100 |                                     
+  authReducer.js                      |     100 |      100 |     100 |     100 |                                     
+  exploreReducer.js                   |    62.5 |       40 |     100 |    62.5 | 13-17                               
+  goalReducer.js                      |   88.24 |       90 |      90 |      88 | 40-42                               
+  modalReducer.js                     |     100 |      100 |     100 |     100 |                                     
+  rootReducer.js                      |     100 |      100 |     100 |     100 |                                     
+  taskReducer.js                      |   78.57 |    83.33 |   66.67 |   83.33 | 20-21                               
+ src/test-utils                       |     100 |      100 |     100 |     100 |                                     
+  mocks.js                            |     100 |      100 |     100 |     100 |                                     
+--------------------------------------|---------|----------|---------|---------|-------------------------------------
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

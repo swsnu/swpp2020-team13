@@ -118,18 +118,60 @@ it('addGoal without file should add goal correctly', (done) => {
 
 it('editGoal with file & with key should add goal correctly', (done) => {
 
+  const spyGet = jest.spyOn(axios, 'get')
+  .mockImplementation((url, td) => {
+    return new Promise((resolve, reject) => {
+      const result = {
+        status: 200,
+        data: {key: 50}
+      }
+      resolve(result)
+    })
+  })
+
     const spyPut = jest.spyOn(axios, 'put')
     .mockImplementation((url, td) => {
       return new Promise((resolve, reject) => {
         const result = {
           status: 200,
-          data: {url: "photoUrl"}
+          data: {url: "photoUrl", key: 10}
         }
         resolve(result)
       })
     })
 
     store.dispatch(actionCreatorsGoal.editGoal(1, new FormData, "file", 50)).then(() => {
+    expect(spyPut).toHaveBeenCalledTimes(3) 
+    done()
+  })
+})
+
+it('editGoal with file & with key should add goal correctly', (done) => {
+
+  const spyGet = jest.spyOn(axios, 'get')
+  .mockImplementation((url, td) => {
+    return new Promise((resolve, reject) => {
+      const result = {
+        status: 200,
+        data: {key: 50}
+      }
+      resolve(result)
+    })
+  })
+
+    const spyPut = jest.spyOn(axios, 'put')
+    .mockImplementation((url, td) => {
+      return new Promise((resolve, reject) => {
+        const result = {
+          status: 200,
+          data: {url: "photoUrl", key: 10}
+        }
+        resolve(result)
+      })
+    })
+    let data = new FormData
+    data.append('photo', "https://goalingball-test.s3.amazonaws.com/")
+    store.dispatch(actionCreatorsGoal.editGoal(1, data, "file", 50)).then(() => {
     expect(spyPut).toHaveBeenCalledTimes(3) 
     done()
   })

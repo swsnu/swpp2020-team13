@@ -150,7 +150,7 @@ it('edit_ach with file & without key should add goal correctly', (done) => {
     })
 
     store.dispatch(actionCreatorsAch.edit_achievement(1, new FormData, "file", null)).then(() => {
-    expect(spyGet).toHaveBeenCalledTimes(1)
+    expect(spyGet).toHaveBeenCalledTimes(2)
     expect(spyPut).toHaveBeenCalledTimes(3)  
     done()
   })

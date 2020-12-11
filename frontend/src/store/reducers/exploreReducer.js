@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/types'
 
 const initialState = {
-    exploreStatus: null,
+    // exploreStatus: null,
     goals: [],
     selectedGoal: null,
     achievements:[]

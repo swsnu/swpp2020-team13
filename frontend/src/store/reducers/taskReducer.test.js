@@ -48,7 +48,7 @@ describe("TaskReducer", () => {
         }
         const newState = reducerTask(stubInitialState, {
             type: actionTypes.DELETE_TASK,
-            id: 1,
+            payload: 1,
         })
         expect(newState).toEqual({tasks: [], selectedTask: null})
     })
