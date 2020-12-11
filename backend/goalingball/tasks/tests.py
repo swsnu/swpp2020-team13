@@ -35,7 +35,7 @@ goal_data = {
 }
 
 goal_id = 1
-importance = [4]
+importance = 4
 day_of_week = ['MONDAY', 'WEDNESDAY']
 
 task_data = {
@@ -119,6 +119,11 @@ def test_taskDetail(client, django_user_model):
     # create a new user
     user = django_user_model.objects.create_user(username=username, password=password)
 
+    # Unauthenticated user have no access
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    response = client.get(url)
+    assert response.status_code == 401
+
     # user is logeed in
     url = reverse('login')
     response = client.post(url, user_data, headers=headers)
@@ -140,10 +145,22 @@ def test_taskDetail(client, django_user_model):
     assert response.status_code == 201
     task_id = json.loads(response.content.decode())['id']
 
-    url = reverse('taskDetail', kwargs={'task_id': task_id})
+    # Task does not exist
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    response = client.get(url)
+    assert response.status_code == 404
 
     # Get a detail of a task
+    url = reverse('taskDetail', kwargs={'task_id': task_id})
     response = client.get(url)
     assert response.status_code == 200
+
+    # Edit a task
+    url = reverse('taskDetail', kwargs={'task_id': task_id})
+    task_data['title'] = 'edited title'
+    response = client.put(url, json.dumps(task_data), headers=headers)
+    assert response.status_code == 200
+
+    
 
 
