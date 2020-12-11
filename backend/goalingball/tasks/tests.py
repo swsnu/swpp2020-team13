@@ -124,6 +124,15 @@ def test_taskDetail(client, django_user_model):
     response = client.get(url)
     assert response.status_code == 401
 
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    response = client.put(url, json.dumps(task_data), headers=headers)
+    assert response.status_code == 401
+
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    response = client.delete(url)
+    assert response.status_code == 401
+
+
     # user is logeed in
     url = reverse('login')
     response = client.post(url, user_data, headers=headers)
@@ -145,7 +154,7 @@ def test_taskDetail(client, django_user_model):
     assert response.status_code == 201
     task_id = json.loads(response.content.decode())['id']
 
-    # Task does not exist
+    # Task does not exist 
     url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
     response = client.get(url)
     assert response.status_code == 404
@@ -155,12 +164,30 @@ def test_taskDetail(client, django_user_model):
     response = client.get(url)
     assert response.status_code == 200
 
-    # Edit a task
+    ## Edit a task
+
+    # Task does not exist 
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    task_data['title'] = 'edited title'
+    response = client.put(url, json.dumps(task_data), headers=headers)
+    assert response.status_code == 404
+
+    # User can edit a task
     url = reverse('taskDetail', kwargs={'task_id': task_id})
     task_data['title'] = 'edited title'
     response = client.put(url, json.dumps(task_data), headers=headers)
     assert response.status_code == 200
 
-    
 
+    ## Delete a task
+
+    # Task does not exist
+    url = reverse('taskDetail', kwargs={'task_id': fake.pyint()})
+    response = client.delete(url)
+    assert response.status_code == 404
+
+    # User can delete a task
+    url = reverse('taskDetail', kwargs={'task_id': task_id})
+    response = client.delete(url)
+    assert response.status_code == 200
 
