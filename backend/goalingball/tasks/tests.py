@@ -93,3 +93,7 @@ def test_taskList(client, django_user_model):
     # TODO: include a list in a proper format
     # assert day_of_week[0] in response.content.decode()
     # assert importance[0] in response.content.decode()
+
+    # get a list of tasks
+    response = client.get(url)
+    assert response.status_code == 200

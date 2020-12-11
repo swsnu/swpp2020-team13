@@ -40,8 +40,13 @@ def taskList(request):
         for t in Task.objects.all().values():
             created_at = int(t["created_at"].timestamp()) 
             updated_at = int(t["updated_at"].timestamp())
-            start_at = int(t["start_at"].timestamp()) 
-            deadline = int(t["deadline"].timestamp()) 
+            deadline = t["deadline"]
+            if deadline is not None:
+                deadline = int(deadline.timestamp())
+            start_at = t["start_at"]
+            if start_at is not None:
+                start_at = int(start_at.timestamp())
+
             task_list.append({
                 'id': t["id"], 
                 'user': t["user_id"], 
