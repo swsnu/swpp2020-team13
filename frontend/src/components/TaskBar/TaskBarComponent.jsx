@@ -11,6 +11,7 @@ class TaskBarComponent extends Component {
         acc_open: false,
         accomplishment: null,
         addAccopen: false,
+        achievement: {des: "des", percentage_done: 0}
     }
 
     // componentDidMount = () => {

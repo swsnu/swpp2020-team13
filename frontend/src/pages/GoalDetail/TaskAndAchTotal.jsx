@@ -60,6 +60,7 @@ class TaskAndAchTotal extends Component {
                             <Button size="tiny" icon='angle left'style={
                                 {backgroundColor: "#FFFFFF"}
                             }
+                            className="DashPrevAch"
                             disabled={this.state.startIndex == 0 ? true : false}
                             onClick={()=>this.prevHandler()}
                             >
@@ -68,6 +69,7 @@ class TaskAndAchTotal extends Component {
                             style={
                                 {backgroundColor: "#FFFFFF"}
                             }
+                            className="DashNextAch"
                             disabled={this.state.startIndex == (achList.length-1) ? true : false}
                             onClick={()=>this.nextHandler()}
                             ></Button>

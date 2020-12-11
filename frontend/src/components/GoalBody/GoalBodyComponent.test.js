@@ -6,7 +6,7 @@ import GoalBody from './GoalBodyComponent'
 import { getMockStore } from '../../test-utils/mocks'
 import history from '../../history'
 import chai, { expect } from 'chai'
-
+import moment from 'moment'
 
 const stubInitialState = {
     auth: null,
@@ -20,11 +20,11 @@ describe('<GoalBody />', () => {
     let WrappedGoalBody
     let mockGoalDefault = {
         tasks: [
-            {title: "title1", id:"1", deadline:"2020-12-31", day_of_week:[""] },
+            {title: "title1", id:"1", deadline: (moment(new Date).startOf('day').unix() + 24*60*60), start_at : moment(new Date).startOf('day').unix(), day_of_week:["MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SUNDAY"] },
             {title: "title2", id:"2", deadline:"2020-12-31", day_of_week:[""] }
         ],
-        deadline: "2020-11-13",
-        title: "",
+        deadline: (moment(new Date).startOf('day').unix() + 24*60*60),
+        title: "title",
         id: 1,
         tags: ["tags"],
     }
@@ -55,14 +55,14 @@ describe('<GoalBody />', () => {
 
     it("should click delete button", ()=> {
         const component = mount(WrappedGoalBody)
-        const wrapper = component.find('.DeleteGoalButtonA #DeleteButtonGoalBody')
+        const wrapper = component.find('#DeleteButtonGoalBody button')
         // console.log(component.debug())
         wrapper.simulate("click")
     })
 
     it("should click edit button", ()=> {
         const component = mount(WrappedGoalBody)
-        const wrapper = component.find('.EditGoalButtonA #EditButtonGoalBody')
+        const wrapper = component.find('#EditButtonGoalBody button')
         // console.log(component.debug())
         wrapper.simulate("click")
     })

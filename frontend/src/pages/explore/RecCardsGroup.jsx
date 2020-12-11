@@ -33,12 +33,14 @@ export const RecCardsGroup = (props) => {
             <Button style={
                 {marginLeft:'10px'}
             }
+            className="ExpShowMore"
             disabled={(select > 0) ? true : false}
             onClick={()=>{setSelect(select+1)}}
             >Click for more recommendations!</Button>
             <Button style={
                 {marginLeft:'10px'}
             }
+            className="ExpShowLess"
             disabled={(select > 0) ? false : true}
             onClick={()=>{setSelect(select-1)}}
             >Hide recommendations</Button>

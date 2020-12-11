@@ -103,8 +103,8 @@ class GoalCard extends React.Component {
           <Button onClick={this.onClickHandler}>
             Click for Details
           </Button>
-          <Button size="tiny" compact icon onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
-          <Button size="tiny" compact icon onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
+          <Button size="tiny" compact icon className="DashEditGoal"  onClick={()=>this.onClickEditGoalHandler()}><Icon name='edit'/></Button>
+          <Button size="tiny" compact icon className="DashDeleteGoal" onClick={()=>this.onClickDeleteHandler()}><Icon name='trash'/></Button>
           </Button.Group>
         </Card.Content>
       </Card>
