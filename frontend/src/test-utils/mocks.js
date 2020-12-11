@@ -44,16 +44,42 @@ const getMockTaskReducer = jest.fn(
     }
 )
 
+const getMockAchReducer = jest.fn(
+  initialState => (state = initialState, action) => {
+      switch (action.type) {
+          default:
+            break;
+        }
+        return state
+  }
+)
+
+
+const getMockExploreReducer = jest.fn(
+  initialState => (state = initialState, action) => {
+      switch (action.type) {
+          default:
+            break;
+        }
+        return state
+  }
+)
+
 export const getMockStore = (initialState) => {
   const mockAuthReducer = getMockAuthReducer(initialState);
   const mockGoalReducer = getMockGoalReducer(initialState)
   const mockModalReducer = getMockModalReducer(initialState)
   const mockTaskReducer = getMockTaskReducer(initialState)
+  const getMockAchReducer = getMockAchReducer(initialState)
+  const getMockExploreReducer = getMockExploreReducer(initialState)
+
   const rootReducer = combineReducers({
     auth: mockAuthReducer,
     goal: mockGoalReducer,
     task: mockTaskReducer,
     modal: mockModalReducer,
+    explore: getMockExploreReducer,
+    achievement: getMockAchReducer,
     router: connectRouter(history),
   });
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
