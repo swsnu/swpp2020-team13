@@ -25,6 +25,7 @@ matrix:
   - language: python
     python: '3.7'
     addons:
+      poastgresql: '13.1'
       sonarcloud:
         organization: swsnu
         token:

@@ -61,3 +61,4 @@ export const getMockStore = (initialState) => {
     composeEnhancers(applyMiddleware(...middlewares)));
   return mockStore;
 }
+
