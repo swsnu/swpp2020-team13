@@ -1,2 +1,0 @@
-yarn run v1.22.10
-$ react-scripts test --coverage --watchAll=false
