@@ -70,8 +70,8 @@ export const getMockStore = (initialState) => {
   const mockGoalReducer = getMockGoalReducer(initialState)
   const mockModalReducer = getMockModalReducer(initialState)
   const mockTaskReducer = getMockTaskReducer(initialState)
-  const getMockAchReducer = getMockAchReducer(initialState)
-  const getMockExploreReducer = getMockExploreReducer(initialState)
+  const mockAchReducer = getMockAchReducer(initialState)
+  const mockExploreReducer = getMockExploreReducer(initialState)
 
   const rootReducer = combineReducers({
     auth: mockAuthReducer,
