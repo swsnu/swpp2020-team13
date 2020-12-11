@@ -79,12 +79,14 @@ def test_taskList(client, django_user_model):
     assert title.replace('\n', '\\n') in response.content.decode()
     assert photo in response.content.decode()
     goal_id = json.loads(response.content.decode())['id']
+    task_data['goal_id'] = goal_id
     # assert goal_id == 1
 
     ##### Test tasks ######
 
     # create a new task
     url = reverse('taskList')
+
     response = client.post(url, task_data, headers=headers)
     assert response.status_code == 201
 
