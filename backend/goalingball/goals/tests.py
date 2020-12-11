@@ -99,7 +99,7 @@ def test_goalList(client, django_user_model):
    
 
     
-'''
+
 def test_goalDetail(client, django_user_model):
     # TODO: create a beforeAll function for repeated job
 
@@ -115,7 +115,7 @@ def test_goalDetail(client, django_user_model):
     response = client.post(url, goal_data, headers=headers)
     assert response.status_code == 201
     goal_id = json.loads(response.content.decode())['id']
-    assert goal_id == 1
+    # assert goal_id == 1
 
     # goal does not exist
     url = reverse('goalDetail', kwargs={'goal_id': fake.pyint()})
@@ -166,4 +166,4 @@ def test_goalDetail(client, django_user_model):
     
 
     # TODO: user does not own the goal (status=403)
-'''
+

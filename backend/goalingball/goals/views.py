@@ -143,10 +143,10 @@ def goalList(request):
             user.update_vector(vector_avg, count)
 
         new_goal_deadline = new_goal.deadline
-        new_goal_start_at = new_goal.start_at
         if new_goal.deadline is not None:
             new_goal_deadline = int(new_goal.deadline.timestamp())
 
+        new_goal_start_at = new_goal.start_at
         if new_goal.start_at is not None:
             new_goal_start_at = int(new_goal.start_at.timestamp())
         
@@ -192,6 +192,14 @@ def goalDetail(request, goal_id=""):
                 "start_at":int(t["start_at"].timestamp()), 
                 "deadline":int(t["deadline"].timestamp())
         })
+
+        deadline = g.deadline
+        if deadline is not None:
+            deadline = int(deadline.timestamp())
+
+        start_at = g.start_at
+        if start_at is not None:
+            start_at = int(start_at.timestamp())
         
         tags = [tag for tag in g.tags.names()]
         response_dict = {
@@ -201,8 +209,8 @@ def goalDetail(request, goal_id=""):
             'user': g.user_id, 
             'created_at': g.created_at, 
             'updated_at': g.updated_at, 
-            'start_at': int(g.start_at.timestamp()), 
-            'deadline': int(g.deadline.timestamp()), 
+            'start_at': start_at,
+            'deadline': deadline,  
             'tags': tags,
             'tasks': tasks
         }
@@ -267,14 +275,22 @@ def goalDetail(request, goal_id=""):
                 "deadline":int(t["deadline"].timestamp())
         })
 
+        deadline = goal.deadline
+        if deadline is not None:
+            deadline = int(deadline.timestamp())
+
+        start_at = goal.start_at
+        if start_at is not None:
+            start_at = int(start_at.timestamp())
+
         response_dict = {
             'id': goal.id, 
             'title': goal.title, 
             'photo': goal.photo, 'user': goal.user.id, 
             'created_at': int(goal.created_at.timestamp()), 
             'updated_at': int(goal.updated_at.timestamp()),
-            'start_at': int(goal.start_at.timestamp()), 
-            'deadline': int(goal.deadline.timestamp()), 
+            'start_at': start_at, 
+            'deadline': deadline, 
             'tags': [tag for tag in goal.tags.names()],
             'tasks': tasks
         }
