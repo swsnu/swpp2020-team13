@@ -91,6 +91,15 @@ def taskList(request):
         # if new_task_deadline is not None:
         #     new_task_deadline = int(new_task_deadline.timestamp())
         # breakpoint()
+
+        new_task_deadline = new_task.deadline
+        if new_task_deadline is not None:
+            new_task_deadline = int(new_task_deadline.timestamp())
+        
+        new_task_start_at = new_task.start_at
+        if new_task_start_at is not None:
+            new_task_start_at = int(new_task_start_at.timestamp())
+        
         response_dict = {
             'id': new_task.id, 
             'user': new_task.user_id, 
@@ -100,8 +109,8 @@ def taskList(request):
             'day_of_week': new_task.day_of_week,
             'created_at': int(new_task.created_at.timestamp()),
             'updated_at' : int(new_task.updated_at.timestamp()),
-            'start_at': int(new_task.start_at.timestamp()),
-            'deadline': int(new_task.deadline.timestamp()), 
+            'start_at': new_task_start_at,
+            'deadline': new_task_deadline 
         }
         # print(response_dict)
 
