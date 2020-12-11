@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme';
 import AccSegment from './AccSegmentComponent';
-
+import moment from 'moment'
 // jest.mock('../AddAcc/AddAccForm', ()=>{
 //     return jest.fn(props => {
 //         return (
@@ -17,29 +17,24 @@ describe('AccSegment', () => {
     let mockTask = {
         title:"title",
         day_of_week: ["Tuesday"],
-        id: 1
+        id: 1,
+        achievements: []
     }
 
     it('should render without errors', ()=>{
-        const component  = shallow(<AccSegment task={mockTask}/>)
+        const component  = shallow(<AccSegment task={mockTask} achievements={[]}/>)
         const wrapper = component.find(".AccContainer")
-        expect(wrapper.length).toBe(1)
+        expect(wrapper.length).toBe(0)
     })
 
     it('should handle onclick in editing achievements', ()=>{
-        const component  = shallow(<AccSegment task={mockTask}/>)
+        const today  = new Date
+        const today_ts = moment(today).startOf('day').unix() + (24*60*60) - 1
+        const component  = shallow(<AccSegment task={mockTask} achievements={[{written_at: today_ts, task: 1}]} today={today}/>)
+        // console.log(component.debug())
         const wrapper = component.find(".AccContainer #EditAchButton")
         wrapper.simulate("click")
     })
 
-    it('should pass onSubmit to AddAcc', ()=>{
-        const component  = mount(<AccSegment task={mockTask}/>)
-        const wrapper = component.find(".AccContainer #EditAchButton button" )
-        // console.log(component.debug())
-        wrapper.simulate("click")
-        const wrapper_add = component.find(".AddAccForm .AddAccCloseButton button")
-        expect(wrapper_add.length).toBe(1)
-        wrapper_add.simulate("click")
-    })
 
 });
