@@ -42,9 +42,10 @@ def achievementList(request):
         if written_at is not None:
             written_at = timezone.make_aware(datetime.fromtimestamp(int(written_at)))
         try:
-            percentage_complete = int(percentage_complete)
-        except ValueError:
-            # print("[DEBUG] percentage_complete is not a valid float")
+            # print("type(percentage_complete): ", type(percentage_complete))
+            percentage_complete = int(float(percentage_complete))
+        except ValueError as e:
+            # print("[DEBUG] percentage_complete is not a valid float: ", e)
             return HttpResponse(status=400) 
 
         # print("percentage_complete type: ", type(percentage_complete))
@@ -59,6 +60,9 @@ def achievementList(request):
             user=User.objects.get(id=task.user_id), task=Task.objects.get(id=task_id)
         )
 
+        if written_at is not None:
+            written_at = int(written_at.timestamp())
+
         achievement.save()
         response_dict = {
             'id': achievement.id,
@@ -66,7 +70,7 @@ def achievementList(request):
             'task': achievement.task_id, 
             'description': description, 
             'percentage_complete': percentage_complete,
-            'written_at': int(written_at.timestamp()), 
+            'written_at': written_at, 
             'photo': achievement.photo
         }
 
