@@ -27,11 +27,23 @@ def goalList(request):
         for g in Goal.objects.select_related('user').filter(user_id=request.user.id):
             created_at = int(g.created_at.timestamp()) 
             updated_at = int(g.updated_at.timestamp())
-            start_at = int(g.start_at.timestamp())
-            deadline = int(g.deadline.timestamp())
+            deadline = g.deadline
+            if deadline is not None:
+                deadline = int(deadline.timestamp())
+            start_at = g.start_at
+            if start_at is not None:
+                start_at = int(start_at.timestamp())
+            
             
             tasks = []
             for t in g.tasks.values():
+                task_deadline = t["deadline"]
+                if task_deadline is not None:
+                    task_deadline = int(task_deadline.timestamp())
+                task_start_at = t["start_at"]
+                if task_start_at is not None:
+                    task_start_at = int(task_start_at.timestamp())
+                
                 tasks.append({
                     'id': t["id"],
                     'user':t["user_id"],
@@ -39,8 +51,8 @@ def goalList(request):
                     'title': t["title"], 
                     'importance': t["importance"], 
                     'day_of_week':t["day_of_week"], 
-                    "start_at":int(t["start_at"].timestamp()), 
-                    "deadline":int(t["deadline"].timestamp())
+                    "start_at":task_start_at, 
+                    "deadline":task_deadline
                 })
             # print(tasks)
             # tasks = [model_to_dict(task) for task in g.tasks.filter(goal_id=g.id)]
@@ -72,9 +84,12 @@ def goalList(request):
         goal_deadline = request.POST.get('deadline', None)
         goal_start_at = request.POST.get('start_at', None)
 
-        if goal_deadline is not None and goal_start_at is not None:
-            goal_start_at = timezone.make_aware(datetime.fromtimestamp(int(goal_start_at)))
+        if goal_deadline is not None:
             goal_deadline = timezone.make_aware(datetime.fromtimestamp(int(goal_deadline)))
+
+        if goal_start_at is not None:
+            goal_start_at = timezone.make_aware(datetime.fromtimestamp(int(goal_start_at)))
+            
 
         if 'photo' in request.POST:
             goal_photo = request.POST['photo']
@@ -114,7 +129,7 @@ def goalList(request):
                 vector_total += np.array(vector)
 
             vector_avg = vector_total/len(j_to_dict['body']) # divide by n
-            print(vector_avg)
+            # print(vector_avg)
             new_goal.update_vector(vector_avg) # update goal vector
             # test print
             np_bytes_aft = base64.b64decode(new_goal.vector)
@@ -127,6 +142,14 @@ def goalList(request):
             user = request.user
             user.update_vector(vector_avg, count)
 
+        new_goal_deadline = new_goal.deadline
+        new_goal_start_at = new_goal.start_at
+        if new_goal.deadline is not None:
+            new_goal_deadline = int(new_goal.deadline.timestamp())
+
+        if new_goal.start_at is not None:
+            new_goal_start_at = int(new_goal.start_at.timestamp())
+        
 
         response_dict = {
             'id': new_goal.id, 
@@ -135,8 +158,8 @@ def goalList(request):
             'photo': new_goal.photo, 
             'created_at': int(new_goal.created_at.timestamp()),
             'updated_at' : int(new_goal.updated_at.timestamp()), 
-            'start_at': int(new_goal.start_at.timestamp()),
-            'deadline': int(new_goal.deadline.timestamp()), 
+            'start_at': new_goal_start_at,
+            'deadline': new_goal_deadline, 
             'tags': [tag for tag in new_goal.tags.names()], 
             'tasks': []
         }
