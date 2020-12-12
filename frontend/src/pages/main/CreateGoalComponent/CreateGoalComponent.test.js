@@ -68,7 +68,7 @@ describe('CreateGoal', () => {
     it("should handle click", ()=> {
         const component = mount(WrappedCreate)
         // console.log(component.debug())
-        const wrapper = component.find(".GoalSubmitButton").at(1)
+        const wrapper = component.find(".GoalSubmitButton").at(0)
         // const wrapper = component.find(".FormCreate .GoalSubmitButton button")
         wrapper.simulate("click")
     })
@@ -91,9 +91,15 @@ describe('CreateGoal', () => {
 
     it("should accept changes in tag", ()=> {
         const component = mount(WrappedCreate)
-        const wrapper = component.find(".FormCreate .GoalDropDown").at(1)
+        let wrapper = component.find(".FormCreate .GoalDropDown").at(1)
         // TODO: this.state.tags is undefined
         const event = {data:{value:"test"}}
         wrapper.simulate("change", event)
+
+        // submission button is now enabled
+        wrapper = component.find(".GoalSubmitButton").at(0)
+        // const wrapper = component.find(".FormCreate .GoalSubmitButton button")
+        wrapper.simulate("click")
     })
 });
+
