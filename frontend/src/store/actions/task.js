@@ -80,9 +80,11 @@ export const deleteTask_ = (id) => {
 }
 
 export const deleteTask = (goal_id, task_id) => async dispatch => {
+    console.log("[DEBUG] deleteTask start")
     const res = await axios.delete('/api/v1/tasks/'+ task_id + '/')
     dispatch(deleteTask_(task_id))
     dispatch(deleteTaskFromGoal(goal_id, task_id))
+    console.log("[DEBUG] sdeleteTask done")
 }
 
 // export const deleteTask = (goal, id) => {

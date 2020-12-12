@@ -6,7 +6,7 @@ import history from '../history'
 import {middlewares} from '../store/store'
 
 const getMockAuthReducer = jest.fn(
-  initialState => (state = initialState.auth, action) => {
+  initialState => (state = initialState.auth || {}, action) => {
     switch (action.type) {
       default:
         break;
@@ -16,52 +16,52 @@ const getMockAuthReducer = jest.fn(
 )
 
 const getMockGoalReducer = jest.fn(
-    initialState => (state = initialState, action) => {
+    initialState => (state = initialState.goal || {}, action) => {
         switch (action.type) {
             default:
               break;
-          }
-          return state
+        }
+        return state
     }
 )
 
 const getMockModalReducer = jest.fn(
-    initialState => (state = initialState, action) => {
+    initialState => (state = initialState || {}, action) => {
         switch (action.type) {
             default:
               break;
-          }
-          return state
+        }
+        return state
     }
 )
 const getMockTaskReducer = jest.fn(
-    initialState => (state = initialState, action) => {
+    initialState => (state = initialState || {}, action) => {
         switch (action.type) {
             default:
               break;
-          }
-          return state
+        }
+        return state
     }
 )
 
 const getMockAchReducer = jest.fn(
-  initialState => (state = initialState, action) => {
+  initialState => (state = initialState || {}, action) => {
       switch (action.type) {
           default:
             break;
-        }
-        return state
+      }
+      return state
   }
 )
 
 
 const getMockExploreReducer = jest.fn(
-  initialState => (state = initialState, action) => {
+  initialState => (state = initialState || {}, action) => {
       switch (action.type) {
           default:
             break;
-        }
-        return state
+      }
+      return state
   }
 )
 
@@ -78,8 +78,8 @@ export const getMockStore = (initialState) => {
     goal: mockGoalReducer,
     task: mockTaskReducer,
     modal: mockModalReducer,
-    explore: getMockExploreReducer,
-    achievement: getMockAchReducer,
+    explore: mockExploreReducer,
+    achievement: mockAchReducer,
     router: connectRouter(history),
   });
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

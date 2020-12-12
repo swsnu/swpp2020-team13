@@ -89,8 +89,18 @@ describe("Action task.js", () => {
               resolve(result);
             })
           })
+        // axios.delete = jest.fn(url => {
+        //   return new Promise((resolve, reject) => {
+        //     const result = {
+        //       status: 200,
+        //       data: null,
+        //     }
+        //     resolve(result);
+        //   })
+        // })
     
         mockStore.dispatch(actionCreatorsTask.deleteTask(1,1)).then(() => {
+          // expect(axios.delete).toHaveBeenCalledTimes(1)
           expect(spy).toHaveBeenCalledTimes(1)
           done()
         })
