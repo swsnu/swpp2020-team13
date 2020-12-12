@@ -14,7 +14,9 @@ const stubInitialState = {
     },
     goal: {
         goals:[],
-        selectedGoal: null
+        selectedGoal: {
+            tags: []
+        }
     }
 }
 const mockStore = getMockStore(stubInitialState);
@@ -66,7 +68,8 @@ describe('CreateGoal', () => {
     it("should handle click", ()=> {
         const component = mount(WrappedCreate)
         // console.log(component.debug())
-        const wrapper = component.find(".FormCreate .GoalSubmitButton button")
+        const wrapper = component.find(".GoalSubmitButton").at(1)
+        // const wrapper = component.find(".FormCreate .GoalSubmitButton button")
         wrapper.simulate("click")
     })
 
@@ -79,18 +82,18 @@ describe('CreateGoal', () => {
 
     it("should accept deadline change", ()=> {
         const component = mount(WrappedCreate)
-        const wrapper = component.find(".FormCreate .react-datepicker__input-container")
-        // TODO: wrapper.length is 0
-        // const testnewdate = new Date('December 17, 2020 03:24:00');;
-        // wrapper.simulate("change", { target: { selected:testnewdate } });
-        // wrapper.simulate("click")
+        const wrapper = component.find('#GoalFormDeadline input')
+        // const wrapper = component.find(".FormCreate .react-datepicker__input-container")
+        const testnewdate = new Date('December 17, 2020 03:24:00');;
+        wrapper.simulate("change", { target: { selected:testnewdate } });
+        wrapper.simulate("click")
     })
 
     it("should accept changes in tag", ()=> {
         const component = mount(WrappedCreate)
-        const wrapper = component.find(".FormCreate Dropdown")
+        const wrapper = component.find(".FormCreate .GoalDropDown").at(1)
         // TODO: this.state.tags is undefined
-        // const event = {data:{value:"test"}}
-        // wrapper.simulate("change", event)
+        const event = {data:{value:"test"}}
+        wrapper.simulate("change", event)
     })
 });

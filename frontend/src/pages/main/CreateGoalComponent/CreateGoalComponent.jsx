@@ -175,7 +175,7 @@ class CreateGoal extends Component {
     }
 
     onTagsChanged(tags) {
-        this.setState({tags: tags})
+        this.setState({tags: tags || []})
     }
 
     addTagOptions(e,data) {
