@@ -37,6 +37,8 @@ def find_similar_goals(user_vector, user_id):
     goal_list = []
     for user in user_dict:
         for goal in Goal.objects.filter(user_id=user['id']):
+            if goal.vector is None:
+                goal.init_vector()
             np_bytes_goal = base64.b64decode(goal.vector)
             goal_vector = pickle.loads(np_bytes_goal)
             if norm(goal_vector) == 0:
