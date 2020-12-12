@@ -29,7 +29,7 @@ describe('<DashboardComponent />', ()=> {
     beforeEach(() => {
         WrappedDashBoard = (
             <Provider store={mockStore}>
-                <DashBoardComponent goals={stubInitialState.goal}/>
+                <DashBoardComponent />
             </Provider>
         )
         axios.get = jest.fn(url => Promise.resolve({ status: 200, data: {} }))
@@ -40,9 +40,9 @@ describe('<DashboardComponent />', ()=> {
     //   })
 
     it("should render without errors", ()=> {
-        // const component = mount(WrappedDashBoard)
+        const component = mount(WrappedDashBoard)
         // console.log("mount: ", component.debug())
-        const component = shallow(<DashBoardComponent store={mockStore}/>).dive()
+        // const component = shallow(<DashBoardComponent store={mockStore}/>).dive()
         expect(component.length).toBe(1)
         // const wrapper = component.find('.dashboard')
         // expect(wrapper.length).toBe(1)

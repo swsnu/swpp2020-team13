@@ -55,7 +55,7 @@ class DashBoardComponent extends Component {
                 <Grid columns='2' divided >
                     <GridColumn className="dashboardGrid">
                         {/* <h2 className="dashboardTitle">Your Dashboard</h2> */}
-                        <DashBoardPanel metric={this.getMetric()} wordList={this.getWordCloud()}/>
+                        <DashBoardPanel metric={() => this.getMetric()} wordList={() => this.getWordCloud()}/>
                     </GridColumn>
                     <GridColumn>
                         <DashBoardCards goalCardList={this.props.goals}/>
