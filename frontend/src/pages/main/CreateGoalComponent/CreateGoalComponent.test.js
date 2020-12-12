@@ -90,7 +90,7 @@ describe('CreateGoal', () => {
         const component = mount(WrappedCreate)
         const wrapper = component.find(".FormCreate Dropdown")
         // TODO: this.state.tags is undefined
-        // const event = {data:{value:"test"}}
-        // wrapper.simulate("change", event)
+        const event = {data:{value:"test"}}
+        wrapper.simulate("change", event)
     })
 });

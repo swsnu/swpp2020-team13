@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import chai, { expect } from 'chai'
 import history from '../../../history'
 import { Router} from 'react-router-dom';
-
+import moment from 'moment'
 const stubInitialState = {
     auth: null,
     modal: {
@@ -21,7 +21,7 @@ describe('<AddTaskForm />', ()=> {
     WrappedAddTaskForm = (
       <Provider store={mockStore}>
         <Router history={history}>
-        <AddTaskForm />
+        <AddTaskForm goal_deadline={moment(new Date).unix()+10000} goal_start_at={moment(new Date).unix()+10000}/>
         </Router>
       </Provider>
     )}
@@ -41,11 +41,32 @@ describe('<AddTaskForm />', ()=> {
         wrapper.simulate('change', {data:{value: "TEST_TITLE"}})
     })
 
-    it("should accept deadline input", ()=> {
+    it("should accept deadline input: deadline < goal_deadline", ()=> {
         const component = mount(WrappedAddTaskForm)
         // console.log(component.debug())
         const wrapper = component.find('#AddTaskFormDeadline input')
-        wrapper.simulate('change', {data:{value: "2020-11-23"}})
+        wrapper.simulate('change', {data:{value: moment(new Date).format("YYYY-MM-DD")}})
+    })
+
+    it("should accept deadline input: deadline > goal_deadline", ()=> {
+        const component = mount(WrappedAddTaskForm)
+        // console.log(component.debug())
+        const wrapper = component.find('#AddTaskFormDeadline input')
+        wrapper.simulate('change', {data:{value: moment(new Date).add(15,'days'). format('YYYY-MM-DD')}})
+    })
+
+    it("should accept deadline input: start_At < goal_start_at", ()=> {
+        const component = mount(WrappedAddTaskForm)
+        // console.log(component.debug())
+        const wrapper = component.find('#AddTaskFormStartAt input')
+        wrapper.simulate('change', {data:{value: moment(new Date).format("YYYY-MM-DD")}})
+    })
+
+    it("should accept deadline input: start_at > goal_start_at", ()=> {
+        const component = mount(WrappedAddTaskForm)
+        // console.log(component.debug())
+        const wrapper = component.find('#AddTaskFormStartAt input')
+        wrapper.simulate('change', {data:{value: moment(new Date).add(15,'days'). format('YYYY-MM-DD')}})
     })
 
     it("should accept importance selection", ()=> {

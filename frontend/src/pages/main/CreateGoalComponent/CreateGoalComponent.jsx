@@ -279,7 +279,7 @@ class CreateGoal extends Component {
                     <Button floated="right">Go Back</Button>
                     <Button 
                         onClick={()=>this.onClickHandler()} 
-                        disabled={(this.state.tags.length == 0) ? true : false}
+                        // disabled={(this.state.tags.length == 0) ? true : false}
                         floated="right" className="GoalSubmitButton"
                     >
                         Confirm
