@@ -101,29 +101,29 @@ def test_login_and_logout(client, django_user_model):
     assert response.status_code == 401
 
 
-def test_user_detail(client, django_user_model):
-    # creat a new user
-    user = django_user_model.objects.create(
-        username='test7', password='test7password'
-    )
-    url = reverse('detail', kwargs={'pk': user.pk})
+# def test_user_detail(client, django_user_model):
+#     # creat a new user
+#     user = django_user_model.objects.create(
+#         username='test7', password='test7password'
+#     )
+#     url = reverse('detail', kwargs={'pk': user.pk})
 
-    # methods not allowed 
-    response = client.post(url)
-    assert response.status_code == 405
-    response = client.put(url)
-    assert response.status_code == 405
-    response = client.delete(url)
-    assert response.status_code == 405
+#     # methods not allowed 
+#     response = client.post(url)
+#     assert response.status_code == 405
+#     response = client.put(url)
+#     assert response.status_code == 405
+#     response = client.delete(url)
+#     assert response.status_code == 405
 
-    # a method allowed 
-    response = client.get(url)
-    assert response.status_code == 200
-    assert 'test7'.encode() in response.content  # bytes 
-    assert b'test7' in response.content # bytes 
-    assert 'test7' in response.content.decode()  # string
+#     # a method allowed 
+#     response = client.get(url)
+#     assert response.status_code == 200
+#     assert 'test7'.encode() in response.content  # bytes 
+#     assert b'test7' in response.content # bytes 
+#     assert 'test7' in response.content.decode()  # string
 
-    # User does not exist
-    url = reverse('detail', kwargs={'pk': fake.pyint()})
-    response = client.get(url)
-    assert response.status_code == 404
+#     # User does not exist
+#     url = reverse('detail', kwargs={'pk': fake.pyint()})
+#     response = client.get(url)
+#     assert response.status_code == 404
