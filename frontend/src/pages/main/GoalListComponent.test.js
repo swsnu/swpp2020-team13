@@ -15,8 +15,12 @@ const mockGoal = {
 }
 const stubInitialState = {
     auth: null,
-    authModal: true,
-    goals: [mockGoal],
+    modal: {
+        authModal: true,
+    },
+    goal: {
+        goals: [mockGoal],
+    }
 }
 const mockStore = getMockStore(stubInitialState);
 
@@ -43,6 +47,6 @@ describe('GoalList', () => {
         const wrapper = component.find('.calendarpanel Calendar')
         const date = new Date
         wrapper.simulate("change", date)
-        console.log(component.debug())
+        // console.log(component.debug())
     })
 })

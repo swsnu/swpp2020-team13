@@ -35,7 +35,7 @@ const getMockModalReducer = jest.fn(
     }
 )
 const getMockTaskReducer = jest.fn(
-    initialState => (state = initialState || {}, action) => {
+    initialState => (state = initialState.task || {}, action) => {
         switch (action.type) {
             default:
               break;
