@@ -1,43 +1,39 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { Router, Route } from 'react-router-dom'
+// import { Router, Route } from 'react-router-dom'
 import { shallow, mount } from 'enzyme'
 import { getMockStore } from '../../test-utils/mocks'
 import DashBoardComponent from './DashBoardComponent'
-import history from '../../history'
-import { actionTypes } from '../../store/actions/types'
-import * as goalActionCreators from '../../store/actions/goal'
+// import history from '../../history'
+import axios from 'axios'
 
 const stubInitialState = {
     auth: null,
-    goal: [
-        {
-            'id': 1,
-            'user': 1,
-            'title': 'TITLE',
-            'tags': ['tag1', 'tag2']
-        }
-    ]
+    goal: {
+        goals: [
+            {
+                'id': 1,
+                'user': 1,
+                'title': 'TITLE',
+                'tags': ['tag1', 'tag2']
+            }
+        ]
+    }
 }
 
 const mockStore = getMockStore(stubInitialState)
 
 describe('<DashboardComponent />', ()=> {
-    // let WrappedDashBoard
+    let WrappedDashBoard
 
-    // beforeEach(() => {
-    //     WrappedDashBoard = (
-    //         <Provider store={mockStore}>
-    //             <Router history={history}>
-    //                 <Route path="/" component={() => <DashBoardComponent goals={stubInitialState.goal}/>} />
-    //             </Router>
-    //         </Provider>
-    //     )
-    //     goalActionCreators.getAllGoal = jest.fn(() => dispatch => {
-    //         const goals = mockStore.getState().goal
-    //         dispatch({ type: actionTypes.GET_ALL_GOAL, payload: goals })
-    //     })
-    // })
+    beforeEach(() => {
+        WrappedDashBoard = (
+            <Provider store={mockStore}>
+                <DashBoardComponent goals={stubInitialState.goal}/>
+            </Provider>
+        )
+        axios.get = jest.fn(url => Promise.resolve({ status: 200, data: {} }))
+    })
 
     // afterEach(() => {
     //     jest.clearAllMocks()

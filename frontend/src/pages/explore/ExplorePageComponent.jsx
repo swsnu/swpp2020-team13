@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Grid, GridColumn } from 'semantic-ui-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { RecCardsGroup } from './RecCardsGroup'
-import { explore_getAllGoal } from '../../store/actions/index'
+import { explore_getAllGoal } from '../../store/actions'
 import { connect } from 'react-redux'
 
 class ExplorePage extends Component {

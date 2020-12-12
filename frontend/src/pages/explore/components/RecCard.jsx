@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Icon, Button, Label, Image } from "semantic-ui-react";
 import moment from 'moment'
-import { withRouter } from 'react-router-dom'
+// import { withRouter } from 'react-router-dom'
 import history from '../../../history'
 class RecCard extends React.Component {
 
@@ -91,4 +91,4 @@ onClickHandler = () => {
   }
 }
 
-export default (withRouter(RecCard))
+export default RecCard

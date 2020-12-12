@@ -5,7 +5,7 @@ import GeneralGoalInfo from './GeneralGoalInfo'
 
 const mockSelectedGoal = {
     title: 'title',
-    tags: [],
+    tags: ['tag1'],
     start_at: 1607756550,
     deadline: 1607766550
 }

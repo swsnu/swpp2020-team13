@@ -5,12 +5,12 @@ import { shallow, mount } from 'enzyme';
 
 import { TaskInfo } from './TaskInfo'
 
-const mockProps = {
+let mockProps = {
     task: {
         id: 1,
         title: 'title',
         importance: 3,
-        day_of_week: [],
+        day_of_week: ['MONDAY'],
         start_at: 1607756550,
         deadline: 1607766550
     },
@@ -34,6 +34,15 @@ describe('TaskInfo ', () => {
     it('should render without errors', () => {
         const component  = shallow(<TaskInfo {...mockProps} />).dive()
         // const component  = shallow(WrappedTaskInfo).dive()
+        console.log("component: ", component.debug())
+        const wrapper = component.find(".TaskInfo")
+        console.log("wrapper: ", wrapper.debug())
+        expect(wrapper.length).toBe(1)
+    })
+
+    it('should render without errors when day_of_week is empty', () => {
+        mockProps.task.day_of_week = []
+        const component  = shallow(<TaskInfo {...mockProps} />).dive()
         console.log("component: ", component.debug())
         const wrapper = component.find(".TaskInfo")
         console.log("wrapper: ", wrapper.debug())
