@@ -16,10 +16,9 @@ import { getMockStore } from '../../test-utils/mocks'
 
 const stubInitialState = {
     auth: null,
-    // modal: {
-    //     auth: true
-    // }
-    authModal: true
+    modal: {
+      authModal: true
+    }
 }
 const mockStore = getMockStore(stubInitialState);
 

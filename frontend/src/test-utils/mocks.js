@@ -6,11 +6,12 @@ import history from '../history'
 import {middlewares} from '../store/store'
 
 const getMockAuthReducer = jest.fn(
-  initialState => (state = initialState.auth || {}, action) => {
+  initialState => (state = initialState.auth || null, action) => {
     switch (action.type) {
       default:
         break;
     }
+    console.log("[DEBUG] mock auth state", state)
     return state;
   }
 )
@@ -26,11 +27,12 @@ const getMockGoalReducer = jest.fn(
 )
 
 const getMockModalReducer = jest.fn(
-    initialState => (state = initialState || {}, action) => {
+    initialState => (state = initialState.modal || {}, action) => {
         switch (action.type) {
             default:
               break;
         }
+        console.log("[DEBUG] mock modal state", state)
         return state
     }
 )

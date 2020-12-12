@@ -264,24 +264,28 @@ class CreateGoal extends Component {
                 }
             }>
             <LoadingOverlay
-            className="spinner"
-            active={this.state.isCreating}
-            spinner
-            text='Creating a new goal...'
-        >
-                 <h2 id="header">Add a Goal</h2>
-                 <Form id="FormCreateForm" className='FormCreate'>
-                {this.renderTitle()}
-                {this.renderPhoto()}
-                {/* {this.fileRender()} */}
-                {this.renderDeadline()}
-                {this.renderTag()}
-                <Button floated="right">Go Back</Button>
-                <Button onClick={()=>this.onClickHandler()} 
-                disabled={(this.state.tags.length == 0) ? true : false}
-                floated="right" className="GoalSubmitButton">Confirm</Button>
+                className="spinner"
+                active={this.state.isCreating}
+                spinner
+                text='Creating a new goal...'
+            >
+                <h2 id="header">Add a Goal</h2>
+                <Form id="FormCreateForm" className='FormCreate'>
+                    {this.renderTitle()}
+                    {this.renderPhoto()}
+                    {/* {this.fileRender()} */}
+                    {this.renderDeadline()}
+                    {this.renderTag()}
+                    <Button floated="right">Go Back</Button>
+                    <Button 
+                        onClick={()=>this.onClickHandler()} 
+                        disabled={(this.state.tags.length == 0) ? true : false}
+                        floated="right" className="GoalSubmitButton"
+                    >
+                        Confirm
+                    </Button>
                 </Form>
-                </LoadingOverlay>
+            </LoadingOverlay>
             </div>
             </div>
         )
