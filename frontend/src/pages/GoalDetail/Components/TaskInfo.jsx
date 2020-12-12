@@ -9,7 +9,7 @@ import './TaskInfo.css'
 export const TaskInfo = (props) => {
 
     const [select, setSelect] = useState(false)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const deadlineDate = (deadline) => {
         return moment.unix(deadline).format('MMM Do YYYY')
@@ -54,9 +54,9 @@ export const TaskInfo = (props) => {
 
     return (
         <Segment
-        style={
-            {boxShadow: "none", margin: '0px', border: 'none'}
-            }>
+            style={{boxShadow: "none", margin: '0px', border: 'none'}}
+            className="TaskInfo"
+        >
             <Grid columns='2'
             style={
                 {padding: '4px'}

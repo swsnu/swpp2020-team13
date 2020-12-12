@@ -8,9 +8,10 @@ export const AchInfo = (props) =>{
     }
     else avg = (props.total)/props.number
     return (
-        <Segment style ={
-            {boxShadow: "none"}
-        }>
+        <Segment 
+            style ={{boxShadow: "none"}}
+            className="AchInfo"
+        >
             <Grid columns='2' divided>
                 <Grid.Column>
                     <p style={

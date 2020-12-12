@@ -26,8 +26,8 @@ describe('CreateGoal', () => {
       WrappedCreate = (
         <Provider store={mockStore}>
             <Router history={history}>
-          <CreateGoalComponent />
-          </Router>
+                <CreateGoalComponent />
+            </Router>
         </Provider>
       )
       spyAddArticle = jest.spyOn(actionCreators, 'addGoal')
