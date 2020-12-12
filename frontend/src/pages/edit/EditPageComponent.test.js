@@ -15,9 +15,13 @@ const mockGoal = {
 }
 const stubInitialState = {
     auth: null,
-    authModal: true,
-    goals: [mockGoal],
-    selectedGoal: mockGoal
+    modal: {
+        authModal: true
+    },
+    goal: {
+        goals: [mockGoal],
+        selectedGoal: mockGoal
+    }
 }
 const mockStore = getMockStore(stubInitialState);
 
@@ -27,7 +31,7 @@ describe('GoalList', () => {
         WrappedEditPage = (
             <Provider store={mockStore}>
                 <Router history={history}> 
-                <EditPage/>
+                <EditPage tasks={[]} />
                 </Router>
             </Provider>
         )
