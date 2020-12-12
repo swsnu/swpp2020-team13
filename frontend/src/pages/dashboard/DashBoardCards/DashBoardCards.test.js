@@ -27,8 +27,14 @@ describe('DashboardGoalcards', () => {
         const component = shallow(<DashBoardCards goalCardList={[]}/>)
         const wrapper_n = component.find(".DashBoardGoalCards .dashcardnext")
         wrapper_n.simulate("click")
-        const wrapper = component.find(".DashBoardGoalCards .dashcardprev")
-        wrapper.simulate("click")
+        wrapper_n.simulate("click")
+        wrapper_n.simulate("click")
+        wrapper_n.simulate("click")
+        const wrapper_p = component.find(".DashBoardGoalCards .dashcardprev")
+        wrapper_p.simulate("click")
+        wrapper_p.simulate("click")
+        wrapper_p.simulate("click")
+        wrapper_p.simulate("click")
     })
 
     it("should render select 1 ", ()=>{
