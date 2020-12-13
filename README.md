@@ -5,6 +5,9 @@
 
 🚨 Travis CI not recognizing postgreSQL properly, resulting in build failure
 
+## Deployment
+Deployed on: https://www.goalingball.com/
+
 ## How to start
 
 ### Frontend
