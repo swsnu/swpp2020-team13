@@ -11,7 +11,6 @@ const AddTaskModal = (props) => {
         <Segment className="SegmentAddTask" id="SegmentAddTaskModal">
         <Modal style={
             {
-                height: '400px',
                 border: 'none'
             }
         } isOpen={isAddTaskModalOpen} className="SegmentAddTask">
@@ -20,6 +19,14 @@ const AddTaskModal = (props) => {
                    <AddTaskForm goal_id={props.goal_id} goal_deadline={props.goal_deadline} goal_start_at={props.goal_start_at}/>
                 </div>
             </div>
+            <Button
+                className="modal__close-btn"
+                onClick={() => dispatch(closeModal())}
+                floated="right"
+                id="closeButton"
+            >
+                close
+            </Button>
         </Modal>
         </Segment>
     )

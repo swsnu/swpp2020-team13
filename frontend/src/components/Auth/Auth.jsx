@@ -17,7 +17,7 @@ const Auth = (props) => {
         : CreateLoginForm()
     
     return (
-        <Segment className="SegmentModal">
+        <Segment className="SegmentModal" >
         <Modal isOpen={isAuthModalOpen}>
             <div className="modal-container small-container modal-auth" id="Auth">
                 <ButtonGroup className="ButtonGroupModal" floated="right">
