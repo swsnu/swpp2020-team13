@@ -96,7 +96,7 @@ export const DashBoardPanel = (props)  => {
                         {boxShadow: "none"}
                         }>
                         <h5>Percentage of Finished Goals</h5>
-                        {renderPie}
+                        {renderPie()}
                     </Segment>
                 </Grid.Row>
                 <Grid.Row>
