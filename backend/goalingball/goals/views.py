@@ -16,7 +16,7 @@ import requests
 import base64
 import pickle
 
-@csrf_exempt
+
 def goalList(request):
     # print("request.body: ", request.POST)
     if request.method == 'GET':
@@ -168,7 +168,7 @@ def goalList(request):
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
-@csrf_exempt
+
 def goalDetail(request, goal_id=""):
     if request.method == 'GET':
         if not request.user.is_authenticated:

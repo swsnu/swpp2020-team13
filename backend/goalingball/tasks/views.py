@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest, JsonResponse
 # from django.contrib.auth.models import User
-from users.models import User 
-from django.views.decorators.csrf import ensure_csrf_cookie
+from users.models import User  
 import json
 from json import JSONDecodeError
 from django.contrib.auth import authenticate, login, logout
@@ -30,7 +29,7 @@ from django.forms.models import model_to_dict
     # created_at = models.DateTimeField(editable=False)
     # updated_at = models.DateTimeField() 
 
-@csrf_exempt
+
 def taskList(request):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
@@ -113,7 +112,7 @@ def taskList(request):
     else:
         return HttpResponseNotAllowed(['GET', 'POST'])
 
-@csrf_exempt # TODO: implement PUT
+# TODO: implement PUT
 def taskDetail(request, task_id=""):
     if request.method == 'GET':
         if request.user.is_authenticated is False:

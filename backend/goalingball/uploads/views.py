@@ -1,6 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
 import uuid 
 import boto3
 from botocore.config import Config
@@ -10,7 +9,6 @@ from json import JSONDecodeError
 
 
 # @login_required
-@csrf_exempt
 def get_s3_url(request):
     s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
 

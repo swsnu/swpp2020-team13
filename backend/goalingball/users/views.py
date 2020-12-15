@@ -1,7 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse, HttpResponseBadRequest
-from django.views.decorators.csrf import csrf_exempt
-# from django.contrib.auth.models import User
 from users.models import User 
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.forms.models import model_to_dict
@@ -10,7 +8,7 @@ import requests
 import base64
 import pickle
 
-@csrf_exempt
+
 def signup(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -38,7 +36,7 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
+
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -48,8 +46,7 @@ def login(request):
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
-        
-        # if not request.user.is_authenticated:
+
         if user is not None:
             auth_login(request, user)
             payload = {"id": str(user.id), "username": user.username}
@@ -60,7 +57,7 @@ def login(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
+
 def logout(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
