@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route, Redirect, Switch } from 'react-router-dom';
+import axios from 'axios'
 import './App.css'
 import history from './history'
 import HomePage from './pages/login/index'
@@ -10,6 +11,9 @@ import DashBoard from './pages/dashboard/DashBoardComponent'
 import GoalDetailPage from './pages/GoalDetail/GoalDetailPage'
 import ExplorePage from './pages/explore/ExplorePageComponent'
 import ExploreGoalDetailPage from './pages/ExploreGoalDetail/ExploreGoalDetailPage'
+
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
 
 function App(props) {
     return (

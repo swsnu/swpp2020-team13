@@ -7,6 +7,7 @@ import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 import isEmail from 'validator/lib/isEmail';
 import axios from 'axios'
+import Cookies from 'js-cookie'
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
@@ -41,6 +42,7 @@ export const CreateSignupForm = () => {
     }
 
     const password_current = watch("password", "")
+    const csrftoken = Cookies.get('csrftoken')
 
     const validateEmail = async input => {
         if (isEmail(input)) {
