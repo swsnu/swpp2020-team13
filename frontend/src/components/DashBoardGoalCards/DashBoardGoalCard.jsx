@@ -32,7 +32,7 @@ class GoalCard extends React.Component {
   }
   // BUG: randomColor func is generating undesired popups
   randomColor = () => {
-    let randomNumber = this.getRandomInt(0, 5)
+    let randomNumber = this.getRandomInt(0, 7)
     switch(randomNumber) {
       case(0):
         return "#24b4ab"
@@ -46,6 +46,10 @@ class GoalCard extends React.Component {
         return "#ed553b"
       case(5):
         return "#04837c"
+      case(6):
+        return "#co6c84"
+      case(7):
+        return "#f3b54a"
     } 
   }
 
