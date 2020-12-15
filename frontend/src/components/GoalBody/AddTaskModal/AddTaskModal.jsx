@@ -9,7 +9,12 @@ const AddTaskModal = (props) => {
     const isAddTaskModalOpen = useSelector(state => state.modal.addTask)
     return (
         <Segment className="SegmentAddTask" id="SegmentAddTaskModal">
-        <Modal isOpen={isAddTaskModalOpen} className="SegmentAddTask">
+        <Modal style={
+            {
+                height: '400px',
+                border: 'none'
+            }
+        } isOpen={isAddTaskModalOpen} className="SegmentAddTask">
             <div className="modal-container small-container modal-addTask">
                 <div className="modal__body">
                    <AddTaskForm goal_id={props.goal_id} goal_deadline={props.goal_deadline} goal_start_at={props.goal_start_at}/>
