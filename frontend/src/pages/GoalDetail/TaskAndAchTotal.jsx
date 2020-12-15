@@ -23,6 +23,10 @@ class TaskAndAchTotal extends Component {
         if(taskInfo.length == 0) {
             return <p style={{fontWeight: '600', fontSize: "15px"}}>&nbsp;&nbsp;No tasks added for this goal yet!</p>
         }
+        taskInfo.sort(function (a, b) { 
+            return a.start_at < b.start_at ? -1 : a.start_at > b.start_at ? 1 : 0;  
+        })
+
         return taskInfo
     }
  
@@ -48,6 +52,10 @@ class TaskAndAchTotal extends Component {
             }
             return list
         }, [])
+
+        achList.sort(function (a, b) { 
+            return a.written_at < b.written_at ? -1 : a.written_at > b.written_at ? 1 : 0;  
+        })
 
         return (
             <div>

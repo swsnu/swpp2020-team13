@@ -156,7 +156,7 @@ class AddAccForm extends Component {
             className="AddAccForm"
             active={this.state.isCreating}
             spinner
-            text={this.state.isEdit ? "Edit " : "Add " + "ing your achivement..."}
+            text={this.state.isEdit ? "Edit " : "Add" + "ing your achivement..."}
             >
             <Form>
                 {/* {console.log("DEBUG ADD Ac", this.props)} */}

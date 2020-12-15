@@ -21,7 +21,7 @@ export const AchInfo = (props) =>{
                 <Grid.Column>
                     <p style={
                         {textAlign:'center', fontSize: "30px", fontWeight: "lighter"}
-                    }>{avg}%</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;average percentage complete
+                    }>{Math.floor(avg)}%</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;average percentage complete
                 </Grid.Column>
             </Grid>
         </Segment>

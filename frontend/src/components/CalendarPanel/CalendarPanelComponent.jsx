@@ -30,7 +30,7 @@ class CalendarPanelComponent extends Component {
             onChange={this.onChange}
             value={this.state.date}
           />
-          <List divided relaxed bulleted style={
+          <List relaxed bulleted style={
             {
               paddingLeft: '30px'
             }
@@ -40,7 +40,6 @@ class CalendarPanelComponent extends Component {
               marginTop: '10px'
             }
           }>GOALS</p>
-          <br></br>
             {goalTitleList}
           </List>
         </nav>
