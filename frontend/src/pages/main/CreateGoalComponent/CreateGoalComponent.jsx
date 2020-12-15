@@ -137,6 +137,10 @@ class CreateGoal extends Component {
      }
 
     renderDeadline() {
+        if(moment(this.state.start_at).startOf('day') > moment(this.state.deadline).startOf('day')){
+            window.alert("Goal start date should be earlier than the goal deadline.")
+            this.setState({start_at : this.state.deadline})
+        }
         return(
             <Segment>
                 <FormField>
