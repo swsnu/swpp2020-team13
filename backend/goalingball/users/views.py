@@ -72,6 +72,37 @@ def logout(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
+@csrf_exempt
+def clean_email(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', None)
+        if email is None:
+            return HttpResponse(status=400)
+
+        if User.objects.filter(email=email).exists():
+            print("email already exists")
+            return HttpResponse("false")
+        else:
+            print("unique email")
+            return HttpResponse("true")
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
+
+@csrf_exempt
+def clean_username(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', None)
+        print("username: ", username)
+        if username is None:
+            return JsonResponse(status=400)
+        
+        if User.objects.filter(username=username).exists():
+            return HttpResponse("false")
+        else:
+            return HttpResponse("true")
+    else:
+        return HttpResponseNotAllowed(['POST'])
 
 # def detail(request, pk):
 #     if request.method == 'GET':
