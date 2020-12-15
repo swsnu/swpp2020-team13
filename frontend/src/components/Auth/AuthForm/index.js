@@ -5,6 +5,7 @@ import { Form, Button, Segment } from 'semantic-ui-react'
 import './AuthForm.css'
 import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
+import isEmail from 'validator/lib/isEmail';
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
@@ -17,69 +18,95 @@ For example, if useDispatch() is declared at the top CreateSignupForm, the same 
 Remember that orders matter in React Hooks
 */ 
 
-const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+// const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
+const required = "This field is required"
+const errorMessage = error => <div className="invalid-feedback">{error}</div>
 
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
-    const onSubmit = (data) => { // e: event
+    const onSubmit = (data, e) => { // e: event
+        e.preventDefault()
         console.log("[DEBUG] signup form data: ", data)
-        if (data.password1 !== data.password2) {
-            // error
-        }
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
         dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
- 
 
-    const onError = (errors, e) => console.log("ERROR", errors);
-
-    watch() // watchAllFields
+    const password_current = watch("password", "")
 
     return (
-        <Form className="signupForm" onSubmit={handleSubmit(onSubmit, onError)}>
-        {/* <form onSubmit={handleSubmit(onSubmit, onError)}> */}
+        <Form className="signupForm" onSubmit={handleSubmit(onSubmit)}>
         <Segment className="signupSegment">
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             <input 
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-                ref={register({ required: true, pattern: { value: emailRegex, message: "not valid email"} })} 
+                ref={register({
+                    required: required, 
+                    validate: input => isEmail(input) || "Not valid email pattern"}
+                )}
+                style={{ borderColor: errors.email && "red" }} 
             />
-            {errors.email && <span role="alert">{errors.email.message}</span>}
+            {errors.email && errorMessage(errors.email.message)}
             
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input 
                 id="username" 
                 name="username" 
                 placeholder="Enter username" 
                 ref={register({
-                    required: true,
+                    required: required,
                     minLength: {
                         value: 5,
                         message: "min length is 5"
                     }
-                })} 
+                })}
+                style={{ borderColor: errors.username && "red" }}  
             />
-            {errors.username && <span>This field is required</span>}
+            {errors.username && errorMessage(errors.username.message)}
             
-            <label htmlFor="password1">password</label>
-            <input id="password1" name="password1" placeholder="Enter password" ref={register({ required: true })} />
-            {errors.password1 && <span role="alert">{errors.password1.message}</span>}
+            <label htmlFor="password">Password</label>
+            <input 
+                id="password" 
+                name="password"
+                type="password" 
+                placeholder="Enter password" 
+                ref={register({ 
+                        required: required,
+                        minLength: {
+                            value: 4,
+                            message: "Password must have at least 4 characters"
+                        }
+                    })
+                } 
+                style={{ borderColor: errors.password && "red" }}
+            />
+            {errors.password && errorMessage(errors.password.message)}
             
-            <label htmlFor="password2"> Confirm password</label>
-            <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
-            {errors.password2 && <span>This field is required</span>}
+            <label htmlFor="password_confirm">Confirm password</label>
+            <input 
+                id="password_confirm" 
+                name="password_confirm"
+                type="password" 
+                placeholder="Confirm password" 
+                ref={register({ 
+                        required: required,
+                        validate: value => value === password_current || "The passwords do not match"
+                    })
+                } 
+                style={{ borderColor: errors.password_confirm && "red" }}
+            />
+            {errors.password_confirm && errorMessage(errors.password_confirm.message)}
             </Segment>
             <Button type="submit" className="submitButton">Sign Up</Button>
-        {/* </form> */}
-        </Form>
+        </Form> 
     )
     
 }
@@ -88,43 +115,41 @@ export const CreateSignupForm = () => {
 export const CreateLoginForm = () => {
     const dispatch = useDispatch()
     const { register, handleSubmit, watch, errors } = useForm()
-    // const onSubmit = data => console.log(data)
     
     const onSubmit =(data, e) => { // e: event
-        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
-        // dispatch(actionCreators.loginUser(data))
+        e.preventDefault()
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password)
         dispatch(actionCreators.loginUser(dataToForm))
-        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
-        // console.log("[DEBUG] createLoginForm onSubmit dataToForm: ", dataToForm)
     }
 
-    const onError = (errors, e) => console.log(errors, e);
-    watch() // watchAllFields
-
     return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
          <Segment className="LoginSegment">
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input 
                 id="username" 
                 name="username" 
                 placeholder="Enter username" 
                 ref={register({
-                    required: true,
+                    required: required,
                     minLength: {
                         value: 5,
-                        message: "min length is 5"
+                        message: "Username must be at leat 5 characters"
                     }
                 })} 
             />
-            {errors.username && <span>This field is required</span>}
+            {errors.username && errorMessage(errors.username.message)}
 
-                <label htmlFor="password">password</label>
-                <input id="password" name="password" type="password" placeholder="Enter password" ref={register({ required: true })} />
-                {errors.password && <span role="alert">{errors.password.message}</span>}
+            <label htmlFor="password">Password</label>
+            <input 
+                id="password" 
+                name="password" 
+                type="password" 
+                placeholder="Enter password" 
+                ref={register({ required: required })} />
+            {errors.password && errorMessage(errors.password.message)}
             </Segment>
             <Button type="submit" className="submitButtonLogin">Login</Button>
         </Form>
