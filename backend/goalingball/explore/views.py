@@ -2,21 +2,18 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest, JsonResponse
 from users.models import User 
 from goals.models import Goal
-from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 from .recommendations import find_similar_goals, default_recent
 from numpy.linalg import norm
 import pickle
 import base64
 
-# Create your views here.
-@csrf_exempt
+
 def recommend(request):
     # only allow GET - other: 405
     if request.method == 'GET':

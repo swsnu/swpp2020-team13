@@ -9,7 +9,6 @@ from .models import Task, Goal
 from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
 
     # title = models.TextField(max_length=255, blank=False) 

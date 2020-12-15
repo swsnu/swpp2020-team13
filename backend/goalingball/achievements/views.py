@@ -1,6 +1,5 @@
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.forms.models import model_to_dict
-from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 # from django.contrib.auth.models import User
 from users.models import User 
@@ -12,7 +11,7 @@ from achievements.models import Achievement
 import json
 import time
 
-@csrf_exempt
+
 def achievementList(request):
     # 'GET' a list of all achievements is currently not supported
     # Creating a new achievement is only allowed 
@@ -80,7 +79,6 @@ def achievementList(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
 def achievementDetail(request, achievement_id):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
@@ -154,7 +152,7 @@ def achievementDetail(request, achievement_id):
     else:
         return HttpResponseNotAllowed(['GET', 'PUT', 'PATCH', 'DELETE'])
 
-@csrf_exempt
+
 def achievementListOfGoal(request, goal_id):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
@@ -185,7 +183,6 @@ def achievementListOfGoal(request, goal_id):
         return HttpResponseNotAllowed(['GET'])
 
 
-@csrf_exempt
 def achievementListOfTask(request, task_id):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
