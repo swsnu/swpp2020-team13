@@ -17,6 +17,8 @@ For example, if useDispatch() is declared at the top CreateSignupForm, the same 
 Remember that orders matter in React Hooks
 */ 
 
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
@@ -48,13 +50,7 @@ export const CreateSignupForm = () => {
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-                ref={register({ 
-                    required: true,
-                    // pattern: {
-                    //     value: /S+@S+.S+/,
-                    //     message: "Entered value does not match email format"
-                    // }
-                })} 
+                ref={register({ required: true, pattern: { value: emailRegex, message: "not valid email"} })} 
             />
             {errors.email && <span role="alert">{errors.email.message}</span>}
             
