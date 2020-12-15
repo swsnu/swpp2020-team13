@@ -6,6 +6,8 @@ import './AuthForm.css'
 import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 import isEmail from 'validator/lib/isEmail';
+import axios from 'axios'
+import Cookies from 'js-cookie'
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
@@ -30,15 +32,49 @@ export const CreateSignupForm = () => {
     
     const onSubmit = (data, e) => { // e: event
         e.preventDefault()
-        console.log("[DEBUG] signup form data: ", data)
-        let dataToForm = new FormData()
-        dataToForm.append("username", data.username)
-        dataToForm.append("password", data.password1)
-        dispatch(actionCreators.signupUser(dataToForm))
-        reset()
+        console.log("[DEBUG] signup form submitted")
+        // console.log("[DEBUG] signup form data: ", data)
+        // let dataToForm = new FormData()
+        // dataToForm.append("username", data.username)
+        // dataToForm.append("password", data.password1)
+        // dispatch(actionCreators.signupUser(dataToForm))
+        // reset()
     }
 
     const password_current = watch("password", "")
+    const csrftoken = Cookies.get('csrftoken')
+
+    const validateEmail = async input => {
+        if (isEmail(input)) {
+            let formData = new FormData()
+            formData.append('email', input)
+            const res = await axios.post('/api/v1/users/clean_email/', formData, {
+                headers: { "Content-Type": "multipart/form-data" } 
+            })
+            if (res.data === "true") {
+                return true
+            } else {
+                // email already exists
+                return "Email already exists"
+            }
+        } else {
+            return "Not valid email pattern"
+        }
+    }
+
+    const validateUsername = async input => {
+        let formData = new FormData()
+        formData.append('username', input)
+        const res = await axios.post('/api/v1/users/clean_username/', formData, {
+            headers: { "Content-Type": "multipart/form-data" } 
+        })
+        if (res.data === "true") {
+            return true
+        } else {
+            // email already exists
+            return "Username already exists"
+        }
+    }
 
     return (
         <Form className="signupForm" onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +86,7 @@ export const CreateSignupForm = () => {
                 placeholder="Enter email" 
                 ref={register({
                     required: required, 
-                    validate: input => isEmail(input) || "Not valid email pattern"}
+                    validate: validateEmail}
                 )}
                 style={{ borderColor: errors.email && "red" }} 
             />
@@ -66,7 +102,8 @@ export const CreateSignupForm = () => {
                     minLength: {
                         value: 5,
                         message: "min length is 5"
-                    }
+                    },
+                    validate: validateUsername
                 })}
                 style={{ borderColor: errors.username && "red" }}  
             />
