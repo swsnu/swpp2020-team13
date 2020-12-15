@@ -2,14 +2,12 @@ from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest, JsonResponse
 # from django.contrib.auth.models import User
 from users.models import User 
-from django.views.decorators.csrf import ensure_csrf_cookie
 import json
 from json import JSONDecodeError
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from datetime import datetime
 from django.utils import timezone
-from django.views.decorators.csrf import csrf_exempt
 from .models import Goal
 import numpy as np
 import requests
