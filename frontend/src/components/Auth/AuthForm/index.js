@@ -7,7 +7,7 @@ import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 import isEmail from 'validator/lib/isEmail';
 import axios from 'axios'
-import Cookies from 'js-cookie'
+
 // const mapDispatchToProps = dispatch => {
 //     return {
 //         onSignup: ()
@@ -15,12 +15,11 @@ import Cookies from 'js-cookie'
 // }
 
 /*
-WARNING: the order of declarations of React hooks in CreateSignupForm and CreateLoginForm should be consistent
-For example, if useDispatch() is declared at the top CreateSignupForm, the same must be true in CreateLoginForm
-Remember that orders matter in React Hooks
-*/ 
+ * WARNING: the order of declarations of React hooks in CreateSignupForm and CreateLoginForm should be consistent
+ * For example, if useDispatch() is declared at the top CreateSignupForm, the same must be true in CreateLoginForm
+ * Remember that orders matter in React Hooks
+ */ 
 
-// const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 
 const required = "This field is required"
 const errorMessage = error => <div className="invalid-feedback">{error}</div>
@@ -32,17 +31,14 @@ export const CreateSignupForm = () => {
     
     const onSubmit = (data, e) => { // e: event
         e.preventDefault()
-        console.log("[DEBUG] signup form submitted")
-        // console.log("[DEBUG] signup form data: ", data)
-        // let dataToForm = new FormData()
-        // dataToForm.append("username", data.username)
-        // dataToForm.append("password", data.password1)
-        // dispatch(actionCreators.signupUser(dataToForm))
-        // reset()
+        let dataToForm = new FormData()
+        dataToForm.append("username", data.username)
+        dataToForm.append("password", data.password1)
+        dispatch(actionCreators.signupUser(dataToForm))
+        reset()
     }
 
     const password_current = watch("password", "")
-    const csrftoken = Cookies.get('csrftoken')
 
     const validateEmail = async input => {
         if (isEmail(input)) {
