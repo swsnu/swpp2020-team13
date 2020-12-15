@@ -21,7 +21,7 @@ class CalendarPanelComponent extends Component {
 
       const goalTitleList = this.props.goalList.map(g => {return(<List.Item>
         <List.Content>
-          <List.Header as='a'>g.title</List.Header>
+          <List.Header as='a'>{g.title}</List.Header>
       </List.Content>
       </List.Item>)})
       return (
@@ -35,7 +35,11 @@ class CalendarPanelComponent extends Component {
               paddingLeft: '30px'
             }
           }>
-          <p>GOALS</p>
+          <p style ={
+            {
+              marginTop: '10px'
+            }
+          }>GOALS</p>
           <br></br>
             {goalTitleList}
           </List>
