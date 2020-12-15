@@ -81,6 +81,13 @@ const AddTaskForm = (props) => {
             setStartAt(moment.unix(props.goal_start_at).format("YYYY-MM-DD"))
             setDeadline(moment.unix(props.goal_start_at).format("YYYY-MM-DD"))
         }
+
+        if(moment(value).unix() > props.goal_deadline){
+            window.alert("task start date cannot be later than goal deadline. Goal deadline will be set.")
+            // console.log(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
+            setStartAt(moment.unix(props.goal_deadline).format("YYYY-MM-DD"))
+        }
+
         else {
             setStartAt(moment(value))
             setDeadline(moment(value))
