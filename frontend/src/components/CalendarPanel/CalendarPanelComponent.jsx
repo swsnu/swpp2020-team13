@@ -30,6 +30,8 @@ class CalendarPanelComponent extends Component {
             onChange={this.onChange}
             value={this.state.date}
           />
+          <p>GOALS</p>
+          <br></br>
           <List divided relaxed bulleted>
             {goalTitleList}
           </List>
