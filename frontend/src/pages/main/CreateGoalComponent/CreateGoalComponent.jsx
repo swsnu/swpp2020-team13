@@ -9,6 +9,7 @@ import { withRouter } from 'react-router-dom'
 import { Form , Button, Input, Icon, Progress, Segment, FormField, Dropdown, label, Grid, Container} from 'semantic-ui-react'
 import './CreateGoal.css'
 
+import history from '../../../history'
 // import "react-datepicker/dist/react-datepicker.css"
 import * as actionCreators from '../../../store/actions'
 import { addGoal } from '../../../store/actions'
@@ -276,7 +277,12 @@ class CreateGoal extends Component {
                     {/* {this.fileRender()} */}
                     {this.renderDeadline()}
                     {this.renderTag()}
-                    <Button floated="right">Go Back</Button>
+                    <Button 
+                        floated="right"
+                        onClick={() => { history.push('/main') }}
+                    >
+                        Go Back
+                    </Button>
                     <Button 
                         onClick={()=>this.onClickHandler()} 
                         // disabled={(this.state.tags.length == 0) ? true : false}
