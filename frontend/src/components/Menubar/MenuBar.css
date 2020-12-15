@@ -23,6 +23,7 @@
     /* background-color: #FA7f72; */
     transform: scale(1.1);
     border: none;
+    cursor: pointer;
     
 }
 
@@ -43,6 +44,7 @@
     /* background-color: #FA7f72; */
     transform: scale(1.1);
     border: none;
+    cursor: pointer;
     
 }
 
@@ -57,12 +59,14 @@
     color: #ebebeb;
     align-items: center;
     transition: all .1s ease;
+    
 }
 
 .Sidebar .button:hover {
     /* background-color: #FA7f72; */
     border: none;
     transform: scale(1.1);
+    cursor: pointer;
     
 }
 
@@ -83,6 +87,7 @@
     /* background-color: #FA7f72; */
     transform: scale(1.1);
     border: none;
+    cursor: pointer;
     
 }
 

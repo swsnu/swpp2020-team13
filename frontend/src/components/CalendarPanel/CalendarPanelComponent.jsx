@@ -19,7 +19,12 @@ class CalendarPanelComponent extends Component {
     
     render() {
 
-      const goalTitleList = this.props.goalList.map(g => {return(<List.Item>
+      const goalTitleList = this.props.goalList.map(g => {return(<List.Item style={
+        {
+          paddingLeft: '20px',
+          cursor: 'default'
+        }
+      }>
         <List.Content>
           <List.Header as='a'>{g.title}</List.Header>
       </List.Content>
