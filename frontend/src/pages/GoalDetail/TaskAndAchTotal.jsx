@@ -19,13 +19,16 @@ class TaskAndAchTotal extends Component {
 
     renderTaskInfo = () => {
         let taskInfo = []
-        taskInfo = this.props.tasks.map(t => <TaskInfo task={t} onSelect={this.onTaskSubmit}   />)
+        let originalTaskList = this.props.tasks
+        
+        originalTaskList.sort(function (a, b) { 
+            return a.start_at < b.start_at ? -1 : a.start_at > b.start_at ? 1 : 0;  
+        })
+
+        taskInfo = originalTaskList.map(t => <TaskInfo task={t} onSelect={this.onTaskSubmit}   />)
         if(taskInfo.length == 0) {
             return <p style={{fontWeight: '600', fontSize: "15px"}}>&nbsp;&nbsp;No tasks added for this goal yet!</p>
         }
-        taskInfo.sort(function (a, b) { 
-            return a.start_at < b.start_at ? -1 : a.start_at > b.start_at ? 1 : 0;  
-        })
 
         return taskInfo
     }
@@ -45,17 +48,19 @@ class TaskAndAchTotal extends Component {
         console.log(this.props.achievements)
         let achList
         let total = 0
-        achList = this.props.achievements.reduce((list, a) => {
+        let originalAchList = this.props.achievements
+
+        originalAchList.sort(function (a, b) { 
+            return a.written_at < b.written_at ? -1 : a.written_at > b.written_at ? 1 : 0;  
+        })
+
+        achList = originalAchList.reduce((list, a) => {
             if(a.task == this.state.selectedTask) {
                 list.push(<Ach achievement={a}/>)
                 total = total + a.percentage_complete
             }
             return list
         }, [])
-
-        achList.sort(function (a, b) { 
-            return a.written_at < b.written_at ? -1 : a.written_at > b.written_at ? 1 : 0;  
-        })
 
         return (
             <div>
