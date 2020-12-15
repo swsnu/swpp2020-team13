@@ -74,6 +74,7 @@ export const DashBoardPanel = (props)  => {
 
     return(
         <div className="DashBoardPanel">
+        {console.log("PANEL PROPS:  ", props)}
             {/* <h2>Overall Info</h2> */}
             <Grid className="DashBoardPanelGrid">
                 <Grid.Row>
@@ -95,7 +96,7 @@ export const DashBoardPanel = (props)  => {
                         {boxShadow: "none"}
                         }>
                         <h5>Percentage of Finished Goals</h5>
-                        {renderPie()}
+                        {renderPie}
                     </Segment>
                 </Grid.Row>
                 <Grid.Row>
