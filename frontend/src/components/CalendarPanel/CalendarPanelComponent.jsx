@@ -3,7 +3,7 @@ import Calendar from 'react-calendar'
 import "./CalendarPanel.css"
 import moment from 'moment'
 
-import { Icon, Sidebar, Menu } from 'semantic-ui-react'
+import { Icon, Sidebar, Menu, List } from 'semantic-ui-react'
 
 
 class CalendarPanelComponent extends Component {
@@ -18,23 +18,21 @@ class CalendarPanelComponent extends Component {
     }
     
     render() {
+
+      const goalTitleList = this.props.goalList.map(g => {return(<List.Item>
+        <List.Content>
+          <List.Header as='a'>g.title</List.Header>
+      </List.Content>
+      </List.Item>)})
       return (
         <nav class='panel' className="CalendarPanel">
           <Calendar id="Calendar"
             onChange={this.onChange}
             value={this.state.date}
           />
-        <ul>
-            <li>
-                Example Goal 1
-            </li>
-            <li>
-                Example Goal 2
-            </li>
-            {/* <li>
-                Example Goal 3
-            </li> */}
-        </ul>
+          <List divided relaxed bulleted>
+            {goalTitleList}
+          </List>
         </nav>
       );
     }

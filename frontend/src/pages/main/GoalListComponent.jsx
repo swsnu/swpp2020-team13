@@ -47,7 +47,7 @@ class GoalList extends Component {
                     <MenuBar/>
                 </div>
                 <div className='calendarpanel'>
-                    <CalendarPanel onSubmit={this.onDeadlineSubmit}/>
+                    <CalendarPanel onSubmit={this.onDeadlineSubmit} goalList={todayGoalsList}/>
                 </div>
                 <div className='goallist'>
                     <h2 className="componentTitle">What's for today?</h2>
