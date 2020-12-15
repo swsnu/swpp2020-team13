@@ -30,7 +30,7 @@ describe('RecCard ', () => {
             title: 'title',
             username: 'username',
             photo: null,
-            tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5']
+            tags: ['tag1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8']
         }
         const component  = shallow(<RecCard goal={mockGoal2} />)
         const wrapper = component.find(".RecCardComp")
