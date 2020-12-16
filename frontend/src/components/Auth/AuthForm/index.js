@@ -59,19 +59,19 @@ export const CreateSignupForm = () => {
     //     }
     // }
 
-    const validateUsername = async input => {
-        let formData = new FormData()
-        formData.append('username', input)
-        const res = await axios.post('/api/v1/users/clean_username/', formData, {
-            headers: { "Content-Type": "multipart/form-data" } 
-        })
-        if (res.data === "true") {
-            return true
-        } else {
-            // email already exists
-            return "Username already exists"
-        }
-    }
+    // const validateUsername = async input => {
+    //     let formData = new FormData()
+    //     formData.append('username', input)
+    //     const res = await axios.post('/api/v1/users/clean_username/', formData, {
+    //         headers: { "Content-Type": "multipart/form-data" } 
+    //     })
+    //     if (res.data === "true") {
+    //         return true
+    //     } else {
+    //         // email already exists
+    //         return "Username already exists"
+    //     }
+    // }
 
     return (
         <Form className="signupForm" onSubmit={handleSubmit(onSubmit)}>
@@ -100,11 +100,11 @@ export const CreateSignupForm = () => {
                         value: 5,
                         message: "min length is 5"
                     },
-                    validate: validateUsername
+                    // validate: validateUsername
                 })}
                 style={{ borderColor: errors.username && "red" }}  
             />
-            {errors.username && errorMessage(errors.username.message)}
+            {/* {errors.username && errorMessage(errors.username.message)} */}
             
             <label htmlFor="password">Password</label>
             <input 
