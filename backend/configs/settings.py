@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggit',
+    'corsheaders',
     'users.apps.UsersConfig',
     'goals.apps.GoalsConfig',
     'tasks.apps.TasksConfig',
