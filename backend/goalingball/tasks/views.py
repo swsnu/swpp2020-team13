@@ -31,8 +31,8 @@ from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 
-@csrf_exempt
 # @ensure_csrf_cookie
+@csrf_exempt
 def taskList(request):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
@@ -116,8 +116,8 @@ def taskList(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 # TODO: implement PUT
-@csrf_exempt
 # @ensure_csrf_cookie
+@csrf_exempt
 def taskDetail(request, task_id=""):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
