@@ -17,6 +17,7 @@ For example, if useDispatch() is declared at the top CreateSignupForm, the same 
 Remember that orders matter in React Hooks
 */ 
 
+
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
@@ -31,13 +32,50 @@ export const CreateSignupForm = () => {
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
         dispatch(actionCreators.signupUser(dataToForm))
+        console.log("CreateSignupForm before reset()")
         reset()
+        console.log("CreateSignupForm after reset()")
     }
  
 
     const onError = (errors, e) => console.log("ERROR", errors);
 
+<<<<<<< HEAD
     watch() // watchAllFields
+=======
+    const validateEmail = async input => {
+        if (isEmail(input)) {
+            let formData = new FormData()
+            formData.append('email', input)
+            const res = await axios.post('/api/v1/users/clean_email/', formData, {
+                headers: { "Content-Type": "multipart/form-data" } 
+            })
+
+            if (res.data === true) {
+                return true
+            } else {
+                // email already exists
+                return "Email already exists"
+            }
+        } else {
+            return "Not valid email pattern"
+        }
+    }
+
+    const validateUsername = async input => {
+        let formData = new FormData()
+        formData.append('username', input)
+        const res = await axios.post('/api/v1/users/clean_username/', formData, {
+            headers: { "Content-Type": "multipart/form-data" } 
+        })
+        if (res.data === true) {
+            return true
+        } else {
+            // email already exists
+            return "Username already exists"
+        }
+    }
+>>>>>>> eda8acaeb3c13aee8a1f559444f71fa5a1b57a54
 
     return (
         <Form className="signupForm" onSubmit={handleSubmit(onSubmit, onError)}>
