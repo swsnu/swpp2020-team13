@@ -12,8 +12,8 @@ import GoalDetailPage from './pages/GoalDetail/GoalDetailPage'
 import ExplorePage from './pages/explore/ExplorePageComponent'
 import ExploreGoalDetailPage from './pages/ExploreGoalDetail/ExploreGoalDetailPage'
 
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-axios.defaults.xsrfCookieName = "csrftoken";
+// axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+// axios.defaults.xsrfCookieName = "csrftoken";
 
 function App(props) {
     return (
