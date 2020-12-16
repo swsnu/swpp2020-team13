@@ -38,7 +38,11 @@ SECRET_KEY = 'w5)ua!&ry_!o@@7d4jjlseec&p^e1ad$qkh4s)75b&%8ee3rnm'
 DEBUG = env.bool('DEBUG')
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['goalingball.com', 'goalingball.tk', 'localhost']
+ALLOWED_HOSTS = [
+    'goalingball.com', 'www.goalingball.com', 
+    'goalingball.tk', 'www.goalingball.tk', 
+    'localhost'
+]
 
 # Application definition
 
