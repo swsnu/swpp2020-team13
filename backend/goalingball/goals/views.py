@@ -14,7 +14,10 @@ import requests
 import base64
 import pickle
 
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
+@csrf_exempt
+# @ensure_csrf_cookie
 def goalList(request):
     # print("request.body: ", request.POST)
     if request.method == 'GET':
@@ -167,6 +170,8 @@ def goalList(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 
+@csrf_exempt
+# @ensure_csrf_cookie
 def goalDetail(request, goal_id=""):
     if request.method == 'GET':
         if not request.user.is_authenticated:

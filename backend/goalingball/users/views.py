@@ -10,17 +10,24 @@ import pickle
 
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
-# @csrf_exempt
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 def signup(request):
     if request.method == 'POST':
-        if 'username' not in request.POST or 'password' not in request.POST:
+
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        if username is None or password is None or email is None:
+            print("@singup username: ", username)
+            print("@singup email: ", email)
+            print("@singup password: ", password)
             return HttpResponseBadRequest("You should enter both username and password.")
 
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = User.objects.create_user(username, password=password)
+        user = User.objects.create_user(username=username, password=password)
+        print("New user has been created.")
+        print("New user's username: ", user.username)
+        print("New user's email: ", user.email)
         user.init_vector() # save default vector
         # test print
         # np_bytes_init = base64.b64decode(user.vector)
@@ -39,8 +46,8 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-# @csrf_exempt
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -61,8 +68,8 @@ def login(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-# @csrf_exempt
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 def logout(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
@@ -75,8 +82,8 @@ def logout(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-# @csrf_exempt
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 def clean_email(request):
     if request.method == 'POST':
         email = request.POST.get('email', None)
@@ -94,8 +101,8 @@ def clean_email(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-# @csrf_exempt
-@ensure_csrf_cookie
+@csrf_exempt
+# @ensure_csrf_cookie
 def clean_username(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)

@@ -28,7 +28,11 @@ from django.forms.models import model_to_dict
     # created_at = models.DateTimeField(editable=False)
     # updated_at = models.DateTimeField() 
 
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
+
+@csrf_exempt
+# @ensure_csrf_cookie
 def taskList(request):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
@@ -112,6 +116,8 @@ def taskList(request):
         return HttpResponseNotAllowed(['GET', 'POST'])
 
 # TODO: implement PUT
+@csrf_exempt
+# @ensure_csrf_cookie
 def taskDetail(request, task_id=""):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
