@@ -21,11 +21,7 @@ import axios from 'axios'
  */ 
 
 
-const required = "This field is required"
-const errorMessage = error => <div className="invalid-feedback">{error}</div>
-
-
-export const CreateSignupForm = () => {
+export const CreateAuthForm = authMode => {
     const dispatch = useDispatch()
 
     const { register, handleSubmit, watch, errors, reset } = useForm()
@@ -33,14 +29,19 @@ export const CreateSignupForm = () => {
     const onSubmit = (data, e) => { // e: event
         e.preventDefault()
         let dataToForm = new FormData()
-        dataToForm.append("username", data.username)
-        dataToForm.append("password", data.password)
-        dataToForm.append("email", data.email)
-        dispatch(actionCreators.signupUser(dataToForm))
+        if (authMode == 'signup') {
+            dataToForm.append("username", data.username)
+            dataToForm.append("password", data.password)
+            dataToForm.append("email", data.email)
+            dispatch(actionCreators.signupUser(dataToForm))
+        }
+        else {
+            dataToForm.append("username", data.username)
+            dataToForm.append("password", data.password)
+            dispatch(actionCreators.loginUser(dataToForm))
+        }
         reset()
     }
-
-    const password_current = watch("password", "")
 
     const validateEmail = async input => {
         if (isEmail(input)) {
@@ -49,7 +50,7 @@ export const CreateSignupForm = () => {
             const res = await axios.post('/api/v1/users/clean_email/', formData, {
                 headers: { "Content-Type": "multipart/form-data" } 
             })
-
+    
             if (res.data === true) {
                 return true
             } else {
@@ -62,6 +63,8 @@ export const CreateSignupForm = () => {
     }
 
     const validateUsername = async input => {
+        if (authMode == 'login') return true
+
         let formData = new FormData()
         formData.append('username', input)
         const res = await axios.post('/api/v1/users/clean_username/', formData, {
@@ -75,9 +78,17 @@ export const CreateSignupForm = () => {
         }
     }
 
+    const password_current = watch("password", "")
+
+    const required = "This field is required"
+
+    const errorMessage = error => <div className="invalid-feedback">{error}</div>
+
     return (
         <Form className="signupForm" onSubmit={handleSubmit(onSubmit)}>
         <Segment className="signupSegment">
+            {authMode == 'signup' &&
+            <>
             <label htmlFor="email">Email</label>
             <input 
                 id="email" 
@@ -85,11 +96,14 @@ export const CreateSignupForm = () => {
                 placeholder="Enter email" 
                 ref={register({
                     required: required, 
-                    validate: validateEmail}
+                    validate: validateEmail
+                    }
                 )}
                 style={{ borderColor: errors.email && "red" }} 
             />
             {errors.email && errorMessage(errors.email.message)}
+            </>
+            }
             
             <label htmlFor="username">Username</label>
             <input 
@@ -126,6 +140,8 @@ export const CreateSignupForm = () => {
             />
             {errors.password && errorMessage(errors.password.message)}
             
+            {authMode == 'signup' &&
+            <>
             <label htmlFor="password_confirm">Confirm password</label>
             <input 
                 id="password_confirm" 
@@ -140,56 +156,13 @@ export const CreateSignupForm = () => {
                 style={{ borderColor: errors.password_confirm && "red" }}
             />
             {errors.password_confirm && errorMessage(errors.password_confirm.message)}
+            
+            </>}
             </Segment>
-            <Button type="submit" className="submitButton">Sign Up</Button>
+            <Button type="submit" className="submitButton">
+                {authMode == 'signup' ? 'Sign Up' : 'Log In'}
+            </Button>
         </Form> 
     )
     
 }
-
-
-export const CreateLoginForm = () => {
-    const dispatch = useDispatch()
-    const { register, handleSubmit, watch, errors } = useForm()
-    
-    const onSubmit =(data, e) => { // e: event
-        e.preventDefault()
-        let dataToForm = new FormData()
-        dataToForm.append("username", data.username)
-        dataToForm.append("password", data.password)
-        dispatch(actionCreators.loginUser(dataToForm))
-    }
-
-    return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
-         <Segment className="LoginSegment">
-            <label htmlFor="username">Username</label>
-            <input 
-                id="username" 
-                name="username" 
-                placeholder="Enter username" 
-                ref={register({
-                    required: required,
-                    minLength: {
-                        value: 5,
-                        message: "Username must be at leat 5 characters"
-                    }
-                })} 
-            />
-            {errors.username && errorMessage(errors.username.message)}
-
-            <label htmlFor="password">Password</label>
-            <input 
-                id="password" 
-                name="password" 
-                type="password" 
-                placeholder="Enter password" 
-                ref={register({ required: required })} />
-            {errors.password && errorMessage(errors.password.message)}
-            </Segment>
-            <Button type="submit" className="submitButtonLogin">Login</Button>
-        </Form>
-    )
-}
-
-
