@@ -34,29 +34,30 @@ export const CreateSignupForm = () => {
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
+        console.log(dataToForm)
         dispatch(actionCreators.signupUser(dataToForm))
         reset()
     }
 
     const password_current = watch("password", "")
 
-    const validateEmail = async input => {
-        if (isEmail(input)) {
-            let formData = new FormData()
-            formData.append('email', input)
-            const res = await axios.post('/api/v1/users/clean_email/', formData, {
-                headers: { "Content-Type": "multipart/form-data" } 
-            })
-            if (res.data === "true") {
-                return true
-            } else {
-                // email already exists
-                return "Email already exists"
-            }
-        } else {
-            return "Not valid email pattern"
-        }
-    }
+    // const validateEmail = async input => {
+    //     if (isEmail(input)) {
+    //         let formData = new FormData()
+    //         formData.append('email', input)
+    //         const res = await axios.post('/api/v1/users/clean_email/', formData, {
+    //             headers: { "Content-Type": "multipart/form-data" } 
+    //         })
+    //         if (res.data === "true") {
+    //             return true
+    //         } else {
+    //             // email already exists
+    //             return "Email already exists"
+    //         }
+    //     } else {
+    //         return "Not valid email pattern"
+    //     }
+    // }
 
     const validateUsername = async input => {
         let formData = new FormData()
@@ -80,13 +81,13 @@ export const CreateSignupForm = () => {
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-                ref={register({
-                    required: required, 
-                    validate: validateEmail}
-                )}
-                style={{ borderColor: errors.email && "red" }} 
+                // ref={register({
+                //     required: required, 
+                //     validate: validateEmail}
+                // )}
+                // style={{ borderColor: errors.email && "red" }} 
             />
-            {errors.email && errorMessage(errors.email.message)}
+            {/* {errors.email && errorMessage(errors.email.message)} */}
             
             <label htmlFor="username">Username</label>
             <input 
@@ -173,7 +174,7 @@ export const CreateLoginForm = () => {
                     }
                 })} 
             />
-            {errors.username && errorMessage(errors.username.message)}
+            {/* {errors.username && errorMessage(errors.username.message)} */}
 
             <label htmlFor="password">Password</label>
             <input 
