@@ -8,9 +8,9 @@ import requests
 import base64
 import pickle
 
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt
+# @csrf_exempt
 def signup(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -38,7 +38,7 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
+# @csrf_exempt
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -59,7 +59,7 @@ def login(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-
+# @csrf_exempt
 def logout(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
