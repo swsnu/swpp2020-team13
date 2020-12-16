@@ -8,7 +8,9 @@ import requests
 import base64
 import pickle
 
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -36,7 +38,7 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -73,12 +75,15 @@ def logout(request):
 def clean_email(request):
     if request.method == 'POST':
         email = request.POST.get('email', None)
+        print("@clean_email email: ", email)
         if email is None:
             return HttpResponse(status=400)
 
         if User.objects.filter(email=email).exists():
+            print("@clean_email email already exists")
             return HttpResponse("false")
         else:
+            print("@clean_email unique email")
             return HttpResponse("true")
     else:
         return HttpResponseNotAllowed(['POST'])

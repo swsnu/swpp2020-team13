@@ -24,6 +24,7 @@ import axios from 'axios'
 const required = "This field is required"
 const errorMessage = error => <div className="invalid-feedback">{error}</div>
 
+
 export const CreateSignupForm = () => {
     const dispatch = useDispatch()
 
@@ -35,7 +36,9 @@ export const CreateSignupForm = () => {
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password1)
         dispatch(actionCreators.signupUser(dataToForm))
+        console.log("CreateSignupForm before reset()")
         reset()
+        console.log("CreateSignupForm after reset()")
     }
 
     const password_current = watch("password", "")
@@ -47,7 +50,8 @@ export const CreateSignupForm = () => {
             const res = await axios.post('/api/v1/users/clean_email/', formData, {
                 headers: { "Content-Type": "multipart/form-data" } 
             })
-            if (res.data === "true") {
+
+            if (res.data === true) {
                 return true
             } else {
                 // email already exists
@@ -64,7 +68,7 @@ export const CreateSignupForm = () => {
         const res = await axios.post('/api/v1/users/clean_username/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
-        if (res.data === "true") {
+        if (res.data === true) {
             return true
         } else {
             // email already exists
