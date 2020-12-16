@@ -35,11 +35,9 @@ export const CreateSignupForm = () => {
         let dataToForm = new FormData()
         dataToForm.append("username", data.username)
         dataToForm.append("password", data.password)
-        dataToForm.append("password", data.email)
+        dataToForm.append("email", data.email)
         dispatch(actionCreators.signupUser(dataToForm))
-        console.log("CreateSignupForm before reset()")
         reset()
-        console.log("CreateSignupForm after reset()")
     }
 
     const password_current = watch("password", "")

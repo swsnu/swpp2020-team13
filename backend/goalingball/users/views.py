@@ -19,15 +19,9 @@ def signup(request):
         password = request.POST.get('password', None)
         email = request.POST.get('email', None)
         if username is None or password is None or email is None:
-            print("@singup username: ", username)
-            print("@singup email: ", email)
-            print("@singup password: ", password)
             return HttpResponseBadRequest("You should enter both username and password.")
 
         user = User.objects.create_user(username=username, password=password)
-        print("New user has been created.")
-        print("New user's username: ", user.username)
-        print("New user's email: ", user.email)
         user.init_vector() # save default vector
         # test print
         # np_bytes_init = base64.b64decode(user.vector)
