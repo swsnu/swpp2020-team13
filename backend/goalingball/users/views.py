@@ -101,6 +101,25 @@ def clean_username(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
+
+def session(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated: 
+            print("user session found")
+            user = request.user
+            data = {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            }
+            return JsonResponse(data)
+        else:
+            return HttpResponse()
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+
+
 # def detail(request, pk):
 #     if request.method == 'GET':
 #         try:
