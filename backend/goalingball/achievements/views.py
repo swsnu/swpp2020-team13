@@ -12,6 +12,9 @@ import json
 import time
 
 
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
+
 def achievementList(request):
     # 'GET' a list of all achievements is currently not supported
     # Creating a new achievement is only allowed 

@@ -14,6 +14,8 @@ import requests
 import base64
 import pickle
 
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
 
 def goalList(request):
     # print("request.body: ", request.POST)

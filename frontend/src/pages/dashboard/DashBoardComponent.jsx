@@ -7,11 +7,13 @@ import DashBoardCards from './DashBoardCards/DashBoardCardsComponent'
 import { connect } from 'react-redux'
 import { getAllGoal } from '../../store/actions/index'
 import moment from 'moment'
+import history from '../../history'
 class DashBoardComponent extends Component {
 
     componentDidMount() {
-        // console.log("mounting dashboard page")
-        this.props.getAllGoal()
+        if (this.props.auth) {
+            this.props.getAllGoal()
+        }
     }
 
     getMetric = () => {
@@ -47,6 +49,12 @@ class DashBoardComponent extends Component {
     }
 
     render(){
+
+        if (!this.props.auth) {
+            history.push('/')
+            return (null)
+        }
+
         return(
             <div className='dashboard'>
                 <div className='menubar'>
@@ -69,7 +77,8 @@ class DashBoardComponent extends Component {
 const mapStateToProps = state => {
     // console.log("dahboard all goals:", state.goal.goals)
     return{
-        goals: state.goal.goals
+        goals: state.goal.goals,
+        auth: state.auth
     }
 }
 

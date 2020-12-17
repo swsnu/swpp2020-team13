@@ -66,3 +66,14 @@ export const logoutUser = () => {
         payload: null
     }
 }
+
+export const session = () => async dispatch => {
+    const res = await axios.post('/api/v1/users/session/')
+    if (res.data) {
+        console.log("session res.data: ", res.data)
+        dispatch({
+            type: actionTypes.LOGIN_USER,
+            payload: res.data
+        })
+    }
+}

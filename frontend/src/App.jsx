@@ -20,7 +20,6 @@ function App(props) {
     <Router history={history}>
         <div className="App" id="fill-window">
             <Switch>
-                <Route path="/" exact component={HomePage} />
                 <Route path="/create" exact component={CreatePage}/>
                 <Route path="/edit" exact component={EditPage}/>
                 <Route path="/main" exact component={GoalList} />
@@ -28,6 +27,7 @@ function App(props) {
                 <Route path="/explore" exact component={ExplorePage} />
                 <Route path="/explore/goalhistory/:id" exact component={ExploreGoalDetailPage} />
                 <Route path="/goalhistory/:id" exact component={GoalDetailPage}/>
+                <Route path="/" component={HomePage} />
                 {/* <Route path="/profile" exact component={Profile} /> */}
             </Switch>
         </div>

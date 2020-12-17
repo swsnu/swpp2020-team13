@@ -4,16 +4,23 @@ import MenuBar from '../../components/Menubar/MenuBarComponent'
 import { RecCardsGroup } from './RecCardsGroup'
 import { explore_getAllGoal } from '../../store/actions'
 import { connect } from 'react-redux'
+import history from '../../history'
 
 class ExplorePage extends Component {
 
     componentDidMount() {
-        console.log("mounting explore page")
-        this.props.explore_getAllGoal()
+        if (this.props.auth) {
+            this.props.explore_getAllGoal()
+        }
     }
 
     render(){
-        return(
+        if (!this.props.auth) {
+            history.push('/')
+            return (null)
+        }
+
+        return (
             <div className='dashboard'>
                 <div className='menubar'>
                     <MenuBar/>
@@ -37,10 +44,11 @@ class ExplorePage extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("EXPLORE all goals:", state.explore.goals)
-    return{
-        goals: state.explore.goals
+    // console.log("EXPLORE all goals:", state.explore.goals)
+    return {
+        goals: state.explore.goals,
+        auth: state.auth
     }
 }
 
-export default connect(mapStateToProps, {explore_getAllGoal}) (ExplorePage)
+export default connect(mapStateToProps, { explore_getAllGoal }) (ExplorePage)

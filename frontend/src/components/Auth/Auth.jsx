@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { CreateSignupForm, CreateLoginForm } from './AuthForm'
+import { CreateAuthForm } from './AuthForm'
 import { Modal } from '../common/Modal/Modal'
 import { Segment, Button, ButtonGroup } from 'semantic-ui-react'
 import './Auth.css'
@@ -12,9 +12,7 @@ const Auth = (props) => {
     // useState is equivalent to this.state
     const [authMode, setAuthMode] = useState(props.authMode)
     
-    const form = authMode === 'signup' 
-        ? CreateSignupForm()
-        : CreateLoginForm()
+    const form = CreateAuthForm(authMode)
     
     return (
         <Segment className="SegmentModal" >

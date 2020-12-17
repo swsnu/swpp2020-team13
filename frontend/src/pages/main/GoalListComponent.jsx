@@ -9,7 +9,7 @@ import './GoalListComponent.css'
 import Axios from 'axios'
 import * as actionCreators from '../../store/actions/'
 import moment from 'moment'
-
+import history from '../../history'
 
 class GoalList extends Component {
 
@@ -18,7 +18,9 @@ class GoalList extends Component {
     }
 
     componentDidMount(){
-        this.props.onGetAllGoals()
+        if (this.props.auth) {
+            this.props.onGetAllGoals()
+        }
     }
 
     selectTodayGoals() {
@@ -33,6 +35,10 @@ class GoalList extends Component {
     }
 
     render(){
+        if (!this.props.auth) {
+            history.push('/')
+            return (null)
+        }
 
         //map sampleGoalList to goalBodyComponent
         const todayGoalsList = this.selectTodayGoals()
@@ -59,15 +65,16 @@ class GoalList extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("goalList: ", state.goal.goals)
+    // console.log("goalList: ", state.goal.goals)
     return {
+        auth: state.auth,
         goalList: state.goal.goals,
         // taskList: state.task.tasks,
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
+    return {
         onGetAllGoals: () => dispatch(actionCreators.getAllGoal()),
         // onGetAllTasks: () => dispatch(actionCreators.getAllTask())
     }

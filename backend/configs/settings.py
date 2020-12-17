@@ -38,7 +38,11 @@ SECRET_KEY = 'w5)ua!&ry_!o@@7d4jjlseec&p^e1ad$qkh4s)75b&%8ee3rnm'
 DEBUG = env.bool('DEBUG')
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['54.145.11.60', 'localhost']
+ALLOWED_HOSTS = [
+    'goalingball.com', 'www.goalingball.com', 
+    'goalingball.tk', 'www.goalingball.tk', 
+    'localhost'
+]
 
 # Application definition
 
@@ -50,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggit',
-    'corsheaders',
+    # 'corsheaders',
     'users.apps.UsersConfig',
     'goals.apps.GoalsConfig',
     'tasks.apps.TasksConfig',
@@ -171,7 +175,7 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_COOKIE_NAME = "csrftoken"
+# CSRF_COOKIE_NAME = "csrftoken"
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SESSION_COOKIE_SECURE = False

@@ -28,6 +28,8 @@ from django.forms.models import model_to_dict
     # created_at = models.DateTimeField(editable=False)
     # updated_at = models.DateTimeField() 
 
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
 
 def taskList(request):
     if request.method == 'GET':

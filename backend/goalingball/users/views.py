@@ -8,18 +8,19 @@ import requests
 import base64
 import pickle
 
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
-@csrf_exempt
+
 def signup(request):
     if request.method == 'POST':
-        if 'username' not in request.POST or 'password' not in request.POST:
+
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        if username is None or password is None or email is None:
             return HttpResponseBadRequest("You should enter both username and password.")
 
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = User.objects.create_user(username, password=password)
+        user = User.objects.create_user(username=username, password=password)
         user.init_vector() # save default vector
         # test print
         # np_bytes_init = base64.b64decode(user.vector)
@@ -38,7 +39,6 @@ def signup(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-@csrf_exempt
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -59,7 +59,6 @@ def login(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-
 def logout(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
@@ -72,36 +71,68 @@ def logout(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-def clean_email(request):
+def check_email(request):
     if request.method == 'POST':
         email = request.POST.get('email', None)
-        print("@clean_email email: ", email)
+        # print("@check_email email: ", email)
         if email is None:
-            return HttpResponse(status=400)
+            return HttpResponseBadRequest()
 
         if User.objects.filter(email=email).exists():
-            print("@clean_email email already exists")
+            # print("@check_email email already exists")
             return HttpResponse("false")
         else:
-            print("@clean_email unique email")
+            # print("@check_email unique email")
             return HttpResponse("true")
     else:
         return HttpResponseNotAllowed(['POST'])
 
 
-
-def clean_username(request):
+def check_username(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
         if username is None:
-            return JsonResponse(status=400)
+            return HttpResponseBadRequest()
         
         if User.objects.filter(username=username).exists():
-            return HttpResponse("false")
-        else:
             return HttpResponse("true")
+        else:
+            return HttpResponse("false")
     else:
         return HttpResponseNotAllowed(['POST'])
+
+def check_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        if username is None or password is None:
+            return HttpResponseBadRequest()
+        
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # Username and password match
+            return HttpResponse("true")
+        else:
+            return HttpResponse("false")
+
+
+
+def session(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated: 
+            user = request.user
+            data = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
+            }
+            return JsonResponse(data)
+        else:
+            return HttpResponse()
+    else:
+        return HttpResponseNotAllowed(['GET'])
+
+
 
 # def detail(request, pk):
 #     if request.method == 'GET':
