@@ -108,9 +108,9 @@ def session(request):
             print("user session found")
             user = request.user
             data = {
-                id: user.id,
-                username: user.username,
-                email: user.email
+                'id': user.id,
+                'username': user.username,
+                'email': user.email
             }
             return JsonResponse(data)
         else:

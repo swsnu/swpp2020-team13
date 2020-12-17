@@ -4,12 +4,19 @@ import './login.css'
 import Auth from '../../components/Auth/Auth'
 import { openAuthModal } from '../../store/actions'
 import history from '../../history'
+import { session } from '../../store/actions'
 import { Segment, Menu, Grid, Container, Form, Button, ButtonGroup} from 'semantic-ui-react'
 
 class HomePage extends React.Component {
 
     state = {
         authMode: 'signup'
+    }
+
+    componentDidMount = () => {
+        if (!this.props.isUserLoggedIn) {
+            this.props.session()
+        }
     }
 
     onClickSignup = () => {
@@ -66,4 +73,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { openAuthModal })(HomePage)
+export default connect(mapStateToProps, { openAuthModal, session })(HomePage)
