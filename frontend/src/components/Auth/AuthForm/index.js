@@ -7,6 +7,7 @@ import * as actionCreators from '../../../store/actions'
 import { useDispatch } from 'react-redux'
 import isEmail from 'validator/lib/isEmail';
 import axios from 'axios'
+import { closeModal } from '../../../store/actions'
 
 // const mapDispatchToProps = dispatch => {
 //     return {
@@ -41,6 +42,7 @@ export const CreateAuthForm = authMode => {
             dispatch(actionCreators.loginUser(dataToForm))
         }
         reset()
+        dispatch(closeModal())
     }
 
     const validateEmail = async input => {

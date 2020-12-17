@@ -18,6 +18,7 @@ const MenuBarComponent = (props) => {
     }
 
     // if (!auth) {
+    //     // histor.push is not synchronous
     //     props.history.push('/')
     // }
 
