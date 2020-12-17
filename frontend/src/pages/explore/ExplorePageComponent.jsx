@@ -44,8 +44,8 @@ class ExplorePage extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("EXPLORE all goals:", state.explore.goals)
-    return{
+    // console.log("EXPLORE all goals:", state.explore.goals)
+    return {
         goals: state.explore.goals,
         auth: state.auth
     }
