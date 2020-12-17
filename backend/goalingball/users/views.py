@@ -10,7 +10,7 @@ import pickle
 
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
-
+@csrf_exempt
 def signup(request):
     if request.method == 'POST':
 
@@ -38,7 +38,7 @@ def signup(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         if 'username' not in request.POST or 'password' not in request.POST:
@@ -58,7 +58,7 @@ def login(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-
+@csrf_exempt
 def logout(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
@@ -70,7 +70,7 @@ def logout(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-
+@csrf_exempt
 def check_email(request):
     if request.method == 'POST':
         email = request.POST.get('email', None)
@@ -87,7 +87,7 @@ def check_email(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-
+@csrf_exempt
 def check_username(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
@@ -101,6 +101,7 @@ def check_username(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
+@csrf_exempt
 def check_password(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
@@ -115,8 +116,7 @@ def check_password(request):
         else:
             return HttpResponse("false")
 
-
-
+@csrf_exempt
 def session(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 

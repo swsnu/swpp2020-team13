@@ -9,7 +9,7 @@ from json import JSONDecodeError
 
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
-
+@csrf_exempt
 def get_s3_url(request):
     s3 = boto3.client('s3', region_name='us-east-1', config=Config(signature_version='s3v4'))
 
