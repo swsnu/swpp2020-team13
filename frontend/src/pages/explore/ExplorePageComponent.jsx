@@ -51,4 +51,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {explore_getAllGoal}) (ExplorePage)
+export default connect(mapStateToProps, { explore_getAllGoal }) (ExplorePage)
