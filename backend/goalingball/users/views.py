@@ -71,24 +71,24 @@ def logout(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-def clean_email(request):
+def check_email(request):
     if request.method == 'POST':
         email = request.POST.get('email', None)
-        print("@clean_email email: ", email)
+        # print("@check_email email: ", email)
         if email is None:
             return HttpResponseBadRequest()
 
         if User.objects.filter(email=email).exists():
-            print("@clean_email email already exists")
+            # print("@check_email email already exists")
             return HttpResponse("false")
         else:
-            print("@clean_email unique email")
+            # print("@check_email unique email")
             return HttpResponse("true")
     else:
         return HttpResponseNotAllowed(['POST'])
 
 
-def clean_username(request):
+def check_username(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
         if username is None:

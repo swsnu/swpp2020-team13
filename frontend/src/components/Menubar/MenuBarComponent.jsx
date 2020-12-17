@@ -14,7 +14,8 @@ const MenuBarComponent = (props) => {
 
     const onClickLogout = () => {
         dispatch(actionCreators.logoutUser())
-        // history.push('/') // main page will take care of redirection
+        // TODO: remove it
+        history.push('/') // main page will take care of redirection
     }
 
     // if (!auth) {

@@ -50,7 +50,7 @@ export const CreateAuthForm = authMode => {
         if (isEmail(input)) {
             let formData = new FormData()
             formData.append('email', input)
-            const res = await axios.post('/api/v1/users/clean_email/', formData, {
+            const res = await axios.post('/api/v1/users/check_email/', formData, {
                 headers: { "Content-Type": "multipart/form-data" } 
             })
     
@@ -70,7 +70,7 @@ export const CreateAuthForm = authMode => {
         // return true if already exists, false otherwise
         let formData = new FormData()
         formData.append('username', input)
-        const res = await axios.post('/api/v1/users/clean_username/', formData, {
+        const res = await axios.post('/api/v1/users/check_username/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
         if (res.data === true) {
@@ -88,7 +88,7 @@ export const CreateAuthForm = authMode => {
         formData.append('username', username_current)
         formData.append('password', input)
 
-        const res = await axios.post('/api/v1/users/clean_password/', formData, {
+        const res = await axios.post('/api/v1/users/check_password/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
 
