@@ -14,8 +14,7 @@ import time
 
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
-# @ensure_csrf_cookie
-@csrf_exempt
+
 def achievementList(request):
     # 'GET' a list of all achievements is currently not supported
     # Creating a new achievement is only allowed 
@@ -83,8 +82,6 @@ def achievementList(request):
         return HttpResponseNotAllowed(['POST'])
 
 
-# @ensure_csrf_cookie
-@csrf_exempt
 def achievementDetail(request, achievement_id):
     if request.method == 'GET':
         if request.user.is_authenticated is False:
