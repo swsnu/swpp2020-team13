@@ -76,7 +76,7 @@ def clean_email(request):
         email = request.POST.get('email', None)
         print("@clean_email email: ", email)
         if email is None:
-            return HttpResponse(status=400)
+            return HttpResponseBadRequest()
 
         if User.objects.filter(email=email).exists():
             print("@clean_email email already exists")
@@ -92,20 +92,34 @@ def clean_username(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
         if username is None:
-            return JsonResponse(status=400)
+            return HttpResponseBadRequest()
         
         if User.objects.filter(username=username).exists():
-            return HttpResponse("false")
-        else:
             return HttpResponse("true")
+        else:
+            return HttpResponse("false")
     else:
         return HttpResponseNotAllowed(['POST'])
+
+def clean_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        if username is None or password is None:
+            return HttpResponseBadRequest()
+        
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            # Username and password match
+            return HttpResponse("true")
+        else:
+            return HttpResponse("false")
+
 
 
 def session(request):
     if request.method == 'POST':
         if request.user.is_authenticated: 
-            print("user session found")
             user = request.user
             data = {
                 'id': user.id,

@@ -40,6 +40,7 @@ export const CreateAuthForm = authMode => {
             dataToForm.append("username", data.username)
             dataToForm.append("password", data.password)
             dispatch(actionCreators.loginUser(dataToForm))
+
         }
         reset()
         dispatch(closeModal())
@@ -65,21 +66,36 @@ export const CreateAuthForm = authMode => {
     }
 
     const validateUsername = async input => {
-        if (authMode == 'login') return true
-
+        // check that username already exists
+        // return true if already exists, false otherwise
         let formData = new FormData()
         formData.append('username', input)
         const res = await axios.post('/api/v1/users/clean_username/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
         if (res.data === true) {
-            return true
+            // username already exists
+            return authMode == 'signup' ? "Username already exists" : true
         } else {
-            // email already exists
-            return "Username already exists"
+            return authMode == 'signup' ? true : "Username does not exist"
         }
     }
 
+    const validatePassword = async input => {
+        if (authMode == 'signup') return true
+
+        let formData = new FormData()
+        formData.append('username', username_current)
+        formData.append('password', input)
+
+        const res = await axios.post('/api/v1/users/clean_password/', formData, {
+            headers: { "Content-Type": "multipart/form-data" } 
+        })
+
+        return res.data === true ? true : "Incorrect password"
+    }
+
+    const username_current = watch("username", "")
     const password_current = watch("password", "")
 
     const required = "This field is required"
@@ -135,7 +151,8 @@ export const CreateAuthForm = authMode => {
                         minLength: {
                             value: 4,
                             message: "Password must have at least 4 characters"
-                        }
+                        },
+                        validate: validatePassword
                     })
                 } 
                 style={{ borderColor: errors.password && "red" }}
