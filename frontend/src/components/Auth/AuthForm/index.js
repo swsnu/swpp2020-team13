@@ -134,7 +134,7 @@ export const CreateAuthForm = authMode => {
                         value: 5,
                         message: "min length is 5"
                     },
-                    validate: validateUsername
+                    // validate: validateUsername
                 })}
                 style={{ borderColor: errors.username && "red" }}  
             />
