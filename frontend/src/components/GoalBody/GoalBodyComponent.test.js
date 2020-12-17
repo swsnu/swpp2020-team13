@@ -5,7 +5,6 @@ import { shallow, mount } from 'enzyme'
 import GoalBody from './GoalBodyComponent'
 import { getMockStore } from '../../test-utils/mocks'
 import history from '../../history'
-import chai, { expect } from 'chai'
 import moment from 'moment'
 
 const stubInitialState = {
@@ -42,7 +41,7 @@ describe('<GoalBody />', () => {
     it("should render addtask modal", ()=> {
         const component = mount(WrappedGoalBody)
         const wrapper = component.find(".SegmentAddTask")
-        expect(wrapper.length).eql(0)
+        expect(wrapper.length).toBe(0)
     })
 
   
@@ -50,7 +49,7 @@ describe('<GoalBody />', () => {
         const component = mount(WrappedGoalBody)
         const wrapper = component.find('.GoalBodySegment')
         // console.log(component.debug())
-        expect(wrapper.length).eql(2)
+        expect(wrapper.length).toBe(2)
     })
 
     it("should click delete button", ()=> {
@@ -58,6 +57,15 @@ describe('<GoalBody />', () => {
         const wrapper = component.find('#DeleteButtonGoalBody button')
         // console.log(component.debug())
         wrapper.simulate("click")
+    })
+
+    it("should click delete button", ()=> {
+        const component = mount(WrappedGoalBody)
+        let spyConfirm = jest.spyOn(window, 'confirm').mockImplementation(()=>{})
+        const wrapper = component.find('#DeleteButtonGoalBody button')
+        // console.log(component.debug())
+        wrapper.simulate("click")
+        expect(spyConfirm).toHaveBeenCalledTimes(1)
     })
 
     it("should click edit button", ()=> {
@@ -96,7 +104,7 @@ describe('<GoalBody />', () => {
         )
         const component = mount(WrappedGoalBodyWithTaskbar)
         const wrapper = component.find('.TaskBarListItem')
-        expect(wrapper.length).eql(0)
+        expect(wrapper.length).toBe(0)
         // const tasks = wrapper.state().tasks;
         // expect(tasks).to.equal([{title: "title", id:"1", deadline:"2020-12-31", day_of_week:[""] }])
     })

@@ -1,5 +1,5 @@
 import React from 'react'
-import {DashBoardPanel}  from './DashBoardPanelComponent';
+import {DashBoardPanel}  from './DashBoardPanel'
 import { mount, shallow } from 'enzyme';
 
 describe('DashBoardPanel', () => {

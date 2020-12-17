@@ -48,4 +48,39 @@ describe("Action auth.js", ()=> {
     })
 
 
+    it('session with data', (done) => {
+      const spy = jest.spyOn(axios, 'post')
+      .mockImplementation((url, td) => {
+        return new Promise((resolve, reject) => {
+          const result = {
+            status: 200,
+            data: stubUser
+          }
+          resolve(result)
+        })
+      })
+    store.dispatch(actionCreatorsAuth.session()).then(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done()
+    })
+  })
+
+  it('session without data', (done) => {
+    const spy = jest.spyOn(axios, 'post')
+    .mockImplementation((url, td) => {
+      return new Promise((resolve, reject) => {
+        const result = {
+          status: 200,
+          data: null
+        }
+        resolve(result)
+      })
+    })
+  store.dispatch(actionCreatorsAuth.session()).then(() => {
+    expect(spy).toHaveBeenCalledTimes(1);
+    done()
+  })
+})
+
+
 })

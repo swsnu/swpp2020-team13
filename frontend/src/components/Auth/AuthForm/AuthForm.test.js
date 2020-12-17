@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import {CreateSignupForm, CreateLoginForm} from './index'
+import {CreateAuthForm} from './index'
 import { getMockStore } from '../../../test-utils/mocks'
 import { Provider } from 'react-redux'
 import * as actionCreators from '../../../store/actions/auth'
@@ -21,7 +21,7 @@ describe('AuthForm', () => {
     beforeEach(() => {
       WrappedAuthForm = (
         <Provider store={mockStore}>
-          <CreateSignupForm/>
+          <CreateAuthForm/>
         </Provider>
       )
     })
@@ -34,16 +34,32 @@ describe('AuthForm', () => {
     })
 
     it("should render without errors", ()=> {
-      let WrappedAuthLoginForm = (
-        <Provider store={mockStore}>
-          <CreateLoginForm/>
-        </Provider>
-      )
-      const component = mount(WrappedAuthLoginForm)
+
+      let WrappedLoginForm
+        WrappedLoginForm = (
+          <Provider store={mockStore}>
+            <CreateAuthForm authMode={'login'}/>
+          </Provider>
+        )
+
+      const component = mount(WrappedLoginForm)
       const wrapper = component.find('.LoginSegment')
       console.log(component.debug())
-      expect(wrapper.length).toBe(2)
+      expect(wrapper.length).toBe(0)
   })
+
+  it("should accept username input", ()=> {
+    const component = mount(WrappedAuthForm)
+    const wrapper = component.find('.signupForm input')
+    wrapper.at(0).simulate('change', { target: { value: 'Hello' } })
+})
+
+it("should accept password input", ()=> {
+  const component = mount(WrappedAuthForm)
+  const wrapper = component.find('.signupForm input')
+  wrapper.at(1).simulate('change', { target: { value: 'Hello' } })
+})
+
 
     // Simulating submit not working properly - onError is called
     it("should handle submit", ()=> {
@@ -52,8 +68,8 @@ describe('AuthForm', () => {
         const data = {
           username: "username",
           email: "email@email.com",
-          password1: "password1",
-          password2: "password2",
+          password1: "password",
+          password_confirm: "password_confirm",
         }
        act(() => {
           wrapper.simulate("submit", data)

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Grid, GridColumn } from 'semantic-ui-react'
 import MenuBar from '../../components/Menubar/MenuBarComponent'
 import './DashBoard.css'
-import {DashBoardPanel} from './DashBoardPanel/DashBoardPanelComponent'
+import { DashBoardPanel } from './DashBoardPanel/DashBoardPanel'
 import DashBoardCards from './DashBoardCards/DashBoardCardsComponent'
 import { connect } from 'react-redux'
 import { getAllGoal } from '../../store/actions/index'
@@ -17,6 +17,7 @@ class DashBoardComponent extends Component {
     }
 
     getMetric = () => {
+        console.log(this.props)
         if(this.props.goals.length == 0) return 0
         const today = moment(new Date).startOf('day').unix()
         let list = this.props.goals.reduce((pre, g) => {

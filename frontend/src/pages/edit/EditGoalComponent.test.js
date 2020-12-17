@@ -8,7 +8,7 @@ import { getMockStore } from '../../test-utils/mocks'
 
 
 const stubInitialState = {
-    auth: null,
+    auth: "login",
     modal: {
         authModal: true
     }

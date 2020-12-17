@@ -4,48 +4,50 @@ import { Provider } from 'react-redux'
 import { shallow, mount } from 'enzyme'
 import { getMockStore } from '../../test-utils/mocks'
 import DashBoardComponent from './DashBoardComponent'
+import { DashBoardPanel } from './DashBoardPanel/DashBoardPanel'
+import DashBoardCards from './DashBoardCards/DashBoardCardsComponent'
 // import history from '../../history'
 import axios from 'axios'
 // import { DashBoardPanel } from './DashBoardPanel/DashBoardPanelComponent';
+import moment from 'moment'
 
 
 const stubInitialState = {
-    auth: null,
+    auth: "login",
+    goal: {
         goals: [
-            {
-                'id': 1,
-                'user': 1,
-                'title': 'TITLE',
-                'tags': ['tag1', 'tag2']
-            }
-        ]
+        {
+            'id': 1,
+            'user': 1,
+            'title': 'TITLE',
+            'deadline': moment(new Date).add('1', 'day').startOf('day').unix(),
+            'tags': ['tag1', 'tag2']
+        }
+    ]
+}
 }
 
 const mockStore = getMockStore(stubInitialState)
 
 describe('<DashboardComponent />', ()=> {
-    let WrappedDashBoard
 
-    beforeEach(() => {
-        WrappedDashBoard = (
-            <Provider store={mockStore}>
-                <DashBoardComponent />
-            </Provider>
-        )
-        axios.get = jest.fn(url => Promise.resolve({ status: 200, data: {} }))
-    })
-
-    afterEach(() => {
-        jest.clearAllMocks()
-      })
 
     it("should render without errors", ()=> {
         // const component = mount(WrappedDashBoard)
-        const component = shallow(<DashBoardComponent store={mockStore}/>).dive()
-        console.log("mount: ", component.debug())
-        expect(component.length).toBe(1)
-        // const wrapper = component.find('.dashboard')
-        // expect(wrapper.length).toBe(1)
+        const wrapper = shallow(<DashBoardComponent store={mockStore}/>)
+        console.log("mount: ", wrapper.debug())
+        wrapper.children().dive().find(".DashBoardPanel")
     })
 
+    it("should handle corner cases when deadline is late", ()=> {
+
+        // const component = mount(WrappedDashBoard)
+        const wrapper = shallow(<DashBoardComponent store={mockStore}/>)
+        console.log("mount: ", wrapper.debug())
+        wrapper.children().dive().find(".DashBoardPanel")
+    })
+
+    afterEach(()=>{
+        jest.clearAllMocks()
+    })
 })

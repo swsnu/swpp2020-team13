@@ -14,7 +14,7 @@ const mockGoal = {
     tasks: [],
 }
 const stubInitialState = {
-    auth: null,
+    auth: "login",
     modal: {
         authModal: true
     },

@@ -65,7 +65,7 @@ class GoalList extends Component {
 }
 
 const mapStateToProps = state => {
-    // console.log("goalList: ", state.goal.goals)
+    console.log("goalList: ", state)
     return {
         auth: state.auth,
         goalList: state.goal.goals,

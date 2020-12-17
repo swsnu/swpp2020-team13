@@ -8,7 +8,7 @@ import history from '../../../history'
 import * as actionCreators from '../../../store/actions/goal'
 
 const stubInitialState = {
-    auth: null,
+    auth: "login",
     modal: {
         authModal: false
     },

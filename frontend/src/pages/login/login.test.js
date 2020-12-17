@@ -24,10 +24,11 @@ const mockStore = getMockStore(stubInitialState);
 
 describe('<Login />', () => {
   let WrappedLogin
+  location = { pathname: '/'}
   beforeEach(() => {
     WrappedLogin = (
-      <Provider store={mockStore}>
-        <Login />
+      <Provider store={mockStore} history={history}>
+        <Login location={location} />
       </Provider>
     )
   })
@@ -68,7 +69,7 @@ describe('<Login />', () => {
     wrapper.simulate('click')
     })
 
-    it('should simulate signup click', ()=> {
+    it('should simulate login click', ()=> {
         const component = mount(WrappedLogin)
         const wrapper = component.find('.ButtonGroup .Button #ButtonLogin')
         wrapper.simulate('click')

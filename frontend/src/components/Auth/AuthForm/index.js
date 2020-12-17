@@ -27,11 +27,8 @@ export const CreateAuthForm = authMode => {
 
     const { register, handleSubmit, watch, errors, reset } = useForm()
     
-    const onSubmit = (data) => { // e: event
-        console.log("[DEBUG] signup form data: ", data)
-        if (data.password1 !== data.password2) {
-            // error
-        }
+    const onSubmit = (data, e) => { // e: event
+        e.preventDefault()
         let dataToForm = new FormData()
         if (authMode == 'signup') {
             dataToForm.append("username", data.username)
@@ -48,18 +45,12 @@ export const CreateAuthForm = authMode => {
         reset()
         dispatch(closeModal())
     }
- 
-
-
-    const onError = (errors, e) => console.log("ERROR", errors);
-
-    watch() // watchAllFields
 
     const validateEmail = async input => {
         if (isEmail(input)) {
             let formData = new FormData()
             formData.append('email', input)
-            const res = await axios.post('/api/v1/users/check_email/', formData, {
+            const res = await axios.post('/api/v1/users/clean_email/', formData, {
                 headers: { "Content-Type": "multipart/form-data" } 
             })
     
@@ -79,7 +70,7 @@ export const CreateAuthForm = authMode => {
         // return true if already exists, false otherwise
         let formData = new FormData()
         formData.append('username', input)
-        const res = await axios.post('/api/v1/users/check_username/', formData, {
+        const res = await axios.post('/api/v1/users/clean_username/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
         if (res.data === true) {
@@ -89,7 +80,6 @@ export const CreateAuthForm = authMode => {
             return authMode == 'signup' ? true : "Username does not exist"
         }
     }
->>>>>>> eda8acaeb3c13aee8a1f559444f71fa5a1b57a54
 
     const validatePassword = async input => {
         if (authMode == 'signup') return true
@@ -98,7 +88,7 @@ export const CreateAuthForm = authMode => {
         formData.append('username', username_current)
         formData.append('password', input)
 
-        const res = await axios.post('/api/v1/users/check_password/', formData, {
+        const res = await axios.post('/api/v1/users/clean_password/', formData, {
             headers: { "Content-Type": "multipart/form-data" } 
         })
 
@@ -113,31 +103,15 @@ export const CreateAuthForm = authMode => {
     const errorMessage = error => <div className="invalid-feedback">{error}</div>
 
     return (
-        <Form className="signupForm" onSubmit={handleSubmit(onSubmit, onError)}>
-        {/* <form onSubmit={handleSubmit(onSubmit, onError)}> */}
+        <Form className="signupForm" onSubmit={handleSubmit(onSubmit)}>
         <Segment className="signupSegment">
-<<<<<<< HEAD
-            <label htmlFor="email">email</label>
-=======
             {authMode == 'signup' &&
             <>
             <label htmlFor="email">Email</label>
->>>>>>> d924c238ea2e13e29c2e57e6f571d8ee64e49b2d
             <input 
                 id="email" 
                 name="email" 
                 placeholder="Enter email" 
-<<<<<<< HEAD
-                ref={register({ 
-                    required: true,
-                    // pattern: {
-                    //     value: /S+@S+.S+/,
-                    //     message: "Entered value does not match email format"
-                    // }
-                })} 
-            />
-            {errors.email && <span role="alert">{errors.email.message}</span>}
-=======
                 ref={register({
                     required: required, 
                     validate: validateEmail
@@ -148,86 +122,24 @@ export const CreateAuthForm = authMode => {
             {errors.email && errorMessage(errors.email.message)}
             </>
             }
->>>>>>> d924c238ea2e13e29c2e57e6f571d8ee64e49b2d
             
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input 
                 id="username" 
                 name="username" 
                 placeholder="Enter username" 
                 ref={register({
-                    required: true,
+                    required: required,
                     minLength: {
                         value: 5,
                         message: "min length is 5"
-                    }
-                })} 
+                    },
+                    validate: validateUsername
+                })}
+                style={{ borderColor: errors.username && "red" }}  
             />
-            {errors.username && <span>This field is required</span>}
+            {errors.username && errorMessage(errors.username.message)}
             
-<<<<<<< HEAD
-            <label htmlFor="password1">password</label>
-            <input id="password1" name="password1" placeholder="Enter password" ref={register({ required: true })} />
-            {errors.password1 && <span role="alert">{errors.password1.message}</span>}
-            
-            <label htmlFor="password2"> Confirm password</label>
-            <input id="password2" name="password2" placeholder="Confirm password" ref={register({ required: true })} />
-            {errors.password2 && <span>This field is required</span>}
-            </Segment>
-            <Button type="submit" className="submitButton">Sign Up</Button>
-        {/* </form> */}
-        </Form>
-    )
-    
-}
-
-
-export const CreateLoginForm = () => {
-    const dispatch = useDispatch()
-    const { register, handleSubmit, watch, errors } = useForm()
-    // const onSubmit = data => console.log(data)
-    
-    const onSubmit =(data, e) => { // e: event
-        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
-        // dispatch(actionCreators.loginUser(data))
-        let dataToForm = new FormData()
-        dataToForm.append("username", data.username)
-        dataToForm.append("password", data.password)
-        dispatch(actionCreators.loginUser(dataToForm))
-        // console.log("[DEBUG] createLoginForm onSubmit data: ", data)
-        // console.log("[DEBUG] createLoginForm onSubmit dataToForm: ", dataToForm)
-    }
-
-    const onError = (errors, e) => console.log(errors, e);
-    watch() // watchAllFields
-
-    return (
-        <Form onSubmit={handleSubmit(onSubmit, onError)}>
-         <Segment className="LoginSegment">
-            <label htmlFor="username">username</label>
-            <input 
-                id="username" 
-                name="username" 
-                placeholder="Enter username" 
-                ref={register({
-                    required: true,
-                    minLength: {
-                        value: 5,
-                        message: "min length is 5"
-                    }
-                })} 
-            />
-            {errors.username && <span>This field is required</span>}
-
-                <label htmlFor="password">password</label>
-                <input id="password" name="password" type="password" placeholder="Enter password" ref={register({ required: true })} />
-                {errors.password && <span role="alert">{errors.password.message}</span>}
-            </Segment>
-            <Button type="submit" className="submitButtonLogin">Login</Button>
-        </Form>
-    )
-}
-=======
             <label htmlFor="password">Password</label>
             <input 
                 id="password" 
@@ -273,4 +185,3 @@ export const CreateLoginForm = () => {
     )
     
 }
->>>>>>> d924c238ea2e13e29c2e57e6f571d8ee64e49b2d
