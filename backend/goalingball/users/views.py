@@ -101,7 +101,7 @@ def clean_username(request):
     else:
         return HttpResponseNotAllowed(['POST'])
 
-def clean_password(request):
+def check_password(request):
     if request.method == 'POST':
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
