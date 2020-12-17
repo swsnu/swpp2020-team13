@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'taggit',
-    'corsheaders',
+    # 'corsheaders',
     'users.apps.UsersConfig',
     'goals.apps.GoalsConfig',
     'tasks.apps.TasksConfig',
@@ -175,7 +175,7 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_COOKIE_NAME = "csrftoken"
+# CSRF_COOKIE_NAME = "csrftoken"
 
 # CSRF_COOKIE_SECURE = False
 # SESSION_COOKIE_SECURE = False

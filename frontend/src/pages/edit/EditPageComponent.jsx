@@ -21,6 +21,11 @@ class EditPage extends Component {
     // }
 
     render() {
+        if (!this.props.auth) {
+            history.push('/')
+            return (null)
+        }
+
         return (
             <div className="EditPage">
                 {/* {this.returnIfNull} */}
@@ -52,11 +57,12 @@ class EditPage extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log("EditPageComponent selectedGoal: ", state.goal.selectedGoal)
+    // console.log("EditPageComponent selectedGoal: ", state.goal.selectedGoal)
     return{
+        auth: state.auth,
         selectedGoal: state.goal.selectedGoal,
         // taskList: state.task.tasks,
     }
 }
 
-export default connect(mapStateToProps, null) (EditPage)
+export default connect(mapStateToProps)(EditPage)

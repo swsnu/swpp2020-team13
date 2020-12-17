@@ -254,7 +254,12 @@ class CreateGoal extends Component {
     //     .catch((err) => console.log(err));
     // }
 
-    render(){
+    render() {
+        if (!this.props.auth) {
+            history.push('/')
+            return (null)
+        }
+        
         return(
             <div>
             <div className='menubar'>
@@ -303,6 +308,12 @@ class CreateGoal extends Component {
 
 }
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
 
 
-export default connect(null, { addGoal })(withRouter(CreateGoal))
+
+export default connect(mapStateToProps, { addGoal })(withRouter(CreateGoal))
