@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from .views import signup, login, logout, clean_email, clean_username, clean_password, session
+from users.views import signup, login, logout, clean_email, clean_username, clean_password, session
 
 urlpatterns = [
     path('signup/', signup, name='signup'),
