@@ -152,7 +152,7 @@ export const CreateAuthForm = authMode => {
                             value: 4,
                             message: "Password must have at least 4 characters"
                         },
-                        validate: validatePassword
+                        // validate: validatePassword
                     })
                 } 
                 style={{ borderColor: errors.password && "red" }}
