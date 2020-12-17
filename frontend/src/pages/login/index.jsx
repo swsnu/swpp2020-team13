@@ -36,6 +36,10 @@ class HomePage extends React.Component {
             return <div>Should redirect to main page</div>
         }
 
+        if (this.props.location.pathname !== '/') {
+            history.push('/')   // change url in the saerch bar
+        }
+
         return (
             <Form center={'true'} aligned={'true'} className="FormLogin">
             <Segment className="Segment">
